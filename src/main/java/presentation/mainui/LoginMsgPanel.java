@@ -79,7 +79,7 @@ public class LoginMsgPanel extends JPanel implements ActionListener{
 		cancel.setRolloverIcon(new ImageIcon("images/messageframe/cancel2.png"));
 		cancel.setPressedIcon(new ImageIcon("images/messageframe/cancel3.png"));
 		cancel.addActionListener(this);
-
+   
 		this.add(message);
 		this.add(messagetext);
 		this.add(messagetextl);
