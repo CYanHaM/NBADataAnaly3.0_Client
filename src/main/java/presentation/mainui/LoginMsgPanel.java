@@ -42,6 +42,9 @@ public class LoginMsgPanel extends JPanel implements ActionListener{
 		this.setSize(POPFRAME_WIDTH, POPFRAME_HEIGHT);
 		this.setLayout(null);
 
+		
+		
+	
 		message=new JLabel("请输入服务器端IP地址：");
 		message.setBounds(58, 75, 180, 15);
 		message.setFont(new Font("幼圆",0,15));
