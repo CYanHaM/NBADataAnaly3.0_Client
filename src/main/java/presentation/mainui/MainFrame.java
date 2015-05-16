@@ -10,14 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import presentation.teamui.TeamInfoPanel;
-import blservice.playerinfoblservice.PlayerInfoService;
-import blservice.playertechblservice.ShowPlayerTechService;
-import blservice.teamblservice.TeamBLservice;
-import blservice.teamtechblservice.TeamTechBLService;
-import bussinesslogic.TeamBL.Team;
-import bussinesslogic.TeamTech.TeamTech;
-import bussinesslogic.playerinfobl.PlayerInfo;
-import bussinesslogic.playertechbl.ShowPlayerTech;
+//import blservice.playerinfoblservice.PlayerInfoService;
+//import blservice.playertechblservice.ShowPlayerTechService;
+//import blservice.teamblservice.TeamBLservice;
+//import blservice.teamtechblservice.TeamTechBLService;
+//import bussinesslogic.TeamBL.Team;
+//import bussinesslogic.TeamTech.TeamTech;
+//import bussinesslogic.playerinfobl.PlayerInfo;
+//import bussinesslogic.playertechbl.ShowPlayerTech;
 
 //import com.sun.awt.AWTUtilities;
 
@@ -31,8 +31,8 @@ public class MainFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	//定义主框架大小
-	public static int FRAME_WIDTH=1020;
-	public static int FRAME_HEIGHT=670;
+	public static int FRAME_WIDTH=1100;
+	public static int FRAME_HEIGHT=700;
 	//定义鼠标坐标位置
 	int X;
 	int Y;
@@ -46,7 +46,7 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		//定义整个界面大小
 		this.setLayout(null);
-		this.setTitle("CYan HaM");
+		this.setTitle("NBADataAnaly");
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
 		//不显示windows自带边框
@@ -109,14 +109,14 @@ public class MainFrame extends JFrame{
 		 * messageframe.add(loginmsgpanel);
 		 * messageframe.repaint();
 		 */
-		TeamBLservice tbs=new Team();
-		tbs.init();
-		PlayerInfoService pis=new PlayerInfo();
-		pis.PlayerInfoIni();
-		ShowPlayerTechService ppts=new ShowPlayerTech();
-		ppts.PlayerTechIni();
-		TeamTechBLService ttbs=new TeamTech();
-		ttbs.init();
+//		TeamBLservice tbs=new Team();
+//		tbs.init();
+//		PlayerInfoService pis=new PlayerInfo();
+//		pis.PlayerInfoIni();
+//		ShowPlayerTechService ppts=new ShowPlayerTech();
+//		ppts.PlayerTechIni();
+//		TeamTechBLService ttbs=new TeamTech();
+//		ttbs.init();
 		
 		
 		MainFrame mf=new MainFrame();

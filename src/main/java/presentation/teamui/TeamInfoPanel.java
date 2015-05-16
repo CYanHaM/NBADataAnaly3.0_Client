@@ -14,7 +14,7 @@ import presentation.hotspotui.HotPlayerToday;
 import presentation.matchui.MatchPanel;
 import presentation.playerui.PlayerTechPanel;
 import presentation.preset.PlayerPre;
-import VO.TeamVO;
+//import VO.TeamVO;
 
 public class TeamInfoPanel extends JPanel implements ActionListener{
 	/**
@@ -24,8 +24,8 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	 * @version 1.0
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 	
 	private static int locx=210;
 	private static int locy=150;
@@ -195,101 +195,101 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	}
 	
 	public void addteamsbutton(){
-		
+
 		ATL=new JButton();
-		ATL.setBounds(locx, locy, Button_width, Button_height);
+//		ATL.setBounds(locx, locy, Button_width, Button_height);
 		button_config(ATL,"ATL");
 		CHA=new JButton();
-		CHA.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
+//		CHA.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
 		button_config(CHA,"CHA");
 		MIA=new JButton();
-		MIA.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
+//		MIA.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(MIA,"MIA");
 		ORL=new JButton();
-		ORL.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
+//		ORL.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(ORL,"ORL");
 		WAS=new JButton();
-		WAS.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
+//		WAS.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(WAS,"WAS");
 		
 		CHI=new JButton();
-		CHI.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
+//		CHI.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
 		button_config(CHI,"CHI");
 		CLE=new JButton();
-		CLE.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
+//		CLE.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
 		button_config(CLE,"CLE");
 		DET=new JButton();
-		DET.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
+//		DET.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(DET,"DET");
 		IND=new JButton();
-		IND.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
+//		IND.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(IND,"IND");
 		MIL=new JButton();
-		MIL.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
+//		MIL.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(MIL,"MIL");
 		
 		BOS=new JButton();
-		BOS.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
+//		BOS.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
 		button_config(BOS,"BOS");
 		BKN=new JButton();
-		BKN.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
+//		BKN.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
 		button_config(BKN,"BKN");
 		NYK=new JButton();
-		NYK.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
+//		NYK.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(NYK,"NYK");
 		PHI=new JButton();
-		PHI.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
+//		PHI.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(PHI,"PHI");
 		TOR=new JButton();
-		TOR.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
+//		TOR.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(TOR,"TOR");
 		
 		GSW=new JButton();
-		GSW.setBounds(locx, locy, Button_width, Button_height);
+//		GSW.setBounds(locx, locy, Button_width, Button_height);
 		button_config(GSW,"GSW");
 		LAC=new JButton();
-		LAC.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
+//		LAC.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
 		button_config(LAC,"LAC");
 		LAL=new JButton();
-		LAL.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
+//		LAL.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(LAL,"LAL");
 		PHX=new JButton();
-		PHX.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
+//		PHX.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(PHX,"PHX");
 		SAC=new JButton();
-		SAC.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
+//		SAC.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(SAC,"SAC");
 		
 		DEN=new JButton();
-		DEN.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
+//		DEN.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
 		button_config(DEN,"DEN");
 		MIN=new JButton();
-		MIN.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
+//		MIN.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
 		button_config(MIN,"MIN");
 		OKC=new JButton();
-		OKC.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
+//		OKC.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(OKC,"OKC");
 		POR=new JButton();
-		POR.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
+//		POR.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(POR,"POR");
 		UTA=new JButton();
-		UTA.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
+//		UTA.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(UTA,"UTA");
 		
 		DAL=new JButton();
-		DAL.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
+//		DAL.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
 		button_config(DAL,"DAL");
 		HOU=new JButton();
-		HOU.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
+//		HOU.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
 		button_config(HOU,"HOU");
 		MEM=new JButton();
-		MEM.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
+//		MEM.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(MEM,"MEM");
 		NOP=new JButton();
-		NOP.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
+//		NOP.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(NOP,"NOP");
 		SAS=new JButton();
-		SAS.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
+//		SAS.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(SAS,"SAS");
 	}
 	
@@ -313,6 +313,8 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		westlabel_1.setVisible(false);
 		westlabel_2.setVisible(false);
 		westlabel_3.setVisible(false);
+		
+
 		
 		ATL.setVisible(true);
 		CHA.setVisible(true);
@@ -349,7 +351,182 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		MEM.setVisible(false);
 		NOP.setVisible(false);
 		SAS.setVisible(false);
+//		ATL.setVisible(true);
+//		CHI.setVisible(true);
+//		BOS.setVisible(true);
+		
+		Thread showline=new Thread(){
+			public void run(){
+				//show the first line
+				int i=0;
+				while(i-(70+Button_width)*2<locx){
+				ATL.setBounds(i-(70+Button_width)*2, locy, Button_width, Button_height);
+				CHI.setBounds(i-(70+Button_width), locy, Button_width, Button_height);
+				BOS.setBounds(i, locy, Button_width, Button_height);
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				CHA.setBounds(i-(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
+				CLE.setBounds(i-(70+Button_width), locy+13+Button_height, Button_width, Button_height);
+				BKN.setBounds(i, locy+13+Button_height, Button_width, Button_height);
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				MIA.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
+				DET.setBounds(i-(70+Button_width), locy+(13+Button_height)*2, Button_width, Button_height);
+				NYK.setBounds(i, locy+(13+Button_height)*2, Button_width, Button_height);
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ORL.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
+				IND.setBounds(i-(70+Button_width), locy+(13+Button_height)*3, Button_width, Button_height);
+				PHI.setBounds(i, locy+(13+Button_height)*3, Button_width, Button_height);
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				WAS.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
+				MIL.setBounds(i-(70+Button_width), locy+(13+Button_height)*4, Button_width, Button_height);
+				TOR.setBounds(i, locy+(13+Button_height)*4, Button_width, Button_height);
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				panelToRemove.repaint();
+//				Frame.repaint();
+				i+=50;
+				}
+//				ATL.setVisible(true);
+//				CHI.setVisible(true);
+//				BOS.setVisible(true);
+				//delay 10ms
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				
+				//show the second line
+//				int j=0;
+//				while(j-(70+Button_width)*2<locx){
+//				CHA.setBounds(j-(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
+//				CLE.setBounds(j-(70+Button_width), locy+13+Button_height, Button_width, Button_height);
+//				BKN.setBounds(j, locy+13+Button_height, Button_width, Button_height);
+//				try {
+//					Thread.sleep(1);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				panelToRemove.repaint();
+////				Frame.repaint();
+//				j+=30;
+//				}
+//				CHA.setVisible(true);
+//				CLE.setVisible(true);
+//				BKN.setVisible(true);
+				//delay 10ms
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+			
+				
+				//show the third line
+//				int k=0;
+//				while(k-(70+Button_width)*2<locx){
+//				MIA.setBounds(k-(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
+//				DET.setBounds(k-(70+Button_width), locy+(13+Button_height)*2, Button_width, Button_height);
+//				NYK.setBounds(k, locy+(13+Button_height)*2, Button_width, Button_height);
+//				try {
+//					Thread.sleep(1);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				panelToRemove.repaint();
+////				Frame.repaint();
+//				k+=30;
+//				}
+//				MIA.setVisible(true);
+//				DET.setVisible(true);
+//				NYK.setVisible(true);
+				//delay 10ms
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				
+				//show the forth line
+//				int l=0;
+//				while(l-(70+Button_width)*2<locx){
+//				ORL.setBounds(l-(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
+//				IND.setBounds(l-(70+Button_width), locy+(13+Button_height)*3, Button_width, Button_height);
+//				PHI.setBounds(l, locy+(13+Button_height)*3, Button_width, Button_height);
+//				try {
+//					Thread.sleep(1);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				panelToRemove.repaint();
+////				Frame.repaint();
+//				l+=30;
+//				}
+//				ORL.setVisible(true);
+//				IND.setVisible(true);
+//				PHI.setVisible(true);
+				//delay 10ms
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				
+				//show the fifth line
+//				int m=0;
+//				while(m-(70+Button_width)*2<locx){
+//				WAS.setBounds(m-(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
+//				MIL.setBounds(m-(70+Button_width), locy+(13+Button_height)*4, Button_width, Button_height);
+//				TOR.setBounds(m, locy+(13+Button_height)*4, Button_width, Button_height);
+//				try {
+//					Thread.sleep(1);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				panelToRemove.repaint();
+////				Frame.repaint();
+//				m+=30;
+//				}
+//				WAS.setVisible(true);
+//				MIL.setVisible(true);
+//				TOR.setVisible(true);
+				//delay 10ms
+//				try {
+//					Thread.sleep(5);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				
+			}
+		};
+		showline.start();
+		
 	}
+	
+//	private void 
 	
 	public void setWestSelected(){
 		East.setIcon(new ImageIcon("images/teams/location/east_1.png"));
@@ -407,14 +584,13 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	public void jumpToPanel(String abb){
 //		System.out.println(abb);
 		Frame.remove(this);
-		TeamVO tvo=new TeamVO();
-		tvo.abbreviation=abb;
-		TeamPanel tp=new TeamPanel(tvo,Frame,this);
-		Frame.add(tp);
+//		TeamVO tvo=new TeamVO();
+//		tvo.abbreviation=abb;
+//		TeamPanel tp=new TeamPanel(tvo,Frame,this);
+//		Frame.add(tp);
 		Frame.repaint();
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource()==SeasonInfo){
