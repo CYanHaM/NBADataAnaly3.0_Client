@@ -23,20 +23,20 @@ import presentation.teamui.TeamInfoPanel;
 
 public class MainFrame extends JFrame{
 	/**
-	 * 系统主界面，包括界面大小，布局方式，鼠标点击拖动事件
+	 * 绯荤粺涓荤晫闈紝鍖呮嫭鐣岄潰澶у皬锛屽竷灞�鏂瑰紡锛岄紶鏍囩偣鍑绘嫋鍔ㄤ簨浠�
 	 * @author blisscry
-	 * @date 2015年4月27日19:38:56
+	 * @date 2015骞�4鏈�27鏃�19:38:56
 	 * @version 2.0
 	 */
 
 	private static final long serialVersionUID = 1L;
-	//定义主框架大小
+	//瀹氫箟涓绘鏋跺ぇ灏�
 	public static int FRAME_WIDTH=1100;
 	public static int FRAME_HEIGHT=700;
-	//定义鼠标坐标位置
+	//瀹氫箟榧犳爣鍧愭爣浣嶇疆
 	int X;
 	int Y;
-	//判断是否在拖动界面
+	//鍒ゆ柇鏄惁鍦ㄦ嫋鍔ㄧ晫闈�
 	boolean isDraging;
 
 	JButton MINIMIZE;
@@ -44,26 +44,26 @@ public class MainFrame extends JFrame{
 	JFrame Frame;
 
 	public MainFrame(){
-		//定义整个界面大小
+		//瀹氫箟鏁翠釜鐣岄潰澶у皬
 		this.setLayout(null);
 		this.setTitle("NBADataAnaly");
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
-		//不显示windows自带边框
+		//涓嶆樉绀簑indows鑷甫杈规
 		this.setUndecorated(true);
-		//设置窗体居中
+		//璁剧疆绐椾綋灞呬腑
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		Frame=this;
 
-		//窗体透明（此处引用了com.sun.awt.AWTUtilities，需引包）
+		//绐椾綋閫忔槑锛堟澶勫紩鐢ㄤ簡com.sun.awt.AWTUtilities锛岄渶寮曞寘锛�
 		//AWTUtilities.setWindowOpaque(this, false);
-		//窗体透明方法目前得到改进
+		//绐椾綋閫忔槑鏂规硶鐩墠寰楀埌鏀硅繘
 		this.setBackground(new Color(0,0,0,0));
 		
 
-		//鼠标事件，用于获取鼠标拖动的位置
+		//榧犳爣浜嬩欢锛岀敤浜庤幏鍙栭紶鏍囨嫋鍔ㄧ殑浣嶇疆
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
 				isDraging = true;
@@ -73,11 +73,11 @@ public class MainFrame extends JFrame{
 			public void mouseReleased(MouseEvent e) {
 				isDraging = false;
 			}});
-		//鼠标移动事件，用于获取移动的路径长度
+		//榧犳爣绉诲姩浜嬩欢锛岀敤浜庤幏鍙栫Щ鍔ㄧ殑璺緞闀垮害
 		addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 				if (isDraging) { 
-					//获取当前框架的位置坐标
+					//鑾峰彇褰撳墠妗嗘灦鐨勪綅缃潗鏍�
 					int frame_x= getLocation().x;
 					int frame_y= getLocation().y;
 					setLocation(frame_x+e.getX()-X, frame_y+e.getY()-Y);
@@ -94,16 +94,16 @@ public class MainFrame extends JFrame{
 
 	public static void main(String[] args){
 
-		//加载系统界面
+		//鍔犺浇绯荤粺鐣岄潰
 		try {
-			// 将LookAndFeel设置成Windows样式
+			// 灏哃ookAndFeel璁剧疆鎴怶indows鏍峰紡
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 		/*
-		 * 迭代1所使用的登录界面，迭代2取消了RMI，将之删去
+		 * 杩唬1鎵�浣跨敤鐨勭櫥褰曠晫闈紝杩唬2鍙栨秷浜哛MI锛屽皢涔嬪垹鍘�
 		 * MessageFrame messageframe=new MessageFrame();
 		 * LoginMsgPanel loginmsgpanel=new LoginMsgPanel(messageframe);
 		 * messageframe.add(loginmsgpanel);
