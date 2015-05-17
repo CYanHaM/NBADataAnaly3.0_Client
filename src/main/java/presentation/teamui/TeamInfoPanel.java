@@ -27,9 +27,9 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	public static int WIDTH=1100;
 	public static int HEIGHT=700;
 	
-	private static int locx=210;
+	private static int locx=220;
 	private static int locy=150;
-	private static int Button_width=193;
+	private static int Button_width=195;
 	private static int Button_height=85;
 	
 	//东部联盟
@@ -351,174 +351,49 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		MEM.setVisible(false);
 		NOP.setVisible(false);
 		SAS.setVisible(false);
-//		ATL.setVisible(true);
-//		CHI.setVisible(true);
-//		BOS.setVisible(true);
 		
 		Thread showline=new Thread(){
+			int distance=50;
+			int delay=50;
 			public void run(){
-				//show the first line
 				int i=0;
-				while(i-(70+Button_width)*2<locx){
-				ATL.setBounds(i-(70+Button_width)*2, locy, Button_width, Button_height);
-				CHI.setBounds(i-(70+Button_width), locy, Button_width, Button_height);
-				BOS.setBounds(i, locy, Button_width, Button_height);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				boolean stop=false;
+				while(!stop){
+					if(i*distance-(70+Button_width)*2<=locx){
+						ATL.setBounds(i*distance-(70+Button_width)*2, locy, Button_width, Button_height);
+						CHI.setBounds(i*distance-(70+Button_width), locy, Button_width, Button_height);
+						BOS.setBounds(i*distance, locy, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay<=locx){
+						CHA.setBounds(i*distance-(70+Button_width)*2-delay, locy+13+Button_height, Button_width, Button_height);
+						CLE.setBounds(i*distance-(70+Button_width)-delay, locy+13+Button_height, Button_width, Button_height);
+						BKN.setBounds(i*distance-delay, locy+13+Button_height, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*2<=locx){
+						MIA.setBounds(i*distance-(70+Button_width)*2-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+						DET.setBounds(i*distance-(70+Button_width)-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+						NYK.setBounds(i*distance-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*3<=locx){
+						ORL.setBounds(i*distance-(70+Button_width)*2-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+						IND.setBounds(i*distance-(70+Button_width)-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+						PHI.setBounds(i*distance-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*4<=locx){
+						WAS.setBounds(i*distance-(70+Button_width)*2-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+						MIL.setBounds(i*distance-(70+Button_width)-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+						TOR.setBounds(i*distance-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*4==locx)
+						stop=true;
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					panelToRemove.repaint();
+					i++;
 				}
-				CHA.setBounds(i-(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
-				CLE.setBounds(i-(70+Button_width), locy+13+Button_height, Button_width, Button_height);
-				BKN.setBounds(i, locy+13+Button_height, Button_width, Button_height);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				MIA.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
-				DET.setBounds(i-(70+Button_width), locy+(13+Button_height)*2, Button_width, Button_height);
-				NYK.setBounds(i, locy+(13+Button_height)*2, Button_width, Button_height);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				ORL.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
-				IND.setBounds(i-(70+Button_width), locy+(13+Button_height)*3, Button_width, Button_height);
-				PHI.setBounds(i, locy+(13+Button_height)*3, Button_width, Button_height);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				WAS.setBounds(i-(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
-				MIL.setBounds(i-(70+Button_width), locy+(13+Button_height)*4, Button_width, Button_height);
-				TOR.setBounds(i, locy+(13+Button_height)*4, Button_width, Button_height);
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				panelToRemove.repaint();
-//				Frame.repaint();
-				i+=50;
-				}
-//				ATL.setVisible(true);
-//				CHI.setVisible(true);
-//				BOS.setVisible(true);
-				//delay 10ms
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-				
-				//show the second line
-//				int j=0;
-//				while(j-(70+Button_width)*2<locx){
-//				CHA.setBounds(j-(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
-//				CLE.setBounds(j-(70+Button_width), locy+13+Button_height, Button_width, Button_height);
-//				BKN.setBounds(j, locy+13+Button_height, Button_width, Button_height);
-//				try {
-//					Thread.sleep(1);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				panelToRemove.repaint();
-////				Frame.repaint();
-//				j+=30;
-//				}
-//				CHA.setVisible(true);
-//				CLE.setVisible(true);
-//				BKN.setVisible(true);
-				//delay 10ms
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-			
-				
-				//show the third line
-//				int k=0;
-//				while(k-(70+Button_width)*2<locx){
-//				MIA.setBounds(k-(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
-//				DET.setBounds(k-(70+Button_width), locy+(13+Button_height)*2, Button_width, Button_height);
-//				NYK.setBounds(k, locy+(13+Button_height)*2, Button_width, Button_height);
-//				try {
-//					Thread.sleep(1);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				panelToRemove.repaint();
-////				Frame.repaint();
-//				k+=30;
-//				}
-//				MIA.setVisible(true);
-//				DET.setVisible(true);
-//				NYK.setVisible(true);
-				//delay 10ms
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-				
-				//show the forth line
-//				int l=0;
-//				while(l-(70+Button_width)*2<locx){
-//				ORL.setBounds(l-(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
-//				IND.setBounds(l-(70+Button_width), locy+(13+Button_height)*3, Button_width, Button_height);
-//				PHI.setBounds(l, locy+(13+Button_height)*3, Button_width, Button_height);
-//				try {
-//					Thread.sleep(1);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				panelToRemove.repaint();
-////				Frame.repaint();
-//				l+=30;
-//				}
-//				ORL.setVisible(true);
-//				IND.setVisible(true);
-//				PHI.setVisible(true);
-				//delay 10ms
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-				
-				//show the fifth line
-//				int m=0;
-//				while(m-(70+Button_width)*2<locx){
-//				WAS.setBounds(m-(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
-//				MIL.setBounds(m-(70+Button_width), locy+(13+Button_height)*4, Button_width, Button_height);
-//				TOR.setBounds(m, locy+(13+Button_height)*4, Button_width, Button_height);
-//				try {
-//					Thread.sleep(1);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				panelToRemove.repaint();
-////				Frame.repaint();
-//				m+=30;
-//				}
-//				WAS.setVisible(true);
-//				MIL.setVisible(true);
-//				TOR.setVisible(true);
-				//delay 10ms
-//				try {
-//					Thread.sleep(5);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
 				
 			}
 		};
@@ -573,6 +448,53 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		MEM.setVisible(true);
 		NOP.setVisible(true);
 		SAS.setVisible(true);
+		
+		Thread showline=new Thread(){
+			int distance=50;
+			int delay=50;
+			public void run(){
+				int i=0;
+				boolean stop=false;
+				while(!stop){
+					if(i*distance-(70+Button_width)*2<=locx){
+						GSW.setBounds(i*distance-(70+Button_width)*2, locy, Button_width, Button_height);
+						DEN.setBounds(i*distance-(70+Button_width), locy, Button_width, Button_height);
+						DAL.setBounds(i*distance, locy, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay<=locx){
+						LAC.setBounds(i*distance-(70+Button_width)*2-delay, locy+13+Button_height, Button_width, Button_height);
+						MIN.setBounds(i*distance-(70+Button_width)-delay, locy+13+Button_height, Button_width, Button_height);
+						HOU.setBounds(i*distance-delay, locy+13+Button_height, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*2<=locx){
+						LAL.setBounds(i*distance-(70+Button_width)*2-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+						OKC.setBounds(i*distance-(70+Button_width)-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+						MEM.setBounds(i*distance-delay*2, locy+(13+Button_height)*2, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*3<=locx){
+						PHX.setBounds(i*distance-(70+Button_width)*2-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+						POR.setBounds(i*distance-(70+Button_width)-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+						NOP.setBounds(i*distance-delay*3, locy+(13+Button_height)*3, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*4<=locx){
+						SAC.setBounds(i*distance-(70+Button_width)*2-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+						UTA.setBounds(i*distance-(70+Button_width)-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+						SAS.setBounds(i*distance-delay*4, locy+(13+Button_height)*4, Button_width, Button_height);
+					}
+					if(i*distance-(70+Button_width)*2-delay*4==locx)
+						stop=true;
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					panelToRemove.repaint();
+					i++;
+				}
+				
+			}
+		};
+		showline.start();
 	}
 	//绘制赛季数据界面背景
 	public void paintComponent(Graphics g){
@@ -592,7 +514,6 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		if(arg0.getSource()==SeasonInfo){
 			Frame.remove(panelToRemove);
 			TeamTechPanel panel=new TeamTechPanel(Frame);
