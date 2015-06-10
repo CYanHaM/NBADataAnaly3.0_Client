@@ -20,7 +20,6 @@ public class ImportTeam {
  * @date 2015年4月29日21:07:23
  * @version 1.2
  */
-	//�����䴫��ӿ�
 	TeamTechBLService TTbs;
 	TeamBLservice Tbs;
 	PlayerInfoService pis;

@@ -99,7 +99,6 @@ public class LoginMsgPanel extends JPanel implements ActionListener{
 		g.drawImage(im.getImage(),0,0,this);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource()==affirm){

@@ -26,11 +26,9 @@ public class TeamListener implements MouseListener{
 		formerColor=color1;
 		latterColor=color2;
 	}
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		choosenlabel.setForeground(latterColor);
 	}
-	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		TeamVO tvo=new TeamVO();
 		tvo.abbreviation=teamname;
@@ -40,15 +38,12 @@ public class TeamListener implements MouseListener{
 		Frame.repaint();
 	}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {
 		choosenlabel.setForeground(formerColor);
 	}
 
-	@Override
 	public void mousePressed(MouseEvent arg0) {
 	}
-	@Override
 	public void mouseReleased(MouseEvent arg0) {
 	}
 

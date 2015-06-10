@@ -357,24 +357,19 @@ public class DateLabel extends JLabel{
 			dateLabel.setFont(font);
 			dateLabel.addMouseListener(new MouseListener() {
 
-				@Override
 				public void mouseReleased(MouseEvent e) {}
-				@Override
 				public void mousePressed(MouseEvent e) {
 					calendar.setTime(new Date());
 					refresh();
 					commit();
 				}
-				@Override
 				public void mouseExited(MouseEvent e) {
 					dateLabel.setForeground(Color.BLACK);
 				}
-				@Override
 				public void mouseEntered(MouseEvent e) {
 					dateLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					dateLabel.setForeground(hoverColor);
 				}
-				@Override
 				public void mouseClicked(MouseEvent e) {}
 			});
 			this.add(dateLabel);
@@ -479,36 +474,30 @@ public class DateLabel extends JLabel{
 			repaint();
 		}
 
-		@Override
 		public void mouseDragged(MouseEvent e) { }
-		@Override
 		public void mouseMoved(MouseEvent e) { }
-		@Override
 		public void mouseClicked(MouseEvent e) { }
-		@Override
 		public void mousePressed(MouseEvent e) {
 			isSelected = true;
 			update();
 		}
-		@Override
 		public void mouseReleased(MouseEvent e) {
 			Point p = SwingUtilities.convertPoint(this, e.getPoint(), bodyPanel);
 			this.setForeground(Color.BLACK);
 			lm.setSelect(p, false);
 			commit();
 		}
-		@Override // change color when mouse over.
+		// change color when mouse over.
 		public void mouseEntered(MouseEvent e) {
 			this.setForeground(hoverColor);
 			this.repaint();
 		}
-		@Override // change color when mouse exit.
+		// change color when mouse exit.
 		public void mouseExited(MouseEvent e) {
 			if(month == calendar.get(Calendar.MONTH)) this.setForeground(java.awt.Color.BLACK);
 			else this.setForeground(java.awt.Color.LIGHT_GRAY);
 			this.repaint();
 		}
-		@Override
 		public int compare(DayLabel o1, DayLabel o2) {
 			Calendar c1 = Calendar.getInstance();
 			c1.set(o1.year, o1.month, o1.day);

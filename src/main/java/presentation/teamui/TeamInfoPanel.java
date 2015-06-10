@@ -1,8 +1,11 @@
 package presentation.teamui;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +17,7 @@ import presentation.hotspotui.HotPlayerToday;
 import presentation.matchui.MatchPanel;
 import presentation.playerui.PlayerTechPanel;
 import presentation.preset.PlayerPre;
-//import VO.TeamVO;
+import VO.TeamVO;
 
 public class TeamInfoPanel extends JPanel implements ActionListener{
 	/**
@@ -26,9 +29,11 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH=1100;
 	public static int HEIGHT=700;
+	//定义边缘透明空白区域边界大小，单位px
+//	public static int e_space=10;
 	
 	private static int locx=220;
-	private static int locy=150;
+	private static int locy=170;
 	private static int Button_width=195;
 	private static int Button_height=85;
 	
@@ -77,17 +82,15 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	private JLabel westlabel_1;
 	private JLabel westlabel_2;
 	private JLabel westlabel_3;
-	//侧边栏按钮
-	private JButton SeasonInfo;
-	private JButton MatchInfo;
-	private JButton TeamInfo;
-	private JButton PlayerInfo;
-	private JButton Hot;
+	//loading label
+	private JLabel loading;
+	private ImageIcon loadingicon;
 
 	
 	public PlayerPre PPre;
 	public JFrame Frame;
 	public JPanel panelToRemove;
+	public JPanel panelToJump;
 	public TeamInfoPanel(JFrame frame){
 		Frame=frame;
 		panelToRemove=this;
@@ -95,12 +98,18 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		this.setLayout(null);
 		this.setOpaque(false);
 		PPre=new PlayerPre();
+		loading = new JLabel();
+		loading.setBounds(0, 50, WIDTH, HEIGHT-50);
+		loadingicon=new ImageIcon("images/test.png");
+//		loading.setIcon(loadingicon);
+		loading.setVisible(false);
+		this.add(loading);
 		
 		addlabel();
 		addbutton();
 		addteamsbutton();
 		setEastSelected();
-		
+
 		this.repaint();
 }
 
@@ -108,32 +117,32 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		eastlabel_1=new JLabel("东南分区");
 		eastlabel_1.setForeground(PPre.TableFg);
 		eastlabel_1.setFont(PPre.switchbox);
-		eastlabel_1.setBounds(270, 130, 100, 15);
+		eastlabel_1.setBounds(270, locy-30, 100, 15);
 		
 		eastlabel_2=new JLabel("中央分区");
 		eastlabel_2.setForeground(PPre.TableFg);
 		eastlabel_2.setFont(PPre.switchbox);
-		eastlabel_2.setBounds(535, 130, 100, 15);
+		eastlabel_2.setBounds(535, locy-30, 100, 15);
 		
 		eastlabel_3=new JLabel("大西洋分区");
 		eastlabel_3.setForeground(PPre.TableFg);
 		eastlabel_3.setFont(PPre.switchbox);
-		eastlabel_3.setBounds(805, 130, 100, 15);
+		eastlabel_3.setBounds(805, locy-30, 100, 15);
 		
 		westlabel_1=new JLabel("太平洋分区");
 		westlabel_1.setForeground(PPre.TableFg);
 		westlabel_1.setFont(PPre.switchbox);
-		westlabel_1.setBounds(270, 130, 100, 15);
+		westlabel_1.setBounds(270, locy-30, 100, 15);
 		
 		westlabel_2=new JLabel("西北分区");
 		westlabel_2.setForeground(PPre.TableFg);
 		westlabel_2.setFont(PPre.switchbox);
-		westlabel_2.setBounds(535, 130, 100, 15);
+		westlabel_2.setBounds(535, locy-30, 100, 15);
 		
 		westlabel_3=new JLabel("西南分区");
 		westlabel_3.setForeground(PPre.TableFg);
 		westlabel_3.setFont(PPre.switchbox);
-		westlabel_3.setBounds(805, 130, 100, 15);
+		westlabel_3.setBounds(805, locy-30, 100, 15);
 		
 		this.add(eastlabel_1);
 		this.add(eastlabel_2);
@@ -141,27 +150,12 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		this.add(westlabel_1);
 		this.add(westlabel_2);
 		this.add(westlabel_3);
+		
 	}
 	
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		TeamInfo.setSelected(true);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-		
 		East=new JButton(new ImageIcon("images/teams/location/east_1.png"));
-		East.setBounds(480, 90, 100, 30);
+		East.setBounds(485, 90, 100, 30);
 		East.setBorderPainted(false);
 		East.setContentAreaFilled(false);
 		East.setFocusPainted(false);
@@ -170,7 +164,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		East.addActionListener(this);
 		
 		West=new JButton(new ImageIcon("images/teams/location/west_1.png"));
-		West.setBounds(580, 90, 100, 30);
+		West.setBounds(585, 90, 100, 30);
 		West.setBorderPainted(false);
 		West.setContentAreaFilled(false);
 		West.setFocusPainted(false);
@@ -182,114 +176,72 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		this.add(West);
 	}
 	
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
-	}
 	
 	public void addteamsbutton(){
-
 		ATL=new JButton();
-//		ATL.setBounds(locx, locy, Button_width, Button_height);
 		button_config(ATL,"ATL");
 		CHA=new JButton();
-//		CHA.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
 		button_config(CHA,"CHA");
 		MIA=new JButton();
-//		MIA.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(MIA,"MIA");
 		ORL=new JButton();
-//		ORL.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(ORL,"ORL");
 		WAS=new JButton();
-//		WAS.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(WAS,"WAS");
 		
 		CHI=new JButton();
-//		CHI.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
 		button_config(CHI,"CHI");
 		CLE=new JButton();
-//		CLE.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
 		button_config(CLE,"CLE");
 		DET=new JButton();
-//		DET.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(DET,"DET");
 		IND=new JButton();
-//		IND.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(IND,"IND");
 		MIL=new JButton();
-//		MIL.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(MIL,"MIL");
 		
 		BOS=new JButton();
-//		BOS.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
 		button_config(BOS,"BOS");
 		BKN=new JButton();
-//		BKN.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
 		button_config(BKN,"BKN");
 		NYK=new JButton();
-//		NYK.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(NYK,"NYK");
 		PHI=new JButton();
-//		PHI.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(PHI,"PHI");
 		TOR=new JButton();
-//		TOR.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(TOR,"TOR");
 		
 		GSW=new JButton();
-//		GSW.setBounds(locx, locy, Button_width, Button_height);
 		button_config(GSW,"GSW");
 		LAC=new JButton();
-//		LAC.setBounds(locx, locy+13+Button_height, Button_width, Button_height);
 		button_config(LAC,"LAC");
 		LAL=new JButton();
-//		LAL.setBounds(locx, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(LAL,"LAL");
 		PHX=new JButton();
-//		PHX.setBounds(locx, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(PHX,"PHX");
 		SAC=new JButton();
-//		SAC.setBounds(locx, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(SAC,"SAC");
 		
 		DEN=new JButton();
-//		DEN.setBounds(locx+70+Button_width, locy, Button_width, Button_height);
 		button_config(DEN,"DEN");
 		MIN=new JButton();
-//		MIN.setBounds(locx+70+Button_width, locy+13+Button_height, Button_width, Button_height);
 		button_config(MIN,"MIN");
 		OKC=new JButton();
-//		OKC.setBounds(locx+70+Button_width, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(OKC,"OKC");
 		POR=new JButton();
-//		POR.setBounds(locx+70+Button_width, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(POR,"POR");
 		UTA=new JButton();
-//		UTA.setBounds(locx+70+Button_width, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(UTA,"UTA");
 		
 		DAL=new JButton();
-//		DAL.setBounds(locx+(70+Button_width)*2, locy, Button_width, Button_height);
 		button_config(DAL,"DAL");
 		HOU=new JButton();
-//		HOU.setBounds(locx+(70+Button_width)*2, locy+13+Button_height, Button_width, Button_height);
 		button_config(HOU,"HOU");
 		MEM=new JButton();
-//		MEM.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*2, Button_width, Button_height);
 		button_config(MEM,"MEM");
 		NOP=new JButton();
-//		NOP.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*3, Button_width, Button_height);
 		button_config(NOP,"NOP");
 		SAS=new JButton();
-//		SAS.setBounds(locx+(70+Button_width)*2, locy+(13+Button_height)*4, Button_width, Button_height);
 		button_config(SAS,"SAS");
 	}
 	
@@ -299,7 +251,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		button.setContentAreaFilled(false);
 		button.setFocusPainted(false);
 		button.setRolloverIcon(new ImageIcon("images/teams/small/"+name+"_2.png"));
-//		button.setPressedIcon(new ImageIcon("images/teams/small/"+name+".png"));
+		//button.setPressedIcon(new ImageIcon("images/teams/small/"+name+".png"));
 		this.add(button);
 		button.addActionListener(this);
 	}
@@ -313,8 +265,6 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		westlabel_1.setVisible(false);
 		westlabel_2.setVisible(false);
 		westlabel_3.setVisible(false);
-		
-
 		
 		ATL.setVisible(true);
 		CHA.setVisible(true);
@@ -387,21 +337,18 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 					if(i*distance-(70+Button_width)*2-delay*4==locx)
 						stop=true;
 					try {
-						Thread.sleep(1);
+						Thread.sleep(20);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					panelToRemove.repaint();
 					i++;
 				}
-				
 			}
 		};
 		showline.start();
 		
 	}
-	
-//	private void 
 	
 	public void setWestSelected(){
 		East.setIcon(new ImageIcon("images/teams/location/east_1.png"));
@@ -484,7 +431,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 					if(i*distance-(70+Button_width)*2-delay*4==locx)
 						stop=true;
 					try {
-						Thread.sleep(1);
+						Thread.sleep(20);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -496,48 +443,70 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		};
 		showline.start();
 	}
+	
+	public void loading(){
+
+		Thread showloading=new Thread(){
+			public void run(){
+				ImageIcon imgicon=new ImageIcon("images/test.png");
+				for(int scale=50;scale<300;scale+=5){
+				int width=(int)(imgicon.getIconWidth()*scale/100);
+				int height=(int)(imgicon.getIconHeight()*scale/100);
+//				System.out.println(width+"--"+height);
+				Image img=imgicon.getImage();
+				img=img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+				loadingicon=new ImageIcon(img);
+				loading.setIcon(loadingicon);
+//				loading.repaint();
+//				panelToRemove.repaint();
+//				Frame.repaint();
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			}
+		};
+		showloading.start();
+	}
+	
 	//绘制赛季数据界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/teams_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/bg-1.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 
 	public void jumpToPanel(String abb){
-//		System.out.println(abb);
-		Frame.remove(this);
-//		TeamVO tvo=new TeamVO();
-//		tvo.abbreviation=abb;
-//		TeamPanel tp=new TeamPanel(tvo,Frame,this);
-//		Frame.add(tp);
-		Frame.repaint();
+		TeamVO tvo=new TeamVO();
+		tvo.abbreviation=abb;
+		panelToJump=new TeamPanel(tvo,Frame,this);
+		Frame.add(panelToJump);
+		Thread switchpanel=new Thread(){
+			public void run(){
+				int i=0;
+				while(i<=11){
+				panelToRemove.setLocation(-100*i, 0);
+				panelToJump.setLocation(WIDTH-100*i, 0);
+				Frame.repaint();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				i++;
+				}
+				Frame.remove(panelToRemove);
+				
+			}
+		};
+		switchpanel.start();
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==SeasonInfo){
-			Frame.remove(panelToRemove);
-			TeamTechPanel panel=new TeamTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==MatchInfo){
-			Frame.remove(panelToRemove);
-			MatchPanel panel=new MatchPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==PlayerInfo){
-			Frame.remove(panelToRemove);
-			PlayerTechPanel panel=new PlayerTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==Hot){
-			Frame.remove(panelToRemove);
-			HotPlayerToday panel=new HotPlayerToday(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
 		if(arg0.getSource()==East){
 			setEastSelected();
 		}

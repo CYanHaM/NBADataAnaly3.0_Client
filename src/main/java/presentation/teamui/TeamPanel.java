@@ -38,8 +38,8 @@ public class TeamPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 	//定义边缘透明空白区域边界大小，单位px
 	public static int e_space=10;
 	//定义空出位置大小
@@ -98,18 +98,17 @@ public class TeamPanel extends JPanel implements ActionListener{
 		//创建颜色预设对象
 		PPre=new PlayerPre();
 		//导入数据
-		importdata=new ImportTeam();
-//		System.out.println(tvo.fullName);
-		teamvo=importdata.getTeamVO(tvo);
-		System.out.println(teamvo.abbreviation);
+//		importdata=new ImportTeam();
+//		teamvo=importdata.getTeamVO(tvo);
+		
 //		if(teamvo.abbreviation.equals("NOP"))
 //			teamvo.abbreviation="NOH";
-		playerlist=importdata.findByTeam(teamvo.abbreviation);
+//		playerlist=importdata.findByTeam(teamvo.abbreviation);
 		
-		playerinfo=new Object[playerlist.size()][columnName.length];
-//		playerinfo=new Object[20][columnName.length];
+//		playerinfo=new Object[playerlist.size()][columnName.length];
+		playerinfo=new Object[20][columnName.length];
 		//初始化数据，以便放入table中
-		handleinitial(playerlist);
+//		handleinitial(playerlist);
 		//加载表格配置
 		table_config();
 		//加载滑动面板配置
@@ -117,27 +116,14 @@ public class TeamPanel extends JPanel implements ActionListener{
 		players.setViewportView(playertable);
 		//添加按钮、消息框
 		addbutton();
-		addlabel();
+//		addlabel();
 		
 		this.repaint();
 	}
+	
+	
     //=============================================
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		TeamInfo.setSelected(true);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
 		
 		back=new JButton(new ImageIcon("images/system_img/back_initial.png"));
 		back.setBounds(200, 85, 100, 50);
@@ -152,17 +138,6 @@ public class TeamPanel extends JPanel implements ActionListener{
 		this.repaint();
 	}
 	
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
-	}
 	 
 	//定义所有显示及渲染球队信息的lablel
 	private void addlabel(){
@@ -396,48 +371,33 @@ public class TeamPanel extends JPanel implements ActionListener{
 	//绘制界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/teams_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/bg-1.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==SeasonInfo){
-			Frame.remove(panelToRemove);
-			TeamTechPanel panel=new TeamTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==MatchInfo){
-			Frame.remove(panelToRemove);
-			MatchPanel panel=new MatchPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==TeamInfo){
-			Frame.remove(panelToRemove);
-			TeamInfoPanel panel=new TeamInfoPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==PlayerInfo){
-			Frame.remove(panelToRemove);
-			PlayerTechPanel panel=new PlayerTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==Hot){
-			Frame.remove(panelToRemove);
-			HotPlayerToday panel=new HotPlayerToday(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		
-		
 		if(arg0.getSource()==back){
-			Frame.remove(panelToRemove);
 			Frame.add(formerpanel);
-			Frame.repaint();
+			Thread switchpanel=new Thread(){
+				public void run(){
+					int i=0;
+					while(i<=11){
+					panelToRemove.setLocation(100*i, 0);
+					formerpanel.setLocation(-WIDTH+100*i, 0);
+					Frame.repaint();
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					i++;
+					}
+					Frame.remove(panelToRemove);
+					
+				}
+			};
+			switchpanel.start();
 		}
 	}
 
