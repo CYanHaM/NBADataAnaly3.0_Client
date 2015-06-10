@@ -28,5 +28,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="gral-core-0.10.jar"/>
+	<classpathentry kind="lib" path="VectorGraphics2D-0.9.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
