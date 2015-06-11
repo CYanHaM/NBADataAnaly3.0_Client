@@ -18,6 +18,7 @@ public class LoadingPanel extends JPanel{
 	//定义主框架大小
 	public static int WIDTH=1100;
 	public static int HEIGHT=700;
+	private static int loadingnum=90;
 	JFrame Frame;
 	JLabel beginloading;
 	JPanel paneltoremove;
@@ -35,10 +36,10 @@ public class LoadingPanel extends JPanel{
 		this.add(beginloading);
 		Thread beginthread=new Thread(){
 			public void run(){
-				for(int i=0;i<=81;i++){
+				for(int i=0;i<loadingnum;i++){
 					beginloading.setIcon(new ImageIcon("images/system_img/begin/begin_"+i+".png"));
 					try {
-						Thread.sleep(15);
+						Thread.sleep(20);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

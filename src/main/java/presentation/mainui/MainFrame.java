@@ -30,8 +30,8 @@ public class MainFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	//定义主框架大小
-	public static int FRAME_WIDTH=1020;
-	public static int FRAME_HEIGHT=670;
+	public static int FRAME_WIDTH=1100;
+	public static int FRAME_HEIGHT=700;
 	//定义鼠标坐标位置
 	int X;
 	int Y;

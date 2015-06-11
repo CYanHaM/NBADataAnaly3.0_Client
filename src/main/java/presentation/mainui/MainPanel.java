@@ -39,8 +39,6 @@ public class MainPanel extends JPanel implements ActionListener{
 	private JButton TeamInfo;
 	private JButton PlayerInfo;
 	private JButton Hot;
-	private JLabel beginloading;
-	Timer timer;
 	
 	private boolean stop=false;
 	private JLabel[] effect;
@@ -55,25 +53,6 @@ public class MainPanel extends JPanel implements ActionListener{
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
 		this.setOpaque(false);
-		
-//		beginloading=new JLabel();
-//		beginloading.setBounds(0, 0, WIDTH, HEIGHT);
-//		this.add(beginloading);
-//		Thread beginthread=new Thread(){
-//			public void run(){
-//				for(int i=0;i<=81;i++){
-//					beginloading.setIcon(new ImageIcon("images/system_img/begin/begin_"+i+".png"));
-//					try {
-//						Thread.sleep(20);
-//					} catch (InterruptedException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//				}
-//			}
-//		};
-//		beginthread.start();
-//		this.remove(beginloading);
 		
 		//-----------------------添加最小化及关闭按钮-------------------------------
 		MINIMIZE=new JButton(new ImageIcon("images/system_img/MINIMIZE_1.png"));
