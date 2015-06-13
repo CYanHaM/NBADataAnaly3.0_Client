@@ -32,8 +32,9 @@ public class TeamStatPanel extends JPanel{
 		this.setLayout(null);
 		
 		CategoryDataset dataset=createDataset();
-		ChartPanel chartpanel1=new ChartPanel(new BarChart().createChart(dataset));
+		ChartPanel chartpanel1=new ChartPanel(new BarChart().createChart(dataset,"球员数据",null,null));
 		chartpanel1.setBounds(200, 200, 700, 400);
+		chartpanel1.setOpaque(false);
 		this.add(chartpanel1);
 		this.repaint();
 	}
@@ -76,7 +77,7 @@ public class TeamStatPanel extends JPanel{
 	 
 	 public void paintComponent(Graphics g){
 		 super.paintComponent(g);
-		 ImageIcon im1=new ImageIcon("images/system_img/bg.png");
+		 ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	 }
 }
