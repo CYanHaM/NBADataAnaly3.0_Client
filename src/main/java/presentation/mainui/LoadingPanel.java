@@ -27,6 +27,7 @@ public class LoadingPanel extends JPanel{
 	public LoadingPanel(JFrame frame) {
 		Frame=frame;
 		paneltoremove=this;
+		Frame.add(this);
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
 		this.setOpaque(false);
@@ -39,12 +40,12 @@ public class LoadingPanel extends JPanel{
 				for(int i=0;i<loadingnum;i++){
 					beginloading.setIcon(new ImageIcon("images/system_img/begin/begin_"+i+".png"));
 					try {
-						Thread.sleep(20);
+						Thread.sleep(10);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					if(i==81){
+					if(i==loadingnum-1){
 						MainPanel mp=new MainPanel(Frame);
 						TeamInfoPanel tip=new TeamInfoPanel(Frame);
 						Frame.remove(paneltoremove);
@@ -56,5 +57,18 @@ public class LoadingPanel extends JPanel{
 			}
 		};
 		beginthread.start();
+		
+//		Frame.remove(Frame.getContentPane().getComponent(0));
+//		MainPanel mp=new MainPanel(Frame);
+//
+//		System.out.println(Frame.getContentPane().getComponentCount());
+//		TeamInfoPanel tip=new TeamInfoPanel(Frame);
+////		System.out.println(paneltoremove);
+//		Frame.add(mp);
+//		Frame.remove(this);
+//		System.out.println(Frame.getContentPane().getComponentCount());
+//		Frame.add(tip);
+//		System.out.println(Frame.getContentPane().getComponentCount());
+//		Frame.repaint();
 	}
 }

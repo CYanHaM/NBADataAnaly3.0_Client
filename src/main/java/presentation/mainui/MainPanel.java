@@ -11,8 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
+import presentation.matchui.MatchPanel;
+import presentation.playerui.PlayerTechPanel;
+import presentation.statui.TeamStatPanel;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 
@@ -41,7 +43,9 @@ public class MainPanel extends JPanel implements ActionListener{
 	private JButton Hot;
 	
 	private boolean stop=false;
-	private JLabel[] effect;
+	
+	JPanel panelToJump;
+	JPanel panelToRemove;
 		
 	JButton MINIMIZE;
 	JButton CLOSE;
@@ -157,8 +161,10 @@ public class MainPanel extends JPanel implements ActionListener{
 	
 	public void jumpToPanel(JPanel panel){
 		
-		final JPanel panelToJump=panel;
-		final JPanel panelToRemove=(JPanel) Frame.getContentPane().getComponent(1);
+		panelToJump=panel;
+		
+		panelToRemove=(JPanel) Frame.getContentPane().getComponent(1);
+		
 		Frame.add(panelToJump);
 		Thread switchpanel=new Thread(){
 			public void run(){
@@ -175,15 +181,24 @@ public class MainPanel extends JPanel implements ActionListener{
 				}
 				i++;
 				}
-				Frame.remove(panelToRemove);
-				
+				for(int j=1;j<Frame.getContentPane().getComponentCount();j++){
+					Frame.remove(Frame.getContentPane().getComponent(j));
+					}
 			}
 		};
 		switchpanel.start();
 	}
 	
+	private void printpanels(){
+		for(int j=0;j<Frame.getContentPane().getComponentCount();j++){
+			System.out.println(j+" "+Frame.getContentPane().getComponent(j));
+			}
+		System.out.println();
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource()==SeasonInfo){
+			if(!SeasonInfo.isSelected()){
 			SeasonInfo.setSelected(true);
 			MatchInfo.setSelected(false);
 			TeamInfo.setSelected(false);
@@ -191,15 +206,21 @@ public class MainPanel extends JPanel implements ActionListener{
 			Hot.setSelected(false);
 			TeamTechPanel newpanel=new TeamTechPanel(Frame);
 			jumpToPanel(newpanel);
+			}
 		}
 		if(arg0.getSource()==MatchInfo){
+			if(!MatchInfo.isSelected()){
 			SeasonInfo.setSelected(false);
 			MatchInfo.setSelected(true);
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(false);
+			MatchPanel newpanel=new MatchPanel(Frame);
+			jumpToPanel(newpanel);
+			}
 		}
 		if(arg0.getSource()==TeamInfo){
+			if(!TeamInfo.isSelected()){
 			SeasonInfo.setSelected(false);
 			MatchInfo.setSelected(false);
 			TeamInfo.setSelected(true);
@@ -207,20 +228,30 @@ public class MainPanel extends JPanel implements ActionListener{
 			Hot.setSelected(false);
 			TeamInfoPanel newpanel=new TeamInfoPanel(Frame);
 			jumpToPanel(newpanel);
+			}
 		}
 		if(arg0.getSource()==PlayerInfo){
+			if(!PlayerInfo.isSelected()){
 			SeasonInfo.setSelected(false);
 			MatchInfo.setSelected(false);
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(true);
 			Hot.setSelected(false);
+			PlayerTechPanel newpanel=new PlayerTechPanel(Frame);
+			jumpToPanel(newpanel);
+			}
 		}
 		if(arg0.getSource()==Hot){
+			if(!Hot.isSelected()){
 			SeasonInfo.setSelected(false);
 			MatchInfo.setSelected(false);
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(true);
+//			SeasonHotTeam newpanel=new SeasonHotTeam(Frame);
+			TeamStatPanel newpanel=new TeamStatPanel(Frame);
+			jumpToPanel(newpanel);
+			}
 		}
 	}
 }

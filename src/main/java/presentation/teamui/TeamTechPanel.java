@@ -59,8 +59,8 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	private static int TEAMNUM=30;
 	
 	//表格大小
-	private static int TABLEWIDTH=800;
-	private static int TABLEHEIGHT=500;
+	private static int TABLEWIDTH=900;
+	private static int TABLEHEIGHT=520;
 	//表格行高
 	private static int ROWHEIGHT=28;
 	
@@ -1174,7 +1174,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	//绘制赛季数据界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/bg-1.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 

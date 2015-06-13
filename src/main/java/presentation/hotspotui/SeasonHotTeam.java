@@ -23,8 +23,8 @@ import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import TypeEnum.TeamTechEnum;
 import VO.TeamTechVO;
-import blservice.teamtechblservice.TeamTechBLService;
-import bussinesslogic.TeamTech.TeamTech;
+//import blservice.teamtechblservice.TeamTechBLService;
+//import bussinesslogic.TeamTech.TeamTech;
 
 public class SeasonHotTeam extends JPanel implements ActionListener{
 	/**

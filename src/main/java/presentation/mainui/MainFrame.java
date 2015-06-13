@@ -83,10 +83,6 @@ public class MainFrame extends JFrame{
 				}
 			}});
 
-
-		LoadingPanel loadingpanel=new LoadingPanel(this);
-		this.add(loadingpanel);
-		this.repaint();
 	}
 
 
@@ -119,11 +115,7 @@ public class MainFrame extends JFrame{
 		
 		
 		MainFrame mf=new MainFrame();
-//		MatchPanel mp=new MatchPanel(mf);
-//		TeamInfoPanel mp=new TeamInfoPanel(mf);
-//		HotPlayerToday mp=new HotPlayerToday(mf);
-//		SeasonHotPlayer mp=new SeasonHotPlayer(mf);
-//		mf.add(mp);
+		new LoadingPanel(mf);
 		mf.repaint();
 	}
 

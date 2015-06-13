@@ -122,12 +122,12 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		eastlabel_2=new JLabel("中央分区");
 		eastlabel_2.setForeground(PPre.TableFg);
 		eastlabel_2.setFont(PPre.switchbox);
-		eastlabel_2.setBounds(535, locy-30, 100, 15);
+		eastlabel_2.setBounds(555, locy-30, 100, 15);
 		
 		eastlabel_3=new JLabel("大西洋分区");
 		eastlabel_3.setForeground(PPre.TableFg);
 		eastlabel_3.setFont(PPre.switchbox);
-		eastlabel_3.setBounds(805, locy-30, 100, 15);
+		eastlabel_3.setBounds(825, locy-30, 100, 15);
 		
 		westlabel_1=new JLabel("太平洋分区");
 		westlabel_1.setForeground(PPre.TableFg);
@@ -137,12 +137,12 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		westlabel_2=new JLabel("西北分区");
 		westlabel_2.setForeground(PPre.TableFg);
 		westlabel_2.setFont(PPre.switchbox);
-		westlabel_2.setBounds(535, locy-30, 100, 15);
+		westlabel_2.setBounds(555, locy-30, 100, 15);
 		
 		westlabel_3=new JLabel("西南分区");
 		westlabel_3.setForeground(PPre.TableFg);
 		westlabel_3.setFont(PPre.switchbox);
-		westlabel_3.setBounds(805, locy-30, 100, 15);
+		westlabel_3.setBounds(825, locy-30, 100, 15);
 		
 		this.add(eastlabel_1);
 		this.add(eastlabel_2);
@@ -475,7 +475,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 	//绘制赛季数据界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/bg-1.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 

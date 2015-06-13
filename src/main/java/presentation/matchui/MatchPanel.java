@@ -19,8 +19,8 @@ import presentation.playerui.PlayerTechPanel;
 import presentation.preset.MatchPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
-import blservice.matchblservice.MatchBLService;
-import bussinesslogic.matchbl.Match;
+//import blservice.matchblservice.MatchBLService;
+//import bussinesslogic.matchbl.Match;
 
 public class MatchPanel extends JPanel implements ActionListener{
 	/**
@@ -50,13 +50,13 @@ public class MatchPanel extends JPanel implements ActionListener{
 	private MatchInfo matchinfo;
 	private JScrollPane jsp;
 	private DateLabel datelabel;
-	private MatchBLService mbs;
+//	private MatchBLService mbs;
 	public JFrame Frame;
 	public JPanel panelToRemove;
 	public MatchPanel(JFrame frame) {
 		Frame=frame;
 		panelToRemove=this;
-		mbs=new Match();
+//		mbs=new Match();
 		
 		this.setLayout(null);
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -75,8 +75,8 @@ public class MatchPanel extends JPanel implements ActionListener{
 		
 		//TODO change the lastdate when testing 
 //		String lastdate="2014-02-18";
-		String lastdate=mbs.returnPresentDate();
-		datelabel=DateLabel.getInstance(lastdate);
+//		String lastdate=mbs.returnPresentDate();
+//		datelabel=DateLabel.getInstance(lastdate);
 		datelabel.register(calendar);
 		calendar.setText(datelabel.getSelectedDate());
 

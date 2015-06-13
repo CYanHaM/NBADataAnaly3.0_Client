@@ -15,10 +15,10 @@ public class SeniorSiftPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	//定义滑动面板动态大小
-	private int panel_width=400;
+	private int panel_width=360;
 	private int panel_height=90;
 	
-	private int label_width=400;
+	private int label_width=360;
 	private int label_height=35;
 	
 	private JComboBox<String> position;

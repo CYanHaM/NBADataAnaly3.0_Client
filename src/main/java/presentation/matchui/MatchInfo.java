@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import blservice.matchblservice.MatchBLService;
-import bussinesslogic.matchbl.Match;
+//import blservice.matchblservice.MatchBLService;
+//import bussinesslogic.matchbl.Match;
 import VO.MatchVO;
 import presentation.preset.MatchPre;
 
@@ -28,7 +28,7 @@ public class MatchInfo extends JPanel{
 	private int label_width=760;
 	private int label_height=150;
 	//
-	private MatchBLService mbs;
+//	private MatchBLService mbs;
 	private String Date;
 	private ArrayList<MatchVO> matches;
 	
@@ -37,7 +37,7 @@ public class MatchInfo extends JPanel{
 	public MatchInfo(String date,JFrame frame,JPanel panel) {
 		Frame=frame;
 		panelToReturn=panel;
-		mbs=new Match();
+//		mbs=new Match();
 		Date=date;
 		
 		MatchPre MP=new MatchPre();
@@ -48,9 +48,8 @@ public class MatchInfo extends JPanel{
 		this.setOpaque(false);
 //		this.setBackground(MP.MatchInfobg);
 		
-		//TODO change the matches when testing
 		//get matches from interface
-		matches=mbs.showMatchList(Date);
+//		matches=mbs.showMatchList(Date);
 //		testmatches();
 		showMatchinfo(matches);
 		

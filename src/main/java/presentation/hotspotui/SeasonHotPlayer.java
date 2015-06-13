@@ -23,8 +23,8 @@ import presentation.preset.HotPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import VO.PlayerTechVO;
-import blservice.playertechblservice.FindPlayerTechService;
-import bussinesslogic.playertechbl.FindPlayerTech;
+//import blservice.playertechblservice.FindPlayerTechService;
+//import bussinesslogic.playertechbl.FindPlayerTech;
 
 public class SeasonHotPlayer extends JPanel implements ActionListener{
 	/**

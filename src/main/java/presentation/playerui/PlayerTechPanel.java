@@ -29,8 +29,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 
 	//-------------------------界面常量-------------------
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 	//定义边缘透明空白区域边界大小，单位px
 	public static int e_space=10;
 	//定义空出位置大小
@@ -39,8 +39,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private static int PLAYERNUM=443;
 
 	//表格大小
-	private static int TABLEWIDTH=800;
-	private static int TABLEHEIGHT=395;
+	private static int TABLEWIDTH=900;
+	private static int TABLEHEIGHT=415;
 	//表格行高
 	private static int ROWHEIGHT=40;
 
@@ -55,7 +55,6 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private JTable playertable2;
 	private JTable playertable3;
 	private String[] playernames;
-	private String playername;
 	private Object[][] playerinfo1;
 	private Object[][] playerinfo2;
 	private Object[][] playerinfo3;
@@ -64,9 +63,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private String[] columnName2={"排名","球员名称","命中%","三分%","罚球%","篮板%","进攻篮板%","防守篮板%","助攻%","抢断%","盖帽%"};
 	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","效率","GmSc 效率","投篮效率","失误%","使用%"};
 	//表格列宽
-	private static int[] COLUMNWIDTH1={40,120,160,61,50,50,50,50,50,50,50,50};
-	private static int[] COLUMNWIDTH2={40,120,75,75,75,60,80,80,60,60,56};
-	private static int[] COLUMNWIDTH3={40,120,70,50,50,80,80,80,80,60,71};
+	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
+	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72,72,72};
+	private static int[] COLUMNWIDTH3={40,160,75,70,70,80,80,80,80,73,73};
 
 	
 	//总数据与场均数据切换下拉框
@@ -94,21 +93,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private JButton first;
 	private JButton second;
 	private JButton third;
-	//侧边栏按钮
-	private JButton SeasonInfo;
-	private JButton MatchInfo;
-	private JButton TeamInfo;
-	private JButton PlayerInfo;
-	private JButton Hot;
 	
 	private JButton trigger;
 	private boolean exit=false;
 	private JButton[] letterbutton;
-	private Thread showletter;
-	private Thread hideletter;
 	private char[] letter;
 	private String letterstring="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	private int currentnum;
 	
 	//----------------------------------------------------
 	public PlayerTechPre PTPre;
@@ -131,15 +121,17 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		
 		//创建颜色预设对象
 		PTPre=new PlayerTechPre();
-		importdata=new ImportPlayer();
-		initial_data=importdata.getPlayerTechAscend("name");
+//		importdata=new ImportPlayer();
+//		initial_data=importdata.getPlayerTechAscend("name");
 		
-		playerinfo1=new Object[initial_data.size()][columnName1.length];
-		playerinfo2=new Object[initial_data.size()][columnName2.length];
-		playerinfo3=new Object[initial_data.size()][columnName3.length];
-//		playerinfo=new Object[PLAYERNUM][columnName.length];
+//		playerinfo1=new Object[initial_data.size()][columnName1.length];
+//		playerinfo2=new Object[initial_data.size()][columnName2.length];
+//		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		playerinfo1=new Object[PLAYERNUM][columnName1.length];
+		playerinfo2=new Object[PLAYERNUM][columnName2.length];
+		playerinfo3=new Object[PLAYERNUM][columnName3.length];
 		//加载初始表格，显示队伍总数据
-		handleinitial(initial_data);
+//		handleinitial(initial_data);
 
 		//加载表格配置
 		table1_config();
@@ -172,7 +164,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		switchbox.setBackground(PTPre.LineSelected);
 		switchbox.addItem("赛季总数据");
 		switchbox.addItem("场均数据");
-		switchbox.setBounds(WIDTH-TABLEWIDTH-e_space-space,HEIGHT-TABLEHEIGHT-e_space-space-100-65,BOXWIDTH,BOXHEIGHT);
+		switchbox.setBounds(WIDTH-TABLEWIDTH-e_space-space,HEIGHT-TABLEHEIGHT-e_space-space-100-35+15,BOXWIDTH,BOXHEIGHT);
 		switchbox.setFont(PTPre.switchbox);
 		switchbox.addItemListener(new ItemListener(){
 			@Override
@@ -196,7 +188,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	
 	private void addletterbutton(){
 		trigger=new JButton(new ImageIcon("images/players/trigger_1.png"));
-		trigger.setBounds(WIDTH-TABLEWIDTH-e_space-space+650, HEIGHT-TABLEHEIGHT-e_space-space-100-65, 110, 30);
+		trigger.setBounds(WIDTH-TABLEWIDTH-e_space-space, HEIGHT-TABLEHEIGHT-e_space-space-100-35+65, 110, 30);
 		trigger.setBorderPainted(false);
 		trigger.setContentAreaFilled(false);
 		trigger.setFocusPainted(false);
@@ -208,7 +200,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		
 		for(int i=0;i<letterbutton.length;i++){
 			letterbutton[i]=new JButton(new ImageIcon("images/buttons/letters/"+i+"_1.png"));
-			letterbutton[i].setBounds(WIDTH-TABLEWIDTH-e_space-space+i*30, HEIGHT-TABLEHEIGHT-e_space-space-100-30, 30, 30);
+			letterbutton[i].setBounds(WIDTH-TABLEWIDTH-e_space-space+i*30, HEIGHT-TABLEHEIGHT-e_space-space-35, 30, 30);
 			letterbutton[i].setBorderPainted(false);
 			letterbutton[i].setContentAreaFilled(false);
 			letterbutton[i].setFocusPainted(false);
@@ -255,7 +247,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 //		seniorsift.addActionListener(this);
 //		this.add(seniorsift);
 		siftpanel=new JScrollPane();
-		siftpanel.setBounds(WIDTH-TABLEWIDTH-e_space-space, HEIGHT-TABLEHEIGHT-e_space-space-100, 420, 90);
+		siftpanel.setBounds(WIDTH-TABLEWIDTH-e_space-space+520, HEIGHT-TABLEHEIGHT-e_space-space-100-65, 380, 90);
 		siftpanel.setHorizontalScrollBarPolicy( 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 		siftpanel.setVerticalScrollBarPolicy( 
@@ -263,13 +255,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		siftpanel.setOpaque(false);
 		siftpanel.getViewport().setOpaque(false);
 		siftpanel.setBorder(null);
-//		siftpanel.setSize(800, 600);
 		seniorsiftpanel=new SeniorSiftPanel(this);
 		siftpanel.setViewportView(seniorsiftpanel);
 		this.add(siftpanel);
 		
 		add=new JButton(new ImageIcon("images/system_img/+_1.png"));
-		add.setBounds(WIDTH-TABLEWIDTH-e_space-space+420, HEIGHT-TABLEHEIGHT-e_space-space-100, 30, 30);
+		add.setBounds(WIDTH-TABLEWIDTH-e_space-space+460+15, HEIGHT-TABLEHEIGHT-e_space-space-100-40-20, 30, 30);
 		add.setBorderPainted(false);
 		add.setContentAreaFilled(false);
 		add.setFocusPainted(false);
@@ -280,7 +271,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		this.add(add);
 		
 		delete=new JButton(new ImageIcon("images/system_img/-_1.png"));
-		delete.setBounds(WIDTH-TABLEWIDTH-e_space-space+420, HEIGHT-TABLEHEIGHT-e_space-space-100+30, 30, 30);
+		delete.setBounds(WIDTH-TABLEWIDTH-e_space-space+460+15, HEIGHT-TABLEHEIGHT-e_space-space-100-10-20, 30, 30);
 		delete.setBorderPainted(false);
 		delete.setContentAreaFilled(false);
 		delete.setFocusPainted(false);
@@ -300,7 +291,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		order_Asc.setContentAreaFilled(false);
 		order_Asc.setFocusPainted(false);
 //		order_Asc.setSelected(true);
-		order_Asc.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+10,HEIGHT-TABLEHEIGHT-e_space-space-92-65,50,15);
+		order_Asc.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+10,HEIGHT-TABLEHEIGHT-e_space-space-100+15-30,50,15);
 		
 		order_Des=new JRadioButton("降序");
 		order_Des.setFont(PTPre.switchbox);
@@ -309,7 +300,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		order_Des.setContentAreaFilled(false);
 		order_Des.setFocusPainted(false);
 		order_Des.setSelected(true);
-		order_Des.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+60,HEIGHT-TABLEHEIGHT-e_space-space-92-65,50,15);
+		order_Des.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+60,HEIGHT-TABLEHEIGHT-e_space-space-100+15-30,50,15);
 		
 		group=new ButtonGroup();
 		group.add(order_Asc);
@@ -329,24 +320,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	}
 	
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		PlayerInfo.setSelected(true);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-		
 		commit=new JButton(new ImageIcon("images/buttons/playertech/Commit_initial.png"));
-		commit.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*3,HEIGHT-TABLEHEIGHT-e_space-space-50-20,BOXWIDTH,BOXHEIGHT);
+		commit.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*3+120,HEIGHT-TABLEHEIGHT-e_space-space-50-20,BOXWIDTH,BOXHEIGHT);
 		commit.setBorderPainted(false);
 		commit.setContentAreaFilled(false);
 		commit.setFocusPainted(false);
@@ -355,7 +330,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		commit.addActionListener(this);
 		
 		reset=new JButton(new ImageIcon("images/buttons/playertech/Reset_initial.png"));
-		reset.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4, HEIGHT-TABLEHEIGHT-e_space-space-50-20, 100, 30);
+		reset.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+120, HEIGHT-TABLEHEIGHT-e_space-space-50-20, 100, 30);
 		reset.setBorderPainted(false);
 		reset.setContentAreaFilled(false);
 		reset.setFocusPainted(false);
@@ -367,7 +342,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		this.add(reset);
 		
 		first=new JButton(new ImageIcon("images/system_img/1_1.png"));
-		first.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
+		first.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35+120, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
 		first.setBorderPainted(false);
 		first.setContentAreaFilled(false);
 		first.setFocusPainted(false);
@@ -377,7 +352,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		first.setSelected(true);
 		first.addActionListener(this);
 		second=new JButton(new ImageIcon("images/system_img/2_1.png"));
-		second.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35+20, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
+		second.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35+20+120, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
 		second.setBorderPainted(false);
 		second.setContentAreaFilled(false);
 		second.setFocusPainted(false);
@@ -386,7 +361,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		second.setSelectedIcon(new ImageIcon("images/system_img/2_3.png"));
 		second.addActionListener(this);
 		third=new JButton(new ImageIcon("images/system_img/3_1.png"));
-		third.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35+20*2, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
+		third.setBounds(WIDTH-TABLEWIDTH-e_space-space+(BOXWIDTH+10)*4+35+20*2+120, HEIGHT-TABLEHEIGHT-e_space-space-50+20, 20, 20);
 		third.setBorderPainted(false);
 		third.setContentAreaFilled(false);
 		third.setFocusPainted(false);
@@ -398,18 +373,6 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		this.add(second);
 		this.add(third);
 		
-	}
-	
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
 	}
 	
 	//===================================================================
@@ -744,8 +707,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		playertable1.getTableHeader().setBackground(PTPre.TableBg);
 		//去除边框
 		playertable1.setBorder(null);
+		//设置透明
+//		playertable1.setOpaque(false);
 
-//		playertable.setOpaque(false);
 		//按行修改表格背景
 		TableColumnModel model = playertable1.getColumnModel();
 		for (int i = 0, n = model.getColumnCount(); i < n; i++) 
@@ -798,8 +762,6 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		
 	}
     
-    
-    
     public void table2_config(){
 		//------------------------------表格基本属性--------------------------
 		for(int i=0;i<playerinfo2.length;i++){
@@ -829,8 +791,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		playertable2.getTableHeader().setBackground(PTPre.TableBg);
 		//去除边框
 		playertable2.setBorder(null);
+		//设置透明
+//		playertable2.setOpaque(false);
 
-//		playertable.setOpaque(false);
 		//按行修改表格背景
 		TableColumnModel model = playertable2.getColumnModel();
 		for (int i = 0, n = model.getColumnCount(); i < n; i++) 
@@ -913,8 +876,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		playertable3.getTableHeader().setBackground(PTPre.TableBg);
 		//去除边框
 		playertable3.setBorder(null);
+		//设置透明
+//		playertable3.setOpaque(false);
 
-//		playertable.setOpaque(false);
 		//按行修改表格背景
 		TableColumnModel model = playertable3.getColumnModel();
 		for (int i = 0, n = model.getColumnCount(); i < n; i++) 
@@ -1272,6 +1236,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		players.setVisible(true);
 		players.setOpaque(false);
 		players.getViewport().setOpaque(false);
+//		players.getViewport().setBorder(null);
 		players.setBorder(null);
 
 		if (players.getCorner(ScrollPaneConstants.LOWER_RIGHT_CORNER) == null) {
@@ -1324,11 +1289,14 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		{
 			//单元格居中
 			setHorizontalAlignment(JLabel.CENTER);
+//			setOpaque(false);
 			//设置奇偶行的背景色
 			if (row % 2 == 0)
 				setBackground(PTPre.EvenTableLine);
 			else
 				setBackground(PTPre.OddTableLine);
+			
+
 			return super.getTableCellRendererComponent(t, value, isSelected,
 					hasFocus, row, column);
 		}
@@ -1350,7 +1318,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			if(!trigger.isSelected()){
 				Thread show=new Thread(){
 					public void run(){
-						for(int i=letterbutton.length-1;i>=0;i--){
+						for(int i=0;i<letterbutton.length;i++){
 							letterbutton[i].setVisible(true);
 							try {
 								Thread.sleep(15);
@@ -1365,7 +1333,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			}else{
 				Thread hide=new Thread(){
 					public void run(){
-						for(int i=0;i<letterbutton.length;i++){
+						for(int i=letterbutton.length-1;i>=0;i--){
 							letterbutton[i].setVisible(false);
 							try {
 								Thread.sleep(15);
@@ -1459,31 +1427,6 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			third.setSelected(true);
 			refreshtable();
 			}
-		}
-		
-		if(arg0.getSource()==SeasonInfo){
-			Frame.remove(panelToRemove);
-			TeamTechPanel panel=new TeamTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==MatchInfo){
-			Frame.remove(panelToRemove);
-			MatchPanel panel=new MatchPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==TeamInfo){
-			Frame.remove(panelToRemove);
-			TeamInfoPanel panel=new TeamInfoPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==Hot){
-			Frame.remove(panelToRemove);
-			HotPlayerToday panel=new HotPlayerToday(Frame);
-			Frame.add(panel);
-			Frame.repaint();
 		}
 	}
 

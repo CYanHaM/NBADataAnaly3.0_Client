@@ -19,7 +19,7 @@ public class SeniorSift extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int width=410;
+	private int width=370;
 	private int height=45;
 	
 	
