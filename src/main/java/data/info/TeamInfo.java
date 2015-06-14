@@ -23,7 +23,7 @@ public class TeamInfo implements TeamDataService {
 				// MySQL配置时的用户名
 				String user = "root";
 				// Java连接MySQL配置时的密码
-				String password = "";
+				String password = "cyanham";
 				try {
 					// 加载驱动程序
 					Class.forName(driver);
@@ -67,7 +67,6 @@ public class TeamInfo implements TeamDataService {
 	@Override
 	public void WriteIn() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
