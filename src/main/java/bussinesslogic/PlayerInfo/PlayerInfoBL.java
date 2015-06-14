@@ -1,14 +1,11 @@
 package bussinesslogic.PlayerInfo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import PO.PlayerPO;
-import VO.PlayerTechVO;
 import VO.PlayerVO;
 import blservice.playerinfoblservice.PlayerInfoService;
 import bussinesslogic.Transfer.playerinfotrans.PO2VO;
-import bussinesslogic.playertechbl.ShowPlayerTech;
 import data.info.PlayerInfo;
 import dataservice.playerinfodataservice.PlayerInfoDataService;
 

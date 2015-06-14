@@ -11,11 +11,11 @@ import VO.TeamTechVO;
 public interface TeamTechDataService extends Remote{
 	public ArrayList<TeamTechPO> list()throws RemoteException;
 	
-	 public ArrayList<TeamTechPO> Descend(TeamTechEnum DataType);
+	 public ArrayList<TeamTechPO> Descend (String DataType);
 	 
-	 public ArrayList<TeamTechPO> Ascend(TeamTechEnum DataType);
+	 public ArrayList<TeamTechPO> Ascend(String DataType);
 	 
-	 public ArrayList<TeamTechPO> findSeasonHotTeam(TeamTechEnum DataType);
+	 public ArrayList<TeamTechPO> findSeasonHotTeam(String DataType);
 	
 	public void WriteIn();
 }
