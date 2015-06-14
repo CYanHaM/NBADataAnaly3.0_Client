@@ -16,6 +16,8 @@ public class PlayerPO implements Serializable{
 	public int age;                //年龄
 	public int exp;             //球龄
 	public String school;          //毕业学校
+	public String team;
+	public String season;
 	
 	public boolean equals(PlayerPO ppo){
 		if(!this.name.equals(ppo.name)){
