@@ -12,7 +12,8 @@ public class Tools {
 		Tools t = new Tools();
 	//	String res=t.parseDate("Fri,May 9", "2012-13");
 	//	System.out.println(res);
-		t.transferDetail();
+	//	t.transferDetail();
+		t.transferScore();
 	}
 	
 	public void transferDetail(){
@@ -70,7 +71,7 @@ public class Tools {
 		// MySQL配置时的用户名
 		String user = "root";
 		// Java连接MySQL配置时的密码
-		String password = "";
+		String password = "cyanham";
 		try {
 			// 加载驱动程序
 			Class.forName(driver);
@@ -81,6 +82,7 @@ public class Tools {
 			}
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
+			Statement statement1 = conn.createStatement();
 			// 要执行的SQL语句
 			String sql = "SELECT * FROM score";
 			ResultSet rs = statement.executeQuery(sql);
@@ -90,11 +92,11 @@ public class Tools {
 				date = new String(rs.getString(19).getBytes("ISO-8859-1"),"utf-8");
 				season = new String(rs.getString(20).getBytes("ISO-8859-1"),"utf-8");
 				date = t.parseDate(date, season);
-				String sql2 = "replace into match values ('"+rs.getString(1)+"','"+rs.getString(2)+"','"+rs.getString(3)+"','"+rs.getString(4)+"','"+rs.getString(5)+"','"+
+				String sql2 = "replace into `match` values ('"+rs.getString(1)+"','"+rs.getString(2)+"','"+rs.getString(3)+"','"+rs.getString(4)+"','"+rs.getString(5)+"','"+
 				rs.getString(6)+"','"+rs.getString(7)+"','"+rs.getString(8)+"','"+rs.getString(9)+"','"+rs.getString(10)+"','"+rs.getString(11)+"','"+rs.getString(12)+"','"+rs.getString(13)+"','"+
 				rs.getString(14)+"','"+rs.getString(15)+"','"+rs.getString(16)+"','"+rs.getString(17)+"','"+rs.getString(18)+"','"+date+"','"+rs.getString(20)+"','"+rs.getString(21)+"')";
 				System.out.println(sql2);
-				statement.executeUpdate(sql2);
+				statement1.executeUpdate(sql2);
 			}
 			rs.close();
 			conn.close();
@@ -165,7 +167,7 @@ public class Tools {
 		if(dt[1].length()==1){
 			day = "0"+day;
 		}
-		result = year+month+day;
+		result = year+"-"+month+"-"+day;
 		return result;
 	}
 	
