@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -75,20 +73,28 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	private int SeasonSelection_w=200;
 	private int SeasonSelection_h=30;
 	
+	private JLabel TeamLogo;
+	private JLabel TeamInfo;
+	
 	//table showing the different data of team comparing to whole teams
 	private JScrollPane DataPane;
 	private int DataPane_w=370;
-	private int DataPane_h=400;
+	private int DataPane_h=390;
 	private JTable DataTable;
 	private Object[][] DataInfo;
-	private String[] columnNames={"","场均","场均排名","总体平均值","区间估计"};
+	private String[] columnNames={"场均","场均排名","总体平均值","区间估计"};
 	private String[] lineNames={"得分","篮板","助攻","盖帽","抢断","罚球","失误","犯规","上场时间"};
-	private int[] COLUMNWIDTH={30,100,60,100,100};
+	private int[] COLUMNWIDTH={80,60,80,150};
 	
 	//buttons showing differentdatas
 	private int button_w=130;
 	private int button_h=40;
 	private JButton[] linebutton;
+	
+	private ChartPanel piechart1;
+	private ChartPanel piechart2;
+	private ChartPanel barchart;
+	private ChartPanel linechart;
 	
 	JFrame Frame;
 	JPanel panelToRemove;
@@ -107,12 +113,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		addbarchart();
 		addpiechart();
 		
-//		CategoryDataset dataset3=createLineDataset();
-//		ChartPanel chartpanel3=new ChartPanel(new LineChart().createChart(dataset3,"球员数据","得分","年份"));
-//		chartpanel3.setBounds(800, 200, 300, 300);
-//		chartpanel3.setOpaque(false);
-//		this.add(chartpanel3);
-//		this.repaint();
+
 		
 //		CategoryDataset dataset4=createRadarDataset();
 //		ChartPanel chartpanel4=new ChartPanel(new RadarChart().createChart(dataset4,"233"));
@@ -128,24 +129,43 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		int space=80;
 		Team=new JButton("球队");
 		Team.setBounds(SIDEWIDTH, space, Team_w, Team_h);
+		Team.addActionListener(this);
 		this.add(Team);
 		
 		Player=new JButton("球员");
 		Player.setBounds(SIDEWIDTH+Team_w+10, space, Player_w, Player_h);
+		Player.addActionListener(this);
 		this.add(Player);
 		
 		Analysis=new JButton("赛季分析");
 		Analysis.setBounds(SIDEWIDTH, space+Team_h+10, Analysis_w, Analysis_h);
+		Analysis.setSelected(true);
+		Analysis.addActionListener(this);
 		this.add(Analysis);
 		
 		Trend=new JButton("发展趋势");
 		Trend.setBounds(SIDEWIDTH+Analysis_w+10,space+Team_h+10, Trend_w, Trend_h);
+		Trend.setSelected(false);
+		Trend.addActionListener(this);
 		this.add(Trend);
 		
 		linebutton=new JButton[lineNames.length];
 		for(int i=0;i<lineNames.length;i++){
+			final int temp=i;
 			linebutton[i]=new JButton(lineNames[i]);
-			linebutton[i].setBounds(SIDEWIDTH, 250+i*button_h, button_w, button_h);
+			linebutton[i].setBounds(SIDEWIDTH, 275+i*button_h, button_w, button_h);
+			linebutton[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(!linebutton[temp].isSelected()){
+						for(int i=0;i<linebutton.length;i++){
+							linebutton[i].setSelected(false);
+						}
+						linebutton[temp].setSelected(true);
+						setchart(lineNames[temp]);
+					}
+				}
+			});
 			this.add(linebutton[i]);
 		}
 	}
@@ -212,10 +232,14 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	private void addtable(){
 		DataPane=new JScrollPane();
 		DataPane.setBounds(SIDEWIDTH+button_w, 250, DataPane_w, DataPane_h);
+//		DataPane.setHorizontalScrollBarPolicy( 
+//				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+//		DataPane.setVerticalScrollBarPolicy( 
+//				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); 
 		DataPane.setHorizontalScrollBarPolicy( 
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
 		DataPane.setVerticalScrollBarPolicy( 
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); 
+				JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		DataPane.setVisible(true);
 		DataPane.setOpaque(false);
 		DataPane.getViewport().setOpaque(false);
@@ -261,9 +285,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	}
 
 	private void table_config(){
-		for(int i=0;i<lineNames.length;i++){
-			DataInfo[i][0]=i+1;
-		}
 		//表格属性设置
 		DataTable=new JTable(DataInfo, columnNames){
 			private static final long serialVersionUID = 1L;
@@ -333,35 +354,41 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		
 	}
 	
-	
 	public void refreshtable(){
 		table_config();
 		DataPane.setViewportView(DataTable);
 		Frame.repaint();
 	}
 	
+	private void addlabel(){
+		TeamLogo=new JLabel();
+//		TeamLogo.setBounds(500, 70, , height);
+		TeamInfo=new JLabel();
+		
+	}
+	
 	private void addbarchart(){
 		CategoryDataset BarSet=createBarDataset();
-		ChartPanel chartpanel1=new ChartPanel(new BarChart().createChart(BarSet,"整体对比",null,null));
-		chartpanel1.setBounds(SIDEWIDTH+DataPane_w+button_w+40, 370, 350, 300);
-		chartpanel1.setOpaque(false);
-		this.add(chartpanel1);
+		barchart=new ChartPanel(new BarChart().createChart(BarSet,"整体对比",null,null));
+		barchart.setBounds(SIDEWIDTH+DataPane_w+button_w+40, 370, 350, 300);
+		barchart.setOpaque(false);
+		this.add(barchart);
 		this.repaint();
 	}
 	
 	private void addpiechart(){
 		PieDataset ScorecompSet=createPieDataset1();
-		ChartPanel chartpanel2=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
-		chartpanel2.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
-		chartpanel2.setOpaque(false);
-		this.add(chartpanel2);
+		piechart1=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
+		piechart1.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
+		piechart1.setOpaque(false);
+		this.add(piechart1);
 		this.repaint();
 		
 		PieDataset ScorepercentSet=createPieDataset2();
-		ChartPanel chartpanel3=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
-		chartpanel3.setBounds(SIDEWIDTH+DataPane_w+button_w+190, 230, 230, 150);
-		chartpanel3.setOpaque(false);
-		this.add(chartpanel3);
+		piechart2=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
+		piechart2.setBounds(SIDEWIDTH+DataPane_w+button_w+190, 230, 230, 150);
+		piechart2.setOpaque(false);
+		this.add(piechart2);
 		this.repaint();
 		
 	}
@@ -479,17 +506,67 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	    return localXYSeriesCollection;
 	  }
 	 
+	 private void setchart(String linename){
+		 
+	 }
+	 
+	 private void setAnalysisSelected(){
+		 Analysis.setSelected(true);
+		 Trend.setSelected(false);
+		 for(int i=0;i<lineNames.length;i++){
+			 linebutton[i].setVisible(true);
+		 }
+		 DataType.setVisible(true);
+		 SeasonSelection.setVisible(true);
+		 DataPane.setVisible(true);
+		 
+		 piechart1.setVisible(true);
+		 piechart2.setVisible(true);
+		 barchart.setVisible(true);
+		 linechart.setVisible(false);
+		 
+		 
+	 }
+	 private void setTrendSelected(){
+		 Analysis.setSelected(false);
+		 Trend.setSelected(true);
+		 for(int i=0;i<lineNames.length;i++){
+			 linebutton[i].setVisible(false);
+		 }
+		 DataType.setVisible(false);
+		 SeasonSelection.setVisible(false);
+		 DataPane.setVisible(false);
+		 
+		 CategoryDataset ScoreTrendSet=createLineDataset();
+		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
+		 linechart.setBounds(SIDEWIDTH, 250, 600, 400);
+		 linechart.setOpaque(false);
+		 this.add(linechart);
+		 
+		 piechart1.setVisible(false);
+		 piechart2.setVisible(false);
+		 barchart.setVisible(false);
+		 linechart.setVisible(true);
+	 }
+	 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==Analysis){
+			if(!Analysis.isSelected()){
+				setAnalysisSelected();
+			}
+		}
+		if(e.getSource()==Trend){
+			if(!Trend.isSelected()){
+				setTrendSelected();
+			}
+		}
+	}
+	 
+	 
 	 public void paintComponent(Graphics g){
 		 super.paintComponent(g);
 		 ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	 }
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-//		if(e.getSource()==)
-	}
-	 
-	 
-	 
 }

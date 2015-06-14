@@ -1,5 +1,6 @@
 package presentation.statui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -25,22 +26,30 @@ public class LineChart {
 		  chart.setBorderPaint(null);
 		  chart.setBackgroundPaint(null);
 		  // 设置字体，否则会显示乱码
-		  Font font = new Font("华文细黑", 0, 15);
 		  TextTitle title = chart.getTitle();
 		  // 设置标题字体
-		  title.setFont(font);
-		  title.setPaint(Color.WHITE);
+		  title.setFont(StatPre.ChartTitleFont);
+		  title.setPaint(StatPre.defaultcolor);
 		  // 得到一个参考
 		  CategoryPlot plot = (CategoryPlot) chart.getPlot();
-		  plot.getRangeAxis().setLabelFont(new Font("华文细黑",0,15));
-		  plot.getRangeAxis().setLabelPaint(Color.WHITE);
-		  plot.getDomainAxis().setLabelFont(new Font("华文细黑",0,15));
-		  plot.getDomainAxis().setLabelPaint(Color.WHITE);
+		  plot.getRangeAxis().setLabelFont(StatPre.ChartRangeAxisFont);
+		  plot.getRangeAxis().setLabelPaint(StatPre.defaultcolor);
+		  plot.getRangeAxis().setTickLabelFont(StatPre.ChartRangeAxisFont);
+		  plot.getRangeAxis().setTickLabelPaint(StatPre.defaultcolor);
+		  plot.getRangeAxis().setAxisLinePaint(StatPre.defaultcolor);
+		  
+		  plot.getDomainAxis().setLabelFont(StatPre.ChartDomainAxisFont);
+		  plot.getDomainAxis().setLabelPaint(StatPre.defaultcolor);
+		  plot.getDomainAxis().setTickLabelFont(StatPre.ChartRangeAxisFont);
+		  plot.getDomainAxis().setTickLabelPaint(StatPre.defaultcolor);
+		  plot.getDomainAxis().setAxisLinePaint(StatPre.defaultcolor);
 		  
 		  LineAndShapeRenderer renderer=(LineAndShapeRenderer) plot.getRenderer();
 		  renderer.setSeriesPaint(0, StatPre.LineColor1);
 		  renderer.setSeriesPaint(1, StatPre.LineColor2);
-		  renderer.setBaseItemLabelsVisible(false);
+		  renderer.setSeriesStroke(0, new BasicStroke(3F));
+		  renderer.setSeriesStroke(1, new BasicStroke(3F));
+		  renderer.setBaseItemLabelsVisible(true);
 		  
 		  plot.setRenderer(renderer);
 		  
