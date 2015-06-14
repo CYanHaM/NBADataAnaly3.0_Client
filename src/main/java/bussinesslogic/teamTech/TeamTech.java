@@ -68,10 +68,10 @@ public class TeamTech implements TeamTechBLService{
 	}
 
 	@Override
-	public ArrayList<TeamTechVO> findSeasonHotTeam(TeamTechEnum DataType) {
+	public ArrayList<TeamTechVO> findSeasonHotTeam(TeamTechEnum DataType,String season) {
 		translate trans = new translate();
 		ArrayList<TeamTechVO> result = new ArrayList<TeamTechVO>();
-		ArrayList<TeamTechPO> polist = ttds.findSeasonHotTeam(trans.translate(DataType));
+		ArrayList<TeamTechPO> polist = ttds.findSeasonHotTeam(trans.translate(DataType),season);
 		for(int i =0;i<polist.size();i++){
 			p2l = new TeamTechP2L();
 			l2v = new TeamTechL2V();

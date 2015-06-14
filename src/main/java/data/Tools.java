@@ -10,34 +10,30 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-	//	String res=t.parseDate("Fri,May 9", "2012-13");
-	//	System.out.println(res);
-	//	t.transferDetail();
-		t.transferScore();
 	}
 	
 	public void transferDetail(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
-			String sql = "SELECT * FROM match_detail";
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
+			String sql = "SELECT * FROM `match_detail`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 				String date="";
@@ -66,24 +62,22 @@ public class Tools {
 	public void transferScore(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
 			String sql = "SELECT * FROM score";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
@@ -173,7 +167,7 @@ public class Tools {
 	
 	public String getPos(String pos){
 						String[] temp = pos.split(",");
-						// Êä³ö
+						// ï¿½ï¿½ï¿½
 						System.out.println(temp[1]);  
 						return temp[1];
 					} 

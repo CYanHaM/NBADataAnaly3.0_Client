@@ -1,7 +1,7 @@
 package bussinesslogic.Transfer.V2L;
 
 import VO.TeamVO;
-import bussinesslogic.TeamBL.TeamLineItem;
+import bussinesslogic.teambl.TeamLineItem;
 
 public class TeamV2L {
 	TeamLineItem tli = new TeamLineItem();
