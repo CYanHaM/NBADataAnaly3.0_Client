@@ -23,7 +23,7 @@ public interface TeamTechBLService {
     /* ������������ͣ��Լ�������ǽ���
      * */
     
-    public ArrayList<TeamTechVO> findSeasonHotTeam(TeamTechEnum DataType);
+    public ArrayList<TeamTechVO> findSeasonHotTeam(TeamTechEnum DataType,String season);
     /* ����ɸѡ����
      * */
     

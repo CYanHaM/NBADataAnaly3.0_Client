@@ -11,7 +11,7 @@ public interface FindDataService {
 	
 	public ArrayList<PlayerTechMPO> findHotPlayerToday(String date, String keyword);
 	
-	public ArrayList<PlayerTechPO> findSeasonHotPlayer(String keyword);
+	public ArrayList<PlayerTechPO> findSeasonHotPlayer(String keyword,String season);
 	
 	public ArrayList<PlayerTechPO> sift(ArrayList<ScreeningConditionVO> list);
 	

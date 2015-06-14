@@ -15,7 +15,7 @@ public interface TeamTechDataService extends Remote{
 	 
 	 public ArrayList<TeamTechPO> Ascend(String DataType);
 	 
-	 public ArrayList<TeamTechPO> findSeasonHotTeam(String DataType);
+	 public ArrayList<TeamTechPO> findSeasonHotTeam(String DataType,String season);
 	
 	public void WriteIn();
 }
