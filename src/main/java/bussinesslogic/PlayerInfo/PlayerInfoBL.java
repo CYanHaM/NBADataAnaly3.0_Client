@@ -9,7 +9,7 @@ import VO.PlayerVO;
 import blservice.playerinfoblservice.PlayerInfoService;
 import bussinesslogic.Transfer.playerinfotrans.PO2VO;
 import bussinesslogic.playertechbl.ShowPlayerTech;
-import data.playerinfo.PlayerInfo;
+import data.info.PlayerInfo;
 import dataservice.playerinfodataservice.PlayerInfoDataService;
 
 public class PlayerInfoBL implements PlayerInfoService{
