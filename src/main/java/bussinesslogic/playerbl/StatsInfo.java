@@ -15,6 +15,10 @@ public interface StatsInfo {
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,String season);
 	public ArrayList<MatchPO>getMatchForYear(String team,String season,int ifRegular);
 	public ArrayList<PlayerTechMPO>getPlayerForYear(String name,String season,int ifRegular);
+	public TeamTechPO getTeamRank(String teamname,String season,int ifRegular);
+	public TeamTechPO getAllTeamAverage(String season,int ifRegular);
+	public PlayerTechPO getPlayerRank(String player,String season,int ifRegular);
+	public PlayerTechPO getAllPlayerAverage(String season,int ifRegular);
 
 
 }
