@@ -4,6 +4,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import PO.PlayerTechPO;
 
 
 public class Tools {
@@ -15,24 +18,24 @@ public class Tools {
 	public void transferDetail(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `match_detail`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
@@ -62,20 +65,20 @@ public class Tools {
 	public void transferScore(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
 			String sql = "SELECT * FROM score";
@@ -167,8 +170,23 @@ public class Tools {
 	
 	public String getPos(String pos){
 						String[] temp = pos.split(",");
-						// ���
+						// 锟斤拷锟�
 						System.out.println(temp[1]);  
 						return temp[1];
 					} 
+
+	public ArrayList<PlayerTechPO> getPlayerTech(ResultSet rs){
+		try{
+			while(rs.next()){
+			}	
+		}catch(ClassNotFoundException e) {
+			System.out.println("Sorry,can`t find the Driver!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}; 
+		return null;
+	}
 }
