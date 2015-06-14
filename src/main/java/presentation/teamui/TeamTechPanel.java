@@ -29,14 +29,6 @@ import presentation.preset.TeamTechPre;
 import TypeEnum.TeamTechEnum;
 import VO.TeamTechVO;
 import VO.TeamVO;
-import de.erichseifert.gral.*;
-import de.erichseifert.gral.data.DataTable;
-import de.erichseifert.gral.plots.BarPlot;
-import de.erichseifert.gral.plots.PiePlot;
-import de.erichseifert.gral.plots.XYPlot;
-import de.erichseifert.gral.plots.lines.DefaultLineRenderer2D;
-import de.erichseifert.gral.plots.lines.LineRenderer;
-import de.erichseifert.gral.ui.InteractivePanel;
 
 
 public class TeamTechPanel extends JPanel implements ActionListener{
@@ -131,9 +123,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //		handleinitial(initial_data);
 
 		//加载表格配置
-//		table1_config();
-//		table2_config();
-//		table3_config();
+		table1_config();
+		table2_config();
+		table3_config();
 		//加载滑动面板配置
 //		scrollpane_config();
 		//添加下拉框
@@ -150,33 +142,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		
 		this.add(message);
 		
-		createChart();
 		this.repaint();
 	}
-	
-	
-	private void createChart(){
-//		DataTable data=new DataTable(Double.class,Double.class);
-//		for (double x = -5.0; x <= 5.0; x+=0.25) {
-//		    double y = 5.0*Math.sin(x);
-//		    data.add(x, y);
-//		}
-		DataTable data = new DataTable(Integer.class, Double.class);
-		data.add(2010, -5.00);
-		data.add(2011,  3.25);
-		data.add(2012, -0.50);
-		data.add(2012,  4.00);
-		BarPlot plot=new BarPlot(data);
-		LineRenderer lines=new DefaultLineRenderer2D();
-		plot.setLineRenderer(data, lines);
-		Color color=new Color(116,177,227);
-		plot.setBorderColor(null);
-		plot.getPointRenderer(data).setColor(color);
-		plot.getLineRenderer(data).setColor(color);
-		InteractivePanel itp=new InteractivePanel(plot);
-		itp.setBounds(WIDTH-TABLEWIDTH-e_space-space,HEIGHT-TABLEHEIGHT-e_space-space,TABLEWIDTH,TABLEHEIGHT);
-		this.add(itp);
-	}
+
 	
 	private void addbutton(){
 		first=new JButton(new ImageIcon("images/system_img/1_1.png"));

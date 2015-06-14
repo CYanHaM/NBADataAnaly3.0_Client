@@ -7,6 +7,10 @@ public class MatchP2L {
 
 	public MatchLineItem p2l(MatchPO mp){
 		MatchLineItem mli=new MatchLineItem();
+		
+		mli.ifRegular = mp.ifRegular;
+		mli.ifEnd = mp.ifEnd;
+		
 		 mli.season=mp.season;                                             //����
 		 mli.date=mp.date;                                                 //����
 		 mli.homeTeam=mp.homeTeam;                                         //��������

@@ -41,6 +41,7 @@ public class MainPanel extends JPanel implements ActionListener{
 	private JButton TeamInfo;
 	private JButton PlayerInfo;
 	private JButton Hot;
+	private JButton Stat;
 	
 	private boolean stop=false;
 	
@@ -93,8 +94,8 @@ public class MainPanel extends JPanel implements ActionListener{
 	
 	
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/graph_1.png"));
-		sideButton_config(SeasonInfo, "graph", 0);
+		SeasonInfo=new JButton(new ImageIcon("images/system_img/season_1.png"));
+		sideButton_config(SeasonInfo, "season", 0);
 		
 		MatchInfo=new JButton(new ImageIcon("images/system_img/match_1.png"));
 		sideButton_config(MatchInfo, "match", 1);
@@ -108,6 +109,9 @@ public class MainPanel extends JPanel implements ActionListener{
 		
 		Hot=new JButton(new ImageIcon("images/system_img/hot_1.png"));
 		sideButton_config(Hot, "hot", 4);
+		
+		Stat=new JButton(new ImageIcon("images/system_img/stat_1.png"));
+		sideButton_config(Stat, "stat", 5);
 	}
 	
 	private void sideButton_config(final JButton button,final String info,int count){
@@ -204,6 +208,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(false);
+			Stat.setSelected(false);
 			TeamTechPanel newpanel=new TeamTechPanel(Frame);
 			jumpToPanel(newpanel);
 			}
@@ -215,6 +220,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(false);
+			Stat.setSelected(false);
 			MatchPanel newpanel=new MatchPanel(Frame);
 			jumpToPanel(newpanel);
 			}
@@ -226,6 +232,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			TeamInfo.setSelected(true);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(false);
+			Stat.setSelected(false);
 			TeamInfoPanel newpanel=new TeamInfoPanel(Frame);
 			jumpToPanel(newpanel);
 			}
@@ -237,6 +244,7 @@ public class MainPanel extends JPanel implements ActionListener{
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(true);
 			Hot.setSelected(false);
+			Stat.setSelected(false);
 			PlayerTechPanel newpanel=new PlayerTechPanel(Frame);
 			jumpToPanel(newpanel);
 			}
@@ -248,9 +256,21 @@ public class MainPanel extends JPanel implements ActionListener{
 			TeamInfo.setSelected(false);
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(true);
+			Stat.setSelected(false);
 //			SeasonHotTeam newpanel=new SeasonHotTeam(Frame);
-			TeamStatPanel newpanel=new TeamStatPanel(Frame);
-			jumpToPanel(newpanel);
+//			jumpToPanel(newpanel);
+			}
+		}
+		if(arg0.getSource()==Stat){
+			if(!Stat.isSelected()){
+				SeasonInfo.setSelected(false);
+				MatchInfo.setSelected(false);
+				TeamInfo.setSelected(false);
+				PlayerInfo.setSelected(false);
+				Hot.setSelected(false);
+				Stat.setSelected(true);
+				TeamStatPanel newpanel=new TeamStatPanel(Frame);
+				jumpToPanel(newpanel);
 			}
 		}
 	}

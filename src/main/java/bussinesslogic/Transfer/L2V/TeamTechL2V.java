@@ -1,11 +1,14 @@
 package bussinesslogic.Transfer.L2V;
 
 import VO.TeamTechVO;
-import bussinesslogic.TeamTech.TeamTechLineItem;
+import bussinesslogic.teamTech.TeamTechLineItem;
 
 public class TeamTechL2V {
 	TeamTechVO ttvo = new TeamTechVO();
 	public TeamTechVO l2v(TeamTechLineItem ttli){
+		
+		ttvo.ifReagular = ttli.ifReagular;
+		
 		ttvo.name = (ttli.name==null) ? null : ttli.name;
 		ttvo.season = (ttli.season==null) ? null : ttli.season;
 		ttvo.gameNum = ttli.gameNum;

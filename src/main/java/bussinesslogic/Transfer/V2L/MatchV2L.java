@@ -7,6 +7,10 @@ public class MatchV2L {
 
 	public MatchLineItem v2l(MatchVO mv){
 		MatchLineItem mli=new MatchLineItem();
+		
+		mli.ifRegular = mv.ifRegular;
+		mli.ifEnd = mv.ifEnd;
+		
 		 mli.season=mv.season;                                             //����
 		 mli.date=mv.date;                                                 //����
 		 mli.homeTeam=mv.homeTeam;                                         //��������

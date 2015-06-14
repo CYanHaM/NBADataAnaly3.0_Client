@@ -6,6 +6,10 @@ import PO.MatchPO;
 public class MatchL2P {
 	public MatchPO l2p(MatchLineItem mli){
 		MatchPO mp=new MatchPO();
+		
+		mp.ifRegular = mli.ifRegular;
+		mp.ifEnd = mli.ifEnd;
+		
 		 mp.season=mli.season;                                             //����
 		 mp.date=mli.date;                                                 //����
 		 mp.homeTeam=mli.homeTeam;                                         //��������
