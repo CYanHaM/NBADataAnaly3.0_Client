@@ -1,5 +1,7 @@
 package data;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,10 +9,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import dataservice.MatchDataService;
 import PO.MatchPO;
 import PO.PlayerTechMPO;
 
 public class AboutMatch {
+	public static void main(String[] args){
+		AboutMatch am = new AboutMatch();
+		ArrayList<MatchPO> list = am.getMatch();
+		MatchDataService mds = new MatchData();
+		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
+		for(int i=0;i<list.size();i++){
+			MatchPO po = mds.completeMatch(list.get(i));
+			res.add(po);
+			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
+			for(int j=0;j<ml.size();j++){
+				am.modify(ml.get(j));
+			}
+		}
+		 try {
+			  FileOutputStream fos = new FileOutputStream("database/PlayerTechMPO.ser");
+	          ObjectOutputStream oos = new ObjectOutputStream(fos);
+	          oos.writeObject(res);
+	          oos.flush();
+	          oos.close();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+		
+		
+	}
 	public ArrayList<MatchPO> getMatch(){
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		Tools t = new Tools();
@@ -131,5 +159,38 @@ public class AboutMatch {
 		};
 		System.out.println("wrong:about Match");
 		return null;
+	}
+	
+	public void modify(PlayerTechMPO po){
+		String driver = "com.mysql.jdbc.Driver";
+		//URL指向要访问的数据库名nba
+		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
+		// MySQL配置时的用户名
+		String user = "root";
+		// Java连接MySQL配置时的密码
+		String password = "cyanham";
+		try {
+			// 加载驱动程序
+			Class.forName(driver);
+			// 连续数据库
+			Connection conn = DriverManager.getConnection(url, user, password);
+			if(!conn.isClosed()){
+				System.out.println("Succeeded connecting to the Database!");
+			}
+			// statement用来执行SQL语句
+			Statement statement = conn.createStatement();
+			// 要执行的SQL语句
+			String sql = "update detail set doubles='"+po.ifDouble+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			conn.close();
+		
+		} catch(ClassNotFoundException e) {
+			System.out.println("Sorry,can`t find the Driver!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		};
 	}
 }
