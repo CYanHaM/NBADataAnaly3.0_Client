@@ -5,11 +5,11 @@ import bussinesslogic.playerbl.PlayerTech;
 import bussinesslogic.playerbl.StatsInfo;
 import bussinesslogic.statsbl.Stats;
 
-public class ImportTeamData {
+public class ImportData {
 
 	StatsInfo statsinfo=new PlayerTech();
 	StatsBLService statsbl=new Stats();
-	public ImportTeamData() {
+	public ImportData() {
 		
 	}
 }
