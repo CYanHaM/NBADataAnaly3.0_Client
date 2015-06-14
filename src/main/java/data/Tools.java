@@ -12,31 +12,31 @@ public class Tools {
 		Tools t = new Tools();
 	//	String res=t.parseDate("Fri,May 9", "2012-13");
 	//	System.out.println(res);
-		t.transferDetail();
+		t.transferScore();
 	}
 	
 	public void transferDetail(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
-			String sql = "SELECT * FROM match_detail";
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
+			String sql = "SELECT * FROM `match_detail`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 				String date="";
@@ -65,23 +65,24 @@ public class Tools {
 	public void transferScore(){
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
-		String password = "";
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			Statement statement1 = conn.createStatement();
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM score";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
@@ -90,11 +91,11 @@ public class Tools {
 				date = new String(rs.getString(19).getBytes("ISO-8859-1"),"utf-8");
 				season = new String(rs.getString(20).getBytes("ISO-8859-1"),"utf-8");
 				date = t.parseDate(date, season);
-				String sql2 = "replace into match values ('"+rs.getString(1)+"','"+rs.getString(2)+"','"+rs.getString(3)+"','"+rs.getString(4)+"','"+rs.getString(5)+"','"+
+				String sql2 = "replace into `match` values ('"+rs.getString(1)+"','"+rs.getString(2)+"','"+rs.getString(3)+"','"+rs.getString(4)+"','"+rs.getString(5)+"','"+
 				rs.getString(6)+"','"+rs.getString(7)+"','"+rs.getString(8)+"','"+rs.getString(9)+"','"+rs.getString(10)+"','"+rs.getString(11)+"','"+rs.getString(12)+"','"+rs.getString(13)+"','"+
 				rs.getString(14)+"','"+rs.getString(15)+"','"+rs.getString(16)+"','"+rs.getString(17)+"','"+rs.getString(18)+"','"+date+"','"+rs.getString(20)+"','"+rs.getString(21)+"')";
 				System.out.println(sql2);
-				statement.executeUpdate(sql2);
+				statement1.executeUpdate(sql2);
 			}
 			rs.close();
 			conn.close();
@@ -171,7 +172,7 @@ public class Tools {
 	
 	public String getPos(String pos){
 						String[] temp = pos.split(",");
-						// Êä³ö
+						// ï¿½ï¿½ï¿½
 						System.out.println(temp[1]);  
 						return temp[1];
 					} 
