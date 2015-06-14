@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.StatsData;
 import dataservice.StatsDataService;
+import blservice.statsblservice.StatsBLService;
 import bussinesslogic.playerbl.PlayerTech;
 import bussinesslogic.playerbl.StatsInfo;
 import PO.MatchPO;
@@ -13,7 +14,7 @@ import PO.PlayerTechPO;
 import PO.TeamStatsPO;
 import PO.TeamTechPO;
 
-public class Stats {
+public class Stats implements StatsBLService{
 	
 //置信区间	
 	public double[] calculateInterval(double[] str,double a){

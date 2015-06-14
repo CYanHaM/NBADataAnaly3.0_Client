@@ -3,8 +3,10 @@ package bussinesslogic.playerbl;
 import java.util.ArrayList;
 
 import PO.MatchPO;
+import PO.PlayerStatsPO;
 import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
+import PO.TeamStatsPO;
 import PO.TeamTechPO;
 
 public interface StatsInfo {
@@ -19,6 +21,7 @@ public interface StatsInfo {
 	public TeamTechPO getAllTeamAverage(String season,int ifRegular);
 	public PlayerTechPO getPlayerRank(String player,String season,int ifRegular);
 	public PlayerTechPO getAllPlayerAverage(String season,int ifRegular);
+
 
 
 }
