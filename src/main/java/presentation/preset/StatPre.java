@@ -7,7 +7,7 @@ public class StatPre {
 
 	public static Font TitleFont=new Font("华文细黑",0,15);
 	public static Font TitleFont_middle=new Font("华文细黑",0,10);
-	public static Font BoxFont=new Font("幼圆",0,12);
+	public static Font BoxFont=new Font("微软雅黑",0,12);
 	
 	public static Font ChartDomainAxisFont=new Font("微软雅黑",0,12);
 	public static Font ChartRangeAxisFont=new Font("微软雅黑",0,13);

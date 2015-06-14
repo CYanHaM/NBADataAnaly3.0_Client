@@ -127,7 +127,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		table2_config();
 		table3_config();
 		//加载滑动面板配置
-//		scrollpane_config();
+		scrollpane_config();
 		//添加下拉框
 		addbox();
 		//添加单选按钮

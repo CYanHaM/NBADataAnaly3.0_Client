@@ -69,6 +69,10 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	private JComboBox<String> SeasonSelection;
 	private int SeasonSelection_w=200;
 	private int SeasonSelection_h=30;
+	private JComboBox<String> Teams;
+	private String[] TeamNames={"","","","","",""};
+	private int Teams_w=150;
+	private int Teams_h=30;
 
 	private JLabel TeamLogo;
 	private JLabel TeamInfo;
@@ -76,7 +80,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	//table showing the different data of team comparing to whole teams
 	private JScrollPane DataPane;
 	private int DataPane_w=370;
-	private int DataPane_h=390;
+	private int DataPane_h=385;
 	private JTable DataTable;
 	private Object[][] DataInfo;
 	private String[] columnNames={"场均","场均排名","总体平均值","区间估计"};
@@ -88,8 +92,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	private int button_h=40;
 	private JButton[] linebutton;
 
-	private ChartPanel piechart1;
-	private ChartPanel piechart2;
+	private ChartPanel radarchart;
 	private ChartPanel barchart;
 	private ChartPanel linechart;
 	
@@ -108,18 +111,20 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		addbox();
 		addtable();
 		addbarchart();
-		addpiechart();
+		addradarchart();
 	}
 
 	private void addbuttons(){
 		int space=80;
 		Team=new JButton("球队");
 		Team.setBounds(SIDEWIDTH, space, Team_w, Team_h);
+		Team.setSelected(false);
 		Team.addActionListener(this);
 		this.add(Team);
 		
 		Player=new JButton("球员");
 		Player.setBounds(SIDEWIDTH+Team_w+10, space, Player_w, Player_h);
+		Player.setSelected(true);
 		Player.addActionListener(this);
 		this.add(Player);
 		
@@ -139,7 +144,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		for(int i=0;i<lineNames.length;i++){
 			final int temp=i;
 			linebutton[i]=new JButton(lineNames[i]);
-			linebutton[i].setBounds(SIDEWIDTH, 275+i*button_h, button_w, button_h);
+			linebutton[i].setBounds(SIDEWIDTH, 270+i*button_h, button_w, button_h);
 			linebutton[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -213,11 +218,41 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			}
 		});
 		this.add(SeasonSelection);
+			
+		Teams=new JComboBox<String>();
+		Teams.setFocusable(false);
+		Teams.setBackground(StatPre.indefaultcolor);
+		Teams.addItem("2010-2011 常规赛");
+		Teams.addItem("2010-2011 季后赛");
+		Teams.addItem("2011-2012 常规赛");
+		Teams.addItem("2011-2012 季后赛");
+		Teams.addItem("2012-2013 常规赛");
+		Teams.addItem("2012-2013 季后赛");
+		Teams.setBounds(SIDEWIDTH+DataType_w+20,190,SeasonSelection_w,SeasonSelection_h);
+		Teams.setFont(StatPre.BoxFont);
+		Teams.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				// TODO Auto-generated method stub
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					if(SeasonSelection.getSelectedIndex()==0){
+						
+					}
+					if(SeasonSelection.getSelectedIndex()==1){
+						
+					}
+					if(SeasonSelection.getSelectedIndex()==2){
+						
+					}
+				}
+			}
+		});
+		this.add(Teams);
 	}
 	
 	private void addtable(){
 		DataPane=new JScrollPane();
-		DataPane.setBounds(SIDEWIDTH+button_w, 250, DataPane_w, DataPane_h);
+		DataPane.setBounds(SIDEWIDTH+button_w, 245, DataPane_w, DataPane_h);
 //		DataPane.setHorizontalScrollBarPolicy( 
 //				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 //		DataPane.setVerticalScrollBarPolicy( 
@@ -337,7 +372,6 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	
 	private void datainitial(){
 		DataInfo=new Object[lineNames.length][columnNames.length];
-		
 	}
 	
 	public void refreshtable(){
@@ -362,21 +396,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		this.repaint();
 	}
 	
-	private void addpiechart(){
-		PieDataset ScorecompSet=createPieDataset1();
-		piechart1=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
-		piechart1.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
-		piechart1.setOpaque(false);
-		this.add(piechart1);
+	private void addradarchart(){
+		CategoryDataset radarset=createRadarDataset();
+		radarchart=new ChartPanel(new RadarChart().createChart(radarset,"数据分布"));
+		radarchart.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
+		radarchart.setOpaque(false);
+		this.add(radarchart);
 		this.repaint();
-		
-		PieDataset ScorepercentSet=createPieDataset2();
-		piechart2=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
-		piechart2.setBounds(SIDEWIDTH+DataPane_w+button_w+190, 230, 230, 150);
-		piechart2.setOpaque(false);
-		this.add(piechart2);
-		this.repaint();
-		
 	}
 	
 	 public static CategoryDataset createBarDataset() {
@@ -474,24 +500,6 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		  return defaultcategorydataset;
 	 }
 	 
-	  private static XYDataset createXYDataset()
-	  {
-	    XYSeriesCollection localXYSeriesCollection = new XYSeriesCollection();
-	    XYSeries localXYSeries1 = new XYSeries("Series 1");
-	    localXYSeries1.add(0.0D, 2.0D);
-	    localXYSeries1.add(90.0D, 13.0D);
-	    localXYSeries1.add(180.0D, 9.0D);
-	    localXYSeries1.add(270.0D, 8.0D);
-	    localXYSeriesCollection.addSeries(localXYSeries1);
-	    XYSeries localXYSeries2 = new XYSeries("Series 2");
-	    localXYSeries2.add(90.0D, -11.2D);
-	    localXYSeries2.add(180.0D, 21.4D);
-	    localXYSeries2.add(250.0D, 17.3D);
-	    localXYSeries2.add(355.0D, 10.9D);
-	    localXYSeriesCollection.addSeries(localXYSeries2);
-	    return localXYSeriesCollection;
-	  }
-	 
 	 private void setchart(String linename){
 		 
 	 }
@@ -502,15 +510,12 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 for(int i=0;i<lineNames.length;i++){
 			 linebutton[i].setVisible(true);
 		 }
-		 DataType.setVisible(true);
 		 SeasonSelection.setVisible(true);
 		 DataPane.setVisible(true);
 		 
-		 piechart1.setVisible(true);
-		 piechart2.setVisible(true);
+		 radarchart.setVisible(true);
 		 barchart.setVisible(true);
 		 linechart.setVisible(false);
-		 
 		 
 	 }
 	 
@@ -520,7 +525,6 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 for(int i=0;i<lineNames.length;i++){
 			 linebutton[i].setVisible(false);
 		 }
-		 DataType.setVisible(false);
 		 SeasonSelection.setVisible(false);
 		 DataPane.setVisible(false);
 		 
@@ -530,8 +534,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 linechart.setOpaque(false);
 		 this.add(linechart);
 		 
-		 piechart1.setVisible(false);
-		 piechart2.setVisible(false);
+		 radarchart.setVisible(false);
 		 barchart.setVisible(false);
 		 linechart.setVisible(true);
 	 }
@@ -546,6 +549,12 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			if(!Trend.isSelected()){
 				setTrendSelected();
 			}
+		}
+		if(e.getSource()==Team){
+			TeamStatPanel psp=new TeamStatPanel(Frame);
+			Frame.remove(panelToRemove);
+			Frame.add(psp);
+			Frame.repaint();
 		}
 	}
 	 
