@@ -7,10 +7,10 @@ import VO.PlayerTechVO;
 
 public interface ShowDataService {
 	
-	   //杩斿洖璧涘鐞冨憳鏁版嵁
-		public ArrayList<PlayerTechPO> showSeasonPlayerData ();
+	   //鏉╂柨娲栫挧娑橆劀閻炲啫鎲抽弫鐗堝祦
+		public ArrayList<PlayerTechPO> showSeasonPlayerData (String season);
 		
-		//鏌ョ湅鏌愪竴鐞冨憳鍏抽敭鏁版嵁
+		//閺屻儳婀呴弻鎰閻炲啫鎲抽崗鎶芥暛閺佺増宓�
 		public PlayerTechPO showKeyData (String name,String team );
 
 		public ArrayList<PlayerTechPO> ascend(String type);

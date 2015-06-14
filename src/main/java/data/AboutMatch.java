@@ -182,6 +182,32 @@ public class AboutMatch {
 			// ÒªÖ´ÐÐµÄSQLÓï¾ä
 			String sql = "update detail set doubles='"+po.ifDouble+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
 			statement.executeUpdate(sql);
+			sql = "update detail set teamAllTime='"+po.teamAllTime+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set teamOffensiveRebound='"+po.teamOffensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set teamDefensiveRebound='"+po.teamDefensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set opponentOffensiveRebound='"+po.opponentOffensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set opponentDefensiveRebound='"+po.opponentDefensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set  teamShotIn='"+po.teamShotIn+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set opponentOffensiveNum='"+po.opponentOffensiveNum+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set opponentTwoShot='"+po.opponentTwoShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set teamShot ='"+po.teamShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set teamPenaltyShot ='"+po.teamPenaltyShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set teamFault ='"+po.teamFault+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set firstLineUp ='"+po.ifFirstLineUp+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
+			sql = "update detail set participate ='"+po.ifParticipate+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			statement.executeUpdate(sql);
 			conn.close();
 		
 		} catch(ClassNotFoundException e) {
