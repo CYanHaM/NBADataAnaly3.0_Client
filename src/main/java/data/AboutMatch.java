@@ -113,26 +113,9 @@ public class AboutMatch {
 					if(index<=5){
 						ptpo.ifFirstLineUp=1;
 					}
-					ptpo.ifParticipate=1;
-					if(ptpo.time==0){
-						ptpo.ifParticipate=0;
-					}
 					mpo.playerStatistic.add(ptpo);
 				}
 				rs2.close();
-				if(Integer.valueOf(new String(rs2.getString("gueTotal").getBytes("ISO-8859-1"),"utf-8"))>
-				Integer.valueOf(new String(rs2.getString("hosTotal").getBytes("ISO-8859-1"),"utf-8"))){
-					mpo.ifHomeTeamWin=1;
-				}
-				else{
-					mpo.ifHomeTeamWin=0;
-				}
-				if(mpo.ifHomeTeamWin==0){
-					mpo.ifGuestTeamWin=1;
-				}
-				else{
-					mpo.ifGuestTeamWin=0;
-				}
 				res.add(mpo);
 			}
 			rs1.close();

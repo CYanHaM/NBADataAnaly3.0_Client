@@ -15,7 +15,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 
 	Tools tool = new Tools();
 	@Override
-	public ArrayList<PlayerPO> findAll() {
+	public ArrayList<PlayerPO> findAll(int active) {
 		//驱动程序名
 		String driver = "com.mysql.jdbc.Driver";
 
@@ -38,13 +38,17 @@ public class PlayerInfo implements PlayerInfoDataService {
 						Statement statement = conn.createStatement();
 						// 要执行的SQL语句
 						String sql = "SELECT * FROM playerInfo";
+						if(active==1){
+							sql = sql+"where season = '2014-15'";
+						}
+						if(active==2){
+							sql = sql+"where season <> '2014-15'";
+						}
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
 							PlayerPO po = new PlayerPO();
 							po.name = rs.getString(2);
 							po.uniformNum = Integer.valueOf(rs.getString(3));
-							// 首先使用ISO-8859-1字符集将name解码为字节序列并将结果存储新的字节数组中。
-							// 然后使用字符集解码指定的字节数组
 							po.position = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
 							po.height = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
 							po.weight = rs.getDouble(6);
@@ -73,7 +77,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 	}
 
 	@Override
-	public PlayerPO findOne(String name) {
+	public PlayerPO findOne(String name,int active) {
 		// TODO Auto-generated method stub
 				//连接至数据库
 				//驱动程序名
@@ -95,14 +99,18 @@ public class PlayerInfo implements PlayerInfoDataService {
 					// statement用来执行SQL语句
 					Statement statement = conn.createStatement();
 					// 要执行的SQL语句
-					String sql = "SELECT * FROM playerInfo where name ="+name;
+					String sql = "SELECT * FROM playerInfo where name ='"+name+"'";
+					if(active==1){
+						sql = sql+" and season = '2014-15'";
+					}
+					if(active==2){
+						sql = sql+" and season <> '2014-15'";
+					}
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) { 
 						PlayerPO po = new PlayerPO();
 						po.name = rs.getString(2);
 						po.uniformNum = Integer.valueOf(rs.getString(3));
-						// 首先使用ISO-8859-1字符集将name解码为字节序列并将结果存储新的字节数组中。
-						// 然后使用字符集解码指定的字节数组
 						po.position = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
 						po.height = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
 						po.weight = rs.getDouble(6);
@@ -129,7 +137,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 	}
 
 	@Override
-	public ArrayList<PlayerPO> findByTeam(String team) {
+	public ArrayList<PlayerPO> findByTeam(String team,int active) {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>();
 		//连接至数据库
@@ -152,7 +160,13 @@ public class PlayerInfo implements PlayerInfoDataService {
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
-			String sql = "SELECT * FROM playerInfo where team = "+team;
+			String sql = "SELECT * FROM playerInfo where team = '"+team+"'";
+			if(active==1){
+				sql = sql+" and season = '2014-15'";
+			}
+			if(active==2){
+				sql = sql+" and season <> '2014-15'";
+			}
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {     
 				PlayerPO po = new PlayerPO();
@@ -188,7 +202,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 	}
 
 	@Override
-	public ArrayList<PlayerPO> findByLetter(char letter) {
+	public ArrayList<PlayerPO> findByLetter(char letter,int active) {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>();
 		//连接至数据库
@@ -212,6 +226,12 @@ public class PlayerInfo implements PlayerInfoDataService {
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
 			String sql = "SELECT * FROM playerInfo";
+			if(active==1){
+				sql = sql+" where season = '2014-15'";
+			}
+			if(active==2){
+				sql = sql+" where season <> '2014-15'";
+			}
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {     
 				PlayerPO po = new PlayerPO();
