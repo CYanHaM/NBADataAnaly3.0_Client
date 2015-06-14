@@ -10,5 +10,4 @@ public interface PlayerInfoDataService {
 	
 	public PlayerPO findOne(String name);
 
-	public void write();
 }
