@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
+import VO.PlayerTechVO;
 import VO.ScreeningConditionVO;
 
 public interface FindDataService {
@@ -15,8 +16,8 @@ public interface FindDataService {
 	public ArrayList<PlayerTechPO> sift(ArrayList<ScreeningConditionVO> list);
 	
 	public ArrayList<PlayerTechPO> findPlayerByletter(char letter);
+
+	public ArrayList<PlayerTechPO> findFastImprovingPlayer(String keyword);
 	
-	public ArrayList<PlayerTechPO> findPlayerByLetter(char letter);
-	//杩涙鏈�蹇悆鍛�
-	public ArrayList<PlayerTechPO> findFastImprovingPlayer();
+	public PlayerTechPO findPlayerTechByName(String name);
 }

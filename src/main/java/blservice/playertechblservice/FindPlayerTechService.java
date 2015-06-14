@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import VO.PlayerTechMVO;
 import VO.PlayerTechVO;
 import VO.ScreeningConditionVO;
+import dataservice.playertechdataservice.FindDataService;
 
 public interface FindPlayerTechService {
 	
