@@ -111,6 +111,9 @@ public class PlayerTechTransfer {
 	
 	public PlayerTechVO po2vo(PlayerTechPO po){
 		PlayerTechVO vo = new PlayerTechVO();
+		
+		vo.ifRegular = po.ifRegular;
+		
 		vo.name = po.name;
 		vo.season = po.season;
 		vo.team = po.team;

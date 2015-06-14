@@ -1,4 +1,4 @@
-package bussinesslogic.TeamTech;
+package bussinesslogic.teamTech;
 
 import TypeEnum.TeamTechEnum;
 
@@ -27,12 +27,31 @@ public class translate {
 			case offensiveEfficiency:return "off_EFF";
 			case defensiveEfficiency:return "def_eff";
 			
+			case shotInNumave:return"FGM";
+			case threeShotInNumave:return"TPM";
+			case shotNumave:return"FGA";
+			case threeShotNumave:return"TPA";
+			case penaltyShotInNumave:return"FTM";
+			case penaltyShotNumave:return "FTA";
+			case offensiveReboundave:return "OffenOWN";
+			case defensiveReboundave:return "DefenOWN";
+			case reboundave:return "TOTOWN";
+			case secondaryAttackave:return"ASS_OWN";
+			case stealave:return"STE_OWN";
+			case blockShotave:return "BLO_OWN";
+			case faultave:return"TUR_OWN";
+			case foulave:return"TUR_TECH";
+			case scoreave:return"OWN_Poi";
+
+			
 			
 			case winningNum:return "Win_NUM";
 			case winningRate:return "Win_Rate";
 			case reboundEfficiency:return "reb_eff";
 			case stealEfficiency:return "ste_eff";
 			case secondaryAttackEfficiency:return "sec_eff";
+			case offensiveRound:return "round";
+			case offensiveRoundave:return"round";
 			default: return null;
 		}
 	}

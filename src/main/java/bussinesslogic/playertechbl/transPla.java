@@ -26,6 +26,8 @@ public class transPla {
 			case"foulave":return"PF";
 			case"foul":return"PFPG";
 			case"score":return"PTS";
+			case"steal":return"STL";
+			case"stealave":return"STPG";
 
 			case"trueshotinrate":return"TS";
 			case"reboundrate":return"REBR";
@@ -45,7 +47,7 @@ public class transPla {
 			case"shootingefficiency":return"shootingefficiency";
 			case"gmscefficiency":return"GMSC";
 			case"startingnum":return"start";
-			default: return null;
+			default: System.out.println("errrrrrrrrrrr");return null;
 		}
 	}
 }
