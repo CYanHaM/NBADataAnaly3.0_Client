@@ -27,7 +27,7 @@ public class ImportTeam {
 	public ImportTeam(){
 		TTbs = new TeamTech();
 		Tbs = new Team();
-		pis=new PlayerInfo();
+		pis=new PlayerInfoBL();
 	}
 
 	public ArrayList<TeamTechVO> getTeamTechAscend(TeamTechEnum DataType){
