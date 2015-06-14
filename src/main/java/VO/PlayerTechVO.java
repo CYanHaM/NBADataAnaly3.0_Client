@@ -1,6 +1,9 @@
 package VO;
 
 public class PlayerTechVO {
+	
+	public int ifRegular;                          //是否是常规赛
+	
 	public String name;                            //��Ա����
 	public String season;                          //����
 	public String team;                            //�������

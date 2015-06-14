@@ -13,6 +13,9 @@ public class PlayerTechTransfer {
 		for(int i=0;i<size;i++){
 			PlayerTechPO po = list.get(i);
 			PlayerTechVO vo = new PlayerTechVO();
+			
+			vo.ifRegular = po.ifRegular;
+			
 			vo.name = po.name;
 			vo.season = po.season;
 			vo.team = po.team;

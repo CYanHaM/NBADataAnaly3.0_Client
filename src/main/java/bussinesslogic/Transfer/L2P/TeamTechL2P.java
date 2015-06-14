@@ -1,11 +1,14 @@
 package bussinesslogic.Transfer.L2P;
 
 import PO.TeamTechPO;
-import bussinesslogic.TeamTech.TeamTechLineItem;
+import bussinesslogic.teamTech.TeamTechLineItem;
 
 public class TeamTechL2P {
 	TeamTechPO ttpo = new TeamTechPO();
 	public TeamTechPO l2p(TeamTechLineItem ttli){
+		
+		ttpo.ifReagular = ttli.ifReagular;
+		
 		ttpo.name = (ttli.name==null) ? null : ttli.name;
 		ttpo.season = (ttli.season==null) ? null : ttli.season;
 		ttpo.gameNum = ttli.gameNum;

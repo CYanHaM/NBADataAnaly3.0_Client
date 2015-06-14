@@ -2,57 +2,60 @@ package VO;
 
 
 public class TeamTechVO {
-	public String name;                            //Çò¶ÓÃû³Æ
-	public String season;                          //Èü¼¾
-	public int gameNum;                         //±ÈÈü³¡Êı
-	public double shotInRate;                      //Í¶ÀºÃüÖĞÂÊ
-	public double threeShotInRate;                 //Èı·ÖÃüÖĞÂÊ
-	public double penaltyShotInRate;               //·£ÇòÃüÖĞÂÊ
-	public double winningRate;                     //Ê¤ÂÊ
-	public double offensiveEfficiency;               //½ø¹¥Ğ§ÂÊ
-	public double defensiveEfficiency;               //·ÀÊØĞ§ÂÊ
-	public double reboundEfficiency;                 //Àº°åĞ§ÂÊ
-	public double stealEfficiency;                   //ÇÀ¶ÏĞ§ÂÊ
-	public double secondaryAttackEfficiency;         //Öú¹¥Ğ§ÂÊ
-	public int winningNum;                      //Ê¤³¡Êı
 	
-	//ÒÔÏÂÊÇ×ÜÊı¾İ
+	public int ifReagular;                         //æ˜¯å¦æ˜¯å¸¸è§„èµ›
 	
-	public int shotInNum;                       //Í¶ÀºÃüÖĞÊı
-	public int shotNum;                         //Í¶Àº³öÊÖÊı
-	public int threeShotInNum;                  //Èı·ÖÃüÖĞÊı
-	public int threeShotNum;                    //Èı·Ö³öÊÖÊı
-	public int penaltyShotInNum;                //·£ÇòÃüÖĞÊı
-	public int penaltyShotNum;                  //·¢Çò³öÊÖÊı
-	public int offensiveRebound;                //Ç°³¡Àº°åÊı
-	public int defensiveRebound;                //ºó³¡Àº°åÊı
-	public int rebound;                         //×ÜÀº°åÊı
-	public int secondaryAttack;                 //Öú¹¥Êı
-	public int steal;                           //ÇÀ¶ÏÊı
-	public int blockShot;                       //¸ÇÃ±Êı
-	public int fault;                           //Ê§ÎóÊı
-	public int foul;                            //·¸¹æÊı
-	public int score;                           //±ÈÈüµÃ·Ö
-	public double offensiveRound;                  //½ø¹¥»ØºÏ
+	public String name;                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public String season;                          //ï¿½ï¿½
+	public int gameNum;                         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double shotInRate;                      //Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double threeShotInRate;                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double penaltyShotInRate;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double winningRate;                     //Ê¤ï¿½ï¿½
+	public double offensiveEfficiency;               //ï¿½ï¿½Ğ§ï¿½ï¿½
+	public double defensiveEfficiency;               //ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½
+	public double reboundEfficiency;                 //ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½
+	public double stealEfficiency;                   //ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½
+	public double secondaryAttackEfficiency;         //ï¿½ï¿½Ğ§ï¿½ï¿½
+	public int winningNum;                      //Ê¤ï¿½ï¿½ï¿½ï¿½
 	
-	//ÒÔÏÂÊÇ³¡¾ùÊı¾İ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	public double shotInNumave;                       //Í¶ÀºÃüÖĞÊı
-	public double shotNumave;                         //Í¶Àº³öÊÖÊı
-	public double threeShotInNumave;                  //Èı·ÖÃüÖĞÊı
-	public double threeShotNumave;                    //Èı·Ö³öÊÖÊı
-	public double penaltyShotInNumave;                //·£ÇòÃüÖĞÊı
-	public double penaltyShotNumave;                  //·¢Çò³öÊÖÊı
-	public double offensiveReboundave;                //Ç°³¡Àº°åÊı
-	public double defensiveReboundave;                //ºó³¡Àº°åÊı
-	public double reboundave;                         //×ÜÀº°åÊı
-	public double secondaryAttackave;                 //Öú¹¥Êı
-	public double stealave;                           //ÇÀ¶ÏÊı
-	public double blockShotave;                       //¸ÇÃ±Êı
-	public double faultave;                           //Ê§ÎóÊı
-	public double foulave;                            //·¸¹æÊı
-	public double scoreave;                           //±ÈÈüµÃ·Ö
-	public double offensiveRoundave;                  //½ø¹¥»ØºÏ
+	public int shotInNum;                       //Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int shotNum;                         //Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int threeShotInNum;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int threeShotNum;                    //ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int penaltyShotInNum;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int penaltyShotNum;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int offensiveRebound;                //Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int defensiveRebound;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int rebound;                         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int secondaryAttack;                 //ï¿½ï¿½ï¿½ï¿½
+	public int steal;                           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int blockShot;                       //ï¿½ï¿½Ã±ï¿½ï¿½
+	public int fault;                           //Ê§ï¿½ï¿½ï¿½ï¿½
+	public int foul;                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int score;                           //ï¿½ï¿½ï¿½ï¿½Ã·ï¿½
+	public double offensiveRound;                  //ï¿½ï¿½Øºï¿½
+	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	
+	public double shotInNumave;                       //Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double shotNumave;                         //Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double threeShotInNumave;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double threeShotNumave;                    //ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double penaltyShotInNumave;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double penaltyShotNumave;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double offensiveReboundave;                //Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double defensiveReboundave;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double reboundave;                         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double secondaryAttackave;                 //ï¿½ï¿½ï¿½ï¿½
+	public double stealave;                           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double blockShotave;                       //ï¿½ï¿½Ã±ï¿½ï¿½
+	public double faultave;                           //Ê§ï¿½ï¿½ï¿½ï¿½
+	public double foulave;                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public double scoreave;                           //ï¿½ï¿½ï¿½ï¿½Ã·ï¿½
+	public double offensiveRoundave;                  //ï¿½ï¿½Øºï¿½
 	
 	public boolean equals(TeamTechVO ttvo){
 		if(!this.name.equals(ttvo.name)){

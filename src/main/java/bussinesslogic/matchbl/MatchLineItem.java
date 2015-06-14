@@ -9,6 +9,10 @@ public class MatchLineItem {
 	/**
 	 * ÿ������������
 	 */
+	
+	public int ifRegular;                               //是否是常规赛
+	public int ifEnd;                                   //是否结束
+	
 	public String season;                                 //����
 	public String date;                                   //����
 	public String homeTeam;                               //��������

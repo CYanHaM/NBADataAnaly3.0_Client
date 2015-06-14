@@ -1,6 +1,9 @@
 package bussinesslogic.teamTech;
 
 public class TeamTechLineItem {
+	
+	public int ifReagular;                         //是否是常规赛
+	
 	public String name;                            //�������
 	public String season;                          //����
 	public int gameNum;                         //��������

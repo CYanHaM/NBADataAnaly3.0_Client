@@ -16,6 +16,7 @@ public class MPO2MVO {
 			vo.name = po.name;
 			vo.team = po.team;
 			vo.date = po.date;
+			vo.division = po.division;
 			vo.position = po.position;
 			vo.time = po.time;
 			vo.shotIn = po.shotIn;
