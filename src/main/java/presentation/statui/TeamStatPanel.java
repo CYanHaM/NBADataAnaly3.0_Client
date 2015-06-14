@@ -36,6 +36,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import presentation.preset.StatPre;
 
 public class TeamStatPanel extends JPanel implements ActionListener{
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 球队统计显示面板
 	 * @author blisscry
@@ -79,11 +80,11 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	//table showing the different data of team comparing to whole teams
 	private JScrollPane DataPane;
 	private int DataPane_w=370;
-	private int DataPane_h=390;
+	private int DataPane_h=430;
 	private JTable DataTable;
 	private Object[][] DataInfo;
 	private String[] columnNames={"场均","场均排名","总体平均值","区间估计"};
-	private String[] lineNames={"得分","篮板","助攻","盖帽","抢断","罚球","失误","犯规","上场时间"};
+	private String[] lineNames={"得分","篮板","对手得分","对手篮板","助攻","抢断","盖帽","罚球","失误","犯规"};
 	private int[] COLUMNWIDTH={80,60,80,150};
 	
 	//buttons showing differentdatas
@@ -527,6 +528,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 
 		 
 	 }
+	 
 	 private void setTrendSelected(){
 		 Analysis.setSelected(false);
 		 Trend.setSelected(true);
