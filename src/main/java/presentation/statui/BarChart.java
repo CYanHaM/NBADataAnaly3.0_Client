@@ -17,6 +17,8 @@ import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 
+import presentation.preset.StatPre;
+
 
 public class BarChart{
 	
@@ -33,24 +35,21 @@ public static JFreeChart createChart(CategoryDataset dataset,String charttitle,S
 	    false);// 是否生成URL链接//没用过
 	  // 周围的背景色
 	  chart.setBackgroundPaint(null);
-	  // 设置字体，否则会显示乱码
-	  Font font = new Font("微软雅黑", 0, 15);
-	  TextTitle title = chart.getTitle();
 	  // 设置标题字体
-	  title.setFont(font);
-	  title.setPaint(Color.WHITE);
+	  chart.getTitle().setFont(StatPre.ChartTitleFont);
+	  chart.getTitle().setPaint(Color.WHITE);
 	  // 得到一个参考
 	  CategoryPlot plot = (CategoryPlot) chart.getPlot();
 	  // 生成图片的背景色
 	  plot.setBackgroundPaint(null);
+	  plot.setOutlinePaint(null);
 	//  plot.setBackgroundPaint(Color.white);
 	  // 行线的颜色
 	  plot.setRangeGridlinePaint(Color.WHITE);
 	  // 刻度字体
-	  plot.getDomainAxis().setTickLabelFont(font);
-	  // X轴名称字体
-	  plot.getDomainAxis().setLabelFont(font);
-	  
+//	  plot.getDomainAxis().setTickLabelFont(StatPre.ChartAxisFont);
+//	  // X轴名称字体
+//	  plot.getDomainAxis().setLabelFont(StatPre.ChartAxisFont);
 
 	  // LayeredBarRenderer lbr = new LayeredBarRenderer();//(BarRenderer)类：
 	  // //void setSeriesBarWidth(int series,double width)
@@ -62,9 +61,14 @@ public static JFreeChart createChart(CategoryDataset dataset,String charttitle,S
 
 	  rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 	  // 设置上部空白
-	//  rangeAxis.setUpperMargin(0.15);
+	  //rangeAxis.setUpperMargin(0.15);
 	  // 设置y轴名称字体
-	  rangeAxis.setLabelFont(font);
+	  rangeAxis.setLabelFont(StatPre.LabelFont);
+	  rangeAxis.setLabelPaint(StatPre.defaultcolor);
+	  rangeAxis.setTickLabelFont(StatPre.ChartRangeAxisFont);
+	  rangeAxis.setTickLabelPaint(StatPre.defaultcolor);
+	  
+	  rangeAxis.setAxisLinePaint(StatPre.defaultcolor);
 
 	  CategoryItemRenderer renderer = plot.getRenderer();
 	  renderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator());
@@ -74,7 +78,12 @@ public static JFreeChart createChart(CategoryDataset dataset,String charttitle,S
 
 	  CategoryAxis domainAxis = plot.getDomainAxis();
 	  domainAxis.setCategoryLabelPositions(CategoryLabelPositions.STANDARD);// 倾斜45度
-	  domainAxis.setLabelFont(new Font("幼圆",0,20));
+	  domainAxis.setLabelFont(StatPre.ChartDomainAxisFont);
+	  domainAxis.setLabelPaint(StatPre.defaultcolor);
+	  domainAxis.setTickLabelFont(StatPre.ChartDomainAxisFont);
+	  domainAxis.setTickLabelPaint(StatPre.defaultcolor);
+	  
+	  domainAxis.setAxisLinePaint(StatPre.defaultcolor);
 
 	  BarRenderer renderer1 = new BarRenderer();// 设置柱子的相关属性
 	  // 设置柱子宽度
@@ -90,9 +99,9 @@ public static JFreeChart createChart(CategoryDataset dataset,String charttitle,S
 	  // renderer1.setDrawBarOutline(true);
 	  // 设置每个地区所包含的平行柱的之间距离，数值越大则间隔越大，图片大小一定的情况下会影响柱子的宽度，可以为负数
 	  renderer1.setItemMargin(0.1);
-	  renderer1.setSeriesPaint(0, new Color(119,173,78));
-	  renderer1.setSeriesPaint(1, new Color(119,173,78));
-	  renderer1.setSeriesPaint(2, new Color(119,173,78));
+	  renderer1.setSeriesPaint(0, StatPre.BarColor1);
+	  renderer1.setSeriesPaint(1, StatPre.BarColor2);
+	  renderer1.setSeriesPaint(2, StatPre.BarColor3);
 	  // 是否显示阴影
 	  renderer1.setShadowVisible(false);
 	  // 阴影颜色
