@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import PO.MatchPO;
 import PO.PlayerTechMPO;
+import PO.PlayerTechPO;
 import PO.TeamTechPO;
 
 public class PlayerTech implements StatsInfo{
@@ -38,6 +39,37 @@ public class PlayerTech implements StatsInfo{
 	@Override
 	public ArrayList<PlayerTechMPO> getPlayerForYear(String name,
 			String season, int ifRegular) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerTechPO getPlayerTech(String player, String season, int ifRegular) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamTechPO getTeamRank(String teamname, String season, int ifRegular) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamTechPO getAllTeamAverage(String season, int ifRegular) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerTechPO getPlayerRank(String player, String season,
+			int ifRegular) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerTechPO getAllPlayerAverage(String season, int ifRegular) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -115,6 +115,21 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 "灰熊 Memphis-Grizzlies",
 "鹈鹕 New Orleans-Pelicans",
 "马刺 San Antonio-Spurs"};
+	private JComboBox<String> Players;
+	private String[] PlayersNames={};
+	private int Players_w=200;
+	private int Players_h=30;
+	
+	private JComboBox<String> formerdate;
+	private int formerdate_w=60;
+	private int formerdate_h=30;
+	private JComboBox<String> latterdate;
+	private int latterdate_w=60;
+	private int latterdate_h=30;
+	private JButton summit;
+	
+	private JComboBox<String> season;
+	
 	
 	
 	private JLabel TeamLogo;
@@ -133,6 +148,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	private String[] alphaValue={"0.5","0.25","0.2","0.05"};
 	private int alpha_w=60;
 	private int alpha_h=30;
+	private JLabel alphamessage;
 	
 	//buttons showing differentdatas
 	private int button_w=130;
@@ -154,15 +170,20 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		this.setLayout(null);
 		
 		datainitial();
-		
+
 		addbuttons();
 		addbox();
 		addtable();
-		
-//		setchart(String.valueOf(Teams.getSelectedItem()));
+
+		barchart=new ChartPanel(null);
+		piechart1=new ChartPanel(null);
+		piechart2=new ChartPanel(null);
+		linechart=new ChartPanel(null);
+		//setchart(String.valueOf(Teams.getSelectedItem()));
 		addbarchart(String.valueOf(Teams.getSelectedItem()),"得分");
 		addpiechart(String.valueOf(Teams.getSelectedItem()));
 		
+		addlabel();
 	}
 	
 	private void addbuttons(){
@@ -205,10 +226,14 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 						linebutton[temp].setSelected(true);
 						setchart(lineNames[temp]);
 					}
+					if(Trend.isSelected()){
+						addlinechart(lineNames[temp]);
+					}
 				}
 			});
 			this.add(linebutton[i]);
 		}
+		linebutton[0].setSelected(true);
 	}
 	
 	private void addbox(){
@@ -275,26 +300,36 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		for(int i=0;i<TeamNames.length;i++){
 			Teams.addItem(TeamNames[i]);
 		}
-		Teams.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,Team_h+90,Teams_w,Teams_h);
+		Teams.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,Team_h+90,Teams_w,Teams_h);
 		Teams.setFont(StatPre.BoxFont);
 		Teams.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					if(Teams.getSelectedIndex()==0){
-						
-					}
-					if(Teams.getSelectedIndex()==1){
-						
-					}
-					if(Teams.getSelectedIndex()==2){
-						
-					}
+					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
 				}
 			}
 		});
 		this.add(Teams);
+		
+		Players=new JComboBox<String>();
+		Players.setFocusable(false);
+		Players.setBackground(StatPre.indefaultcolor);
+//		for(int i=0;i<PlayerNames.length;i++){
+//			Teams.addItem(TeamNames[i]);
+//		}
+		Players.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,Team_h+90,Teams_w,Teams_h);
+		Players.setFont(StatPre.BoxFont);
+		Players.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					
+				}
+			}
+		});
+		Players.setVisible(false);
+		this.add(Players);
 		
 		alpha=new JComboBox<String>();
 		alpha.setFocusable(false);
@@ -302,7 +337,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		for(int i=0;i<alphaValue.length;i++){
 			alpha.addItem(alphaValue[i]);
 		}
-		alpha.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,190,alpha_w,alpha_h);
+		alpha.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,190,alpha_w,alpha_h);
 		alpha.setFont(StatPre.BoxFont);
 		alpha.addItemListener(new ItemListener(){
 			@Override
@@ -322,6 +357,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			}
 		});
 		this.add(alpha);
+		alphamessage=new JLabel("α :");
+		alphamessage.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,195,30,15);
+		alphamessage.setFont(StatPre.MessageFont);
+		alphamessage.setForeground(StatPre.defaultcolor);
+		this.add(alphamessage);
+		
+		
 	}
 	
 	private void addtable(){
@@ -458,7 +500,10 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	//Team info and details
 	private void addlabel(){
 		TeamLogo=new JLabel();
-//		TeamLogo.setBounds(500, 70, , height);
+		String teamname=String.valueOf(Teams.getSelectedItem());
+		TeamLogo.setBounds(WIDTH-235, -10, 235,235 );
+		TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(teamname)+".png"));
+		this.add(TeamLogo);
 		TeamInfo=new JLabel();
 		
 	}
@@ -579,31 +624,41 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 
 	 private void addbarchart(String teamname,String linename){
 		 CategoryDataset BarSet=getBarDataset(teamname,linename);
-		 barchart=new ChartPanel(new BarChart().createChart(BarSet,"单项对比",null,null));
+
+		 barchart.setChart(new BarChart().createChart(BarSet,"单项对比",null,linename));
 		 barchart.setBounds(SIDEWIDTH+DataPane_w+button_w+40, 370, 350, 300);
 		 barchart.setOpaque(false);
 		 this.add(barchart);
 		 Frame.repaint();
-//		 this.repaint();
 	 }
 
 	 private void addpiechart(String teamname){
 		 PieDataset ScorecompSet=getPieDataset1(teamname);
-		 piechart1=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
+//		 piechart1=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
+		 piechart1.setChart(new PieChart().createChart(ScorecompSet,"首发/替补"));
 		 piechart1.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
 		 piechart1.setOpaque(false);
 		 this.add(piechart1);
 		 Frame.repaint();
-//		 this.repaint();
 
 		 PieDataset ScorepercentSet=getPieDataset2(teamname);
-		 piechart2=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
+//		 piechart2=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
+		 piechart2.setChart(new PieChart().createChart(ScorepercentSet,"得分比重"));
 		 piechart2.setBounds(SIDEWIDTH+DataPane_w+button_w+190, 230, 230, 150);
 		 piechart2.setOpaque(false);
 		 this.add(piechart2);
 		 Frame.repaint();
-//		 this.repaint();
 
+	 }
+	 
+	 private void addlinechart(String linename){
+		 CategoryDataset ScoreTrendSet=getLineDataset();
+//		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
+		 linechart.setChart(new LineChart().createChart(ScoreTrendSet,"变化趋势","年份",linename));
+		 linechart.setBounds(SIDEWIDTH+button_w, 270, 600, 400);
+		 linechart.setOpaque(false);
+		 this.add(linechart);
+		 Frame.repaint();
 	 }
 
 	 //refresh charts
@@ -618,6 +673,12 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 SeasonSelection.setVisible(true);
 		 DataPane.setVisible(true);
 		 alpha.setVisible(true);
+		 alphamessage.setVisible(true);
+		 
+		 for(int i=0;i<linebutton.length;i++){
+			 if(linebutton[i].isSelected())
+			 setchart(lineNames[i]);
+		 }
 		 
 		 piechart1.setVisible(true);
 		 piechart2.setVisible(true);
@@ -632,12 +693,12 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 SeasonSelection.setVisible(false);
 		 DataPane.setVisible(false);
 		 alpha.setVisible(false);
-		 
-		 CategoryDataset ScoreTrendSet=getLineDataset();
-		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
-		 linechart.setBounds(SIDEWIDTH+button_w, 270, 600, 400);
-		 linechart.setOpaque(false);
-		 this.add(linechart);
+		 alphamessage.setVisible(false);
+
+		 for(int i=0;i<linebutton.length;i++){
+			 if(linebutton[i].isSelected())
+			 addlinechart(lineNames[i]);
+		 }
 		 
 		 piechart1.setVisible(false);
 		 piechart2.setVisible(false);
@@ -666,6 +727,79 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	}
 	 
 	 
+	private String switchTeam(String name){
+		switch(name){
+		case "老鹰 Atlanta-Hawks":
+			return "ATL";
+		case "黄蜂 Charlotte-Hornets":
+			return "CHA";
+		case "热火 Miami-Heat":
+			return "MIA";
+		case "魔术 Orlando-Magic":
+			return "ORL";
+		case "奇才 Washington-Wizards":
+			return "WAS";
+			
+		case "公牛 Chicago-Bulls":
+			return "CHI";
+		case "骑士 Cleveland-Cavaliers":
+			return "CLE";
+		case "活塞 Detroit-Pistons":
+			return "DET";
+		case "步行者 Indiana-Pacers":
+			return "IND";
+		case "雄鹿 Milwaukee-Bucks":
+			return "MIL";
+			
+		case "凯尔特人 Boston-Celtics":
+			return "BOS";
+		case "篮网 Brooklyn-Nets":
+			return "BKN";
+		case "尼克斯 New York-Knicks":
+			return "NYK";
+		case "76人 Philadelphia-76ers":
+			return "PHI";
+		case "猛龙 Toronto-Raptors":
+			return "TOR";
+			
+			
+		case "勇士 Golden State-Warriors":
+			return "GSW";
+		case "快船 Los Angeles-Clippers":
+			return "LAC";
+		case "湖人 Los Angeles-Lakers":
+			return "LAL";
+		case "太阳 Phoenix-Suns":
+			return "PHX";
+		case "国王 Sacramento-Kings":
+			return "SAC";
+			
+		case "掘金 Denver-Nuggets":
+			return "DEN";
+		case "森林狼 Minnesota-Timberwolves":
+			return "MIN";
+		case "雷霆 Oklahoma City-Thunder":
+			return "OKC";
+		case "开拓者 Portland-Trail Blazers":
+			return "POR";
+		case "勇士 Utah-Jazz":
+			return "UTA";
+			
+		case "小牛 Dallas-Mavericks":
+			return "DAL";
+		case "火箭 Houston-Rockets":
+			return "HOU";
+		case "灰熊 Memphis-Grizzlies":
+			return "MEM";
+		case "鹈鹕 New Orleans-Pelicans":
+			return "NOP";
+		case "马刺 San Antonio-Spurs":
+			return "SAS";
+		default :
+				return null;
+		}
+	}
+	
 	 public void paintComponent(Graphics g){
 		 super.paintComponent(g);
 		 ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
