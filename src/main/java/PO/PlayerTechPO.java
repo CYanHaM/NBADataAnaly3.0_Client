@@ -10,6 +10,7 @@ public class PlayerTechPO implements Serializable{
 	public String name;                            //��Ա����
 	public String season;                          //����
 	public String team;                            //�������
+	public int ifRegular;                          //是否是常规赛
 	
 	//���ݳ����������
 	public String position;                     //位置
