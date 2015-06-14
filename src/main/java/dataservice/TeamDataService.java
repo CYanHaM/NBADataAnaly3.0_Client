@@ -5,7 +5,7 @@ import PO.TeamPO;
 
 public interface TeamDataService {
 	
-	public TeamPO find(TeamPO tpo);
+	public TeamPO find(String name);
 	
 	public void WriteIn();
 }
