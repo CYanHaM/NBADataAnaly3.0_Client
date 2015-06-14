@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import PO.MatchPO;
 import PO.PlayerTechMPO;
+import PO.PlayerTechPO;
 import PO.TeamTechPO;
 
 public interface StatsInfo {
 	
 	public TeamTechPO getTeamTech(String teamname,String season,int ifRegular);
+	public PlayerTechPO getPlayerTech(String player,String season,int ifRegular);
 	public ArrayList<MatchPO> getRecentMatch(String team,String season);
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,String season);
 	public ArrayList<MatchPO>getMatchForYear(String team,String season,int ifRegular);

@@ -8,10 +8,10 @@ import dataservice.StatsDataService;
 
 public class StatsData implements StatsDataService{
 
-//	public static void main(String args[]){
-//		StatsData sd=new StatsData();
-//		sd.calculateTDistribution(24, 0.005);
-//	}
+	public static void main(String args[]){
+		StatsData sd=new StatsData();
+		sd.calculateNormalDistribution(3.41);
+	}
 	public double calculateTDistribution(double n,double a){
 		double res=0;
 		try {
@@ -66,7 +66,7 @@ public class StatsData implements StatsDataService{
 	public double calculateNormalDistribution(double n){
 		double res=0;
 		try {
-			File file = new File("n_d");
+			File file = new File("normal_d");
 			ArrayList<String>info=new ArrayList<String>();					
 			@SuppressWarnings("resource")
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -76,33 +76,15 @@ public class StatsData implements StatsDataService{
 				System.out.println(line);
 				
 			}
-			if(n>0&&n<=30){
-				String[] str=info.get((int)n).split(" ");
-				switch(Double.toString(a)){
-				case "0.4":res=Double.valueOf(str[0]);
-				case "0.3":res=Double.valueOf(str[1]);
-				case "0.2":res=Double.valueOf(str[2]);
-				case "0.1":res=Double.valueOf(str[3]);
-				case "0.05":res=Double.valueOf(str[4]);
-				case "0.025":res=Double.valueOf(str[5]);
-				case "0.01":res=Double.valueOf(str[6]);
-				case "0.005":res=Double.valueOf(str[7]);
-				case "0.0005":res=Double.valueOf(str[8]);
-				}
-			}else if(n>30&&n<=120){
-				String[] str=info.get((int)(29+(n-30)/10)).split(" ");
-				switch(Double.toString(a)){
-				case "0.4":res=Double.valueOf(str[0]);
-				case "0.3":res=Double.valueOf(str[1]);
-				case "0.2":res=Double.valueOf(str[2]);
-				case "0.1":res=Double.valueOf(str[3]);
-				case "0.05":res=Double.valueOf(str[4]);
-				case "0.025":res=Double.valueOf(str[5]);
-				case "0.01":res=Double.valueOf(str[6]);
-				case "0.005":res=Double.valueOf(str[7]);
-				case "0.0005":res=Double.valueOf(str[8]); 
-				}
-				
+			int row=(int)(n/0.1);
+			int column=(int)((n-row*0.1)/0.01);
+//			System.out.println(row+"-_____-___-----"+(n-row*0.1)/0.01);
+			if(row>=0&&row<=27){
+				String[] str=info.get(row+1).split(" ");
+				res=Double.valueOf(str[column]);
+			}else if(row>=28&&row<=49){
+				String[] str=info.get(row+1).split("  ");
+				res=Double.valueOf(str[column+1].substring(0, 4))*Math.pow(0.1, Integer.valueOf(str[column+1].substring(6, 8)));		
 			}
 			
 		}catch(Exception e) {
@@ -110,7 +92,7 @@ public class StatsData implements StatsDataService{
 			e.printStackTrace();
 		}
 		System.out.println(res);
-		return res;
+		return 1-res;
 		
 	}
 }

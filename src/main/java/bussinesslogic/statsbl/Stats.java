@@ -9,7 +9,9 @@ import bussinesslogic.playerbl.StatsInfo;
 import PO.MatchPO;
 import PO.PlayerStatsPO;
 import PO.PlayerTechMPO;
+import PO.PlayerTechPO;
 import PO.TeamStatsPO;
+import PO.TeamTechPO;
 
 public class Stats {
 	
@@ -279,8 +281,9 @@ public class Stats {
 	}
 
 //单总体均值检验
-	public int singleAverageEstimate(double[] str, double average){
-		double[] interval=new double[2];
+	public int singleAverageEstimate(double[] str, double average,double a){
+		StatsDataService sds=new StatsData();
+		int res=0;
 		double sum=0;
 		for(int i=0;i<str.length;i++){
 			sum=sum+str[i];
@@ -292,7 +295,116 @@ public class Stats {
 		}
 		variance=variance/(str.length-1);
 		double z=(ave-average)/(Math.sqrt(variance/str.length));
+		double p=0;
+		if(z>0)
+			p=sds.calculateNormalDistribution(z);
+		else
+			p=1-sds.calculateNormalDistribution(z*(-1));
+		
+		if(p<a)
+			res=1;
+		else
+			res=0;
+		
+		return res;
+
 		
 	}
+	
+//球队单总体均值
+	public TeamTechPO getTeamChangePlayoffs(String team,String season,double a){
+		StatsInfo si=new PlayerTech();
+		TeamTechPO ttp=new TeamTechPO();
+		TeamTechPO res=new TeamTechPO();
+		ttp=si.getTeamTech(team, season, 1);
+		ArrayList<MatchPO> mlist=new ArrayList<MatchPO>();
+		mlist=si.getRecentMatch(team, season);
+
+		double[] stats=new double[20];
+		for(int i=0;i<20;i++){
+			if(mlist.get(i).homeTeam.equals(team)){
+				stats[i]=(double)(mlist.get(i).homeScore);
+			}else {
+				stats[i]=(double)(mlist.get(i).guestScore);}
+		}
+		res.score=singleAverageEstimate(stats, ttp.score, a);
+		
+		for(int i=0;i<20;i++){
+			if(mlist.get(i).homeTeam.equals(team)){
+				stats[i]=(double)(mlist.get(i).homeTeamOffensiveRebound+mlist.get(i).homeTeamDeffensiveRebound);
+			}else {
+				stats[i]=(double)(mlist.get(i).guestTeamOffensiveRebound+mlist.get(i).guestTeamDeffensiveRebound);}
+		}
+		res.rebound=singleAverageEstimate(stats, ttp.rebound, a);
+		
+		for(int i=0;i<20;i++){
+			if(mlist.get(i).homeTeam.equals(team)){
+				stats[i]=(double)(mlist.get(i).homeTeamSecondaryAttack);
+			}else {
+				stats[i]=(double)(mlist.get(i).guestTeamSecondaryAttack);}
+		}
+		res.secondaryAttack=singleAverageEstimate(stats, ttp.secondaryAttack, a);
+		
+		for(int i=0;i<20;i++){
+			if(mlist.get(i).homeTeam.equals(team)){
+				stats[i]=(double)(mlist.get(i).homeTeamSteal);
+			}else {
+				stats[i]=(double)(mlist.get(i).guestTeamSteal);}
+		}
+		res.steal=singleAverageEstimate(stats, ttp.steal, a);
+		
+		for(int i=0;i<20;i++){
+			if(mlist.get(i).homeTeam.equals(team)){
+				stats[i]=(double)(mlist.get(i).homeTeamBlockShot);
+			}else {
+				stats[i]=(double)(mlist.get(i).guestTeamBlockShot);}
+		}
+		res.blockShot=singleAverageEstimate(stats, ttp.blockShot, a);
+		
+		return res;
+
+	}
+	
+	
+	//球员单总体均值
+		public PlayerTechPO getPlayerChangePlayoffs(String player,String season,double a){
+			StatsInfo si=new PlayerTech();
+			PlayerTechPO ttp=new PlayerTechPO();
+			PlayerTechPO res=new PlayerTechPO();
+			ttp=si.getPlayerTech(player, season, 1);
+			ArrayList<PlayerTechMPO> mlist=new ArrayList<PlayerTechMPO>();
+			mlist=si.getRecentPlayerM(player, season);
+
+			double[] stats=new double[20];
+			for(int i=0;i<20;i++){
+					stats[i]=(double)(mlist.get(i).score);
+			}
+			res.score=singleAverageEstimate(stats, ttp.score, a);
+			
+			for(int i=0;i<20;i++){
+				stats[i]=(double)(mlist.get(i).rebound);
+			}
+			res.rebound=singleAverageEstimate(stats, ttp.rebound, a);
+			
+			for(int i=0;i<20;i++){
+				stats[i]=(double)(mlist.get(i).secondaryAttack);
+			}
+			res.secondaryAttack=singleAverageEstimate(stats, ttp.secondaryAttack, a);
+			
+			for(int i=0;i<20;i++){
+				stats[i]=(double)(mlist.get(i).steal);
+			}
+			res.steal=singleAverageEstimate(stats, ttp.steal, a);
+			
+			for(int i=0;i<20;i++){
+				stats[i]=(double)(mlist.get(i).blockShot);
+			}
+			res.blockShot=singleAverageEstimate(stats, ttp.blockShot, a);
+
+			
+			return res;
+
+		}
+		
 //秩和检验
 }
