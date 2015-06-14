@@ -10,9 +10,6 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-	//	String res=t.parseDate("Fri,May 9", "2012-13");
-	//	System.out.println(res);
-		t.transferScore();
 	}
 	
 	public void transferDetail(){
@@ -69,7 +66,6 @@ public class Tools {
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		// MySQL����ʱ���û���
 		String user = "root";
-		// Java����MySQL����ʱ������
 		String password = "cyanham";
 		try {
 			// ���������
@@ -82,7 +78,6 @@ public class Tools {
 			// statement����ִ��SQL���
 			Statement statement = conn.createStatement();
 			Statement statement1 = conn.createStatement();
-			// Ҫִ�е�SQL���
 			String sql = "SELECT * FROM score";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
@@ -166,7 +161,7 @@ public class Tools {
 		if(dt[1].length()==1){
 			day = "0"+day;
 		}
-		result = year+month+day;
+		result = year+"-"+month+"-"+day;
 		return result;
 	}
 	
