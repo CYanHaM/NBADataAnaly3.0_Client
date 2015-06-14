@@ -1,7 +1,7 @@
 package bussinesslogic.Transfer.L2P;
 
 import PO.TeamPO;
-import bussinesslogic.TeamBL.TeamLineItem;
+import bussinesslogic.teambl.TeamLineItem;
 
 public class TeamL2P {
 	TeamPO tpo = new TeamPO();

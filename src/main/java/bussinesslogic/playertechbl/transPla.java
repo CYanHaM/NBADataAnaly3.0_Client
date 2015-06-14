@@ -28,7 +28,6 @@ public class transPla {
 			case"score":return"PTS";
 			case"steal":return"STL";
 			case"stealave":return"STPG";
-
 			case"trueshotinrate":return"TS";
 			case"reboundrate":return"REBR";
 			case"offensivereboundrate":return"ORR";
@@ -39,9 +38,9 @@ public class transPla {
 			
 			case"scoreave":return"PTS";
 			
-			case"efficiency":return"";
-			
-			
+
+			case"double":return "doubles";
+			case"efficiency":return"efficiency";
 			case"blockshotrate":return"blockshotrate";
 			case"stealrate":return"stealrate";
 			case"shootingefficiency":return"shootingefficiency";

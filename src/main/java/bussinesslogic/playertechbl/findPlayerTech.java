@@ -28,11 +28,11 @@ public class findPlayerTech implements FindPlayerTechService{
 	}
 
 	@Override
-	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword) {
+	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season) {
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO> result = new ArrayList<PlayerTechVO>();
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
-		list = fds.findSeasonHotPlayer(keyword);
+		list = fds.findSeasonHotPlayer(keyword,season);
 		result = ptt.list2vo(list);
 		return result;
 	}
