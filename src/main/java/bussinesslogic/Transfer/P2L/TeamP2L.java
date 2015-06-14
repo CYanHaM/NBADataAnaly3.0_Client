@@ -1,7 +1,7 @@
 package bussinesslogic.Transfer.P2L;
 
 import PO.TeamPO;
-import bussinesslogic.TeamBL.TeamLineItem;
+import bussinesslogic.teambl.TeamLineItem;
 
 public class TeamP2L {
 	TeamLineItem tli = new TeamLineItem();

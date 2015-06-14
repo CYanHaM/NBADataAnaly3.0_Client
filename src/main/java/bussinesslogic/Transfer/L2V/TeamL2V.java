@@ -1,7 +1,7 @@
 package bussinesslogic.Transfer.L2V;
 
 import VO.TeamVO;
-import bussinesslogic.TeamBL.TeamLineItem;
+import bussinesslogic.teambl.TeamLineItem;
 
 public class TeamL2V {
 	TeamVO tvo = new TeamVO();

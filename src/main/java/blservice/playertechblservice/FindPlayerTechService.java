@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import VO.PlayerTechMVO;
 import VO.PlayerTechVO;
 import VO.ScreeningConditionVO;
+import dataservice.playertechdataservice.FindDataService;
 
 public interface FindPlayerTechService {
 	
@@ -12,7 +13,7 @@ public interface FindPlayerTechService {
 	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword);
 	
 	//璧涘鐑偣鐞冨憳
-	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword);
+	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season);
 	
 	//杩涙鏈�蹇悆鍛�
 	public ArrayList<PlayerTechVO> findFastImprovingPlayer(String keyword);

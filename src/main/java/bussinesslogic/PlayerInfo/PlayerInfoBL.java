@@ -32,18 +32,25 @@ public class PlayerInfoBL implements PlayerInfoService{
 
 	@Override
 	public ArrayList<PlayerVO> findPlayerByLetter(char letter) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerPO> ppo = new ArrayList<PlayerPO>();
+		ppo = pids.findByLetter(letter);
+		ArrayList<PlayerVO> pvo = new ArrayList<PlayerVO>();
+		pvo = p2v.list2vo(ppo);
+		return pvo;
 	}
 
 	@Override
 	public ArrayList<PlayerVO> findByTeam(String team) {
+		ArrayList<PlayerPO> ppo = new ArrayList<PlayerPO>();
+		ppo = pids.findByTeam(team);
+		ArrayList<PlayerVO> pvo = new ArrayList<PlayerVO>();
+		pvo = p2v.list2vo(ppo);
+		return pvo;
 	}
 
 	@Override
 	public void PlayerInfoIni() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
