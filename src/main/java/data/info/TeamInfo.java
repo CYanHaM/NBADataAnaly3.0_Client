@@ -1,5 +1,11 @@
 package data.info;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import PO.TeamPO;
 import dataservice.TeamDataService;
 
@@ -9,7 +15,6 @@ public class TeamInfo implements TeamDataService {
 	public TeamPO find(String team) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				String name = tpo.abbreviation;
 				//连接至数据库
 				//驱动程序名
 				String driver = "com.mysql.jdbc.Driver";
@@ -30,19 +35,23 @@ public class TeamInfo implements TeamDataService {
 					// statement用来执行SQL语句
 					Statement statement = conn.createStatement();
 					// 要执行的SQL语句
-					String sql = "SELECT * FROM t_team WHERE abbreviation = '"+name+"'";
+					String sql = "SELECT * FROM t_team WHERE abbreviation = '"+team+"'";
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) {
-						tpo.fullName = new String(rs.getString(1).getBytes("ISO-8859-1"),"utf-8");
-						tpo.location = new String(rs.getString(3).getBytes("ISO-8859-1"),"utf-8");
-						tpo.division = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
-						tpo.partition = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
-						tpo.homeCourt = new String(rs.getString(6).getBytes("ISO-8859-1"),"utf-8");
-						tpo.time = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
+						TeamPO po = new TeamPO();
+						po.fullName = new String(rs.getString(1).getBytes("ISO-8859-1"),"utf-8");
+						po.abbreviation = new String(rs.getString(2).getBytes("ISO-8859-1"),"utf-8");
+						po.location = new String(rs.getString(3).getBytes("ISO-8859-1"),"utf-8");
+						po.division = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
+						po.partition = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
+						po.homeCourt = new String(rs.getString(6).getBytes("ISO-8859-1"),"utf-8");
+						po.time = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
+						System.out.println("find team");
+						return po;
 					}
-					System.out.println("find team");
 					rs.close();
 					conn.close();
+				
 				} catch(ClassNotFoundException e) {
 					System.out.println("Sorry,can`t find the Driver!");
 					e.printStackTrace();
@@ -51,7 +60,8 @@ public class TeamInfo implements TeamDataService {
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
-				return tpo;
+				System.out.println("wong:find team by abbr");
+				return null;
 	}
 
 	@Override
