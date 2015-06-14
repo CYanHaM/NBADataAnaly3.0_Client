@@ -26,7 +26,7 @@ public class ImportPlayer {
 	ShowPlayerTechService spt;
 
 	public ImportPlayer(){
-		pis = new PlayerInfo();
+		pis = new PlayerInfoBL();
 		fpt = new FindPlayerTech();
 		spt = new ShowPlayerTech();
 	}
