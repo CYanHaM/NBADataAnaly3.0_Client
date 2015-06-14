@@ -42,9 +42,7 @@ public class RadarChart {
 		  plot.setLabelFont(subtitleFont);
 		  plot.setLabelPaint(Color.WHITE);
 		  plot.setAxisLinePaint(Color.WHITE);
-		  plot.setWebFilled(false);
-//		  LineAndShapeRenderer renderer=plot.setWebFilled(flag);
-//		  plot.set
+		  plot.setWebFilled(true);
 		  
 		  return chart;
 		  
