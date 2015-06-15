@@ -20,6 +20,10 @@ public class AboutMatch {
 		for(int i=0;i<list.size();i++){
 			MatchPO po = mds.completeMatch(list.get(i));
 			res.add(po);
+			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
+			for(int j=0;j<ml.size();j++){
+				am.modify(ml.get(j));//��playerTechMPO�����������
+			}
 		}
 	}
 	public ArrayList<MatchPO> allMatch(){
