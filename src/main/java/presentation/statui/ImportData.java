@@ -7,7 +7,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
+import PO.MatchPO;
 import PO.PlayerStatsPO;
+import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
 import PO.TeamStatsPO;
 import PO.TeamTechPO;
@@ -32,6 +34,8 @@ public class ImportData {
 	TeamStatsPO tsp=new TeamStatsPO();
 	 ArrayList<TeamTechPO>tlist=new ArrayList<TeamTechPO>();
 	 ArrayList<PlayerTechPO>plist=new ArrayList<PlayerTechPO>();
+	 ArrayList<MatchPO>mlist=new ArrayList<MatchPO>();
+	 ArrayList<PlayerTechMPO>pmlist=new ArrayList<PlayerTechMPO>();
 
 	Object [][]dataAllP=new Object[9][4];
 	Object [][]dataOffP=new Object[5][4];
@@ -63,6 +67,8 @@ public class ImportData {
 		
 		tlist=statsinfo.getMatchForYear(team);
 		plist=statsinfo.getPlayerForYear(player);
+	    mlist=statsinfo.getRecentMatch(team, season);
+	    pmlist=statsinfo.getRecentPlayerM(player, season);
 	}
 	
 	public String[] getSeasons(String teamname){
@@ -334,27 +340,244 @@ public class ImportData {
 		  return dataset;
 		 }
 	 
-	//折线的参数还没传 
-	 public static ArrayList<CategoryDataset> getLineDataset(String season,String team){
-		 ArrayList<CategoryDataset> clist=new ArrayList<CategoryDataset>();
+	//球队折线的参数 
+	 public  CategoryDataset getLineDataset(String season,String team,String linename){
 		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
 		 if(season.equals("regular")){
-
-		 dataset.addValue(1, "First", "2003");  
-		 dataset.addValue(3, "First", "2004");  
-		 dataset.addValue(2, "First", "2015");  
-		 dataset.addValue(6, "First", "2016");  
-		 dataset.addValue(5, "First", "2017");  
-		 dataset.addValue(12, "First", "2018");  
-		 dataset.addValue(14, "Second", "2013");  
-		 dataset.addValue(13, "Second", "2014");  
-		 dataset.addValue(12, "Second", "2015");  
-		 dataset.addValue(9, "Second", "2016");  
-		 dataset.addValue(5, "Second", "2017");  
-		 dataset.addValue(7, "Second", "2018");  
+			 double []num=new double[13];
+			 switch (linename) {
+			 case "得分":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)tlist.get(i).score;
+				 }
+				 break;
+			 case "篮板":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)tlist.get(i).rebound;
+				 }
+				 break;
+			 case "助攻":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)tlist.get(i).secondaryAttack;
+				 }
+				 break;
+				 
+			 case "抢断":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)tlist.get(i).steal;
+				 }
+				 break;
+				 
+			 case "盖帽":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)tlist.get(i).blockShot;
+				 }
+				 break;
+				 
+			 default:
+				 break;
+			 }
+			 
+			 dataset.addValue(num[0], "First", "2003");  
+			 dataset.addValue(num[1], "First", "2004");  
+			 dataset.addValue(num[2], "First", "2005");  
+			 dataset.addValue(num[3], "First", "2006");  
+			 dataset.addValue(num[4], "First", "2007");  
+			 dataset.addValue(num[5], "First", "2008");  
+			 dataset.addValue(num[6], "First", "2009");  
+			 dataset.addValue(num[7], "First", "2010");  
+			 dataset.addValue(num[8], "First", "2011");
+			 dataset.addValue(num[9], "First", "2012");  
+			 dataset.addValue(num[10], "First", "2013");  
+			 dataset.addValue(num[11], "First", "2014");  
+			 dataset.addValue(num[12], "First", "2015");  
 		 } 
+		 
+		 else{
+			 double []num=new double[10];
+			 double average = 0;
+			 switch (linename) {
+			 case "得分":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)mlist.get(i).homeScore;
+				 }
+				 average=(double)tp.score;
+				 break;
+			 case "篮板":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)mlist.get(i).homeTeamDeffensiveRebound+(double)mlist.get(i).homeTeamOffensiveRebound;
+				 }
+				 average=(double)tp.rebound;
+				 break;
+			 case "助攻":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)mlist.get(i).homeTeamSecondaryAttack;
+				 }
+				 average=(double)tp.secondaryAttack;
+				 break;
+				 
+			 case "抢断":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)mlist.get(i).homeTeamSteal;
+				 }
+				 average=(double)tp.steal;
+				 break;
+				 
+			 case "盖帽":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)mlist.get(i).homeTeamBlockShot;
+				 }
+				 average=(double)tp.blockShot;
+				 break;
+				 
+			 default:
+				 break;
+			 }
+			 
+			 dataset.addValue(num[0], "First", "1");  
+			 dataset.addValue(num[1], "First", "2");  
+			 dataset.addValue(num[2], "First", "3");  
+			 dataset.addValue(num[3], "First", "4");  
+			 dataset.addValue(num[4], "First", "5");  
+			 dataset.addValue(num[5], "First", "6");  
+			 dataset.addValue(num[6], "First", "7");  
+			 dataset.addValue(num[7], "First", "8");  
+			 dataset.addValue(num[8], "First", "9");
+			 dataset.addValue(num[9], "First", "10");
+			 dataset.addValue(average, "Second", "1");  
+			 dataset.addValue(average, "Second", "2");  
+			 dataset.addValue(average, "Second", "3");  
+			 dataset.addValue(average, "Second", "4");  
+			 dataset.addValue(average, "Second", "5");  
+			 dataset.addValue(average, "Second", "6");  
+			 dataset.addValue(average, "Second", "7");  
+			 dataset.addValue(average, "Second", "8");  
+			 dataset.addValue(average, "Second", "9");
+			 dataset.addValue(average, "Second", "10");
+			 
+		 }
 		 return dataset;
 	 }
+
+		//球员折线的参数 
+	 public  CategoryDataset getLineDatasetP(String season,String player,String linename){
+		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
+		 if(season.equals("regular")){
+			 double []num=new double[13];
+			 switch (linename) {
+			 case "得分":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)plist.get(i).score;
+				 }
+				 break;
+			 case "篮板":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)plist.get(i).rebound;
+				 }
+				 break;
+			 case "助攻":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)plist.get(i).secondaryAttack;
+				 }
+				 break;
+				 
+			 case "抢断":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)plist.get(i).steal;
+				 }
+				 break;
+				 
+			 case "盖帽":
+				 for(int i=0;i<13;i++){
+					 num[i]=(double)plist.get(i).blockShot;
+				 }
+				 break;
+				 
+			 default:
+				 break;
+			 }
+			 
+			 dataset.addValue(num[0], "First", "2003");  
+			 dataset.addValue(num[1], "First", "2004");  
+			 dataset.addValue(num[2], "First", "2005");  
+			 dataset.addValue(num[3], "First", "2006");  
+			 dataset.addValue(num[4], "First", "2007");  
+			 dataset.addValue(num[5], "First", "2008");  
+			 dataset.addValue(num[6], "First", "2009");  
+			 dataset.addValue(num[7], "First", "2010");  
+			 dataset.addValue(num[8], "First", "2011");
+			 dataset.addValue(num[9], "First", "2012");  
+			 dataset.addValue(num[10], "First", "2013");  
+			 dataset.addValue(num[11], "First", "2014");  
+			 dataset.addValue(num[12], "First", "2015");  
+		 } 
+		 
+		 else{
+			 double []num=new double[10];
+			 double average = 0;
+			 switch (linename) {
+			 case "得分":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)pmlist.get(i).score;
+				 }
+				 average=(double)pp.score;
+				 break;
+			 case "篮板":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)pmlist.get(i).rebound;
+				 }
+				 average=(double)pp.rebound;
+				 break;
+			 case "助攻":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)pmlist.get(i).secondaryAttack;
+				 }
+				 average=(double)pp.secondaryAttack;
+				 break;
+				 
+			 case "抢断":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)pmlist.get(i).steal;
+				 }
+				 average=(double)pp.steal;
+				 break;
+				 
+			 case "盖帽":
+				 for(int i=0;i<10;i++){
+					 num[i]=(double)pmlist.get(i).blockShot;
+				 }
+				 average=(double)pp.blockShot;
+				 break;
+				 
+			 default:
+				 break;
+			 }
+			 
+			 dataset.addValue(num[0], "First", "1");  
+			 dataset.addValue(num[1], "First", "2");  
+			 dataset.addValue(num[2], "First", "3");  
+			 dataset.addValue(num[3], "First", "4");  
+			 dataset.addValue(num[4], "First", "5");  
+			 dataset.addValue(num[5], "First", "6");  
+			 dataset.addValue(num[6], "First", "7");  
+			 dataset.addValue(num[7], "First", "8");  
+			 dataset.addValue(num[8], "First", "9");
+			 dataset.addValue(num[9], "First", "10");
+			 dataset.addValue(average, "Second", "1");  
+			 dataset.addValue(average, "Second", "2");  
+			 dataset.addValue(average, "Second", "3");  
+			 dataset.addValue(average, "Second", "4");  
+			 dataset.addValue(average, "Second", "5");  
+			 dataset.addValue(average, "Second", "6");  
+			 dataset.addValue(average, "Second", "7");  
+			 dataset.addValue(average, "Second", "8");  
+			 dataset.addValue(average, "Second", "9");
+			 dataset.addValue(average, "Second", "10");
+			 
+		 }
+		 return dataset;
+	 }
+	 
 	 
 	 public static CategoryDataset createRadarDataset(String season,String team){
 		 String s = "First";
