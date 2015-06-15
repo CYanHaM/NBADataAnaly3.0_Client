@@ -26,7 +26,6 @@ public class PlayerTechTransfer {
 			vo.shotInRate = po.shotInRate;
 			vo.threeShotInRate = po.threeShotInRate;
 			vo.penaltyShotInRate = po.penaltyShotInRate;
-			vo.efficiency = po.efficiency;
 			vo.GmScEfficiency = po.GmScEfficiency;
 			vo.trueShotInRate = po.trueShotInRate;
 			vo.shootingEfficiency = po.shootingEfficiency;
@@ -34,8 +33,6 @@ public class PlayerTechTransfer {
 			vo.offensiveReboundRate = po.offensiveReboundRate;
 			vo.defensiveReboundRate = po.defensiveReboundRate;
 			vo.secondaryAttackRate = po.secondaryAttackRate;
-			vo.stealRate = po.stealRate;
-			vo.blockShotRate = po.blockShotRate;
 			vo.faultRate = po.faultRate;
 			vo.usageRate = po.usageRate;
 			
@@ -124,7 +121,6 @@ public class PlayerTechTransfer {
 		vo.shotInRate = po.shotInRate;
 		vo.threeShotInRate = po.threeShotInRate;
 		vo.penaltyShotInRate = po.penaltyShotInRate;
-		vo.efficiency = po.efficiency;
 		vo.GmScEfficiency = po.GmScEfficiency;
 		vo.trueShotInRate = po.trueShotInRate;
 		vo.shootingEfficiency = po.shootingEfficiency;
@@ -132,8 +128,6 @@ public class PlayerTechTransfer {
 		vo.offensiveReboundRate = po.offensiveReboundRate;
 		vo.defensiveReboundRate = po.defensiveReboundRate;
 		vo.secondaryAttackRate = po.secondaryAttackRate;
-		vo.stealRate = po.stealRate;
-		vo.blockShotRate = po.blockShotRate;
 		vo.faultRate = po.faultRate;
 		vo.usageRate = po.usageRate;
 		

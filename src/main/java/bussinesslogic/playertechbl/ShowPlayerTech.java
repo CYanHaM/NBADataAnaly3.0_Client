@@ -12,9 +12,9 @@ public class ShowPlayerTech  implements ShowPlayerTechService {
 
 	ShowDataService sd ;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	@Override
-	public ArrayList<PlayerTechVO> showSeasonPlayerData() {
+	public ArrayList<PlayerTechVO> showSeasonPlayerData(String team) {
 		ArrayList<PlayerTechPO> ptpo = new ArrayList<PlayerTechPO>();
-		ptpo = sd.showSeasonPlayerData();
+		ptpo = sd.showSeasonPlayerData(team);
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO> ptvo = ptt.list2vo(ptpo);
 		return ptvo;
@@ -38,15 +38,20 @@ public class ShowPlayerTech  implements ShowPlayerTechService {
 		
 	}
 	@Override
-	public ArrayList<PlayerTechVO> ascend(String type) {
-		ShowPlayerTech sp = new ShowPlayerTech();
+	public ArrayList<PlayerTechVO> ascend(String type,String team) {
+		transPla tp = new transPla();
+		String con = tp.translate(type);
+		ArrayList<PlayerTechPO>polist = sd.ascend(con, team);
+		PlayerTechTransfer ptt = new PlayerTechTransfer();
+		ArrayList<PlayerTechVO>volist = ptt.list2vo(polist);
+		return volist;
 	}
 	
 	@Override
-	public ArrayList<PlayerTechVO> descend(String type) {
+	public ArrayList<PlayerTechVO> descend(String type,String team) {
 		transPla tp = new transPla();
 		String con = tp.translate(type);
-		ArrayList<PlayerTechPO>polist = sd.descend(con);
+		ArrayList<PlayerTechPO>polist = sd.descend(con, team);
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO>volist = ptt.list2vo(polist);
 		return volist;
