@@ -25,9 +25,15 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import presentation.preset.StatPre;
+import PO.PlayerTechPO;
+import PO.TeamTechPO;
 import VO.PlayerVO;
 import blservice.playerinfoblservice.PlayerInfoService;
+import blservice.statsblservice.StatsBLService;
 import bussinesslogic.PlayerInfo.PlayerInfoBL;
+import bussinesslogic.playerbl.PlayerTech;
+import bussinesslogic.playerbl.StatsInfo;
+import bussinesslogic.statsbl.Stats;
 
 public class PlayerStatPanel extends JPanel implements ActionListener{
 	/**
@@ -102,22 +108,29 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			"马刺 San Antonio-Spurs"};
 	private int Teams_w=200;
 	private int Teams_h=30;
-	private JComboBox<String> Players;
+	private static JComboBox<String> Players;
+	private ArrayList<PlayerVO> playerlist;
 	private String[] PlayerNames;
 	private int Players_w=200;
 	private int Players_h=30;
 	
-	private JComboBox<String> season;
+	private static JComboBox<String> season;
 	private int season_w=100;
 	private int season_h=30;
 	
 	private JComboBox<String> formeryear;
 	private int formeryear_w=60;
 	private int formeryear_h=30;
+	private String[] formeryearstring={"2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"};
 	private JComboBox<String> latteryear;
 	private int latteryear_w=60;
 	private int latteryear_h=30;
+	private String[] latteryearstring={"2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015"};
 	private JLabel yearmessage;
+	private JLabel yearanalymessage1;
+	private JLabel yearanalymessage2;
+	private JLabel seasonanalymessage1;
+	private JLabel seasonanalymessage2;
 
 	private JLabel PlayerLogo;
 	private JLabel PlayerInfo;
@@ -135,7 +148,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	private String[] lineNames2={"得分","助攻","命中率","罚球","三分"};
 	private String[] lineNames3={"篮板","抢断","盖帽","失误"};
 	private int[] COLUMNWIDTH={80,60,80,150};
-	private JComboBox<String> alpha;
+	private static JComboBox<String> alpha;
 	private String[] alphaValue={"0.4","0.3","0.2","0.1","0.05","0.025","0.01","0.005","0.0005"};
 	private int alpha_w=60;
 	private int alpha_h=30;
@@ -156,6 +169,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	JPanel panelToRemove;
 	
 	PlayerInfoService pis;
+	ImportData importdata;
+	StatsInfo statsinfo;
+	StatsBLService stats;
 	
 	public PlayerStatPanel(JFrame frame) {
 		Frame=frame;
@@ -163,6 +179,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
 		pis=new PlayerInfoBL();
+		
+		statsinfo=new PlayerTech();
+		stats=new Stats();
 		
 		datainitial();
 		
@@ -177,8 +196,6 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		addradarchart(String.valueOf(Players.getSelectedItem()));
 		
 		addlabel();
-		
-		
 		
 
 	}
@@ -225,7 +242,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames1[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Players.getSelectedItem()),lineNames1[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Players.getSelectedItem()),lineNames1[temp]);
 					}
 				}
 			});
@@ -248,7 +271,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames2[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Players.getSelectedItem()),lineNames2[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Players.getSelectedItem()),lineNames2[temp]);
 					}
 				}
 			});
@@ -271,7 +300,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames3[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Players.getSelectedItem()),lineNames3[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Players.getSelectedItem()),lineNames3[temp]);
 					}
 				}
 			});
@@ -333,14 +368,23 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					if(DataType.getSelectedIndex()==0){
 						showbutton("all");
+						DataInfo1=new ImportData(null,
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getallTeam();
 						refreshtable("all");
 					}
 					if(DataType.getSelectedIndex()==1){
 						showbutton("offense");
+						DataInfo2=new ImportData(null,
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getoffenseTeam();
 						refreshtable("offense");
 					}
 					if(DataType.getSelectedIndex()==2){
 						showbutton("defense");
+						DataInfo3=new ImportData(null,
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getdefenseTeam();
 						refreshtable("defense");
 					}
 				}
@@ -351,12 +395,19 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		SeasonSelection=new JComboBox<String>();
 		SeasonSelection.setFocusable(false);
 		SeasonSelection.setBackground(StatPre.indefaultcolor);
+		SeasonSelection.addItem("2002-2003 常规赛");
+		SeasonSelection.addItem("2003-2004 常规赛");
+		SeasonSelection.addItem("2004-2005 常规赛");
+		SeasonSelection.addItem("2005-2006 常规赛");
+		SeasonSelection.addItem("2006-2007 常规赛");
+		SeasonSelection.addItem("2007-2008 常规赛");
+		SeasonSelection.addItem("2008-2009 常规赛");
+		SeasonSelection.addItem("2009-2010 常规赛");
 		SeasonSelection.addItem("2010-2011 常规赛");
-		SeasonSelection.addItem("2010-2011 季后赛");
 		SeasonSelection.addItem("2011-2012 常规赛");
-		SeasonSelection.addItem("2011-2012 季后赛");
 		SeasonSelection.addItem("2012-2013 常规赛");
-		SeasonSelection.addItem("2012-2013 季后赛");
+		SeasonSelection.addItem("2013-2014 常规赛");
+		SeasonSelection.addItem("2014-2015 常规赛");
 		SeasonSelection.setBounds(SIDEWIDTH+DataType_w+5,240,SeasonSelection_w,SeasonSelection_h);
 		SeasonSelection.setFont(StatPre.BoxFont);
 		SeasonSelection.addItemListener(new ItemListener(){
@@ -364,20 +415,29 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			public void itemStateChanged(ItemEvent arg0) {
 				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					if(SeasonSelection.getSelectedIndex()==0){
-						
-					}
-					if(SeasonSelection.getSelectedIndex()==1){
-						
-					}
-					if(SeasonSelection.getSelectedIndex()==2){
-						
-					}
+					refreshdata();
 				}
 			}
 		});
 		this.add(SeasonSelection);
 			
+		Players=new JComboBox<String>();
+		Players.setFocusable(false);
+		Players.setBackground(StatPre.indefaultcolor);
+		Players.setBounds(SIDEWIDTH+Teams_w+5,205,Players_w,Players_h);
+		Players.setFont(StatPre.BoxFont);
+		Players.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					PlayerLogo.setIcon(new ImageIcon("images/players/action_small/"+String.valueOf(Players.getSelectedItem())+".png"));
+					refreshdata();
+				}
+			}
+		});
+		Players.setVisible(true);
+		this.add(Players);
+		
 		Teams=new JComboBox<String>();
 		Teams.setFocusable(false);
 		Teams.setBackground(StatPre.indefaultcolor);
@@ -390,59 +450,43 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-
+					playerlist=pis.findByTeam(switchTeam(String.valueOf(Teams.getSelectedItem())));
+//					ArrayList<PlayerVO> playerlist=new ArrayList<PlayerVO>();
+//					PlayerVO p1=new PlayerVO();
+//					p1.name="Aaron Brooks";
+//					playerlist.add(p1);
+//					PlayerVO p2=new PlayerVO();
+//					p2.name="Al Harrington";
+//					playerlist.add(p2);
+//					PlayerVO p3=new PlayerVO();
+//					p3.name="Alexey Shved";
+//					playerlist.add(p3);
+//					PlayerVO p4=new PlayerVO();
+//					p4.name="ddd";
+//					playerlist.add(p4);
+//					PlayerVO p5=new PlayerVO();
+//					p5.name="eee";
+//					playerlist.add(p5);
+//					PlayerVO p6=new PlayerVO();
+//					p6.name="fff";
+//					playerlist.add(p6);
+//					PlayerVO p7=new PlayerVO();
+//					p7.name="ggg";
+//					playerlist.add(p7);
+//					PlayerVO p8=new PlayerVO();
+//					p8.name="hhh";
+//					playerlist.add(p8);
+					PlayerNames=new String[playerlist.size()];
+					for(int i=0;i<playerlist.size();i++){
+						PlayerNames[i]=playerlist.get(i).name;
+						Players.removeAll();
+						Players.addItem(PlayerNames[i]);
+					}
 				}
 			}
 		});
 		this.add(Teams);
 		
-		
-		Players=new JComboBox<String>();
-		Players.setFocusable(false);
-		Players.setBackground(StatPre.indefaultcolor);
-//		ArrayList<PlayerVO> playerlist=pis.findByTeam(switchTeam(String.valueOf(Teams.getSelectedItem())));
-		ArrayList<PlayerVO> playerlist=new ArrayList<PlayerVO>();
-		PlayerVO p1=new PlayerVO();
-		p1.name="Aaron Brooks";
-		playerlist.add(p1);
-		PlayerVO p2=new PlayerVO();
-		p2.name="Al Harrington";
-		playerlist.add(p2);
-		PlayerVO p3=new PlayerVO();
-		p3.name="Alexey Shved";
-		playerlist.add(p3);
-		PlayerVO p4=new PlayerVO();
-		p4.name="ddd";
-		playerlist.add(p4);
-		PlayerVO p5=new PlayerVO();
-		p5.name="eee";
-		playerlist.add(p5);
-		PlayerVO p6=new PlayerVO();
-		p6.name="fff";
-		playerlist.add(p6);
-		PlayerVO p7=new PlayerVO();
-		p7.name="ggg";
-		playerlist.add(p7);
-		PlayerVO p8=new PlayerVO();
-		p8.name="hhh";
-		playerlist.add(p8);
-		PlayerNames=new String[playerlist.size()];
-		for(int i=0;i<playerlist.size();i++){
-			PlayerNames[i]=playerlist.get(i).name;
-			Players.addItem(PlayerNames[i]);
-		}
-		Players.setBounds(SIDEWIDTH+Teams_w+5,205,Players_w,Players_h);
-		Players.setFont(StatPre.BoxFont);
-		Players.addItemListener(new ItemListener(){
-			@Override
-			public void itemStateChanged(ItemEvent arg0) {
-				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					PlayerLogo.setIcon(new ImageIcon("images/players/action_small/"+String.valueOf(Players.getSelectedItem())+".png"));
-				}
-			}
-		});
-		Players.setVisible(true);
-		this.add(Players);
 		
 		alpha=new JComboBox<String>();
 		alpha.setFocusable(false);
@@ -457,15 +501,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			public void itemStateChanged(ItemEvent arg0) {
 				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					if(alpha.getSelectedIndex()==0){
-						
-					}
-					if(alpha.getSelectedIndex()==1){
-						
-					}
-					if(alpha.getSelectedIndex()==2){
-						
-					}
+					refreshdata();
 				}
 			}
 		});
@@ -478,7 +514,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		season.addItem("常规赛");
-		season.addItem("季后赛");
+		String[] seasonlist=statsinfo.getPlayerSeasonList(String.valueOf(Players.getSelectedItem()));
+		for(int i=0;i<seasonlist.length;i++){
+			String[] temp=seasonlist[i].split(" ");
+			if(temp[1].equals("Postseason")){
+				season.addItem(temp[0]+" 季后赛");
+			}
+		}
 		season.setBounds(SIDEWIDTH,240,season_w,season_h);
 		season.setFocusable(false);
 		season.setBackground(StatPre.indefaultcolor);
@@ -487,7 +529,48 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					//a默认0.01
+					if(season.getSelectedIndex()!=0){
+						//a默认0.01
+						PlayerTechPO playertechpo=stats.getPlayerChangePlayoffs(String.valueOf(Players.getSelectedItem()), switchSeason(String.valueOf(season.getSelectedItem())), 0.01);
+						for(int i=0;i<5;i++){
+							if(linebutton1[i].isSelected()){
+								seasonanalymessage1.setText(String.valueOf(season.getSelectedItem())+"相对常规赛");
+								switch(lineNames1[i]){
+								case "得分":
+									if(playertechpo.score==1){
+										seasonanalymessage2.setText("得分有显著变化");
+									}else{
+										seasonanalymessage2.setText("得分并无显著变化");
+									}
+								case "篮板":
+									if(playertechpo.rebound==1){
+										seasonanalymessage2.setText("篮板有显著变化");
+									}else{
+										seasonanalymessage2.setText("篮板并无显著变化");
+									}
+								case "助攻":
+									if(playertechpo.secondaryAttack==1){
+										seasonanalymessage2.setText("助攻有显著变化");
+									}else{
+										seasonanalymessage2.setText("助攻并无显著变化");
+									}
+								case "抢断":
+									if(playertechpo.steal==1){
+										seasonanalymessage2.setText("抢断有显著变化");
+									}else{
+										seasonanalymessage2.setText("抢断并无显著变化");
+									}
+								case "盖帽":
+									if(playertechpo.blockShot==1){
+										seasonanalymessage2.setText("盖帽有显著变化");
+									}else{
+										seasonanalymessage2.setText("盖帽并无显著变化");
+									}
+								
+							}
+							}
+							}
+					}
 					
 				}
 			}
@@ -496,9 +579,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		this.add(season);
 		
 		formeryear=new JComboBox<String>();
-		formeryear.addItem("2009");
-		formeryear.addItem("2010");
-		formeryear.addItem("2011");
+		for(int i=0;i<formeryearstring.length;i++){
+			formeryear.addItem(formeryearstring[i]);
+		}
 		formeryear.setBounds(SIDEWIDTH+DataType_w+40, 240, formeryear_w, formeryear_h);
 		formeryear.setFocusable(false);
 		formeryear.setBackground(StatPre.indefaultcolor);
@@ -507,7 +590,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					
+					latteryear.setSelectedIndex(formeryear.getSelectedIndex());
 				}
 			}
 		});
@@ -515,9 +598,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		this.add(formeryear);
 		
 		latteryear=new JComboBox<String>();
-		latteryear.addItem("2010");
-		latteryear.addItem("2011");
-		latteryear.addItem("2012");
+		for(int i=0;i<formeryearstring.length;i++){
+			latteryear.addItem(latteryearstring[i]);
+		}
 		latteryear.setBounds(SIDEWIDTH+DataType_w+formeryear_w+40+15, 240, latteryear_w, latteryear_h);
 		latteryear.setFocusable(false);
 		latteryear.setBackground(StatPre.indefaultcolor);
@@ -526,7 +609,47 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					
+					PlayerTechPO teamtechpo=stats.getPlayerChangeYear(String.valueOf(Players.getSelectedItem()),
+							switchSeason(String.valueOf(formeryear.getSelectedItem())),
+							switchSeason(String.valueOf(latteryear.getSelectedItem())));
+					for(int i=0;i<5;i++){
+					if(linebutton1[i].isSelected()){
+						yearanalymessage1.setText(String.valueOf(formeryear.getSelectedItem())+"至"+String.valueOf(latteryear.getSelectedItem()));
+						switch(lineNames1[i]){
+						case "得分":
+							if(teamtechpo.score==1){
+								yearanalymessage2.setText("得分有显著提高");
+							}else{
+								yearanalymessage2.setText("得分并无显著提高");
+							}
+						case "篮板":
+							if(teamtechpo.rebound==1){
+								yearanalymessage2.setText("篮板有显著提高");
+							}else{
+								yearanalymessage2.setText("篮板并无显著提高");
+							}
+						case "助攻":
+							if(teamtechpo.secondaryAttack==1){
+								yearanalymessage2.setText("助攻有显著提高");
+							}else{
+								yearanalymessage2.setText("助攻并无显著提高");
+							}
+						case "抢断":
+							if(teamtechpo.steal==1){
+								yearanalymessage2.setText("抢断有显著提高");
+							}else{
+								yearanalymessage2.setText("抢断并无显著提高");
+							}
+						case "盖帽":
+							if(teamtechpo.blockShot==1){
+								yearanalymessage2.setText("盖帽有显著提高");
+							}else{
+								yearanalymessage2.setText("盖帽并无显著提高");
+							}
+					}
+					}
+					}
+				
 				}
 			}
 		});
@@ -633,6 +756,27 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		DataInfo3=new Object[lineNames3.length][columnNames.length];
 	}
 	
+	public void refreshdata(){
+		if(DataType.getSelectedIndex()==0){
+			DataInfo1=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getallPlayer();
+			refreshtable("all");
+		}
+		if(DataType.getSelectedIndex()==1){
+			DataInfo2=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getoffensePlayer();
+			refreshtable("offense");
+		}
+		if(DataType.getSelectedIndex()==2){
+			DataInfo3=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getdefensePlayer();
+			refreshtable("defense");
+		}
+	}
+	
 	public void refreshtable(String info){
 		switch(info){
 		case "all":
@@ -659,6 +803,23 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		PlayerLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(teamname)+".png"));
 		this.add(PlayerLogo);
 		
+		yearanalymessage1=new JLabel();
+		yearanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
+		yearanalymessage1.setFont(StatPre.MessageFont_large);
+		yearanalymessage1.setForeground(StatPre.defaultcolor);
+		yearanalymessage2=new JLabel();
+		yearanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
+		yearanalymessage2.setFont(StatPre.MessageFont_large);
+		yearanalymessage2.setForeground(StatPre.defaultcolor);
+		
+		seasonanalymessage1=new JLabel();
+		seasonanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
+		seasonanalymessage1.setFont(StatPre.MessageFont_large);
+		seasonanalymessage1.setForeground(StatPre.defaultcolor);
+		seasonanalymessage2=new JLabel();
+		seasonanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
+		seasonanalymessage2.setFont(StatPre.MessageFont_large);
+		seasonanalymessage2.setForeground(StatPre.defaultcolor);
 	}
 	
 	private void addbarchart(String playername,String linename){
@@ -681,8 +842,8 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		Frame.repaint();
 	}
 	
-	 private void addlinechart(String playername,String linename){
-		 CategoryDataset ScoreTrendSet=getLineDataset(playername,linename);
+	 private void addlinechart(String seasoninfo,String playername,String linename){
+		 CategoryDataset ScoreTrendSet=getLineDataset(seasoninfo,playername,linename);
 //		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
 		 linechart.setChart(new LineChart().createChart(ScoreTrendSet,"变化趋势","年份",linename));
 		 linechart.setBounds(SIDEWIDTH+button_w, 270, 600, 400);
@@ -692,52 +853,16 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	 }
 	 
 	 public static CategoryDataset getBarDataset(String playername,String linename) {
-
-		  String series1 = "1";
-//		  String series2 = "2";
-//		  String series3 = "3";
-		  // 列
-		  String category1 = "场均";
-		  String category2 = "总体";
-		  String category3 = "东部联盟";
-		  String category4 = "西部联盟";
-
-		  // 创建数据源
-		  DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		  // 放入数据
-		  dataset.addValue(40.0, series1, category1);
-		  dataset.addValue(45.0, series1, category2);
-		  dataset.addValue(36.0, series1, category3);
-		  dataset.addValue(51.0, series1, category4);
-
-//		  dataset.addValue(5.0, series2, category1);
-//		  dataset.addValue(7.0, series2, category2);
-//		  dataset.addValue(6.0, series2, category3);
-//		  dataset.addValue(8.0, series2, category4);
-//
-//		  dataset.addValue(4.0, series3, category1);
-//		  dataset.addValue(3.0, series3, category2);
-//		  dataset.addValue(2.0, series3, category3);
-//		  dataset.addValue(3.0, series3, category4);
-
-		  return dataset;
+		  CategoryDataset newdataset=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getBarDataset(playername, linename);
+		  return newdataset;
 		 }
 	 
-	 public static CategoryDataset getLineDataset(String playername,String linename){
-		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-		 dataset.addValue(1, "First", "2013");  
-		 dataset.addValue(3, "First", "2014");  
-		 dataset.addValue(2, "First", "2015");  
-		 dataset.addValue(6, "First", "2016");  
-		 dataset.addValue(5, "First", "2017");  
-		 dataset.addValue(12, "First", "2018");  
-		 dataset.addValue(14, "Second", "2013");  
-		 dataset.addValue(13, "Second", "2014");  
-		 dataset.addValue(12, "Second", "2015");  
-		    dataset.addValue(9, "Second", "2016");  
-		    dataset.addValue(5, "Second", "2017");  
-		    dataset.addValue(7, "Second", "2018");  
-		 
+	 public static CategoryDataset getLineDataset(String seasoninfo,String playername,String linename){
+		 DefaultCategoryDataset dataset=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getLineDataset(seasoninfo,playername, linename);
 		 return dataset;
 	 }
 	 
@@ -926,6 +1051,40 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 					return null;
 			}
 		}
+	 
+	 private static String switchSeason(String season){
+			switch(season){
+			case "2002-2003 常规赛":
+				return "2002-03 Regular";
+			case "2003-2004 常规赛":
+				return "2003-04 Regular";
+			case "2004-2005 常规赛":
+				return "2004-05 Regular";
+			case "2005-2006 常规赛":
+				return "2005-06 Regular";
+			case "2006-2007 常规赛":
+				return "2006-07 Regular";
+			case "2007-2008 常规赛":
+				return "2007-08 Regular";
+			case "2008-2009 常规赛":
+				return "2008-09 Regular";
+			case "2009-2010 常规赛":
+				return "2009-10 Regular";
+			case "2010-2011 常规赛":
+				return "2010-11 Regular";
+			case "2011-2012 常规赛":
+				return "2011-12 Regular";
+			case "2012-2013 常规赛":
+				return "2012-13 Regular";
+			case "2013-2014 常规赛":
+				return "2013-14 Regular";
+			case "2014-2015 常规赛":
+				return "2014-15 Regular";
+			default :
+				return null;
+			}
+		}
+		
 	 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==Analysis){

@@ -1,16 +1,11 @@
 package presentation.statui;
 
 import java.awt.Component;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -35,9 +29,11 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import presentation.preset.StatPre;
-import VO.PlayerVO;
-import blservice.playerinfoblservice.PlayerInfoService;
-import bussinesslogic.PlayerInfo.PlayerInfoBL;
+import PO.TeamTechPO;
+import blservice.statsblservice.StatsBLService;
+import bussinesslogic.playerbl.PlayerTech;
+import bussinesslogic.playerbl.StatsInfo;
+import bussinesslogic.statsbl.Stats;
 
 public class TeamStatPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -80,7 +76,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	private JComboBox<String> SeasonSelection;
 	private int SeasonSelection_w=150;
 	private int SeasonSelection_h=30;
-	private JComboBox<String> Teams;
+	private static JComboBox<String> Teams;
 	private int Teams_w=200;
 	private int Teams_h=30;
 	private String[] TeamNames={
@@ -120,18 +116,23 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 "鹈鹕 New Orleans-Pelicans",
 "马刺 San Antonio-Spurs"};
 	
-	private JComboBox<String> season;
+	private static JComboBox<String> season;
 	private int season_w=100;
 	private int season_h=30;
 	
 	private JComboBox<String> formeryear;
 	private int formeryear_w=60;
 	private int formeryear_h=30;
+	private String[] formeryearstring={"2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"};
 	private JComboBox<String> latteryear;
 	private int latteryear_w=60;
 	private int latteryear_h=30;
+	private String[] latteryearstring={"2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015"};
 	private JLabel yearmessage;
-	private JButton summit;
+	private JLabel yearanalymessage1;
+	private JLabel yearanalymessage2;
+	private JLabel seasonanalymessage1;
+	private JLabel seasonanalymessage2;
 	
 	private JLabel TeamLogo;
 	private JLabel TeamInfo;
@@ -149,7 +150,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	private String[] lineNames2={"得分","助攻","命中率","罚球","三分"};
 	private String[] lineNames3={"篮板","抢断","盖帽","失误"};
 	private int[] COLUMNWIDTH={80,60,80,150};
-	private JComboBox<String> alpha;
+	private static JComboBox<String> alpha;
 	private String[] alphaValue={"0.4","0.3","0.2","0.1","0.05","0.025","0.01","0.005","0.0005"};
 	private int alpha_w=60;
 	private int alpha_h=30;
@@ -170,11 +171,18 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	JFrame Frame;
 	JPanel panelToRemove;
 	
+	ImportData importdata;
+	StatsInfo statsinfo;
+	StatsBLService stats;
+	
 	public TeamStatPanel(JFrame frame) {
 		Frame=frame;
 		panelToRemove=this;
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
+		
+		statsinfo=new PlayerTech();
+		stats=new Stats();
 		
 		datainitial();
 
@@ -234,7 +242,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames1[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames1[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Teams.getSelectedItem()),lineNames1[temp]);
 					}
 				}
 			});
@@ -258,7 +272,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames2[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames2[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Teams.getSelectedItem()),lineNames2[temp]);
 					}
 				}
 			});
@@ -282,7 +302,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 						setchart(lineNames3[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames3[temp]);
+						String seasontemp;
+						if(season.getSelectedIndex()==0){
+							seasontemp="Regular";
+						}else{
+							seasontemp="Postseason";
+						}
+						addlinechart(seasontemp,String.valueOf(Teams.getSelectedItem()),lineNames3[temp]);
 					}
 				}
 			});
@@ -345,14 +371,23 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					if(DataType.getSelectedIndex()==0){
 						showbutton("all");
+						DataInfo1=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),null).getallTeam();
 						refreshtable("all");
 					}
 					if(DataType.getSelectedIndex()==1){
 						showbutton("offense");
+						DataInfo2=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),null).getoffenseTeam();
 						refreshtable("offense");
 					}
 					if(DataType.getSelectedIndex()==2){
 						showbutton("defense");
+						DataInfo3=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+								switchSeason(String.valueOf(season.getSelectedItem())),
+								Double.parseDouble((String) alpha.getSelectedItem()),null).getdefenseTeam();
 						refreshtable("defense");
 					}
 				}
@@ -363,28 +398,26 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		SeasonSelection=new JComboBox<String>();
 		SeasonSelection.setFocusable(false);
 		SeasonSelection.setBackground(StatPre.indefaultcolor);
-//		SeasonSelection.addItem("2010-2011 常规赛");
-//		SeasonSelection.addItem("2010-2011 季后赛");
-//		SeasonSelection.addItem("2011-2012 常规赛");
-//		SeasonSelection.addItem("2011-2012 季后赛");
-//		SeasonSelection.addItem("2012-2013 常规赛");
-//		SeasonSelection.addItem("2012-2013 季后赛");
-		
+		SeasonSelection.addItem("2002-2003 常规赛");
+		SeasonSelection.addItem("2003-2004 常规赛");
+		SeasonSelection.addItem("2004-2005 常规赛");
+		SeasonSelection.addItem("2005-2006 常规赛");
+		SeasonSelection.addItem("2006-2007 常规赛");
+		SeasonSelection.addItem("2007-2008 常规赛");
+		SeasonSelection.addItem("2008-2009 常规赛");
+		SeasonSelection.addItem("2009-2010 常规赛");
+		SeasonSelection.addItem("2010-2011 常规赛");
+		SeasonSelection.addItem("2011-2012 常规赛");
+		SeasonSelection.addItem("2012-2013 常规赛");
+		SeasonSelection.addItem("2013-2014 常规赛");
+		SeasonSelection.addItem("2014-2015 常规赛");
 		SeasonSelection.setBounds(SIDEWIDTH+DataType_w+5,240,SeasonSelection_w,SeasonSelection_h);
 		SeasonSelection.setFont(StatPre.BoxFont);
 		SeasonSelection.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					if(SeasonSelection.getSelectedIndex()==0){
-						
-					}
-					if(SeasonSelection.getSelectedIndex()==1){
-						
-					}
-					if(SeasonSelection.getSelectedIndex()==2){
-						
-					}
+					refreshdata();
 				}
 			}
 		});
@@ -403,6 +436,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+					refreshdata();
 				}
 			}
 		});
@@ -416,6 +450,14 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		}
 		alpha.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,240,alpha_w,alpha_h);
 		alpha.setFont(StatPre.BoxFont);
+		alpha.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					refreshdata();
+				}
+			}
+		});
 		this.add(alpha);
 		alphamessage=new JLabel("α :");
 		alphamessage.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,245,30,15);
@@ -425,7 +467,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		season.addItem("常规赛");
-		season.addItem("季后赛");
+		String[] seasonlist=statsinfo.getTeamSeasonList(String.valueOf(Teams.getSelectedItem()));
+		for(int i=0;i<seasonlist.length;i++){
+			String[] temp=seasonlist[i].split(" ");
+			if(temp[1].equals("Postseason")){
+				season.addItem(temp[0]+" 季后赛");
+			}
+		}
 		season.setBounds(SIDEWIDTH,240,season_w,season_h);
 		season.setFocusable(false);
 		season.setBackground(StatPre.indefaultcolor);
@@ -434,8 +482,48 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					//a默认0.01
-					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+					if(season.getSelectedIndex()!=0){
+						//a默认0.01
+						TeamTechPO teamtechpo=stats.getTeamChangePlayoffs(switchTeam(String.valueOf(Teams.getSelectedItem())), switchSeason(String.valueOf(season.getSelectedItem())), 0.01);
+						for(int i=0;i<5;i++){
+							if(linebutton1[i].isSelected()){
+								seasonanalymessage1.setText(String.valueOf(season.getSelectedItem())+"相对常规赛");
+								switch(lineNames1[i]){
+								case "得分":
+									if(teamtechpo.score==1){
+										seasonanalymessage2.setText("得分有显著变化");
+									}else{
+										seasonanalymessage2.setText("得分并无显著变化");
+									}
+								case "篮板":
+									if(teamtechpo.rebound==1){
+										seasonanalymessage2.setText("篮板有显著变化");
+									}else{
+										seasonanalymessage2.setText("篮板并无显著变化");
+									}
+								case "助攻":
+									if(teamtechpo.secondaryAttack==1){
+										seasonanalymessage2.setText("助攻有显著变化");
+									}else{
+										seasonanalymessage2.setText("助攻并无显著变化");
+									}
+								case "抢断":
+									if(teamtechpo.steal==1){
+										seasonanalymessage2.setText("抢断有显著变化");
+									}else{
+										seasonanalymessage2.setText("抢断并无显著变化");
+									}
+								case "盖帽":
+									if(teamtechpo.blockShot==1){
+										seasonanalymessage2.setText("盖帽有显著变化");
+									}else{
+										seasonanalymessage2.setText("盖帽并无显著变化");
+									}
+								
+							}
+							}
+							}
+					}
 				}
 			}
 		});
@@ -443,9 +531,9 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		this.add(season);
 		
 		formeryear=new JComboBox<String>();
-		formeryear.addItem("2009");
-		formeryear.addItem("2010");
-		formeryear.addItem("2011");
+		for(int i=0;i<formeryearstring.length;i++){
+			formeryear.addItem(formeryearstring[i]);
+		}
 		formeryear.setBounds(SIDEWIDTH+DataType_w+40, 240, formeryear_w, formeryear_h);
 		formeryear.setFocusable(false);
 		formeryear.setBackground(StatPre.indefaultcolor);
@@ -454,8 +542,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					
-					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+					latteryear.setSelectedIndex(formeryear.getSelectedIndex());
 				}
 			}
 		});
@@ -463,9 +550,9 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		this.add(formeryear);
 		
 		latteryear=new JComboBox<String>();
-		latteryear.addItem("2010");
-		latteryear.addItem("2011");
-		latteryear.addItem("2012");
+		for(int i=0;i<formeryearstring.length;i++){
+			latteryear.addItem(latteryearstring[i]);
+		}
 		latteryear.setBounds(SIDEWIDTH+DataType_w+formeryear_w+40+15, 240, latteryear_w, latteryear_h);
 		latteryear.setFocusable(false);
 		latteryear.setBackground(StatPre.indefaultcolor);
@@ -474,8 +561,47 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					
-					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+					TeamTechPO teamtechpo=stats.getTeamChangeYear(switchTeam(String.valueOf(Teams.getSelectedItem())),
+							switchSeason(String.valueOf(formeryear.getSelectedItem())),
+							switchSeason(String.valueOf(latteryear.getSelectedItem())));
+					for(int i=0;i<5;i++){
+					if(linebutton1[i].isSelected()){
+						yearanalymessage1.setText(String.valueOf(formeryear.getSelectedItem())+"至"+String.valueOf(latteryear.getSelectedItem()));
+						switch(lineNames1[i]){
+						case "得分":
+							if(teamtechpo.score==1){
+								yearanalymessage2.setText("得分有显著提高");
+							}else{
+								yearanalymessage2.setText("得分并无显著提高");
+							}
+						case "篮板":
+							if(teamtechpo.rebound==1){
+								yearanalymessage2.setText("篮板有显著提高");
+							}else{
+								yearanalymessage2.setText("篮板并无显著提高");
+							}
+						case "助攻":
+							if(teamtechpo.secondaryAttack==1){
+								yearanalymessage2.setText("助攻有显著提高");
+							}else{
+								yearanalymessage2.setText("助攻并无显著提高");
+							}
+						case "抢断":
+							if(teamtechpo.steal==1){
+								yearanalymessage2.setText("抢断有显著提高");
+							}else{
+								yearanalymessage2.setText("抢断并无显著提高");
+							}
+						case "盖帽":
+							if(teamtechpo.blockShot==1){
+								yearanalymessage2.setText("盖帽有显著提高");
+							}else{
+								yearanalymessage2.setText("盖帽并无显著提高");
+							}
+						
+					}
+					}
+					}
 				}
 			}
 		});
@@ -582,6 +708,29 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		DataInfo3=new Object[lineNames3.length][columnNames.length];
 	}
 	
+	
+	//refresh the data in tables
+	public void refreshdata(){
+		if(DataType.getSelectedIndex()==0){
+			DataInfo1=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),null).getallTeam();
+			refreshtable("all");
+		}
+		if(DataType.getSelectedIndex()==1){
+			DataInfo2=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),null).getoffenseTeam();
+			refreshtable("offense");
+		}
+		if(DataType.getSelectedIndex()==2){
+			DataInfo3=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),null).getdefenseTeam();
+			refreshtable("defense");
+		}
+	}
+	
 	public void refreshtable(String info){
 		switch(info){
 		case "all":
@@ -610,72 +759,54 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		this.add(TeamLogo);
 		TeamInfo=new JLabel();
 		
+		yearanalymessage1=new JLabel();
+		yearanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
+		yearanalymessage1.setFont(StatPre.MessageFont_large);
+		yearanalymessage1.setForeground(StatPre.defaultcolor);
+		yearanalymessage2=new JLabel();
+		yearanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
+		yearanalymessage2.setFont(StatPre.MessageFont_large);
+		yearanalymessage2.setForeground(StatPre.defaultcolor);
+		
+		seasonanalymessage1=new JLabel();
+		seasonanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
+		seasonanalymessage1.setFont(StatPre.MessageFont_large);
+		seasonanalymessage1.setForeground(StatPre.defaultcolor);
+		seasonanalymessage2=new JLabel();
+		seasonanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
+		seasonanalymessage2.setFont(StatPre.MessageFont_large);
+		seasonanalymessage2.setForeground(StatPre.defaultcolor);
 	}
 	//------------------------chart configs-------------------------------
 	 public static CategoryDataset getBarDataset(String teamname,String linename) {
-
-		  String series1 = "1";
-//		  String series2 = "2";
-//		  String series3 = "3";
-		  // 列
-		  String category1 = "场均";
-		  String category2 = "总体";
-		  String category3 = "东部联盟";
-		  String category4 = "西部联盟";
-
-		  // 创建数据源
-		  DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		  // 放入数据
-		  dataset.addValue(40.0, series1, category1);
-		  dataset.addValue(45.0, series1, category2);
-		  dataset.addValue(36.0, series1, category3);
-		  dataset.addValue(51.0, series1, category4);
-
-//		  dataset.addValue(5.0, series2, category1);
-//		  dataset.addValue(7.0, series2, category2);
-//		  dataset.addValue(6.0, series2, category3);
-//		  dataset.addValue(8.0, series2, category4);
-//
-//		  dataset.addValue(4.0, series3, category1);
-//		  dataset.addValue(3.0, series3, category2);
-//		  dataset.addValue(2.0, series3, category3);
-//		  dataset.addValue(3.0, series3, category4);
-
-		  return dataset;
+		  CategoryDataset newdataset=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),null).getBarDataset(teamname, linename);
+		  return newdataset;
 		 }
+	 
 	
 	 public static PieDataset getPieDataset1(String teamname){
 		 DefaultPieDataset dataset=new DefaultPieDataset();
-		 dataset.setValue("首发", 97);
-		 dataset.setValue("替补", 30);
+		 dataset.setValue("首发", (int)(Math.random()*15)+70);
+		 dataset.setValue("替补", (int)(Math.random()*15)+15);
 		 
 		 return dataset;
 	 }
 	 
 	 public static PieDataset getPieDataset2(String teamname){
 		 DefaultPieDataset dataset=new DefaultPieDataset();
-		 dataset.setValue("两分球", 60);
-		 dataset.setValue("三分球", 30);
-		 dataset.setValue("罚球", 10);
+		 dataset.setValue("两分球", (int)(Math.random()*10)+50);
+		 dataset.setValue("三分球", (int)(Math.random()*10)+20);
+		 dataset.setValue("罚球", (int)(Math.random()*10)+10);
 		 
 		 return dataset;
 	 }
 	 
-	 public static CategoryDataset getLineDataset(String teamname,String linename){
-		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-		 dataset.addValue(1, "First", "2013");  
-		 dataset.addValue(3, "First", "2014");  
-		 dataset.addValue(2, "First", "2015");  
-		 dataset.addValue(6, "First", "2016");  
-		 dataset.addValue(5, "First", "2017");  
-		 dataset.addValue(12, "First", "2018");  
-		 dataset.addValue(14, "Second", "2013");  
-		 dataset.addValue(13, "Second", "2014");  
-		 dataset.addValue(12, "Second", "2015");  
-		 dataset.addValue(9, "Second", "2016");  
-		 dataset.addValue(5, "Second", "2017");  
-		 dataset.addValue(7, "Second", "2018");  
-		 
+	 public static CategoryDataset getLineDataset(String seasoninfo,String teamname,String linename){
+		 DefaultCategoryDataset dataset=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),null).getLineDataset(seasoninfo,teamname, linename);
 		 return dataset;
 	 }
 	 
@@ -737,7 +868,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 
 	 private void addpiechart(String teamname){
 		 PieDataset ScorecompSet=getPieDataset1(teamname);
-//		 piechart1=new ChartPanel(new PieChart().createChart(ScorecompSet,"首发/替补"));
 		 piechart1.setChart(new PieChart().createChart(ScorecompSet,"首发/替补"));
 		 piechart1.setBounds(SIDEWIDTH+DataPane_w+button_w-10, 230, 230, 150);
 		 piechart1.setOpaque(false);
@@ -745,7 +875,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 Frame.repaint();
 
 		 PieDataset ScorepercentSet=getPieDataset2(teamname);
-//		 piechart2=new ChartPanel(new PieChart().createChart(ScorepercentSet,"得分比重"));
 		 piechart2.setChart(new PieChart().createChart(ScorepercentSet,"得分比重"));
 		 piechart2.setBounds(SIDEWIDTH+DataPane_w+button_w+190, 230, 230, 150);
 		 piechart2.setOpaque(false);
@@ -754,9 +883,8 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 
 	 }
 	 
-	 private void addlinechart(String teamname,String linename){
-		 CategoryDataset ScoreTrendSet=getLineDataset(teamname,linename);
-//		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
+	 private void addlinechart(String seasoninfo,String teamname,String linename){
+		 CategoryDataset ScoreTrendSet=getLineDataset(seasoninfo,teamname,linename);
 		 linechart.setChart(new LineChart().createChart(ScoreTrendSet,"变化趋势","年份",linename));
 		 linechart.setBounds(SIDEWIDTH+button_w, 270, 600, 400);
 		 linechart.setOpaque(false);
@@ -767,7 +895,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	 //refresh charts
 	 private void setchart(String linename){
 		 addbarchart(String.valueOf(Teams.getSelectedItem()),linename);
-	     addpiechart(String.valueOf(Teams.getSelectedItem()));
+//	     addpiechart(String.valueOf(Teams.getSelectedItem()));
 	 }
 	 
 	 private void setAnalysisSelected(){
@@ -839,7 +967,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 piechart1.setVisible(false);
 		 piechart2.setVisible(false);
 		 barchart.setVisible(false);
-		 addlinechart(String.valueOf(Teams.getSelectedItem()), lineNames1[0]);
+		 addlinechart("Regular",String.valueOf(Teams.getSelectedItem()), lineNames1[0]);
 		 linechart.setVisible(true);
 	 }
 	 
@@ -864,7 +992,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	}
 	 
 	 
-	private String switchTeam(String name){
+	private static String switchTeam(String name){
 		switch(name){
 		case "老鹰 Atlanta-Hawks":
 			return "ATL";
@@ -936,6 +1064,41 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 				return null;
 		}
 	}
+	
+	private static String switchSeason(String season){
+		switch(season){
+		case "2002-2003 常规赛":
+			return "2002-03 Regular";
+		case "2003-2004 常规赛":
+			return "2003-04 Regular";
+		case "2004-2005 常规赛":
+			return "2004-05 Regular";
+		case "2005-2006 常规赛":
+			return "2005-06 Regular";
+		case "2006-2007 常规赛":
+			return "2006-07 Regular";
+		case "2007-2008 常规赛":
+			return "2007-08 Regular";
+		case "2008-2009 常规赛":
+			return "2008-09 Regular";
+		case "2009-2010 常规赛":
+			return "2009-10 Regular";
+		case "2010-2011 常规赛":
+			return "2010-11 Regular";
+		case "2011-2012 常规赛":
+			return "2011-12 Regular";
+		case "2012-2013 常规赛":
+			return "2012-13 Regular";
+		case "2013-2014 常规赛":
+			return "2013-14 Regular";
+		case "2014-2015 常规赛":
+			return "2014-15 Regular";
+		default :
+			return null;
+		}
+	}
+	
+	
 	
 	 public void paintComponent(Graphics g){
 		 super.paintComponent(g);
