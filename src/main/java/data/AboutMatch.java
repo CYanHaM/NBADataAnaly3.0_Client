@@ -17,8 +17,6 @@ public class AboutMatch {
 		ArrayList<MatchPO> list = am.getMatch();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
-		Tools t = new Tools();
-		t.transferDetail();
     	System.out.println(list.size());
 		for(int i=0;i<list.size();i++){
 			System.out.println(i);
@@ -67,6 +65,7 @@ public class AboutMatch {
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
+				System.out.println("here");
 				MatchPO mpo = new MatchPO();
 				mpo.ifRegular=0;
 				String regular = new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
@@ -147,8 +146,10 @@ public class AboutMatch {
 						ptpo.ifFirstLineUp=1;
 					}
 					mpo.playerStatistic.add(ptpo);
+					System.out.println("hereeee");
 				}
 				rs2.close();
+				System.out.println(mpo.playerStatistic.size());
 				res.add(mpo);
 			}
 			rs1.close();

@@ -7,19 +7,19 @@ import TypeEnum.TeamTechEnum;
 import VO.TeamTechVO;
 
 public interface TeamTechBLService {
-    public ArrayList<TeamTechVO> Ascend(TeamTechEnum DataType);
+    public ArrayList<TeamTechVO> Ascend(TeamTechEnum DataType,String season);
 	/* �������������
 	 * �������������
 	 * ����
      * */
     
-    public ArrayList<TeamTechVO> Descend(TeamTechEnum DataType);
+    public ArrayList<TeamTechVO> Descend(TeamTechEnum DataType,String season);
 	/* �������������
 	 * �������������
 	 * ����
      * */
     
-    public ArrayList<TeamTechVO> refresh(SortEnum sort, TeamTechEnum DataType);
+    public ArrayList<TeamTechVO> refresh(SortEnum sort, TeamTechEnum DataType,String season);
     /* ������������ͣ��Լ�������ǽ���
      * */
     
