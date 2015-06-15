@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import PO.PlayerPO;
 import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
 import VO.ScreeningConditionVO;
+import data.info.PlayerInfo;
 import dataservice.playertechdataservice.FindDataService;
 
 public class Find implements FindDataService {
@@ -61,7 +64,100 @@ public class Find implements FindDataService {
 	@Override
 	public ArrayList<PlayerTechPO> sift(ArrayList<ScreeningConditionVO> list,String season) {
 		// TODO Auto-generated method stub
-		return null;
+		Show sh = new Show();
+		ArrayList<PlayerTechPO> all = sh.showSeasonPlayerData(season);
+		PlayerInfo pi = new PlayerInfo();
+		ArrayList<PlayerPO> info = pi.findAll(2);
+		Iterator<PlayerTechPO> it = all.iterator();
+		while(it.hasNext()){
+			PlayerTechPO pt = it.next();
+			String position = "";
+			for(int i=0;i<info.size();i++){
+				if(info.get(i).name.equals(pt.name))
+					position = info.get(i).position;
+			}
+			if((position==null)||(!position.equals(list.get(0).position))){
+				it.remove();
+				continue;
+			}
+			
+			if(!pt.division.equals(list.get(0).division)){
+				System.out.println(pt.division+" "+list.get(0).division);
+				it.remove(); 
+			}
+		}
+		Iterator<PlayerTechPO> it2 = all.iterator();
+		while(it2.hasNext()){
+			PlayerTechPO pt = it2.next();
+			for(int j=0;j<list.size();j++){
+				ScreeningConditionVO vo = list.get(j); 
+				if(vo.condition.equals("score")){
+					if(vo.comparison.equals(">=")){
+						if(pt.score<vo.number){
+							it2.remove();
+							break;
+						}
+					}else{
+						if(pt.score>vo.number){
+							it2.remove();
+							break;
+						}
+					}
+				}else if(vo.condition.equals("blockshot")){
+					if(vo.comparison.equals(">=")){
+						if(pt.blockShot<vo.number){
+							it2.remove();
+							break;
+						}
+					}else{
+						if(pt.blockShot>vo.number){
+							it2.remove();
+							break;
+						}
+					}
+				}else if(vo.condition.equals("steal")){
+					if(vo.comparison.equals(">=")){
+						if(pt.steal<vo.number){
+							it2.remove();
+							break;
+						}
+					}else{
+						if(pt.steal>vo.number){
+							it2.remove();
+							break;
+						}
+					}
+				}else if(vo.condition.equals("secondaryattack")){
+					if(vo.comparison.equals(">=")){
+						if(pt.secondaryAttack<vo.number){
+							it2.remove();
+							break;
+						}
+					}else{
+						if(pt.secondaryAttack>vo.number){
+							it2.remove();
+							break;
+						}
+					}
+				}else if(vo.condition.equals("rebound")){
+					if(vo.comparison.equals(">=")){
+						if(pt.rebound<vo.number){
+							it2.remove();
+							break;
+						}
+					}else{
+						if(pt.rebound>vo.number){
+							it2.remove();
+							break;
+						}
+					}
+				}else{
+					System.out.println("wrong condition");
+				}
+			}
+		}
+		
+		return all;
 	}
 
 	@Override
