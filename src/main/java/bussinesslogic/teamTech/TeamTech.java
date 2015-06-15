@@ -9,13 +9,14 @@ import VO.TeamTechVO;
 import blservice.teamtechblservice.TeamTechBLService;
 import bussinesslogic.Transfer.L2V.TeamTechL2V;
 import bussinesslogic.Transfer.P2L.TeamTechP2L;
+import data.teamtech.TeamTechData;
 import dataservice.TeamTechDataService;
 
 public class TeamTech implements TeamTechBLService{
 	
 	TeamTechL2V l2v;
 	TeamTechP2L p2l;
-	TeamTechDataService ttds;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	TeamTechDataService ttds = new TeamTechData();
 
 	@Override
 	public ArrayList<TeamTechVO> Ascend(TeamTechEnum DataType) {
