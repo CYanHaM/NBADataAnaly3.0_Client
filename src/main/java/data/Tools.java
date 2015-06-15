@@ -4,7 +4,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import PO.PlayerTechPO;
 
@@ -424,4 +427,23 @@ public class Tools {
 		 return poList;
 	}
 */
+	public int compareDate(String d1,String d2){
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date dt1 = df.parse(d1);
+			Date dt2 = df.parse(d2);
+		if (dt1.getTime() > dt2.getTime()) {
+			System.out.println("dt1 在dt2前");
+			return 1;
+		} else if (dt1.getTime() < dt2.getTime()) {
+		return -1;
+		} else {
+			return 0;
+		}
+		} catch (Exception exception) {
+		exception.printStackTrace();
+		}
+		System.out.println("wrong in compare");
+		return 0;
+	}
 }
