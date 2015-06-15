@@ -58,7 +58,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		ptvo1.score = 315;
 		ptvo1.scoreImproving = 1.586;
 		
-		ptvo2.name = "Marvo Belineli";
+		ptvo2.name = "Marco Belinelli";
 		ptvo2.team = "CHI";
 		ptvo2.score = 279;
 		ptvo2.scoreImproving = 1.301;
@@ -167,7 +167,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		ptvo.blockShot = 61;
 		ptvo.blockShotImproving = 0.614;
 		
-		ptvo1.name = "Kendick Perkins";
+		ptvo1.name = "Kendrick Perkins";
 		ptvo1.team = "OKC";
 		ptvo1.blockShot = 31;
 		ptvo1.blockShotImproving = 0.54;
@@ -216,7 +216,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		ptvo2.steal = 41;
 		ptvo2.stealImproving = 0.614;
 		
-		ptvo3.name = "Jame Harden";
+		ptvo3.name = "James Harden";
 		ptvo3.steal = 55;
 		ptvo3.team = "HOU";
 		ptvo3.stealImproving = 0.54;

@@ -19,6 +19,7 @@ Tools tool = new Tools();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
     	System.out.println(list.size()+"here");
+    	System.out.println(list.size());
 		for(int i=0;i<list.size();i++){
 		//	System.out.println(i);
 			System.out.println(list.get(i).playerStatistic);
@@ -66,6 +67,7 @@ Tools tool = new Tools();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
+				System.out.println("here");
 				MatchPO mpo = new MatchPO();
 				mpo.ifRegular=0;
 				String regular = new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
@@ -148,8 +150,10 @@ Tools tool = new Tools();
 						ptpo.ifFirstLineUp=1;
 					}
 					mpo.playerStatistic.add(ptpo);
+					System.out.println("hereeee");
 				}
 				rs2.close();
+				System.out.println(mpo.playerStatistic.size());
 				res.add(mpo);
 			}
 			rs1.close();

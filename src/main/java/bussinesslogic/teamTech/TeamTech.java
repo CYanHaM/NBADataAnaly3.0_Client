@@ -19,10 +19,10 @@ public class TeamTech implements TeamTechBLService{
 	TeamTechDataService ttds = new TeamTechData();
 
 	@Override
-	public ArrayList<TeamTechVO> Ascend(TeamTechEnum DataType) {
+	public ArrayList<TeamTechVO> Ascend(TeamTechEnum DataType,String season) {
 		translate trans = new translate();
 		ArrayList<TeamTechVO> result = new ArrayList<TeamTechVO>();
-		ArrayList<TeamTechPO> polist = ttds.Ascend(trans.translate(DataType));
+		ArrayList<TeamTechPO> polist = ttds.Ascend(trans.translate(DataType) , season);
 		for(int i =0;i<polist.size();i++){
 			p2l = new TeamTechP2L();
 			l2v = new TeamTechL2V();
@@ -34,10 +34,10 @@ public class TeamTech implements TeamTechBLService{
 	}
 
 	@Override
-	public ArrayList<TeamTechVO> Descend(TeamTechEnum DataType) {
+	public ArrayList<TeamTechVO> Descend(TeamTechEnum DataType,String season) {
 		translate trans = new translate();
 		ArrayList<TeamTechVO> result = new ArrayList<TeamTechVO>();
-		ArrayList<TeamTechPO> polist = ttds.Descend(trans.translate(DataType));
+		ArrayList<TeamTechPO> polist = ttds.Descend(trans.translate(DataType) , season);
 		for(int i =0;i<polist.size();i++){
 			p2l = new TeamTechP2L();
 			l2v = new TeamTechL2V();
@@ -49,14 +49,14 @@ public class TeamTech implements TeamTechBLService{
 	}
 
 	@Override
-	public ArrayList<TeamTechVO> refresh(SortEnum sort, TeamTechEnum DataType) {
+	public ArrayList<TeamTechVO> refresh(SortEnum sort, TeamTechEnum DataType , String season) {
 		translate trans = new translate();
 		ArrayList<TeamTechVO> result = new ArrayList<TeamTechVO>();
 		ArrayList<TeamTechPO> polist;
 		if(sort.equals(SortEnum.descend)){
-			polist = ttds.Descend(trans.translate(DataType));
+			polist = ttds.Descend(trans.translate(DataType) , season);
 		}else{
-			polist = ttds.Ascend(trans.translate(DataType));
+			polist = ttds.Ascend(trans.translate(DataType) , season);
 		}
 		for(int i =0;i<polist.size();i++){
 			p2l = new TeamTechP2L();
