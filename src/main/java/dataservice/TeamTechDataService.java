@@ -8,11 +8,10 @@ import PO.TeamTechPO;
 public interface TeamTechDataService extends Remote{
 	public ArrayList<TeamTechPO> list(String season);
 	
-	 public ArrayList<TeamTechPO> Descend (String DataType);
+	 public ArrayList<TeamTechPO> Descend (String DataType,String season);
 	 
-	 public ArrayList<TeamTechPO> Ascend(String DataType);
+	 public ArrayList<TeamTechPO> Ascend(String DataType,String season);
 	 
 	 public ArrayList<TeamTechPO> findSeasonHotTeam(String DataType,String season);
 	
-	public void WriteIn();
 }
