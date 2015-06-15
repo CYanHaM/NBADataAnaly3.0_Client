@@ -23,8 +23,7 @@ public class PlayerTech implements StatsInfo{
 
 
 	@Override
-	public ArrayList<MatchPO> getMatchForYear(String team, String season,
-			int ifRegular) {
+	public ArrayList<TeamTechPO> getMatchForYear(String team) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -37,8 +36,7 @@ public class PlayerTech implements StatsInfo{
 	}
 
 	@Override
-	public ArrayList<PlayerTechMPO> getPlayerForYear(String name,
-			String season, int ifRegular) {
+	public ArrayList<PlayerTechPO> getPlayerForYear(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
