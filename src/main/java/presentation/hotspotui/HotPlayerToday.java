@@ -31,8 +31,8 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	 * @version 1.0
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 
 	//热点球员，热点球队切换按钮
 //	private JComboBox<String> switchbox;
@@ -100,9 +100,9 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		teamimage=new JLabel[5];
 //		state=new JLabel[5];
 
-		fts=new ImportHotData();
-		mbs=new Match();
-		date=mbs.returnPresentDate();
+//		fts=new ImportHotData();
+//		mbs=new Match();
+//		date=mbs.returnPresentDate();
 
 		HP=new HotPre();
 
@@ -110,7 +110,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		addbox();
 
 		initlabels();
-		initdata();
+//		initdata();
 		
 	}
 
@@ -613,7 +613,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	//paint the background
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/hot_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 

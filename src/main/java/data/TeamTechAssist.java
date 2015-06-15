@@ -19,30 +19,18 @@ public class TeamTechAssist {
 	}
 	
 	public void transferDetail(){
-		Tools to = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指向要访问的数据库名nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL配置时的用户名
 		String user = "root";
-		// Java连接MySQL配置时的密码
 		String password = "cyanham";
 		try {
-			// 加载驱动程序
 			Class.forName(driver);
-			// 连续数据库
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement用来执行SQL语句
 			Statement statement1 = conn.createStatement();
-
-			// 要执行的SQL语句
-			
-
-			
-			String sql1 = "SELECT * FROM team_comparison";
+			String sql1 = "SELECT * FROM `team_comparison`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
 				TeamTechPO ttpo = new TeamTechPO();
@@ -57,7 +45,7 @@ public class TeamTechAssist {
 				
 				String name = new String(rs1.getString("team").getBytes("ISO-8859-1"),"utf-8");
      		    ttpo.name = nameTrans(name);
-				ttpo.season = reg;
+				ttpo.season = regular;
 				ttpo.gameNum = 82;
 				ttpo.score = Integer.valueOf(new String(rs1.getString("OWN_Poi").getBytes("ISO-8859-1"),"utf-8"));
 				ttpo.shotInRate = Double.valueOf(new String(rs1.getString("OWN_FG").getBytes("ISO-8859-1"),"utf-8"));
@@ -66,7 +54,7 @@ public class TeamTechAssist {
 				ttpo.opponentScore = Integer.valueOf(new String(rs1.getString("OPP_Poi").getBytes("ISO-8859-1"),"utf-8"));
 				
 				Statement statement2 = conn.createStatement();
-				String sql2 = "SELECT * FROM high where (team='"+name+"') and year='"+regular+"'";
+				String sql2 = "SELECT * FROM `high` where (team='"+name+"') and year='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				while(rs2.next()){
@@ -77,7 +65,7 @@ public class TeamTechAssist {
 				}
 				rs2.close();
 				Statement statement3 = conn.createStatement();
-				String sql3 = "SELECT * FROM rebound where (team='"+name+"') and year='"+regular+"'";
+				String sql3 = "SELECT * FROM `rebound` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs3 = statement3.executeQuery(sql3);
 				while(rs3.next()){
 					ttpo.offensiveRebound = Integer.valueOf(new String(rs3.getString("OffenOWN")));
@@ -88,7 +76,7 @@ public class TeamTechAssist {
 				}
 				rs3.close();
 				Statement statement4 = conn.createStatement();
-				String sql4 = "SELECT * FROM offense where (team='"+name+"') and year='"+regular+"'";
+				String sql4 = "SELECT * FROM `offense` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs4 = statement4.executeQuery(sql4);
 				while(rs4.next()){
 					ttpo.shotNum = Integer.valueOf(new String(rs4.getString("FGA")));
@@ -100,7 +88,7 @@ public class TeamTechAssist {
 				}
 				rs4.close();
 				Statement statement5 = conn.createStatement();
-				String sql5 = "SELECT * FROM miscell where (team='"+name+"') and year='"+regular+"'";
+				String sql5 = "SELECT * FROM `miscell` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs5 = statement5.executeQuery(sql5);
 				while(rs5.next()){
 					ttpo.blockShot = Integer.valueOf(new String(rs5.getString("BLO_OWN")));
@@ -179,6 +167,75 @@ public class TeamTechAssist {
 		m.put("Toronto","TOR");
 		m.put("Utah", "UTAH");
 		m.put("Washington", "WSH");
+		return m.get(totrans).toString();
+	}
+	public String fullName(String totrans){
+		Map m = new HashMap();
+		m.put("ATL","Atlanta Hawks");
+		m.put( "BOS","Boston Celtics");
+		m.put("BNK","Brooklyn Nets");
+		m.put("CHA","Charlotte Hornets");
+		m.put("CHI","Chicago Bulls");
+		m.put("CLE","Cleveland Cavaliers");
+		m.put("DAL","Dallas Mavericks");
+		m.put("DEN","Denver Nuggets");
+		m.put("DET","Detroit Pistons");
+		m.put( "GS","Golden State Warriors");
+		m.put( "HOU","Houston Rockets");
+		m.put("IND","Indiana Pacers");
+		m.put("LAC","Los Angeles Clippers");
+		m.put("LAL","Los Angeles Lakers");
+		m.put("Mem","Memphis Grizzlies");
+		m.put("MIA","Miami Heat");
+		m.put( "MIL","Milwaukee Bucks");
+		m.put( "MIN","Minnesota Timberwolves");
+		m.put("NO","New Orleans Pelicans");
+		m.put("NY","New York Knicks");
+		m.put("OKC","Oklahoma City Thunder");
+		m.put("ORL","Orlando Magic");
+		m.put("PHI","Philadelphia 76ers");
+		m.put("PHX","Phoenix Suns");
+		m.put( "POR","Portland Trail Blazers");
+		m.put("SAC","Sacramento Kings");
+		m.put("SEA","San Antonio Spurs");
+		m.put("TOR","Toronto Raptors");
+		m.put("UTAH","Utah Jazz");
+		m.put( "WSH","Washington Wizards");
+		return m.get(totrans).toString();
+	}
+	
+	public String abbr(String totrans){
+		Map m = new HashMap();
+		m.put("Atlanta Hawks", "ATL");
+		m.put("Boston Celtics", "BOS");
+		m.put("Brooklyn Nets", "BNK");
+		m.put("Charlotte Hornets", "CHA");
+		m.put("Chicago Bulls", "CHI");
+		m.put("Cleveland Cavaliers", "CLE");
+		m.put("Dallas Mavericks", "DAL");
+		m.put("Denver Nuggets", "DEN");
+		m.put("Detroit Pistons", "DET");
+		m.put("Golden State Warriors", "GS");
+		m.put("Houston Rockets", "HOU");
+		m.put("Indiana Pacers", "IND");
+		m.put("Los Angeles Clippers", "LAC");
+		m.put("Los Angeles Lakers", "LAL");
+		m.put("Memphis Grizzlies", "Mem");
+		m.put("Miami Heat", "MIA");
+		m.put("Milwaukee Bucks", "MIL");
+		m.put("Minnesota Timberwolves", "MIN");
+		m.put("New Orleans Pelicans","NO");
+		m.put("New York Knicks", "NY");
+		m.put("Oklahoma City Thunder", "OKC");
+		m.put("Orlando Magic", "ORL");
+		m.put("Philadelphia 76ers", "PHI");
+		m.put("Phoenix Suns", "PHX");
+		m.put("Portland Trail Blazers", "POR");
+		m.put("Sacramento Kings", "SAC");
+		m.put("San Antonio Spurs", "SEA");
+		m.put("Toronto Raptors","TOR");
+		m.put("Utah Jazz","UTAH");
+		m.put("Washington Wizards", "WSH");
 		return m.get(totrans).toString();
 	}
 }

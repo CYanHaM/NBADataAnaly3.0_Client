@@ -24,23 +24,16 @@ public class PlayerTech implements StatsInfo{
 	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
 						String sql = "SELECT * FROM `teamtech` where name = '"+teamname+"' and season = '"+season+"'";						
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
@@ -96,28 +89,98 @@ public class PlayerTech implements StatsInfo{
 	}
 
 	@Override
+	public PlayerTechPO getPlayerTech(String player, String season, int ifRegular) {
+		// TODO Auto-generated method stub
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
+		String user = "root";
+		String password = "cyanham";
+		try {
+						Class.forName(driver);
+						Connection conn = DriverManager.getConnection(url, user, password);
+						if(!conn.isClosed()){
+							System.out.println("Succeeded connecting to the Database!");
+						}
+						Statement statement = conn.createStatement();
+						String sql = "SELECT * FROM `playerTechPO` where name = '"+player+"' and season = '"+season+"'";						
+						ResultSet rs = statement.executeQuery(sql);
+						while(rs.next()) {
+							PlayerTechPO po = new PlayerTechPO();
+							po.name=rs.getString("name");
+							po.season=rs.getString("season");
+							po.team=rs.getString("team");
+							po.ifRegular=Integer.valueOf(rs.getString("ifRegular"));
+							po.position=rs.getString("pos");
+							po.division=rs.getString("division");
+							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
+							po.startingNum=Integer.valueOf(rs.getString("startingNum"));
+							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
+							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
+							po.time=Integer.valueOf(rs.getString("time"))/po.gameNum;
+							po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
+							po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
+							po.steal=Integer.valueOf(rs.getString("steal"))/po.gameNum;
+							po.blockShot=Integer.valueOf(rs.getString("blockShot"))/po.gameNum;
+							po.fault=Integer.valueOf(rs.getString("fault"))/po.gameNum;
+							po.foul=Integer.valueOf(rs.getString("foul"))/po.gameNum;
+							po.score=Integer.valueOf(rs.getString("score"))/po.gameNum;
+							po.shotIn=Integer.valueOf(rs.getString("shotIn"))/po.gameNum;
+							po.shot=Integer.valueOf(rs.getString("shot"));
+							po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"))/po.gameNum;
+							po.threeShot=Integer.valueOf(rs.getString("threeShot"));
+							po.penaltyShotIn=Integer.valueOf(rs.getString("penaltyShotIn"));
+							po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"))/po.gameNum;
+							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
+							po.threeShotInRate=Double.valueOf(rs.getString("threeShotInRate"));
+							po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
+							po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
+							po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
+							po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+							po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
+							po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
+							po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
+							po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
+							po.faultRate=Double.valueOf(rs.getString("faultRate"));
+							po.usageRate=Double.valueOf(rs.getString("usageRate"));
+							return po;
+						}
+						rs.close();
+						conn.close(); 
+       } catch(ClassNotFoundException e) {   
+              System.out.println("Sorry,can`t find the Driver!");   
+              e.printStackTrace();   
+       } catch(SQLException e) {   
+              e.printStackTrace();   
+       } catch(Exception e) {   
+              e.printStackTrace();   
+       }
+		System.out.println("something wrong in getPlayerTech");
+		return null;
+	}
+
+	@Override
 	public ArrayList<MatchPO> getRecentMatch(String team,String season) {
 		// TODO Auto-generated method stub
 		AboutMatch am = new AboutMatch();
 		ArrayList<MatchPO> list = am.allMatch();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
-		for(int i=0;i<list.size();i++){
+		int size = list.size();
+		for(int i=0;i<size;i++){
 			if(list.get(i).homeTeam.equals(team)||list.get(i).guestTeam.equals(team)){
-				if(list.get(i).season.equals(season)){
+				String temp1=season.trim().split("\\s+")[0];
+				String temp2=list.get(i).season.trim().split("\\s+")[0];
+				if(temp1.equals(temp2)){
 					res.add(list.get(i));
 				}
 			}
 		}
-		Comparator<MatchPO> comparator = new Comparator<MatchPO>(){  
-			
+		Comparator<MatchPO> comparator = new Comparator<MatchPO>(){  	
 			public int compare(MatchPO p2, MatchPO p1) {   
-				//锟斤拷写锟饺较凤拷锟斤拷
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					Date dt1 = df.parse(p2.date);
 					Date dt2 = df.parse(p1.date);
 				if (dt1.getTime() > dt2.getTime()) {
-					System.out.println("dt1 在dt2前");
 					return 1;
 				} else if (dt1.getTime() < dt2.getTime()) {
 				return -1;
@@ -128,7 +191,7 @@ public class PlayerTech implements StatsInfo{
 				exception.printStackTrace();
 				}
 				System.out.println("wrong in compare");
-				return 0;
+				return -2;
 				}
 		}; 
 		Collections.sort(res, comparator);
@@ -140,105 +203,23 @@ public class PlayerTech implements StatsInfo{
 	}
 
 	@Override
-	public ArrayList<TeamTechPO> getMatchForYear(String team) {
-		// TODO Auto-generated method stub
-		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
-		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
-		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
-		String password = "cyanham";
-		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
-		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
-						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
-						Connection conn = DriverManager.getConnection(url, user, password);
-						if(!conn.isClosed()){
-							System.out.println("Succeeded connecting to the Database!");
-						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
-						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
-						String sql = "SELECT * FROM `teamtech` where name = '"+team+"' and ifRegular = '1'";						
-						ResultSet rs = statement.executeQuery(sql);
-						while(rs.next()) {
-							TeamTechPO po = new TeamTechPO();
-							po.name = rs.getString("name");
-							po.ifReagular = Integer.valueOf(rs.getString("ifReagular"));
-							po.season =  rs.getString("season");
-							po.gameNum = Integer.valueOf(rs.getString("gameNum"));
-							po.shotInNum = Integer.valueOf(rs.getString("shotInNum"));
-							po.shotNum = Integer.valueOf(rs.getString("shotNum"));
-							po.threeShotInNum = Integer.valueOf(rs.getString("threeShotInNum"));
-							po.threeShotNum =  Integer.valueOf(rs.getString("threeShotNum"));
-							po.penaltyShotInNum =  Integer.valueOf(rs.getString("penaltyShotInNum"));
-							po.penaltyShotNum=  Integer.valueOf(rs.getString("penaltyShotNum"));
-							po.offensiveRebound=  Integer.valueOf(rs.getString("offensiveRebound"));
-							po.defensiveRebound=  Integer.valueOf(rs.getString("defensiveRebound"));
-							po.rebound=  Integer.valueOf(rs.getString("rebound"));;
-							po.secondaryAttack=  Integer.valueOf(rs.getString("secondaryAttack"));;
-							po.steal=  Integer.valueOf(rs.getString("steal"));
-							po.blockShot=  Integer.valueOf(rs.getString("blockShot"));
-							po.fault=  Integer.valueOf(rs.getString("fault"));
-							po.foul=  Integer.valueOf(rs.getString("foul"));
-							po.score=  Integer.valueOf(rs.getString("score"));
-							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-							po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-							po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-							po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
-							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-							po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
-							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
-							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-							po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
-							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
-							list.add(po);
-						}
-						rs.close();
-						conn.close(); 
-						return list;
-       } catch(ClassNotFoundException e) {   
-              System.out.println("Sorry,can`t find the Driver!");   
-              e.printStackTrace();   
-       } catch(SQLException e) {   
-              e.printStackTrace();   
-       } catch(Exception e) {   
-              e.printStackTrace();   
-       }
-		System.out.println("something wrong in getPlayerForYear");
-		return null;
-	}
-
-	@Override
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,
 			String season) {
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		ArrayList<PlayerTechMPO> list = new ArrayList<PlayerTechMPO>();
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
-						String sql = "SELECT * FROM `playerTechMPO` where name = '"+player+"' and season = '"+season+"' order by date desc limit 0,20";				
+						String pre = season.trim().split("\\s+")[0];
+						String sql = "SELECT * FROM `playerTechMPO` where name = '"+player+"' and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by date desc limit 0,20";	
+						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
 							PlayerTechMPO mpo = new PlayerTechMPO();
@@ -291,33 +272,95 @@ public class PlayerTech implements StatsInfo{
        } catch(Exception e) {   
               e.printStackTrace();   
        }
-		System.out.println("something wrong in getPlayerTech");
+		System.out.println("something wrong in getRecentPlayerTech");
 		return null;
 	}
 
-	////锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷 失锟斤拷 锟较筹拷时锟斤拷 锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷 锟斤拷锟�
 	@Override
-	public ArrayList<PlayerTechPO> getPlayerForYear(String name) {
+	public ArrayList<TeamTechPO> getMatchForYear(String team) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
-		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
+		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
+						String sql = "SELECT * FROM `teamtech` where name = '"+team+"' and ifRegular = '1'";						
+						ResultSet rs = statement.executeQuery(sql);
+						while(rs.next()) {
+							TeamTechPO po = new TeamTechPO();
+							po.name = rs.getString("name");
+							po.ifReagular = Integer.valueOf(rs.getString("ifReagular"));
+							po.season =  rs.getString("season");
+							po.gameNum = Integer.valueOf(rs.getString("gameNum"));
+							po.shotInNum = Integer.valueOf(rs.getString("shotInNum"));
+							po.shotNum = Integer.valueOf(rs.getString("shotNum"));
+							po.threeShotInNum = Integer.valueOf(rs.getString("threeShotInNum"));
+							po.threeShotNum =  Integer.valueOf(rs.getString("threeShotNum"));
+							po.penaltyShotInNum =  Integer.valueOf(rs.getString("penaltyShotInNum"));
+							po.penaltyShotNum=  Integer.valueOf(rs.getString("penaltyShotNum"));
+							po.offensiveRebound=  Integer.valueOf(rs.getString("offensiveRebound"));
+							po.defensiveRebound=  Integer.valueOf(rs.getString("defensiveRebound"));
+							po.rebound=  Integer.valueOf(rs.getString("rebound"));;
+							po.secondaryAttack=  Integer.valueOf(rs.getString("secondaryAttack"));;
+							po.steal=  Integer.valueOf(rs.getString("steal"));
+							po.blockShot=  Integer.valueOf(rs.getString("blockShot"));
+							po.fault=  Integer.valueOf(rs.getString("fault"));
+							po.foul=  Integer.valueOf(rs.getString("foul"));
+							po.score=  Integer.valueOf(rs.getString("score"));
+							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
+							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
+							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
+							po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
+							po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
+							po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
+							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
+							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
+							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
+							po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
+							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
+							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
+							po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
+							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
+							list.add(po);
+						}
+						rs.close();
+						conn.close(); 
+						return list;
+       } catch(ClassNotFoundException e) {   
+              System.out.println("Sorry,can`t find the Driver!");   
+              e.printStackTrace();   
+       } catch(SQLException e) {   
+              e.printStackTrace();   
+       } catch(Exception e) {   
+              e.printStackTrace();   
+       }
+		System.out.println("something wrong in getMatchForYear");
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerTechPO> getPlayerForYear(String name) {
+		// TODO Auto-generated method stub
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
+		String user = "root";
+		String password = "cyanham";
+		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
+		try {
+						Class.forName(driver);
+						Connection conn = DriverManager.getConnection(url, user, password);
+						if(!conn.isClosed()){
+							System.out.println("Succeeded connecting to the Database!");
+						}
+						Statement statement = conn.createStatement();
 						String sql = "SELECT * FROM `playerTechPO` where name = '"+name+"' and ifRegular = '1'";						
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
@@ -376,103 +419,19 @@ public class PlayerTech implements StatsInfo{
 	}
 
 	@Override
-	public PlayerTechPO getPlayerTech(String player, String season, int ifRegular) {
-		// TODO Auto-generated method stub
-		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
-		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
-		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
-		String password = "cyanham";
-		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
-						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
-						Connection conn = DriverManager.getConnection(url, user, password);
-						if(!conn.isClosed()){
-							System.out.println("Succeeded connecting to the Database!");
-						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
-						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
-						String sql = "SELECT * FROM `playerTechPO` where name = '"+player+"' and season = '"+season+"'";						
-						ResultSet rs = statement.executeQuery(sql);
-						while(rs.next()) {
-							PlayerTechPO po = new PlayerTechPO();
-							po.name=rs.getString("name");
-							po.season=rs.getString("season");
-							po.team=rs.getString("team");
-							po.ifRegular=Integer.valueOf(rs.getString("ifRegular"));
-							po.position=rs.getString("pos");
-							po.division=rs.getString("division");
-							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
-							po.startingNum=Integer.valueOf(rs.getString("startingNum"));
-							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
-							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
-							po.time=Integer.valueOf(rs.getString("time"))/po.gameNum;
-							po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
-							po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
-							po.steal=Integer.valueOf(rs.getString("steal"))/po.gameNum;
-							po.blockShot=Integer.valueOf(rs.getString("blockShot"))/po.gameNum;
-							po.fault=Integer.valueOf(rs.getString("fault"))/po.gameNum;
-							po.foul=Integer.valueOf(rs.getString("foul"))/po.gameNum;
-							po.score=Integer.valueOf(rs.getString("score"))/po.gameNum;
-							po.shotIn=Integer.valueOf(rs.getString("shotIn"))/po.gameNum;
-							po.shot=Integer.valueOf(rs.getString("shot"));
-							po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"))/po.gameNum;
-							po.threeShot=Integer.valueOf(rs.getString("threeShot"));
-							po.penaltyShotIn=Integer.valueOf(rs.getString("penaltyShotIn"));
-							po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"))/po.gameNum;
-							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
-							po.threeShotInRate=Double.valueOf(rs.getString("threeShotInRate"));
-							po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
-							po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
-							po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
-							po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
-							po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
-							po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
-							po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
-							po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
-							po.faultRate=Double.valueOf(rs.getString("faultRate"));
-							po.usageRate=Double.valueOf(rs.getString("usageRate"));
-							return po;
-						}
-						rs.close();
-						conn.close(); 
-       } catch(ClassNotFoundException e) {   
-              System.out.println("Sorry,can`t find the Driver!");   
-              e.printStackTrace();   
-       } catch(SQLException e) {   
-              e.printStackTrace();   
-       } catch(Exception e) {   
-              e.printStackTrace();   
-       }
-		System.out.println("something wrong in getPlayerTech");
-		return null;
-	}
-
-	@Override
 	public TeamTechPO getTeamRank(String teamname, String season, int ifRegular) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
-						// 要执锟叫碉拷SQL锟斤拷锟�
 						String sql = "SELECT * FROM `teamtech` where name = '"+teamname+"' and season = '"+season+"'";						
 						ResultSet rs = statement.executeQuery(sql);
 						TeamTechPO po = new TeamTechPO();
@@ -491,7 +450,7 @@ public class PlayerTech implements StatsInfo{
 							po.penaltyShotNum=Integer.valueOf(rs.getString("penaltyShot"))/po.gameNum;
 							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
 						}
-						//锟矫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较革拷帽锟斤拷锟斤拷失锟斤拷 投锟斤拷锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟较筹拷时锟斤拷
+						
 						Statement state = conn.createStatement();
 						String sql1 = "select distict name,gameNum,count(name) from `teamtech` where score/gameNum>"+po.score/po.gameNum;
 						ResultSet r1 = state.executeQuery(sql1);

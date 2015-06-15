@@ -2,16 +2,18 @@ package presentation.playerui;
 
 import java.util.ArrayList;
 
+import PO.PlayerTechPO;
 import VO.PlayerTechVO;
 import VO.PlayerVO;
 import VO.ScreeningConditionVO;
-import VO.TeamVO;
 import blservice.playerinfoblservice.PlayerInfoService;
 import blservice.playertechblservice.FindPlayerTechService;
 import blservice.playertechblservice.ShowPlayerTechService;
-import bussinesslogic.playerinfobl.PlayerInfo;
-import bussinesslogic.playertechbl.FindPlayerTech;
+import bussinesslogic.PlayerInfo.PlayerInfoBL;
 import bussinesslogic.playertechbl.ShowPlayerTech;
+import bussinesslogic.playertechbl.findPlayerTech;
+import data.playertech.Show;
+import dataservice.playertechdataservice.ShowDataService;
 
 public class ImportPlayer {
 	/**
@@ -24,39 +26,50 @@ public class ImportPlayer {
 	PlayerInfoService pis;
 	FindPlayerTechService fpt;
 	ShowPlayerTechService spt;
+	ShowDataService sds;
 
 	public ImportPlayer(){
 		pis = new PlayerInfoBL();
-		fpt = new FindPlayerTech();
+		fpt = new findPlayerTech();
 		spt = new ShowPlayerTech();
+		sds = new Show();
 	}
 
-	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType){
-		return spt.ascend(DataType);
+	public ArrayList<String> getPlayerSeasonList(){
+		ArrayList<String> seasonlist=new ArrayList<String>();
+		ArrayList<PlayerTechPO> playertechlist=sds.all();
+		for(int i=0;i<playertechlist.size();i++){
+			seasonlist.add(playertechlist.get(i).season);
+		}
+		return seasonlist;
+	}
+	
+	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType,String season){
+		return spt.ascend(DataType,season);
 	}
 
-	public ArrayList<PlayerTechVO> getPlayerTechDescend(String DataType){
-		return spt.descend(DataType);
+	public ArrayList<PlayerTechVO> getPlayerTechDescend(String DataType,String season){
+		return spt.descend(DataType,season);
 	}
 	
-	public ArrayList<PlayerTechVO> sift(ArrayList<ScreeningConditionVO> scvo){
-		return fpt.sift(scvo);
+	public ArrayList<PlayerTechVO> sift(ArrayList<ScreeningConditionVO> scvo,String season){
+		return fpt.sift(scvo,season);
 	}
 	
-	public PlayerTechVO findPlayerTechByName(String name){
-		return fpt.findPlayerTechByName(name);
+	public PlayerTechVO findPlayerTechByName(String name,String season){
+		return fpt.findPlayerTechByName(name,season);
 	}
 	
-	public ArrayList<PlayerTechVO> findPlayerByLetter(char letter){
-		return fpt.findPlayerByLetter(letter);
+	public ArrayList<PlayerTechVO> findPlayerByLetter(char letter,String season){
+		return fpt.findPlayerByLetter(letter,season);
 	}
 
-	public ArrayList<PlayerVO> findByTeam(String tvo){
-		return pis.findByTeam(tvo);
+	public ArrayList<PlayerVO> findByTeam(String tvo,int retire){
+		return pis.findByTeam(tvo,retire);
 	}
 	
-	public PlayerVO showPlayerInfo (String name){
-		return pis.showPlayerInfo(name);
+	public PlayerVO showPlayerInfo (String name,int retire){
+		return pis.showPlayerInfo(name,retire);
 	}
 
 }

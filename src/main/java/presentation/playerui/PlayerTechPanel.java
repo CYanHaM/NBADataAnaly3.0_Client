@@ -13,6 +13,7 @@ import javax.swing.table.TableColumnModel;
 import presentation.hotspotui.HotPlayerToday;
 import presentation.matchui.MatchPanel;
 import presentation.preset.PlayerTechPre;
+import presentation.preset.StatPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import TypeEnum.PlayerTechEnum;
@@ -65,7 +66,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//表格列宽
 	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
 	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72,72,72};
-	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,80,98,98};
+	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,90,98,93};
 
 	
 	//总数据与场均数据切换下拉框
@@ -90,6 +91,10 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//表格重置按钮
 	private JButton reset;
 	
+	private JComboBox<String> season;
+	private int season_w=200;
+	private int season_h=30;
+	
 	private JButton first;
 	private JButton second;
 	private JButton third;
@@ -108,6 +113,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	public int HeaderColumn=0;
 	public JFrame Frame; 
 	public JPanel panelToRemove;
+	
+	
 	public PlayerTechPanel(JFrame frame){
 		Frame=frame;
 		panelToRemove=this;
@@ -121,15 +128,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		
 		//创建颜色预设对象
 		PTPre=new PlayerTechPre();
-//		importdata=new ImportPlayer();
-//		initial_data=importdata.getPlayerTechAscend("name");
+		importdata=new ImportPlayer();
 		
-//		playerinfo1=new Object[initial_data.size()][columnName1.length];
-//		playerinfo2=new Object[initial_data.size()][columnName2.length];
-//		playerinfo3=new Object[initial_data.size()][columnName3.length];
-		playerinfo1=new Object[PLAYERNUM][columnName1.length];
-		playerinfo2=new Object[PLAYERNUM][columnName2.length];
-		playerinfo3=new Object[PLAYERNUM][columnName3.length];
+		//添加下拉框
+		addbox();
+
+		initdata();
 		//加载初始表格，显示队伍总数据
 //		handleinitial(initial_data);
 
@@ -139,9 +143,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		table3_config();
 		//加载滑动面板配置
 		scrollpane_config();
-
-		//添加下拉框
-		addbox();
+		
 		//添加高级筛选
 		addseniorsift();
 		//添加单选按钮组
@@ -172,18 +174,54 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					if(switchbox.getSelectedItem().equals("赛季总数据")){
-						//								System.out.println("赛季总数据");
+						initdata();
 						handleTotalData(initial_data);
 					}
 					if(switchbox.getSelectedItem().equals("场均数据")){
-						//								System.out.println("场均数据");
+						initdata();
 						handleAverageData(initial_data);
 					}
 				}
 			}
 		});
-
 		this.add(switchbox);
+		
+		season=new JComboBox<String>();
+		//TODO delete the test
+//		ArrayList<String> seasonlist=importdata.getPlayerSeasonList();
+		ArrayList<String> seasonlist=new ArrayList<String>();
+		seasonlist.add("2011-12 Regular");
+		seasonlist.add("2011-12 Postseason");
+		seasonlist.add("2012-13 Regular");
+		seasonlist.add("2012-13 Postseason");
+		seasonlist.add("2013-14 Regular");
+		seasonlist.add("2013-14 Postseason");
+		seasonlist.add("2015-16 Regular");
+		seasonlist.add("2015-16 Postseason");
+		seasonlist.add("2016-17 Regular");
+		seasonlist.add("2016-17 Postseason");
+		for(int i=0;i<seasonlist.size();i++){
+			String[] temp=seasonlist.get(i).split(" ");
+			if(temp[1].equals("Regular")){
+				season.addItem(temp[0]+" 常规赛");
+			}else if(temp[1].equals("Postseason")){
+				season.addItem(temp[0]+" 季后赛");
+			}
+		}
+		season.setBounds(WIDTH-TABLEWIDTH-e_space-space,HEIGHT-TABLEHEIGHT-e_space-space-100-35+15-35,season_w,season_h);
+		season.setFocusable(false);
+		season.setBackground(StatPre.indefaultcolor);
+		season.setFont(PTPre.switchbox);
+		season.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					initdata();
+					refreshtable();
+				}
+			}
+		});
+		this.add(season);
 	}
 	
 	private void addletterbutton(){
@@ -221,7 +259,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ArrayList<PlayerTechVO> playervo=importdata.findPlayerByLetter(letter[Count]);
+			ArrayList<PlayerTechVO> playervo=importdata.findPlayerByLetter(letter[Count],String.valueOf(season.getSelectedItem()));
 			playerinfo1=new Object[playervo.size()][columnName1.length];
 			playerinfo2=new Object[playervo.size()][columnName2.length];
 			playerinfo3=new Object[playervo.size()][columnName3.length];
@@ -372,7 +410,17 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	}
 	
 	//===================================================================
-	
+	//----------------------initial & different methods------------
+	private void initdata(){
+//		initial_data=importdata.getPlayerTechAscend("name",(String)season.getSelectedItem());
+		//TODO delete the test
+//		playerinfo1=new Object[initial_data.size()][columnName1.length];
+//		playerinfo2=new Object[initial_data.size()][columnName2.length];
+//		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		playerinfo1=new Object[PLAYERNUM][columnName1.length];
+		playerinfo2=new Object[PLAYERNUM][columnName2.length];
+		playerinfo3=new Object[PLAYERNUM][columnName3.length];
+	}
 	private void handleinitial(ArrayList<PlayerTechVO> totaldata){
 		int a=0;
 		playernames=new String[totaldata.size()];
@@ -735,7 +783,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem());
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
 				}
 
 			}
@@ -819,7 +867,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem());
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
 				}
 
 			}
@@ -905,7 +953,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem());
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
 				}
 
 			}
@@ -942,139 +990,139 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		Frame.repaint();
 	}
 
-	private void judgeOrderSource(String ordersource,String AvgOrTotal){
+	private void judgeOrderSource(String ordersource,String AvgOrTotal,String season){
 		ArrayList<PlayerTechVO> orderPlayerTechVO = null;
 		if(order_Asc.isSelected()){
 		switch(ordersource){
 
 		case "球员名称":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("name");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("name",season);
 			break;
 		case "所属球队":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("team");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("team",season);
 			break;
 		case "参赛":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("gamenum");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("gamenum",season);
 			break;
 		case "先发":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("startingnum");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("startingnum",season);
 			break;
 		case "篮板":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("reboundave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("reboundave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("rebound");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("rebound",season);
 			}
 			break;
 		case "助攻":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattackave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattackave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattack");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattack",season);
 			}
 			break;
 		case "时间":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("timeave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("timeave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("time");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("time",season);
 			}
 			break;
 			
 		case "命中%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("shotinrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("shotinrate",season);
 			break;
 		case "三分%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("threeshotinrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("threeshotinrate",season);
 			break;
 		case "罚球%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("penaltyshotinrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("penaltyshotinrate",season);
 			break;
 			
 		case "进攻":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("offensivenumave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("offensivenumave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("offensivenum");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("offensivenum",season);
 				}
 			break;
 		case "防守":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("defensivenumave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("defensivenumave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("defensivenum");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("defensivenum",season);
 				}
 			break;
 		case "抢断":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("stealave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("stealave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("steal");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("steal",season);
 				}
 			break;
 		case "盖帽":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("blockshot");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("blockshot",season);
 				}
 			break;
 		case "失误":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("faultave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("faultave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("fault");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("fault",season);
 				}
 			break;
 		case "犯规":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("foulave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("foulave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("foul");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("foul",season);
 				}
 			break;
 		case "得分":
 			if(AvgOrTotal.equals("场均数据")){
-				orderPlayerTechVO=importdata.getPlayerTechAscend("scoreave");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("scoreave",season);
 			}else{
-				orderPlayerTechVO=importdata.getPlayerTechAscend("score");
+				orderPlayerTechVO=importdata.getPlayerTechAscend("score",season);
 			}
 			break;
 //		case "效率":
-//			orderPlayerTechVO=importdata.getPlayerTechAscend("efficiency");
+//			orderPlayerTechVO=importdata.getPlayerTechAscend("efficiency",season);
 //			break;
 		case "GmSc 效率":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("gmscefficiency");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("gmscefficiency",season);
 			break;
 		case "真实命中%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("trueshotinrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("trueshotinrate",season);
 			break;
 		case "投篮效率":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("shootingefficiency");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("shootingefficiency",season);
 			break;
 		case "篮板%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("reboundrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("reboundrate",season);
 			break;
 		case "进攻篮板%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("offensivereboundrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("offensivereboundrate",season);
 			break;
 		case "防守篮板%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("defensivereboundrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("defensivereboundrate",season);
 			break;
 		case "助攻%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattackrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattackrate",season);
 			break;
 		case "抢断%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("stealrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("stealrate",season);
 			break;
 		case "盖帽%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotrate",season);
 			break;
 		case "失误%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("faultrate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("faultrate",season);
 			break;
 		case "使用%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("usagerate");
+			orderPlayerTechVO=importdata.getPlayerTechAscend("usagerate",season);
 			break;
 		}
 		
@@ -1082,133 +1130,133 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		if(order_Des.isSelected()){
 			switch(ordersource){
 			case "球员名称":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("name");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("name",season);
 				break;
 			case "所属球队":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("team");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("team",season);
 				break;
 			case "参赛":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("gamenum");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("gamenum",season);
 				break;
 			case "先发":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("startingnum");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("startingnum",season);
 				break;
 			case "篮板":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("reboundave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("reboundave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("rebound");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("rebound",season);
 				}
 				break;
 			case "助攻":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattackave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattackave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattack");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattack",season);
 				}
 				break;
 			case "时间":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("timeave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("timeave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("time");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("time",season);
 				}
 				break;
 				
 			case "命中%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("shotinrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("shotinrate",season);
 				break;
 			case "三分%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("threeshotinrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("threeshotinrate",season);
 				break;
 			case "罚球%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("penaltyshotinrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("penaltyshotinrate",season);
 				break;
 				
 			case "进攻":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("offensivenumave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("offensivenumave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("offensivenum");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("offensivenum",season);
 				}
 				break;
 			case "防守":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("defensivenumave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("defensivenumave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("defensivenum");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("defensivenum",season);
 				}
 				break;
 			case "抢断":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("stealave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("stealave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("steal");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("steal",season);
 				}
 				break;
 			case "盖帽":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("blockshot");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("blockshot",season);
 				}
 				break;
 			case "失误":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("faultave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("faultave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("fault");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("fault",season);
 				}
 				break;
 			case "犯规":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("foulave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("foulave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("foul");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("foul",season);
 				}
 				break;
 			case "得分":
 				if(AvgOrTotal.equals("场均数据")){
-					orderPlayerTechVO=importdata.getPlayerTechDescend("scoreave");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("scoreave",season);
 				}else{
-					orderPlayerTechVO=importdata.getPlayerTechDescend("score");
+					orderPlayerTechVO=importdata.getPlayerTechDescend("score",season);
 				}
 				break;
 //			case "效率":
-//				orderPlayerTechVO=importdata.getPlayerTechDescend("efficiency");
+//				orderPlayerTechVO=importdata.getPlayerTechDescend("efficiency",season);
 //				break;
 			case "GmSc 效率":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("gmscefficiency");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("gmscefficiency",season);
 				break;
 			case "真实命中%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("trueshotinrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("trueshotinrate",season);
 				break;
 			case "投篮效率":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("shootingefficiency");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("shootingefficiency",season);
 				break;
 			case "篮板%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("reboundrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("reboundrate",season);
 				break;
 			case "进攻篮板%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("offensivereboundrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("offensivereboundrate",season);
 				break;
 			case "防守篮板%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("defensivereboundrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("defensivereboundrate",season);
 				break;
 			case "助攻%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattackrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattackrate",season);
 				break;
 			case "抢断%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("stealrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("stealrate",season);
 				break;
 			case "盖帽%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotrate",season);
 				break;
 			case "失误%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("faultrate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("faultrate",season);
 				break;
 			case "使用%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("usagerate");
+				orderPlayerTechVO=importdata.getPlayerTechDescend("usagerate",season);
 				break;
 			}
 		}
@@ -1298,6 +1346,19 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		}
 	}
 
+	
+	private String switchseason(String season){
+		String result=null;
+		String[] temp=season.split(" ");
+		if(temp[1].equals("Regular")){
+		result=temp[0]+" 常规赛";
+		}else if(temp[1].equals("Postseason")){
+			result=temp[0]+" 季后赛";
+		}
+		return result;
+	}
+	
+	
 	//绘制球员数据界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
@@ -1379,7 +1440,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			for(int i=0;i<screeningconditions.size();i++){
 				System.out.println(screeningconditions.get(i).position+"--"+screeningconditions.get(i).division+"--"+screeningconditions.get(i).condition+"--"+screeningconditions.get(i).number);
 			}
-			ArrayList<PlayerTechVO> siftVO=importdata.sift(screeningconditions);
+			ArrayList<PlayerTechVO> siftVO=importdata.sift(screeningconditions,switchseason((String) season.getSelectedItem()));
 			playerinfo1=new Object[siftVO.size()][columnName1.length];
 			playerinfo2=new Object[siftVO.size()][columnName2.length];
 			playerinfo2=new Object[siftVO.size()][columnName3.length];

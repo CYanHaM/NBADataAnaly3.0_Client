@@ -45,12 +45,12 @@ public class TeamPanel extends JPanel implements ActionListener{
 	//定义空出位置大小
 	private static int space=35;
 	//表格大小
-	private static int TABLEWIDTH=765;
+	private static int TABLEWIDTH=840;
 	private static int TABLEHEIGHT=275;
 	//表格行高
 	private static int ROWHEIGHT=35;
 	//表格列宽
-	private static int[] COLUMNWIDTH={200,80,80,100,100,200,60,60,250};
+	private static int[] COLUMNWIDTH={160,70,60,100,80,130,60,60,200};
 	//设置表格属性
 	private JTable playertable;
 	private Object[][] playerinfo;
@@ -98,9 +98,10 @@ public class TeamPanel extends JPanel implements ActionListener{
 		//创建颜色预设对象
 		PPre=new PlayerPre();
 		//导入数据
+		//TODO delete them when testing
 //		importdata=new ImportTeam();
 //		teamvo=importdata.getTeamVO(tvo);
-		
+//		
 //		if(teamvo.abbreviation.equals("NOP"))
 //			teamvo.abbreviation="NOH";
 //		playerlist=importdata.findByTeam(teamvo.abbreviation);
@@ -371,7 +372,7 @@ public class TeamPanel extends JPanel implements ActionListener{
 	//绘制界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/bg-1.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 	

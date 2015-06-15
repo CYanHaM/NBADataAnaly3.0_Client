@@ -31,8 +31,8 @@ public class MatchPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static int FRAME_WIDTH=1020;
-	public static int FRAME_HEIGHT=670;
+	public static int FRAME_WIDTH=1100;
+	public static int FRAME_HEIGHT=700;
 
 	//define kits
 	private JLabel showcal;
@@ -175,7 +175,7 @@ public class MatchPanel extends JPanel implements ActionListener{
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im=new ImageIcon("images/system_img/teams_bg.png");
+		ImageIcon im=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im.getImage(),0,0,this);
 	}
 

@@ -8,19 +8,19 @@ import PO.PlayerTechPO;
 import PO.TeamTechPO;
 
 public interface StatsInfo {
-	//常规赛
+	//返回该球队某赛季所有常规赛,赛季总数据,队名是缩写
 	public TeamTechPO getTeamTech(String teamname,String season,int ifRegular);
-	//常规赛
+	//返回该球员某赛季所有常规赛,赛季总数据
 	public PlayerTechPO getPlayerTech(String player,String season,int ifRegular);
-	//最后20场比赛
+	//该赛季最后20场比赛,team是缩写,总数据
 	public ArrayList<MatchPO> getRecentMatch(String team,String season);
-	//球员最后20场
+	//球员最后20场,总数据
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,String season);
-	//球队的所有常规赛
+	//球队的所有常规赛,为总数据
 	public ArrayList<TeamTechPO>getMatchForYear(String team);
-	//常规赛 罚球 失误 上场时间 命中率 犯规 三分
+	//球员所有常规赛,罚球 失误 上场时间 命中率 犯规 三分为场均
 	public ArrayList<PlayerTechPO>getPlayerForYear(String name);
-	//常规赛 得分篮板助攻抢断盖帽犯规失误投篮命中率三分命中数罚球出手数排名
+	//常规赛 得分篮板助攻抢断盖帽犯规失误投篮命中率三分命中数罚球出手数排名,场均
 	public TeamTechPO getTeamRank(String teamname,String season,int ifRegular);
 	//常规赛 上面属性的30均值
 	public TeamTechPO getAllTeamAverage(String season,int ifRegular);
