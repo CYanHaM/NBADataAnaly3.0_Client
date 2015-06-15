@@ -343,7 +343,7 @@ public class ImportData {
 	//球队折线的参数 
 	 public  CategoryDataset getLineDataset(String season,String team,String linename){
 		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-		 if(season.equals("regular")){
+		 if(season.equals("Regular")){
 			 double []num=new double[13];
 			 switch (linename) {
 			 case "得分":
