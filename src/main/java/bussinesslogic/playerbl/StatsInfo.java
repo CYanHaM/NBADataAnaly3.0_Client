@@ -3,10 +3,8 @@ package bussinesslogic.playerbl;
 import java.util.ArrayList;
 
 import PO.MatchPO;
-import PO.PlayerStatsPO;
 import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
-import PO.TeamStatsPO;
 import PO.TeamTechPO;
 
 public interface StatsInfo {
@@ -20,7 +18,7 @@ public interface StatsInfo {
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,String season);
 	//球队的所有常规赛
 	public ArrayList<TeamTechPO>getMatchForYear(String team);
-	//常规赛
+	//常规赛 罚球 失误 上场时间 命中率 犯规 三分
 	public ArrayList<PlayerTechPO>getPlayerForYear(String name);
 	//常规赛 得分篮板助攻抢断盖帽犯规失误投篮命中率三分命中数罚球出手数排名
 	public TeamTechPO getTeamRank(String teamname,String season,int ifRegular);
@@ -34,8 +32,8 @@ public interface StatsInfo {
 	public TeamTechPO getDivTeamAverage(String season,int ifRegular,String division);
 	public PlayerTechPO getDivPlayerAverage(String season,int ifRegular,String division);
 	//参加过的常规赛和季后赛
-	public String[] getTeamSeasonList(String team);
-	public String[] getPlayerSeasonList(String player);
+	public ArrayList<String> getTeamSeasonList(String team);
+	public ArrayList<String> getPlayerSeasonList(String player);
 
 
 

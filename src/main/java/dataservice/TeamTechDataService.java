@@ -5,11 +5,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import PO.TeamTechPO;
-import TypeEnum.TeamTechEnum;
-import VO.TeamTechVO;
 
 public interface TeamTechDataService extends Remote{
-	public ArrayList<TeamTechPO> list()throws RemoteException;
+	public ArrayList<TeamTechPO> list(String season);
 	
 	 public ArrayList<TeamTechPO> Descend (String DataType);
 	 
