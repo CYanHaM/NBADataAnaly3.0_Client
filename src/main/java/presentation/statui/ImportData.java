@@ -58,7 +58,9 @@ public class ImportData {
 		psp=statsbl.getPlayerTechInterval(player, a, season);
 	}
 	
-	public Object[][] getall(){
+	
+	
+	public Object[][] getallTeam(){
 		dataAll[0][0]=tp.score;
 		dataAll[1][0]=tp.rebound;
 		dataAll[2][0]=tp.secondaryAttack;
@@ -91,7 +93,7 @@ public class ImportData {
 	return dataAll;
 	}
 	
-	public Object[][] getoff(){
+	public Object[][] getoffenseTeam(){
 		dataOff[0][0]=tp.score;
 		dataOff[1][0]=tp.secondaryAttack;
 		dataOff[2][0]=tp.shotInRate;
@@ -116,7 +118,7 @@ public class ImportData {
 	return dataOff;
 	}
 	
-	public Object[][] getdeff(){
+	public Object[][] getdefenseTeam(){
 		dataDeff[0][0]=tp.rebound;
 		dataDeff[1][0]=tp.steal;
 		dataDeff[2][0]=tp.blockShot;
@@ -137,8 +139,7 @@ public class ImportData {
 	return dataDeff;
 	}
 	
-	
-	public Object[][] getallP(){
+	public Object[][] getallPlayer(){
 		dataAllP[0][0]=pp.score;
 		dataAllP[1][0]=pp.rebound;
 		dataAllP[2][0]=pp.secondaryAttack;
@@ -179,7 +180,7 @@ public class ImportData {
 	return dataAllP;
 	}
 	
-	public Object[][] getoffP(){
+	public Object[][] getoffensePlayer(){
 		dataOffP[0][0]=pp.score;
 		dataOffP[1][0]=pp.secondaryAttack;
 		dataOffP[2][0]=pp.shotInRate;
@@ -204,7 +205,7 @@ public class ImportData {
 	return dataOffP;
 	}
 	
-	public Object[][] getdeffP(){
+	public Object[][] getdefensePlayer(){
 		dataDeffP[0][0]=pp.rebound;
 		dataDeffP[1][0]=pp.steal;
 		dataDeffP[2][0]=pp.blockShot;
@@ -224,8 +225,6 @@ public class ImportData {
 		
 	return dataDeffP;
 	}
-	
-	
 	
 	
 	 public  CategoryDataset getBarDataset(String teamname,String linename) {

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,6 +35,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import presentation.preset.StatPre;
+import VO.PlayerVO;
+import blservice.playerinfoblservice.PlayerInfoService;
+import bussinesslogic.PlayerInfo.PlayerInfoBL;
 
 public class TeamStatPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -115,22 +119,19 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 "灰熊 Memphis-Grizzlies",
 "鹈鹕 New Orleans-Pelicans",
 "马刺 San Antonio-Spurs"};
-	private JComboBox<String> Players;
-	private String[] PlayersNames={};
-	private int Players_w=200;
-	private int Players_h=30;
-	
-	private JComboBox<String> formerdate;
-	private int formerdate_w=60;
-	private int formerdate_h=30;
-	private JComboBox<String> latterdate;
-	private int latterdate_w=60;
-	private int latterdate_h=30;
-	private JButton summit;
 	
 	private JComboBox<String> season;
+	private int season_w=100;
+	private int season_h=30;
 	
-	
+	private JComboBox<String> formeryear;
+	private int formeryear_w=60;
+	private int formeryear_h=30;
+	private JComboBox<String> latteryear;
+	private int latteryear_w=60;
+	private int latteryear_h=30;
+	private JLabel yearmessage;
+	private JButton summit;
 	
 	private JLabel TeamLogo;
 	private JLabel TeamInfo;
@@ -138,14 +139,18 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	//table showing the different data of team comparing to whole teams
 	private JScrollPane DataPane;
 	private int DataPane_w=370;
-	private int DataPane_h=425;
+	private int DataPane_h=305;
 	private JTable DataTable;
-	private Object[][] DataInfo;
+	private Object[][] DataInfo1;
+	private Object[][] DataInfo2;
+	private Object[][] DataInfo3;
 	private String[] columnNames={"场均","场均排名","总体平均值","区间估计"};
-	private String[] lineNames={"得分","篮板","对手得分","对手篮板","助攻","抢断","盖帽","罚球","失误","犯规"};
+	private String[] lineNames1={"得分","篮板","助攻","抢断","盖帽","失误","犯规"};
+	private String[] lineNames2={"得分","助攻","命中率","罚球","三分"};
+	private String[] lineNames3={"篮板","抢断","盖帽","失误"};
 	private int[] COLUMNWIDTH={80,60,80,150};
 	private JComboBox<String> alpha;
-	private String[] alphaValue={"0.5","0.25","0.2","0.05"};
+	private String[] alphaValue={"0.4","0.3","0.2","0.1","0.05","0.025","0.01","0.005","0.0005"};
 	private int alpha_w=60;
 	private int alpha_h=30;
 	private JLabel alphamessage;
@@ -153,7 +158,9 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	//buttons showing differentdatas
 	private int button_w=130;
 	private int button_h=40;
-	private JButton[] linebutton;
+	private JButton[] linebutton1;
+	private JButton[] linebutton2;
+	private JButton[] linebutton3;
 	
 	private ChartPanel piechart1;
 	private ChartPanel piechart2;
@@ -211,29 +218,115 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		Trend.addActionListener(this);
 		this.add(Trend);
 		
-		linebutton=new JButton[lineNames.length];
-		for(int i=0;i<lineNames.length;i++){
+		linebutton1=new JButton[lineNames1.length];
+		for(int i=0;i<lineNames1.length;i++){
 			final int temp=i;
-			linebutton[i]=new JButton(lineNames[i]);
-			linebutton[i].setBounds(SIDEWIDTH, 270+i*button_h, button_w, button_h);
-			linebutton[i].addActionListener(new ActionListener() {
+			linebutton1[i]=new JButton(lineNames1[i]);
+			linebutton1[i].setBounds(SIDEWIDTH, 340+i*button_h, button_w, button_h);
+			linebutton1[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(!linebutton[temp].isSelected()){
-						for(int i=0;i<linebutton.length;i++){
-							linebutton[i].setSelected(false);
+					if(!linebutton1[temp].isSelected()){
+						for(int i=0;i<linebutton1.length;i++){
+							linebutton1[i].setSelected(false);
 						}
-						linebutton[temp].setSelected(true);
-						setchart(lineNames[temp]);
+						linebutton1[temp].setSelected(true);
+						setchart(lineNames1[temp]);
 					}
 					if(Trend.isSelected()){
-						addlinechart(lineNames[temp]);
+						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames1[temp]);
 					}
 				}
 			});
-			this.add(linebutton[i]);
+			this.add(linebutton1[i]);
 		}
-		linebutton[0].setSelected(true);
+		linebutton1[0].setSelected(true);
+		
+		linebutton2=new JButton[lineNames2.length];
+		for(int i=0;i<lineNames2.length;i++){
+			final int temp=i;
+			linebutton2[i]=new JButton(lineNames2[i]);
+			linebutton2[i].setBounds(SIDEWIDTH, 340+i*button_h, button_w, button_h);
+			linebutton2[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(!linebutton2[temp].isSelected()){
+						for(int i=0;i<linebutton2.length;i++){
+							linebutton2[i].setSelected(false);
+						}
+						linebutton2[temp].setSelected(true);
+						setchart(lineNames2[temp]);
+					}
+					if(Trend.isSelected()){
+						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames2[temp]);
+					}
+				}
+			});
+			this.add(linebutton2[i]);
+		}
+		linebutton2[0].setSelected(true);
+		
+		linebutton3=new JButton[lineNames3.length];
+		for(int i=0;i<lineNames3.length;i++){
+			final int temp=i;
+			linebutton3[i]=new JButton(lineNames3[i]);
+			linebutton3[i].setBounds(SIDEWIDTH, 340+i*button_h, button_w, button_h);
+			linebutton3[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(!linebutton3[temp].isSelected()){
+						for(int i=0;i<linebutton3.length;i++){
+							linebutton3[i].setSelected(false);
+						}
+						linebutton3[temp].setSelected(true);
+						setchart(lineNames3[temp]);
+					}
+					if(Trend.isSelected()){
+						addlinechart(String.valueOf(Teams.getSelectedItem()),lineNames3[temp]);
+					}
+				}
+			});
+			this.add(linebutton3[i]);
+		}
+		linebutton3[0].setSelected(true);
+	}
+	
+	private void showbutton(String info){
+		switch(info){
+		case "all":
+			for(int i=0;i<linebutton1.length;i++){
+				linebutton1[i].setVisible(true);
+			}
+			for(int i=0;i<linebutton2.length;i++){
+				linebutton2[i].setVisible(false);
+			}
+			for(int i=0;i<linebutton3.length;i++){
+				linebutton3[i].setVisible(false);
+			}
+			break;
+		case "offense":
+			for(int i=0;i<linebutton1.length;i++){
+				linebutton1[i].setVisible(false);
+			}
+			for(int i=0;i<linebutton2.length;i++){
+				linebutton2[i].setVisible(true);
+			}
+			for(int i=0;i<linebutton3.length;i++){
+				linebutton3[i].setVisible(false);
+			}
+			break;
+		case "defense":
+			for(int i=0;i<linebutton1.length;i++){
+				linebutton1[i].setVisible(false);
+			}
+			for(int i=0;i<linebutton2.length;i++){
+				linebutton2[i].setVisible(false);
+			}
+			for(int i=0;i<linebutton3.length;i++){
+				linebutton3[i].setVisible(true);
+			}
+			break;
+		}
 	}
 	
 	private void addbox(){
@@ -243,7 +336,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		DataType.addItem("总属性");
 		DataType.addItem("进攻属性");
 		DataType.addItem("防守属性");
-		DataType.setBounds(SIDEWIDTH,190,DataType_w,DataType_h);
+		DataType.setBounds(SIDEWIDTH,240,DataType_w,DataType_h);
 		DataType.setFont(StatPre.BoxFont);
 		DataType.addItemListener(new ItemListener(){
 			@Override
@@ -251,13 +344,16 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					if(DataType.getSelectedIndex()==0){
-						
+						showbutton("all");
+						refreshtable("all");
 					}
 					if(DataType.getSelectedIndex()==1){
-						
+						showbutton("offense");
+						refreshtable("offense");
 					}
 					if(DataType.getSelectedIndex()==2){
-						
+						showbutton("defense");
+						refreshtable("defense");
 					}
 				}
 			}
@@ -267,18 +363,18 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		SeasonSelection=new JComboBox<String>();
 		SeasonSelection.setFocusable(false);
 		SeasonSelection.setBackground(StatPre.indefaultcolor);
-		SeasonSelection.addItem("2010-2011 常规赛");
-		SeasonSelection.addItem("2010-2011 季后赛");
-		SeasonSelection.addItem("2011-2012 常规赛");
-		SeasonSelection.addItem("2011-2012 季后赛");
-		SeasonSelection.addItem("2012-2013 常规赛");
-		SeasonSelection.addItem("2012-2013 季后赛");
-		SeasonSelection.setBounds(SIDEWIDTH+DataType_w+5,190,SeasonSelection_w,SeasonSelection_h);
+//		SeasonSelection.addItem("2010-2011 常规赛");
+//		SeasonSelection.addItem("2010-2011 季后赛");
+//		SeasonSelection.addItem("2011-2012 常规赛");
+//		SeasonSelection.addItem("2011-2012 季后赛");
+//		SeasonSelection.addItem("2012-2013 常规赛");
+//		SeasonSelection.addItem("2012-2013 季后赛");
+		
+		SeasonSelection.setBounds(SIDEWIDTH+DataType_w+5,240,SeasonSelection_w,SeasonSelection_h);
 		SeasonSelection.setFont(StatPre.BoxFont);
 		SeasonSelection.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				// TODO Auto-generated method stub
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					if(SeasonSelection.getSelectedIndex()==0){
 						
@@ -300,7 +396,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		for(int i=0;i<TeamNames.length;i++){
 			Teams.addItem(TeamNames[i]);
 		}
-		Teams.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,Team_h+90,Teams_w,Teams_h);
+		Teams.setBounds(SIDEWIDTH,205,Teams_w,Teams_h);
 		Teams.setFont(StatPre.BoxFont);
 		Teams.addItemListener(new ItemListener(){
 			@Override
@@ -312,63 +408,92 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		});
 		this.add(Teams);
 		
-		Players=new JComboBox<String>();
-		Players.setFocusable(false);
-		Players.setBackground(StatPre.indefaultcolor);
-//		for(int i=0;i<PlayerNames.length;i++){
-//			Teams.addItem(TeamNames[i]);
-//		}
-		Players.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,Team_h+90,Teams_w,Teams_h);
-		Players.setFont(StatPre.BoxFont);
-		Players.addItemListener(new ItemListener(){
-			@Override
-			public void itemStateChanged(ItemEvent arg0) {
-				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					
-				}
-			}
-		});
-		Players.setVisible(false);
-		this.add(Players);
-		
 		alpha=new JComboBox<String>();
 		alpha.setFocusable(false);
 		alpha.setBackground(StatPre.indefaultcolor);
 		for(int i=0;i<alphaValue.length;i++){
 			alpha.addItem(alphaValue[i]);
 		}
-		alpha.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,190,alpha_w,alpha_h);
+		alpha.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2+20,240,alpha_w,alpha_h);
 		alpha.setFont(StatPre.BoxFont);
-		alpha.addItemListener(new ItemListener(){
-			@Override
-			public void itemStateChanged(ItemEvent arg0) {
-				// TODO Auto-generated method stub
-				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					if(alpha.getSelectedIndex()==0){
-						
-					}
-					if(alpha.getSelectedIndex()==1){
-						
-					}
-					if(alpha.getSelectedIndex()==2){
-						
-					}
-				}
-			}
-		});
 		this.add(alpha);
 		alphamessage=new JLabel("α :");
-		alphamessage.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,195,30,15);
+		alphamessage.setBounds(SIDEWIDTH+DataType_w+SeasonSelection_w+5*2,245,30,15);
 		alphamessage.setFont(StatPre.MessageFont);
 		alphamessage.setForeground(StatPre.defaultcolor);
 		this.add(alphamessage);
 		
+		season=new JComboBox<String>();
+		season.addItem("常规赛");
+		season.addItem("季后赛");
+		season.setBounds(SIDEWIDTH,240,season_w,season_h);
+		season.setFocusable(false);
+		season.setBackground(StatPre.indefaultcolor);
+		season.setFont(StatPre.BoxFont);
+		season.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					//a默认0.01
+					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+				}
+			}
+		});
+		season.setVisible(false);
+		this.add(season);
+		
+		formeryear=new JComboBox<String>();
+		formeryear.addItem("2009");
+		formeryear.addItem("2010");
+		formeryear.addItem("2011");
+		formeryear.setBounds(SIDEWIDTH+DataType_w+40, 240, formeryear_w, formeryear_h);
+		formeryear.setFocusable(false);
+		formeryear.setBackground(StatPre.indefaultcolor);
+		formeryear.setFont(StatPre.BoxFont);
+		formeryear.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					
+					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+				}
+			}
+		});
+		formeryear.setVisible(false);
+		this.add(formeryear);
+		
+		latteryear=new JComboBox<String>();
+		latteryear.addItem("2010");
+		latteryear.addItem("2011");
+		latteryear.addItem("2012");
+		latteryear.setBounds(SIDEWIDTH+DataType_w+formeryear_w+40+15, 240, latteryear_w, latteryear_h);
+		latteryear.setFocusable(false);
+		latteryear.setBackground(StatPre.indefaultcolor);
+		latteryear.setFont(StatPre.BoxFont);
+		latteryear.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					
+					TeamLogo.setIcon(new ImageIcon("images/teams/big/"+switchTeam(String.valueOf(Teams.getSelectedItem()))+".png"));
+				}
+			}
+		});
+		latteryear.setVisible(false);
+		this.add(latteryear);
+		
+		yearmessage=new JLabel("~");
+		yearmessage.setBounds(SIDEWIDTH+DataType_w+40+latteryear_w, 245, 20, 10);
+		yearmessage.setFont(StatPre.MessageFont);
+		yearmessage.setForeground(StatPre.defaultcolor);
+		yearmessage.setVisible(false);
+		this.add(yearmessage);
 		
 	}
 	
 	private void addtable(){
 		DataPane=new JScrollPane();
-		DataPane.setBounds(SIDEWIDTH+button_w, 245, DataPane_w, DataPane_h);
+		DataPane.setBounds(SIDEWIDTH+button_w, 315, DataPane_w, DataPane_h);
 //		DataPane.setHorizontalScrollBarPolicy( 
 //				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 //		DataPane.setVerticalScrollBarPolicy( 
@@ -382,48 +507,14 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		DataPane.getViewport().setOpaque(false);
 		DataPane.setBorder(null);
 
-		if (DataPane.getCorner(ScrollPaneConstants.LOWER_RIGHT_CORNER) == null) {
-			Component component = new JLabel("") {
-
-				@Override
-				protected void paintComponent(Graphics g) {
-					Graphics2D g2 = (Graphics2D) g;
-					Paint oldPaint = g2.getPaint();
-					Rectangle bounds = getBounds();
-					Paint backgroupRectPaint = new GradientPaint(0, 0, StatPre.TableLineSelected,
-							bounds.width, bounds.height, StatPre.TableLineSelected);
-					g2.setPaint(backgroupRectPaint);
-					g2.fillRect(0, 0, bounds.width, bounds.height);
-					g2.setPaint(oldPaint);
-				}
-			};
-			DataPane.setCorner(ScrollPaneConstants.LOWER_RIGHT_CORNER, component);
-		}
-
-		if (DataPane.getCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER) == null) {
-			Component component = new JLabel("") {
-				@Override
-				protected void paintComponent(Graphics g) {
-					Graphics2D g2 = (Graphics2D) g;
-					Paint oldPaint = g2.getPaint();
-					Rectangle bounds = getBounds();
-					Paint backgroupRectPaint = new GradientPaint(0, 0, StatPre.TableBg,
-							bounds.width, bounds.height, StatPre.TableBg);
-					g2.setPaint(backgroupRectPaint);
-					g2.fillRect(0, 0, bounds.width, bounds.height);
-					g2.setPaint(oldPaint);
-				}
-			};
-			DataPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,component);
-		}
 		this.add(DataPane);
 		
-		refreshtable();
+		refreshtable("all");
 	}
 
-	private void table_config(){
+	private void table_config(Object[][] datainfo){
 		//表格属性设置
-		DataTable=new JTable(DataInfo, columnNames){
+		DataTable=new JTable(datainfo, columnNames){
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) { 
 				return false;
@@ -431,7 +522,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		};
 		//根据条目名自动调整列宽
 		DataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
 		//设置表格列不可移动
 		DataTable.getTableHeader().setReorderingAllowed(false);
 		//设置列名居中
@@ -487,12 +577,26 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	}
 	
 	private void datainitial(){
-		DataInfo=new Object[lineNames.length][columnNames.length];
-		
+		DataInfo1=new Object[lineNames1.length][columnNames.length];
+		DataInfo2=new Object[lineNames2.length][columnNames.length];
+		DataInfo3=new Object[lineNames3.length][columnNames.length];
 	}
 	
-	public void refreshtable(){
-		table_config();
+	public void refreshtable(String info){
+		switch(info){
+		case "all":
+			table_config(DataInfo1);
+			DataPane.setSize(DataPane_w, DataPane_h);
+			break;
+		case "offense":
+			table_config(DataInfo2);
+			DataPane.setSize(DataPane_w, DataPane_h-button_h*2);
+			break;
+		case "defense":
+			table_config(DataInfo3);
+			DataPane.setSize(DataPane_w, DataPane_h-button_h*3);
+			break;
+		}
 		DataPane.setViewportView(DataTable);
 		Frame.repaint();
 	}
@@ -507,7 +611,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		TeamInfo=new JLabel();
 		
 	}
-	
 	//------------------------chart configs-------------------------------
 	 public static CategoryDataset getBarDataset(String teamname,String linename) {
 
@@ -558,7 +661,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		 return dataset;
 	 }
 	 
-	 public static CategoryDataset getLineDataset(){
+	 public static CategoryDataset getLineDataset(String teamname,String linename){
 		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
 		 dataset.addValue(1, "First", "2013");  
 		 dataset.addValue(3, "First", "2014");  
@@ -651,8 +754,8 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 
 	 }
 	 
-	 private void addlinechart(String linename){
-		 CategoryDataset ScoreTrendSet=getLineDataset();
+	 private void addlinechart(String teamname,String linename){
+		 CategoryDataset ScoreTrendSet=getLineDataset(teamname,linename);
 //		 linechart=new ChartPanel(new LineChart().createChart(ScoreTrendSet,"球员数据","得分","年份"));
 		 linechart.setChart(new LineChart().createChart(ScoreTrendSet,"变化趋势","年份",linename));
 		 linechart.setBounds(SIDEWIDTH+button_w, 270, 600, 400);
@@ -670,14 +773,38 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	 private void setAnalysisSelected(){
 		 Analysis.setSelected(true);
 		 Trend.setSelected(false);
+		 DataType.setVisible(true);
 		 SeasonSelection.setVisible(true);
 		 DataPane.setVisible(true);
 		 alpha.setVisible(true);
 		 alphamessage.setVisible(true);
+		 season.setVisible(false);
+		 formeryear.setVisible(false);
+		 latteryear.setVisible(false);;
+		 yearmessage.setVisible(false);
 		 
-		 for(int i=0;i<linebutton.length;i++){
-			 if(linebutton[i].isSelected())
-			 setchart(lineNames[i]);
+		 linebutton1[5].setVisible(true);
+		 linebutton1[6].setVisible(true);
+		 
+		 switch(DataType.getSelectedIndex()){
+		 case 0:
+		 for(int i=0;i<linebutton1.length;i++){
+			 if(linebutton1[i].isSelected())
+			 setchart(lineNames1[i]);
+		 }
+		 break;
+		 case 1:
+			 for(int i=0;i<linebutton2.length;i++){
+				 if(linebutton2[i].isSelected())
+				 setchart(lineNames2[i]);
+			 }
+			 break;
+		 case 2:
+			 for(int i=0;i<linebutton3.length;i++){
+				 if(linebutton3[i].isSelected())
+				 setchart(lineNames3[i]);
+			 }
+			 break;
 		 }
 		 
 		 piechart1.setVisible(true);
@@ -690,19 +817,29 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	 private void setTrendSelected(){
 		 Analysis.setSelected(false);
 		 Trend.setSelected(true);
+		 DataType.setVisible(false);
 		 SeasonSelection.setVisible(false);
 		 DataPane.setVisible(false);
 		 alpha.setVisible(false);
 		 alphamessage.setVisible(false);
+		 season.setVisible(true);
+		 formeryear.setVisible(true);
+		 latteryear.setVisible(true);;
+		 yearmessage.setVisible(true);
 
-		 for(int i=0;i<linebutton.length;i++){
-			 if(linebutton[i].isSelected())
-			 addlinechart(lineNames[i]);
+		 linebutton1[5].setVisible(false);
+		 linebutton1[6].setVisible(false);
+		 for(int i=0;i<linebutton2.length;i++){
+			 linebutton2[i].setVisible(false);
+		 }
+		 for(int i=0;i<linebutton3.length;i++){
+			 linebutton3[i].setVisible(false);
 		 }
 		 
 		 piechart1.setVisible(false);
 		 piechart2.setVisible(false);
 		 barchart.setVisible(false);
+		 addlinechart(String.valueOf(Teams.getSelectedItem()), lineNames1[0]);
 		 linechart.setVisible(true);
 	 }
 	 

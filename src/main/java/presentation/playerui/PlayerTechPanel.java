@@ -61,11 +61,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private JScrollPane players;
 	private String[] columnName1={"排名","球员名称","所属球队","得分","篮板","助攻","进攻","防守","抢断","盖帽","失误","犯规",};
 	private String[] columnName2={"排名","球员名称","命中%","三分%","罚球%","篮板%","进攻篮板%","防守篮板%","助攻%","抢断%","盖帽%"};
-	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","效率","GmSc 效率","投篮效率","失误%","使用%"};
+	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","GmSc 效率","投篮效率","失误%","使用%"};
 	//表格列宽
 	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
 	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72,72,72};
-	private static int[] COLUMNWIDTH3={40,160,75,70,70,80,80,80,80,73,73};
+	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,80,98,98};
 
 	
 	//总数据与场均数据切换下拉框
@@ -242,10 +242,6 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	}
 	
 	private void addseniorsift(){
-//		seniorsift=new JButton("高级筛选");
-//		seniorsift.setBounds(WIDTH-TABLEWIDTH-e_space-space, HEIGHT-TABLEHEIGHT-e_space-space-50, 160, 30);
-//		seniorsift.addActionListener(this);
-//		this.add(seniorsift);
 		siftpanel=new JScrollPane();
 		siftpanel.setBounds(WIDTH-TABLEWIDTH-e_space-space+520, HEIGHT-TABLEHEIGHT-e_space-space-100-65, 380, 90);
 		siftpanel.setHorizontalScrollBarPolicy( 
@@ -1044,9 +1040,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				orderPlayerTechVO=importdata.getPlayerTechAscend("score");
 			}
 			break;
-		case "效率":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("efficiency");
-			break;
+//		case "效率":
+//			orderPlayerTechVO=importdata.getPlayerTechAscend("efficiency");
+//			break;
 		case "GmSc 效率":
 			orderPlayerTechVO=importdata.getPlayerTechAscend("gmscefficiency");
 			break;
@@ -1178,9 +1174,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 					orderPlayerTechVO=importdata.getPlayerTechDescend("score");
 				}
 				break;
-			case "效率":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("efficiency");
-				break;
+//			case "效率":
+//				orderPlayerTechVO=importdata.getPlayerTechDescend("efficiency");
+//				break;
 			case "GmSc 效率":
 				orderPlayerTechVO=importdata.getPlayerTechDescend("gmscefficiency");
 				break;
