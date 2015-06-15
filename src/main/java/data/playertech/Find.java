@@ -16,29 +16,30 @@ import data.info.PlayerInfo;
 import dataservice.playertechdataservice.FindDataService;
 
 public class Find implements FindDataService {
+	
 	@Override
 	public ArrayList<PlayerTechMPO> findHotPlayerToday(String date,
 			String keyword) {
 		ArrayList<PlayerTechMPO> list = new ArrayList<PlayerTechMPO>();
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `playerTechMPO` where date='"+date+"' order by "+keyword+" desc";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
@@ -102,7 +103,7 @@ public class Find implements FindDataService {
 		Show sh = new Show();
 		ArrayList<PlayerTechPO> all = sh.showSeasonPlayerData(season);
 		PlayerInfo pi = new PlayerInfo();
-		ArrayList<PlayerPO> info = pi.findAll(2);
+		ArrayList<PlayerPO> info = pi.findAll(0);
 		Iterator<PlayerTechPO> it = all.iterator();
 		while(it.hasNext()){
 			PlayerTechPO pt = it.next();
@@ -200,23 +201,23 @@ public class Find implements FindDataService {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 				String driver = "com.mysql.jdbc.Driver";
-			//URLָ��Ҫ���ʵ���ݿ���nba
+			//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 				String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-				// MySQL����ʱ���û���
+				// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 				String user = "root";
-				// Java����MySQL����ʱ������
+				// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 				String password = "cyanham";
 				try {
-					// ���������
+					// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 					Class.forName(driver);
-				// ������ݿ�
+				// 锟斤拷锟斤拷锟斤拷菘锟�
 					Connection conn = DriverManager.getConnection(url, user, password);
 					if(!conn.isClosed()){
 						System.out.println("Succeeded connecting to the Database!");
 					}
-					// statement����ִ��SQL���
+					// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 					Statement statement = conn.createStatement();
-					// Ҫִ�е�SQL���
+					// 要执锟叫碉拷SQL锟斤拷锟�
 					String sql = "select * from playerTechPO where season='"+season+"'";
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) {
@@ -285,23 +286,23 @@ public class Find implements FindDataService {
 	public PlayerTechPO findPlayerTechByName(String name,String season) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-	//URLָ��Ҫ���ʵ���ݿ���nba
+	//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-		// ������ݿ�
+		// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "select * from playerTechPO where name='"+name+"' and season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {

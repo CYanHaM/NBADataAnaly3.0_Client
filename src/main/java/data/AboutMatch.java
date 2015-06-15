@@ -12,22 +12,21 @@ import PO.MatchPO;
 import PO.PlayerTechMPO;
 
 public class AboutMatch {
+Tools tool = new Tools();
 	public static void main(String[] args){
 		AboutMatch am = new AboutMatch();
 		ArrayList<MatchPO> list = am.getMatch();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
-		Tools t = new Tools();
-		t.transferDetail();
-    	System.out.println(list.size());
+    	System.out.println(list.size()+"here");
 		for(int i=0;i<list.size();i++){
-			System.out.println(i);
+		//	System.out.println(i);
 			System.out.println(list.get(i).playerStatistic);
 			MatchPO po = mds.completeMatch(list.get(i));
 			res.add(po);
 			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
 			for(int j=0;j<ml.size();j++){
-				am.modify(ml.get(j));//��playerTechMPO�����������
+				am.modify(ml.get(j));//锟斤拷playerTechMPO锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			}
 		}
 	}
@@ -46,24 +45,24 @@ public class AboutMatch {
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement1 = conn.createStatement();
 			Statement statement2 = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
@@ -90,9 +89,11 @@ public class AboutMatch {
 						Integer.valueOf(rs1.getString("hostOT3"));
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				String sql2 = "SELECT * FROM detail where (team='"+mpo.homeTeam+"' or team='"+mpo.guestTeam+"') and date='"+mpo.date+"' and season='"+mpo.season+"' and type='"+regular+"'";
+				String sql2 = "SELECT * FROM `detail` where (team='"+mpo.homeTeam+"' or team='"+mpo.guestTeam+"') and date='"+mpo.date+"' and season='"+tool.changeSeason(new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8"))+"' and type='"+regular+"'";
+				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
+				System.out.println(rs2.getRow());
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
@@ -168,23 +169,23 @@ public class AboutMatch {
 
 	public void modify(PlayerTechMPO po){
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "insert into `playerTechMPO` values('"+po.name+"','"+po.team+"','"+po.division+"','"+po.date+"','"+po.position+"','"+po.time+"','"+po.shotIn+"','"+po.shot+"','"+po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+
 					po.penaltyShot+"','"+po.offensiveRebound+"','"+po.defensiveRebound+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+
 					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+

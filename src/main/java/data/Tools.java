@@ -446,4 +446,10 @@ public class Tools {
 		System.out.println("wrong in compare");
 		return 0;
 	}
+	
+	public String changeSeason(String str){
+		String[] temp = str.split("-");
+		String season = temp[0]+"-"+temp[1].charAt(2)+temp[1].charAt(3);
+		return season;
+	}
 }
