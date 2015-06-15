@@ -370,21 +370,21 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 						showbutton("all");
 						DataInfo1=new ImportData(null,
 								switchSeason(String.valueOf(season.getSelectedItem())),
-								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getallTeam();
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getallPlayer();
 						refreshtable("all");
 					}
 					if(DataType.getSelectedIndex()==1){
 						showbutton("offense");
 						DataInfo2=new ImportData(null,
 								switchSeason(String.valueOf(season.getSelectedItem())),
-								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getoffenseTeam();
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getoffensePlayer();
 						refreshtable("offense");
 					}
 					if(DataType.getSelectedIndex()==2){
 						showbutton("defense");
 						DataInfo3=new ImportData(null,
 								switchSeason(String.valueOf(season.getSelectedItem())),
-								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getdefenseTeam();
+								Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getdefensePlayer();
 						refreshtable("defense");
 					}
 				}
@@ -431,6 +431,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					PlayerLogo.setIcon(new ImageIcon("images/players/action_small/"+String.valueOf(Players.getSelectedItem())+".png"));
+					addradarchart(String.valueOf(Players.getSelectedItem()));
 					refreshdata();
 				}
 			}
@@ -450,7 +451,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					playerlist=pis.findByTeam(switchTeam(String.valueOf(Teams.getSelectedItem())));
+					playerlist=pis.findByTeam(switchTeam(String.valueOf(Teams.getSelectedItem())),0);
 //					ArrayList<PlayerVO> playerlist=new ArrayList<PlayerVO>();
 //					PlayerVO p1=new PlayerVO();
 //					p1.name="Aaron Brooks";
@@ -514,9 +515,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		season.addItem("常规赛");
-		String[] seasonlist=statsinfo.getPlayerSeasonList(String.valueOf(Players.getSelectedItem()));
-		for(int i=0;i<seasonlist.length;i++){
-			String[] temp=seasonlist[i].split(" ");
+		ArrayList<String> seasonlist=statsinfo.getPlayerSeasonList(String.valueOf(Players.getSelectedItem()));
+		for(int i=0;i<seasonlist.size();i++){
+			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Postseason")){
 				season.addItem(temp[0]+" 季后赛");
 			}
@@ -833,7 +834,7 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	}
 	
 	private void addradarchart(String playername){
-		CategoryDataset radarset=getRadarDataset(playername);
+		CategoryDataset radarset=getRadarDataset();
 //		radarchart=new ChartPanel(new RadarChart().createChart(radarset,"技术分布"));
 		radarchart.setChart(new RadarChart().createChart(radarset,"技术分布"));
 		radarchart.setBounds(SIDEWIDTH+DataPane_w+button_w+10, 180, 280, 200);
@@ -860,38 +861,18 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 }
 	 
 	 public static CategoryDataset getLineDataset(String seasoninfo,String playername,String linename){
-		 DefaultCategoryDataset dataset=new ImportData(null,
+		 CategoryDataset dataset=new ImportData(null,
 					switchSeason(String.valueOf(season.getSelectedItem())),
-					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getLineDataset(seasoninfo,playername, linename);
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).getLineDatasetP(seasoninfo,playername, linename);
 		 return dataset;
 	 }
 	 
-	 public static CategoryDataset getRadarDataset(String playername){
-		 String s = "First";
-		  String s1 = "Second";
-		  String s2 = "Third";
-		  String s3 = "Category 1";
-		  String s4 = "Category 2";
-		  String s5 = "Category 3";
-		  String s6 = "Category 4";
-		  String s7 = "Category 5";
-		  DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
-		  defaultcategorydataset.addValue(1.0D, s, s3);
-		  defaultcategorydataset.addValue(4D, s, s4);
-		  defaultcategorydataset.addValue(3D, s, s5);
-		  defaultcategorydataset.addValue(5D, s, s6);
-		  defaultcategorydataset.addValue(5D, s, s7);
-//		  defaultcategorydataset.addValue(5D, s1, s3);
-//		  defaultcategorydataset.addValue(7D, s1, s4);
-//		  defaultcategorydataset.addValue(6D, s1, s5);
-//		  defaultcategorydataset.addValue(8D, s1, s6);
-//		  defaultcategorydataset.addValue(4D, s1, s7);
-//		  defaultcategorydataset.addValue(4D, s2, s3);
-//		  defaultcategorydataset.addValue(3D, s2, s4);
-//		  defaultcategorydataset.addValue(2D, s2, s5);
-//		  defaultcategorydataset.addValue(3D, s2, s6);
-//		  defaultcategorydataset.addValue(6D, s2, s7);
-		  return defaultcategorydataset;
+	 public static CategoryDataset getRadarDataset(){
+		 CategoryDataset dataset=new ImportData(null,
+					switchSeason(String.valueOf(season.getSelectedItem())),
+					Double.parseDouble((String) alpha.getSelectedItem()),String.valueOf(Players.getSelectedItem())).createRadarDataset();
+		 return dataset;
+		 
 	 }
 	 
 	 private void setchart(String linename){
@@ -956,19 +937,19 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 case 0:
 		 for(int i=0;i<linebutton1.length;i++){
 			 if(linebutton1[i].isSelected())
-				 addlinechart(String.valueOf(Players.getSelectedItem()),lineNames1[i]);
+				 addlinechart("Regular",String.valueOf(Players.getSelectedItem()),lineNames1[i]);
 		 }
 		 break;
 		 case 1:
 			 for(int i=0;i<linebutton2.length;i++){
 				 if(linebutton2[i].isSelected())
-				 addlinechart(String.valueOf(Players.getSelectedItem()),lineNames2[i]);
+				 addlinechart("Regular",String.valueOf(Players.getSelectedItem()),lineNames2[i]);
 			 }
 			 break;
 		 case 2:
 			 for(int i=0;i<linebutton3.length;i++){
 				 if(linebutton3[i].isSelected())
-				 addlinechart(String.valueOf(Players.getSelectedItem()),lineNames3[i]);
+				 addlinechart("Regular",String.valueOf(Players.getSelectedItem()),lineNames3[i]);
 			 }
 			 break;
 		 }

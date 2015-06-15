@@ -71,10 +71,6 @@ public class ImportData {
 	    pmlist=statsinfo.getRecentPlayerM(player, season);
 	}
 	
-	public String[] getSeasons(String teamname){
-		return statsinfo.getTeamSeasonList(teamname);
-	}
-	
 	public Object[][] getallTeam(){
 		dataAll[0][0]=tp.score;
 		dataAll[1][0]=tp.rebound;
