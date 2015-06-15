@@ -6,6 +6,8 @@ import PO.PlayerTechPO;
 
 public interface ShowDataService {
 	
+		public ArrayList<PlayerTechPO> all ();
+		
 		public ArrayList<PlayerTechPO> showSeasonPlayerData (String season);
 		
 		public PlayerTechPO showKeyData (String name,String team );
