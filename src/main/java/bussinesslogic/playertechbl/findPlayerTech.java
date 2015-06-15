@@ -10,11 +10,12 @@ import VO.ScreeningConditionVO;
 import blservice.playertechblservice.FindPlayerTechService;
 import bussinesslogic.Transfer.PlayerTechTransfer;
 import bussinesslogic.Transfer.P2L.MPO2MVO;
+import data.playertech.Find;
 import dataservice.playertechdataservice.FindDataService;
 
 public class findPlayerTech implements FindPlayerTechService{
 
-	FindDataService fds;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	FindDataService fds = new Find();
 	
 	@Override
 	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date,

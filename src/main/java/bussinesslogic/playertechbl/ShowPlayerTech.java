@@ -6,11 +6,12 @@ import PO.PlayerTechPO;
 import VO.PlayerTechVO;
 import blservice.playertechblservice.ShowPlayerTechService;
 import bussinesslogic.Transfer.PlayerTechTransfer;
+import data.playertech.Show;
 import dataservice.playertechdataservice.ShowDataService;
 
 public class ShowPlayerTech  implements ShowPlayerTechService {
 
-	ShowDataService sd ;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	ShowDataService sd  = new Show();
 	@Override
 	public ArrayList<PlayerTechVO> showSeasonPlayerData(String team) {
 		ArrayList<PlayerTechPO> ptpo = new ArrayList<PlayerTechPO>();

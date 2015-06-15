@@ -5,10 +5,11 @@ import VO.TeamVO;
 import blservice.teamblservice.TeamBLservice;
 import bussinesslogic.Transfer.L2V.TeamL2V;
 import bussinesslogic.Transfer.P2L.TeamP2L;
+import data.info.TeamInfo;
 import dataservice.TeamDataService;
 
 public class TeamBL implements TeamBLservice{
-	TeamDataService tds;
+	TeamDataService tds = new TeamInfo();
 	@Override
 	public TeamVO Show(TeamVO tvo) {
 		// TODO Auto-generated method stub
