@@ -14,35 +14,35 @@ public class PlayerInfoBL implements PlayerInfoService{
 	PlayerInfoDataService pids = new PlayerInfo();
 	PO2VO p2v;
 	@Override
-	public ArrayList<PlayerVO> showAllPlayerInfo() {
-		ArrayList<PlayerPO> polist = pids.findAll();
+	public ArrayList<PlayerVO> showAllPlayerInfo(int retire) {
+		ArrayList<PlayerPO> polist = pids.findAll(retire);
 		ArrayList<PlayerVO> list = new ArrayList<PlayerVO>();
 		list = p2v.list2vo(polist);
 		return list;
 	}
 
 	@Override
-	public PlayerVO showPlayerInfo(String name) {
+	public PlayerVO showPlayerInfo(String name,int retire) {
 		PlayerPO ppo = new PlayerPO();
-		ppo = pids.findOne(name);
+		ppo = pids.findOne(name,retire);
 		PlayerVO pvo = new PlayerVO();
 		pvo = p2v.po2vo(ppo);
 		return pvo;
 	}
 
 	@Override
-	public ArrayList<PlayerVO> findPlayerByLetter(char letter) {
+	public ArrayList<PlayerVO> findPlayerByLetter(char letter,int retire) {
 		ArrayList<PlayerPO> ppo = new ArrayList<PlayerPO>();
-		ppo = pids.findByLetter(letter);
+		ppo = pids.findByLetter(letter,retire);
 		ArrayList<PlayerVO> pvo = new ArrayList<PlayerVO>();
 		pvo = p2v.list2vo(ppo);
 		return pvo;
 	}
 
 	@Override
-	public ArrayList<PlayerVO> findByTeam(String team) {
+	public ArrayList<PlayerVO> findByTeam(String team,int retire) {
 		ArrayList<PlayerPO> ppo = new ArrayList<PlayerPO>();
-		ppo = pids.findByTeam(team);
+		ppo = pids.findByTeam(team,retire);
 		ArrayList<PlayerVO> pvo = new ArrayList<PlayerVO>();
 		pvo = p2v.list2vo(ppo);
 		return pvo;

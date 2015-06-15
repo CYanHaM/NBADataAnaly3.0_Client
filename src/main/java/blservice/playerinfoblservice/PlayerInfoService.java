@@ -6,13 +6,13 @@ import VO.PlayerVO;
 
 public interface PlayerInfoService {
 	
-	public ArrayList<PlayerVO> showAllPlayerInfo ();
+	public ArrayList<PlayerVO> showAllPlayerInfo (int retire);
 	
-	public PlayerVO showPlayerInfo (String name);
+	public PlayerVO showPlayerInfo (String name,int retire);
 	
-	public ArrayList<PlayerVO> findPlayerByLetter(char letter);   
+	public ArrayList<PlayerVO> findPlayerByLetter(char letter,int retire);   
 
-	public ArrayList<PlayerVO> findByTeam(String team);
+	public ArrayList<PlayerVO> findByTeam(String team,int retire);
 	
 	public void PlayerInfoIni();
 }
