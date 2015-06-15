@@ -22,28 +22,63 @@ public class Find implements FindDataService {
 		ArrayList<PlayerTechMPO> list = new ArrayList<PlayerTechMPO>();
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `playerTechMPO` where date='"+date+"' order by "+keyword+" desc";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 						PlayerTechMPO mpo = new PlayerTechMPO();
-						//daibuchong----------------------------------------------------------
+						mpo.name = rs.getString("name");
+						mpo.team = rs.getString("team");
+						mpo.season = rs.getString("season");
+						mpo.division = rs.getString("division");
+						mpo.date = rs.getString("date");
+						mpo.position = rs.getString("position");
+						mpo.time = Integer.valueOf(rs.getString("time"));
+						mpo.shotIn =  Integer.valueOf(rs.getString("shotIn"));
+						mpo.shot = Integer.valueOf(rs.getString("shot"));
+						mpo.threeShotIn =  Integer.valueOf(rs.getString("threeShotIn"));
+						mpo.threeShot = Integer.valueOf(rs.getString("threeShot"));
+						mpo.penaltyShotIn = Integer.valueOf(rs.getString("penaltyShotIn"));
+						mpo.penaltyShot = Integer.valueOf(rs.getString("penaltyShot"));
+						mpo.offensiveRebound = Integer.valueOf(rs.getString("offensiveNum"));
+						mpo.defensiveRebound = Integer.valueOf(rs.getString("defensiveNum"));
+						mpo.rebound = Integer.valueOf(rs.getString("rebound"));
+						mpo.secondaryAttack = Integer.valueOf(rs.getString("assist"));
+						mpo.steal = Integer.valueOf(rs.getString("steal"));
+						mpo.blockShot = Integer.valueOf(rs.getString("blockShot"));
+						mpo.fault = Integer.valueOf(rs.getString("fault"));
+						mpo.foul = Integer.valueOf(rs.getString("foul"));
+						mpo.score =  Integer.valueOf(rs.getString("score"));
+						mpo.ifFirstLineUp = Integer.valueOf(rs.getString("ifFirstLineUp"));
+						mpo.ifParticipate = Integer.valueOf(rs.getString("ifParticipate"));
+						mpo.teamAllTime = Integer.valueOf(rs.getString("teamAllTime"));
+						mpo.teamOffensiveRebound = Integer.valueOf(rs.getString("teamOffRebound"));
+						mpo.teamDefensiveRebound = Integer.valueOf(rs.getString("teamDefRebound"));
+						mpo.opponentOffensiveRebound = Integer.valueOf(rs.getString("opponentOffRebound"));
+						mpo.opponentDefensiveRebound = Integer.valueOf(rs.getString("opponentDefRebound"));
+						mpo.teamShotIn = Integer.valueOf(rs.getString("teamShotIn"));
+						mpo.opponentOffensiveNum = Integer.valueOf(rs.getString("oppOffNum"));
+						mpo.opponentTwoShot = Integer.valueOf(rs.getString("oppTwoShot"));
+						mpo.teamShot = Integer.valueOf(rs.getString("teamShot"));
+						mpo.teamPenaltyShot = Integer.valueOf(rs.getString("teamPenaltyShot"));
+						mpo.teamFault = Integer.valueOf(rs.getString("teamFault"));
+						mpo.ifDouble = Integer.valueOf(rs.getString("ifDouble"));
 						list.add(mpo);
 			}
 			rs.close();
@@ -165,23 +200,23 @@ public class Find implements FindDataService {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 				String driver = "com.mysql.jdbc.Driver";
-			//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+			//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 				String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-				// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+				// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 				String user = "root";
-				// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+				// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				String password = "cyanham";
 				try {
-					// ¼ÓÔØÇý¶¯³ÌÐò
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					Class.forName(driver);
-				// Á¬ÐøÊý¾Ý¿â
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 					Connection conn = DriverManager.getConnection(url, user, password);
 					if(!conn.isClosed()){
 						System.out.println("Succeeded connecting to the Database!");
 					}
-					// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+					// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 					Statement statement = conn.createStatement();
-					// ÒªÖ´ÐÐµÄSQLÓï¾ä
+					// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 					String sql = "select * from playerTechPO where season='"+season+"'";
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) {
@@ -250,23 +285,23 @@ public class Find implements FindDataService {
 	public PlayerTechPO findPlayerTechByName(String name,String season) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-	//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+	//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-		// Á¬ÐøÊý¾Ý¿â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "select * from playerTechPO where name='"+name+"' and season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
