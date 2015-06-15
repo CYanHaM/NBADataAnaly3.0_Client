@@ -21,6 +21,10 @@ public interface StatsInfo {
 	public TeamTechPO getAllTeamAverage(String season,int ifRegular);
 	public PlayerTechPO getPlayerRank(String player,String season,int ifRegular);
 	public PlayerTechPO getAllPlayerAverage(String season,int ifRegular);
+	public TeamTechPO getDivTeamAverage(String season,int ifRegular,String division);
+	public PlayerTechPO getDivPlayerAverage(String season,int ifRegular,String division);
+	public String[] getTeamSeasonList(String team);
+	public String[] getPlayerSeasonList(String player);
 
 
 

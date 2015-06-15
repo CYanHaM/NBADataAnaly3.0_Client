@@ -1,5 +1,10 @@
 package presentation.statui;
 
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+
 import PO.PlayerStatsPO;
 import PO.PlayerTechPO;
 import PO.TeamStatsPO;
@@ -20,6 +25,8 @@ public class ImportData {
 	TeamTechPO tp=new TeamTechPO();
 	TeamTechPO tr=new TeamTechPO();
 	TeamTechPO ata=new TeamTechPO();
+	TeamTechPO ataw=new TeamTechPO();
+	TeamTechPO atae=new TeamTechPO();
 	TeamStatsPO tsp=new TeamStatsPO();
 	
 	Object [][]dataAllP=new Object[9][4];
@@ -28,6 +35,8 @@ public class ImportData {
 	PlayerTechPO pp=new PlayerTechPO();
 	PlayerTechPO pr=new PlayerTechPO();
 	PlayerTechPO apa=new PlayerTechPO();
+	PlayerTechPO apaw=new PlayerTechPO();
+	PlayerTechPO apae=new PlayerTechPO();
 	PlayerStatsPO psp=new PlayerStatsPO();
 
 	 
@@ -37,11 +46,15 @@ public class ImportData {
 		tp=statsinfo.getTeamTech(team, season, 1);
 		tr=statsinfo.getTeamRank(team, season, 1);
 		ata=statsinfo.getAllTeamAverage(season, 1);
+		ataw=statsinfo.getDivTeamAverage(season, 1, "w");
+		atae=statsinfo.getDivTeamAverage(season, 1, "e");
 		tsp=statsbl.getTeamtechInterval(team, a, season);
 		
 		pp=statsinfo.getPlayerTech(player, season, 1);
 		pr=statsinfo.getPlayerRank(player, season, 1);
 		apa=statsinfo.getAllPlayerAverage(season, 1);
+		apaw=statsinfo.getDivPlayerAverage(season, 1, "w");
+		apae=statsinfo.getDivPlayerAverage(season, 1, "e");
 		psp=statsbl.getPlayerTechInterval(player, a, season);
 	}
 	
@@ -211,4 +224,153 @@ public class ImportData {
 		
 	return dataDeffP;
 	}
+	
+	
+	
+	
+	 public  CategoryDataset getBarDataset(String teamname,String linename) {
+
+		  String series1 = "1";
+		  String category1 = "场均";
+		  String category2 = "总体";
+		  String category3 = "东部联盟";
+		  String category4 = "西部联盟";
+		  double num1=0;
+		  double num2=0;
+		  double num3=0;
+		  double num4=0;
+		  switch (linename) {
+		case "得分":
+			num1=(double)tp.score;
+			num2=(double)ata.score;
+			num3=(double)atae.score;
+			num4=(double)ataw.score;
+			break;
+		case "篮板":
+			num1=(double)tp.rebound;
+			num2=(double)ata.rebound;
+			num3=(double)atae.rebound;
+			num4=(double)ataw.rebound;
+			break;
+		case "助攻":
+			num1=(double)tp.secondaryAttack;
+			num2=(double)ata.secondaryAttack;
+			num3=(double)atae.secondaryAttack;
+			num4=(double)ataw.secondaryAttack;
+			break;
+
+		case "抢断":
+			num1=(double)tp.steal;
+			num2=(double)ata.steal;
+			num3=(double)atae.steal;
+			num4=(double)ataw.steal;
+			break;
+
+		case "盖帽":
+			num1=(double)tp.blockShot;
+			num2=(double)ata.blockShot;
+			num3=(double)atae.blockShot;
+			num4=(double)ataw.blockShot;
+			break;
+
+		case "失误":
+			num1=(double)tp.fault;
+			num2=(double)ata.fault;
+			num3=(double)atae.fault;
+			num4=(double)ataw.fault;
+			break;
+
+		case "犯规":
+			num1=(double)tp.foul;
+			num2=(double)ata.foul;
+			num3=(double)atae.foul;
+			num4=(double)ataw.foul;
+			break;
+
+		case "命中率":
+			num1=(double)tp.shotInRate;
+			num2=(double)ata.shotInRate;
+			num3=(double)atae.shotInRate;
+			num4=(double)ataw.shotInRate;
+			break;
+
+		case "罚球":
+			num1=(double)tp.penaltyShotNum;
+			num2=(double)ata.penaltyShotNum;
+			num3=(double)atae.penaltyShotNum;
+			num4=(double)ataw.penaltyShotNum;
+			break;
+
+		case "三分":
+			num1=(double)tp.threeShotInNum;
+			num2=(double)ata.threeShotInNum;
+			num3=(double)atae.threeShotInNum;
+			num4=(double)ataw.threeShotInNum;
+			break;
+
+
+		default:
+			break;
+		}
+
+
+		  // 创建数据源
+		  DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		  // 放入数据
+		  dataset.addValue(num1, series1, category1);
+		  dataset.addValue(num2, series1, category2);
+		  dataset.addValue(num3, series1, category3);
+		  dataset.addValue(num4, series1, category4);
+
+
+		  return dataset;
+		 }
+	 
+	//折线的参数还没传 
+	 public static CategoryDataset getLineDataset(){
+		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
+		 dataset.addValue(1, "First", "2013");  
+		 dataset.addValue(3, "First", "2014");  
+		 dataset.addValue(2, "First", "2015");  
+		 dataset.addValue(6, "First", "2016");  
+		 dataset.addValue(5, "First", "2017");  
+		 dataset.addValue(12, "First", "2018");  
+		 dataset.addValue(14, "Second", "2013");  
+		 dataset.addValue(13, "Second", "2014");  
+		 dataset.addValue(12, "Second", "2015");  
+		 dataset.addValue(9, "Second", "2016");  
+		 dataset.addValue(5, "Second", "2017");  
+		 dataset.addValue(7, "Second", "2018");  
+		 
+		 return dataset;
+	 }
+	 
+	 public static CategoryDataset createRadarDataset(){
+		 String s = "First";
+		  String s1 = "Second";
+		  String s2 = "Third";
+		  String s3 = "Category 1";
+		  String s4 = "Category 2";
+		  String s5 = "Category 3";
+		  String s6 = "Category 4";
+		  String s7 = "Category 5";
+		  DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
+		  defaultcategorydataset.addValue(1.0D, s, s3);
+		  defaultcategorydataset.addValue(4D, s, s4);
+		  defaultcategorydataset.addValue(3D, s, s5);
+		  defaultcategorydataset.addValue(5D, s, s6);
+		  defaultcategorydataset.addValue(5D, s, s7);
+//		  defaultcategorydataset.addValue(5D, s1, s3);
+//		  defaultcategorydataset.addValue(7D, s1, s4);
+//		  defaultcategorydataset.addValue(6D, s1, s5);
+//		  defaultcategorydataset.addValue(8D, s1, s6);
+//		  defaultcategorydataset.addValue(4D, s1, s7);
+//		  defaultcategorydataset.addValue(4D, s2, s3);
+//		  defaultcategorydataset.addValue(3D, s2, s4);
+//		  defaultcategorydataset.addValue(2D, s2, s5);
+//		  defaultcategorydataset.addValue(3D, s2, s6);
+//		  defaultcategorydataset.addValue(6D, s2, s7);
+		  return defaultcategorydataset;
+	 }
+	
 }

@@ -74,4 +74,30 @@ public class PlayerTech implements StatsInfo{
 		return null;
 	}
 
+	@Override
+	public TeamTechPO getDivTeamAverage(String season, int ifRegular,
+			String division) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerTechPO getDivPlayerAverage(String season, int ifRegular,
+			String division) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getTeamSeasonList(String team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getPlayerSeasonList(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

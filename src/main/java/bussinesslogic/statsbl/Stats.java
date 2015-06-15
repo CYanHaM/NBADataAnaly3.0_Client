@@ -408,4 +408,180 @@ public class Stats implements StatsBLService{
 		}
 		
 //秩和检验
+		
+		public int sumEstimate(double[] a,double[] b){
+			int[] aorder=new int[a.length];
+			int[] border=new int[b.length];
+			int index=0;
+			for(int i=0;i<a.length;i++){
+				for(int j=0;j<a.length;j++){
+					if(a[i]>a[j])
+						index++;
+				}
+				for(int j=0;j<b.length;j++){
+					if(a[i]>b[j])
+						index++;
+				}
+				aorder[i]=index;
+				index=0;
+				
+			}
+			for(int i=0;i<b.length;i++){
+				for(int j=0;j<a.length;j++){
+					if(b[i]>a[j])
+						index++;
+				}
+				for(int j=0;j<b.length;j++){
+					if(b[i]>b[j])
+						index++;
+				}
+				border[i]=index;
+				index=0;
+				
+			}
+			int sum=0;
+			if(a.length<b.length){
+				for(int i=0;i<a.length;i++){
+					sum=sum+aorder[i];
+				}
+			}else{
+				for(int i=0;i<b.length;i++){
+					sum=sum+border[i];
+				}
+			}
+			
+			double u=Math.min(a.length, b.length)*(a.length+b.length+1)/2;
+			double s=a.length*b.length*(a.length+b.length+1)/12;
+			double uu=(sum-u)/Math.sqrt(s);
+			if(Math.abs(uu)<1.96)
+				return 0;
+			else
+				return 1;
+		}
+		
+		public TeamTechPO getTeamChangeYear(String team,String seasona,String seasonb){
+			StatsInfo si=new PlayerTech();
+			TeamTechPO res=new TeamTechPO();
+
+			ArrayList<MatchPO> mlista=new ArrayList<MatchPO>();
+			ArrayList<MatchPO> mlistb=new ArrayList<MatchPO>();
+
+			mlista=si.getRecentMatch(team, seasona);
+			mlistb=si.getRecentMatch(team, seasonb);
+
+			double[] statsa=new double[20];
+			double[] statsb=new double[20];
+			for(int i=0;i<20;i++){
+				if(mlista.get(i).homeTeam.equals(team)){
+					statsa[i]=(double)(mlista.get(i).homeScore);
+				}else {
+					statsa[i]=(double)(mlista.get(i).guestScore);}
+				if(mlistb.get(i).homeTeam.equals(team)){
+					statsb[i]=(double)(mlistb.get(i).homeScore);
+				}else {
+					statsb[i]=(double)(mlistb.get(i).guestScore);}
+			}
+			res.score=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				if(mlista.get(i).homeTeam.equals(team)){
+					statsa[i]=(double)(mlista.get(i).homeTeamOffensiveRebound+mlista.get(i).homeTeamDeffensiveRebound);
+				}else {
+					statsa[i]=(double)(mlista.get(i).guestTeamOffensiveRebound+mlista.get(i).guestTeamDeffensiveRebound);
+				}	
+				if(mlistb.get(i).homeTeam.equals(team)){
+					statsb[i]=(double)(mlistb.get(i).homeTeamOffensiveRebound+mlista.get(i).homeTeamDeffensiveRebound);
+				}else {
+					statsb[i]=(double)(mlistb.get(i).guestTeamOffensiveRebound+mlista.get(i).guestTeamDeffensiveRebound);
+				}
+			}
+			res.rebound=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				if(mlista.get(i).homeTeam.equals(team)){
+					statsa[i]=(double)(mlista.get(i).homeTeamSecondaryAttack);
+				}else {
+					statsa[i]=(double)(mlista.get(i).guestTeamSecondaryAttack);}
+				if(mlistb.get(i).homeTeam.equals(team)){
+					statsb[i]=(double)(mlistb.get(i).homeTeamSecondaryAttack);
+				}else {
+					statsb[i]=(double)(mlistb.get(i).guestTeamSecondaryAttack);}
+			}
+			res.secondaryAttack=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				if(mlista.get(i).homeTeam.equals(team)){
+					statsa[i]=(double)(mlista.get(i).homeTeamSteal);
+				}else {
+					statsa[i]=(double)(mlista.get(i).guestTeamSteal);}
+				if(mlistb.get(i).homeTeam.equals(team)){
+					statsb[i]=(double)(mlistb.get(i).homeTeamSteal);
+				}else {
+					statsb[i]=(double)(mlistb.get(i).guestTeamSteal);}
+			}
+			res.steal=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				if(mlista.get(i).homeTeam.equals(team)){
+					statsa[i]=(double)(mlista.get(i).homeTeamBlockShot);
+				}else {
+					statsa[i]=(double)(mlista.get(i).guestTeamBlockShot);}
+				if(mlistb.get(i).homeTeam.equals(team)){
+					statsb[i]=(double)(mlistb.get(i).homeTeamBlockShot);
+				}else {
+					statsb[i]=(double)(mlistb.get(i).guestTeamBlockShot);}
+			}
+			res.blockShot=sumEstimate(statsa, statsb);
+			
+			return res;
+
+		}
+		
+		
+		//球员秩和分析
+		public PlayerTechPO getPlayerChangeYear(String player,String seasona,String seasonb){
+			StatsInfo si=new PlayerTech();
+			PlayerTechPO res=new PlayerTechPO();
+
+			ArrayList<PlayerTechMPO> mlista=new ArrayList<PlayerTechMPO>();
+			ArrayList<PlayerTechMPO> mlistb=new ArrayList<PlayerTechMPO>();
+
+			mlista=si.getRecentPlayerM(player, seasona);
+			mlistb=si.getRecentPlayerM(player, seasonb);
+
+			double[] statsa=new double[20];
+			double[] statsb=new double[20];
+			
+			for(int i=0;i<20;i++){
+				statsa[i]=(double)(mlista.get(i).score);
+				statsb[i]=(double)(mlistb.get(i).score);
+			}
+			res.score=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				statsa[i]=(double)(mlista.get(i).rebound);
+				statsb[i]=(double)(mlistb.get(i).rebound);
+			}
+			res.rebound=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				statsa[i]=(double)(mlista.get(i).secondaryAttack);
+				statsb[i]=(double)(mlistb.get(i).secondaryAttack);
+			}
+			res.secondaryAttack=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				statsa[i]=(double)(mlista.get(i).steal);
+				statsb[i]=(double)(mlistb.get(i).steal);
+			}
+			res.steal=sumEstimate(statsa, statsb);
+			
+			for(int i=0;i<20;i++){
+				statsa[i]=(double)(mlista.get(i).blockShot);
+				statsb[i]=(double)(mlistb.get(i).blockShot);
+			}
+			res.blockShot=sumEstimate(statsa, statsb);
+			return res;
+
+		}
 }
