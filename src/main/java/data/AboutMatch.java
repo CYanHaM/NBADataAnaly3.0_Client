@@ -17,7 +17,12 @@ public class AboutMatch {
 		ArrayList<MatchPO> list = am.getMatch();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
+		Tools t = new Tools();
+		t.transferDetail();
+    	System.out.println(list.size());
 		for(int i=0;i<list.size();i++){
+			System.out.println(i);
+			System.out.println(list.get(i).playerStatistic);
 			MatchPO po = mds.completeMatch(list.get(i));
 			res.add(po);
 			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
