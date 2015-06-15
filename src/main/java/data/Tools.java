@@ -4,16 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
 
-import PO.PlayerTechMPO;
 import PO.PlayerTechPO;
 
 
@@ -21,6 +13,7 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
+		t.fillPlayerTech();
 	}
 	
 	public void transferDetail(){
@@ -183,7 +176,7 @@ public class Tools {
 						return temp[1];
 					} 
 
-	public ArrayList<PlayerTechPO> getPlayerTech(ResultSet rs){
+	public ArrayList<PlayerTechPO> fillPlayerTech(){
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		//URL指向要访问的数据库名nba
@@ -202,6 +195,8 @@ public class Tools {
 			}
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
+			String sql1 = "select * from `player_scoring`";
+			ResultSet rs = statement.executeQuery(sql1);
 			Statement statement2 = conn.createStatement();
 			while(rs.next()){
 				PlayerTechPO po = new PlayerTechPO();
@@ -213,11 +208,18 @@ public class Tools {
 				po.season=season;
 				po.team=team;
 				po.ifRegular=type.equals("Regular")?1:0;
+				po.position=getPos(rs.getString("pos"));
+				Statement sta = conn.createStatement();
+				String s1 = "select * from `teamInfo` where name='"+team+"'";
+				ResultSet set1 = sta.executeQuery(s1);
+				while(set1.next()){
+					po.division=set1.getString("division");
+				}
 				String sql = "select * from player_scoring where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
 				ResultSet r = statement.executeQuery(sql);
 				while(r.next()){
 					po.gameNum=Integer.valueOf(r.getString("GP"));
-					po.score=po.fault=Integer.valueOf(r.getString("PTS"));
+					po.score=Integer.valueOf(r.getString("PTS"));
 					po.penaltyShotInRate=Double.valueOf(r.getString("FT%"));
 					po.shotInRate=Double.valueOf(r.getString("FG%"));
 					po.threeShotInRate=Double.valueOf(r.getString("3P%"));
@@ -252,7 +254,7 @@ public class Tools {
 				sql = "select * from player_assists where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
 				r = statement.executeQuery(sql);
 				while(r.next()){
-					Integer.valueOf(r.getString("AST"));
+					po.secondaryAttack=Integer.valueOf(r.getString("AST"));
 					po.fault=Integer.valueOf(r.getString("TO"));
 				}
 				sql = "select * from player_steals where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
@@ -280,90 +282,28 @@ public class Tools {
 				while(r.next()){
 					po.ifDouble=Integer.valueOf(r.getString("DBLDBL"));
 				}
-				String sql2 = "select * from detail where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
+				String sql2 = "select * from `player_h` where name='"+name+"' and  team='"+team+"' and year='"+season+" "+type+"'";
 				ResultSet set= statement2.executeQuery(sql2);
 				while(set.next()){
-					po.teamAllTime = Integer.valueOf(set.getString("teamAllTime"));
-					po.teamOffensiveRebound = Integer.valueOf(set.getString("teamOffensiveRebound"));
-					po.teamDefensiveRebound = Integer.valueOf(set.getString("teamDefensiveRebound"));
-					po.opponentOffensiveRebound = Integer.valueOf(set.getString("opponentOffensiveRebound"));
-					po.opponentDefensiveRebound = Integer.valueOf(set.getString("opponentDefensiveRebound"));
-					po.teamShotIn = Integer.valueOf(set.getString("teamShotIn"));
-					po.opponentOffensiveNum = Integer.valueOf(set.getString("opponentOffensiveNum"));
-					po.opponentTwoShot = Integer.valueOf(set.getString("opponentTwoShot"));
-					po.teamShot = Integer.valueOf(set.getString("Integer.valueOf(eamShot"));
-					po.teamPenaltyShot = Integer.valueOf(set.getString("teamPenaltyShot"));
-					po.teamFault = Integer.valueOf(set.getString("teamFault"));
+					po.trueShotInRate=Double.valueOf(set.getString("TS"));
+					po.reboundRate=Double.valueOf(set.getString("REBR"));
+					po.offensiveReboundRate=Double.valueOf(set.getString("ORR"));
+					po.defensiveReboundRate=Double.valueOf(set.getString("DRR"));
+					po.secondaryAttackRate=Double.valueOf(set.getString("AST"));
+					po.faultRate=Double.valueOf(set.getString("TO"));
+					po.usageRate=Double.valueOf(set.getString("USG"));
 				}
-
-				//根据公式计算
-				//除数不能为0
-				if(po.threeShot==0){					
-					po.threeShotInRate=0;
-					}else{
-						po.threeShotInRate=(double)po.threeShotIn/(double)po.threeShot;
-					}
-				po.penaltyShot=po.penaltyShot;
-				po.penaltyShotIn=po.penaltyShotIn;
-				if(po.penaltyShot==0){					
-					po.penaltyShotInRate=0;
-					}else{
-						po.penaltyShotInRate=(double)po.penaltyShotIn/(double)po.penaltyShot;
-					}
-				po.efficiency=(po.score+po.rebound+po.secondaryAttack+po.steal+po.blockShot)-(po.shot-po.shotIn)-(po.penaltyShot-po.penaltyShotIn)-po.fault;
 				po.GmScEfficiency=(double)po.score+0.4*(double)po.shotIn-0.7*(double)po.shot-0.4*((double)po.penaltyShot-(double)po.penaltyShotIn)+0.7*(double)po.offensiveNum+0.3*(double)po.defensiveNum+(double)po.steal+0.7*(double)po.secondaryAttack+0.7*(double)po.blockShot-0.4*(double)po.foul-(double)po.fault;
-				if(2*((double)po.shot+0.44*(double)po.penaltyShot)==0){
-					po.trueShotInRate=0;
-					}else{
-						po.trueShotInRate=(double)po.score/(2*((double)po.shot+0.44*(double)po.penaltyShot));
-						}
 				if((double)po.shot==0){
 					po.shootingEfficiency=0;
 				}else{
 					po.shootingEfficiency=((double)po.shotIn+0.5*(double)po.threeShotIn)/(double)po.shot;
 				}
-				if(po.time==0){
-					po.reboundRate=0;
-				}else{
-					po.reboundRate=(double)po.rebound*((double)po.teamAllTime/5)/(double)po.time/((double)po.teamDefensiveRebound+(double)po.teamOffensiveRebound+(double)po.opponentDefensiveRebound+(double)po.opponentOffensiveRebound);
-				}
-				if((double)po.time==0){
-					po.offensiveReboundRate=0;
-				}else{
-					po.offensiveReboundRate=(double)po.offensiveNum*((double)po.teamAllTime/5)/(double)po.time/((double)po.teamOffensiveRebound+(double)po.opponentOffensiveRebound);
-				}
-				if((double)po.time==0){
-					po.defensiveReboundRate=0;
-				}else{
-					po.defensiveReboundRate=(double)po.defensiveNum*((double)po.teamAllTime/5)/(double)po.time/((double)po.teamDefensiveRebound+(double)po.opponentDefensiveRebound);
-				}
-				if((double)po.time==0){
-					po.secondaryAttackRate=0;
-				}else{
-					po.secondaryAttackRate=(double)po.secondaryAttack/((double)po.time/((double)po.teamAllTime/5)*(double)po.teamShotIn-(double)po.shotIn);
-				}
-				if((double)po.time==0){
-					po.stealRate=0;
-				}else{
-					po.stealRate=(double)po.steal*((double)po.teamAllTime/5)/(double)po.time/(double)po.opponentOffensiveNum;
-				}
-				
-				if(po.time==0){
-					po.blockShotRate=0;
-				}else{    
-					po.blockShotRate=(double)po.blockShot*((double)po.teamAllTime/5)/(double)po.time/(double)po.opponentTwoShot;
-				}
-				if(((double)po.shot==0)){
-					po.faultRate=0;
-					}else{
-						po.faultRate=(double)po.fault/((double)po.shot-(double)po.threeShot+0.44*(double)po.penaltyShot+(double)po.fault);
-				}
-				if((double)po.time==0){
-					po.usageRate=0;
-				}else{
-					po.usageRate=((double)po.shot+0.44*(double)po.penaltyShot+(double)po.fault)*((double)po.teamAllTime/5)/(double)po.time/((double)po.teamShot+0.44*(double)po.teamPenaltyShot+(double)po.teamFault);
-				}
 				list.add(po);
+				Statement state = conn.createStatement();
+				String str = "replace into `playerTechPO` values('"+po.name+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
+						po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+po.penaltyShot+"','"+po.shotInRate+"','"+po.threeShotInRate+"','"+po.penaltyShotIn+"','"+po.GmScEfficiency+"','"+po.trueShotInRate+"','"+po.shootingEfficiency+"','"+po.reboundRate+"','"+po.offensiveReboundRate+"','"+po.defensiveReboundRate+"','"+po.secondaryAttackRate+"','"+po.faultRate+"','"+po.usageRate+"'";
+				state.executeUpdate(str);
 			}
 			return list;
 		}catch(ClassNotFoundException e) {
@@ -376,7 +316,7 @@ public class Tools {
 		}; 
 		System.out.println("wrong:tools.getPlayerTech");
 		return null;
-	}
+}
 
 	/*
 	public ArrayList<PlayerTechPO> calculateImproving(ArrayList<PlayerTechPO> poList){
@@ -482,6 +422,6 @@ public class Tools {
 			}
 		 }
 		 return poList;
-	}*/
-
+	}
+*/
 }

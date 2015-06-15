@@ -4,66 +4,63 @@ import java.io.Serializable;
 
 public class PlayerTechPO implements Serializable{
 	/**
-	 * ������Ա������
+	 * 锟斤拷锟斤拷锟斤拷员锟斤拷锟斤拷锟斤拷
 	 */
 	public static final long serialVersionUID = 1L;
-	public String name;                            //��Ա����
-	public String season;                          //����
-	public String team;                            //�������
-	public int ifRegular;                          //是否是常规赛
+	public String name;                            //锟斤拷员锟斤拷锟斤拷
+	public String season;                          //锟斤拷锟斤拷
+	public String team;                            //锟斤拷锟斤拷锟斤拷锟�
+	public int ifRegular;                          //鏄惁鏄父瑙勮禌
 	
-	//���ݳ����������
-	public String position;                     //位置
-    public String division;                     //分区
-	public int gameNum;                         //��������
-	public int startingNum;                     //�ȷ�����
-	public int rebound;                         //������
-	public int secondaryAttack;                 //������
-	public int time;                            //�ڳ�ʱ��
-	public int offensiveNum;                    //������
-	public int defensiveNum;                    //������
-	public int steal;                           //������
-	public int blockShot;                       //��ñ��
-	public int fault;                           //ʧ����
-	public int foul;                            //������
-	public int score;                           //�÷�
-	public int shotIn;                       //Ͷ��������
-	public int shot;                         //Ͷ��������
-	public int threeShotIn;                  //����������
-	public int threeShot;                    //���ֳ�����
-	public int penaltyShotIn;                //����������
-	public int penaltyShot;                  //���������
+	//锟斤拷锟捷筹拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
+	public String position;                     //浣嶇疆
+    public String division;                     //鍒嗗尯
+	public int gameNum;                        
+	public int startingNum;                     //锟饺凤拷锟斤拷锟斤拷
+	public int rebound;                       
+	public int secondaryAttack;               
+	public int time;                           
+	public int offensiveNum;                    
+	public int defensiveNum;                  
+	public int steal;                           
+	public int blockShot;                     
+	public int fault;                         
+	public int foul;                           
+	public int score;                         
+	public int shotIn;                     
+	public int shot;                         
+	public int threeShotIn;                  
+	public int threeShot;                   
+	public int penaltyShotIn;              
+	public int penaltyShot;                  
 	
-	//���ݹ�ʽ����
-	public double shotInRate;                      //Ͷ��������
-	public double threeShotInRate;                 //����������
-	public double penaltyShotInRate;               //����������
-	public double efficiency;                        //Ч��
-	public double GmScEfficiency;                    //GmScЧ��ֵ
-	public double trueShotInRate;                  //��ʵ������
-	public double shootingEfficiency;                //Ͷ��Ч��
-	public double reboundRate;                     //������
-	public double offensiveReboundRate;            //����������
-	public double defensiveReboundRate;            //����������
-	public double secondaryAttackRate;             //������
-	public double stealRate;                       //������
-	public double blockShotRate;                   //��ñ��
-	public double faultRate;                       //ʧ����	
-	public double usageRate;                       //ʹ����
+	//锟斤拷锟捷癸拷式锟斤拷锟斤拷
+	public double shotInRate;                      
+	public double threeShotInRate;              
+	public double penaltyShotInRate;              
+	public double GmScEfficiency;                   
+	public double trueShotInRate;                
+	public double shootingEfficiency;               
+	public double reboundRate;                   
+	public double offensiveReboundRate;           
+	public double defensiveReboundRate;          
+	public double secondaryAttackRate;
+	public double faultRate;                   
+	public double usageRate;                    
 	
-	public int teamAllTime;                  //ȫ���ϳ�ʱ��
-	public int teamOffensiveRebound;                  //ȫ�ӽ�������
-	public int teamDefensiveRebound;                //ȫ�ӷ�������
-	public int opponentOffensiveRebound;                  //���ֽ�������
-	public int opponentDefensiveRebound;                //���ַ�������
-	public int teamShotIn;                             //ȫ�ӽ�����
-	public double opponentOffensiveNum;                     //���ֽ�������
-	public int opponentTwoShot;                     //���ֽ�����������ִ���
-	public int teamShot;                          //ȫ�ӳ��ִ���
-	public int teamPenaltyShot;                   //ȫ�ӷ������
-	public int teamFault;                          //ȫ��ʧ�����    
+	public int teamAllTime;                  //全锟斤拷锟较筹拷时锟斤拷
+	public int teamOffensiveRebound;                  //全锟接斤拷锟斤拷锟斤拷锟斤拷
+	public int teamDefensiveRebound;                //全锟接凤拷锟斤拷锟斤拷锟斤拷
+	public int opponentOffensiveRebound;                  //锟斤拷锟街斤拷锟斤拷锟斤拷锟斤拷
+	public int opponentDefensiveRebound;                //锟斤拷锟街凤拷锟斤拷锟斤拷锟斤拷
+	public int teamShotIn;                             //全锟接斤拷锟斤拷锟斤拷
+	public double opponentOffensiveNum;                     //锟斤拷锟街斤拷锟斤拷锟斤拷锟斤拷
+	public int opponentTwoShot;                     //锟斤拷锟街斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷执锟斤拷锟�
+	public int teamShot;                          //全锟接筹拷锟街达拷锟斤拷
+	public int teamPenaltyShot;                   //全锟接凤拷锟斤拷锟斤拷锟�
+	public int teamFault;                          
 	public int ifDouble;
-	//����Ϊ������
+	//锟斤拷锟斤拷为锟斤拷锟斤拷锟斤拷
 		public double scoreImproving;
 		public double stealImproving;
 		public double blockShotImproving;
@@ -103,10 +100,6 @@ public class PlayerTechPO implements Serializable{
 			System.out.println("penaltyShotInRate");
 			return false;
 		}
-		if(this.efficiency!=ptpo.efficiency){
-			System.out.println("efficiency");
-			return false;
-		}
 		if(this.GmScEfficiency!=ptpo.GmScEfficiency){
 			System.out.println("GmScEfficiency");
 			return false;
@@ -133,14 +126,6 @@ public class PlayerTechPO implements Serializable{
 		}
 		if(this.secondaryAttackRate!=ptpo.secondaryAttackRate){
 			System.out.println("secondaryAttackRate");
-			return false;
-		}
-		if(this.stealRate!=ptpo.stealRate){
-			System.out.println("stealRate");
-			return false;
-		}
-		if(this.blockShotRate!=ptpo.blockShotRate){
-			System.out.println("blockShotRate");
 			return false;
 		}
 		if(this.faultRate!=ptpo.faultRate){

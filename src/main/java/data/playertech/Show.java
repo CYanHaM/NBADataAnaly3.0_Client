@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import PO.PlayerTechPO;
-import data.Tools;
 import dataservice.playertechdataservice.ShowDataService;
 
 public class Show implements ShowDataService{
@@ -16,6 +15,7 @@ public class Show implements ShowDataService{
 	@Override
 	public ArrayList<PlayerTechPO> showSeasonPlayerData(String season) {
 		// TODO Auto-generated method stub
+		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		//URL指向要访问的数据库名nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
@@ -34,13 +34,51 @@ public class Show implements ShowDataService{
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
-			String sql = "SELECT * FROM detail where season='"+season+"'";
+			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
-			Tools tool = new Tools();
-			ArrayList<PlayerTechPO> res= tool.getPlayerTech(rs);
+			while(rs.next()){
+				PlayerTechPO po = new PlayerTechPO();
+				po.name=rs.getString("name");
+				po.season=rs.getString("season");
+				po.team=rs.getString("team");
+				po.ifRegular=Integer.valueOf(rs.getString("ifRegular"));
+				po.position=rs.getString("pos");
+				po.division=rs.getString("division");
+				po.gameNum=Integer.valueOf(rs.getString("gameNum"));
+				po.startingNum=Integer.valueOf(rs.getString("startingNum"));
+				po.rebound=Integer.valueOf(rs.getString("rebound"));
+				po.secondaryAttack=Integer.valueOf(rs.getString("assist"));
+				po.time=Integer.valueOf(rs.getString("time"));
+				po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
+				po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
+				po.steal=Integer.valueOf(rs.getString("steal"));
+				po.blockShot=Integer.valueOf(rs.getString("blockShot"));
+				po.fault=Integer.valueOf(rs.getString("fault"));
+				po.foul=Integer.valueOf(rs.getString("foul"));
+				po.score=Integer.valueOf(rs.getString("score"));
+				po.shotIn=Integer.valueOf(rs.getString("shotIn"));
+				po.shot=Integer.valueOf(rs.getString("shot"));
+				po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"));
+				po.threeShot=Integer.valueOf(rs.getString("threeShot"));
+				po.penaltyShotIn=Integer.valueOf(rs.getString("penaltyShotIn"));
+				po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"));
+				po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
+				po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
+				po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+				po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
+				po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
+				po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
+				po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
+				po.faultRate=Double.valueOf(rs.getString("faultRate"));
+				po.usageRate=Double.valueOf(rs.getString("usageRate"));
+				list.add(po);
+			}
 			rs.close();
 			conn.close();
-		return res;
+			return list;
 		} catch(ClassNotFoundException e) {
 			System.out.println("Sorry,can`t find the Driver!");
 			e.printStackTrace();
@@ -74,16 +112,50 @@ public class Show implements ShowDataService{
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
-			String sql = "SELECT * FROM detail where name='"+name+"' and team='"+team+"'";
+			String sql = "SELECT * FROM playerTechPO where name='"+name+"' and team='"+team+"'";
 			ResultSet rs = statement.executeQuery(sql);
-			Tools tool = new Tools();
-			ArrayList<PlayerTechPO> res= tool.getPlayerTech(rs);
+			while(rs.next()){
+				PlayerTechPO po = new PlayerTechPO();
+				po.name=rs.getString("name");
+				po.season=rs.getString("season");
+				po.team=rs.getString("team");
+				po.ifRegular=Integer.valueOf(rs.getString("ifRegular"));
+				po.position=rs.getString("pos");
+				po.division=rs.getString("division");
+				po.gameNum=Integer.valueOf(rs.getString("gameNum"));
+				po.startingNum=Integer.valueOf(rs.getString("startingNum"));
+				po.rebound=Integer.valueOf(rs.getString("rebound"));
+				po.secondaryAttack=Integer.valueOf(rs.getString("assist"));
+				po.time=Integer.valueOf(rs.getString("time"));
+				po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
+				po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
+				po.steal=Integer.valueOf(rs.getString("steal"));
+				po.blockShot=Integer.valueOf(rs.getString("blockShot"));
+				po.fault=Integer.valueOf(rs.getString("fault"));
+				po.foul=Integer.valueOf(rs.getString("foul"));
+				po.score=Integer.valueOf(rs.getString("score"));
+				po.shotIn=Integer.valueOf(rs.getString("shotIn"));
+				po.shot=Integer.valueOf(rs.getString("shot"));
+				po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"));
+				po.threeShot=Integer.valueOf(rs.getString("threeShot"));
+				po.penaltyShotIn=Integer.valueOf(rs.getString("penaltyShotIn"));
+				po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"));
+				po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
+				po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
+				po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+				po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
+				po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
+				po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
+				po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
+				po.faultRate=Double.valueOf(rs.getString("faultRate"));
+				po.usageRate=Double.valueOf(rs.getString("usageRate"));
+				return po;
+			}
 			rs.close();
 			conn.close();
-			if(res==null||res.size()==0){
-				return null;
-			}
-		return res.get(0);
 		} catch(ClassNotFoundException e) {
 			System.out.println("Sorry,can`t find the Driver!");
 			e.printStackTrace();
@@ -94,20 +166,6 @@ public class Show implements ShowDataService{
 		};
 		System.out.println("wrong: show playerTech");
 		return null;
-	}
-
-	@Override
-	public ArrayList<PlayerTechPO> ascend(final String type) {
-		// TODO Auto-generated method stub
-		ArrayList<PlayerTechPO> list = showSeasonPlayerData("2014-15");		
-		return list;
-	}
-
-	@Override
-	public ArrayList<PlayerTechPO> descend(String type) {
-		// TODO Auto-generated method stub
-		ArrayList<PlayerTechPO> list = showSeasonPlayerData("2014-15");		
-		return list;
 	}
 
 	@Override

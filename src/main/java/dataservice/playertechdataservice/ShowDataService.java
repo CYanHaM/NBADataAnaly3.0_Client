@@ -12,10 +12,6 @@ public interface ShowDataService {
 		
 		//閺屻儳婀呴弻鎰閻炲啫鎲抽崗鎶芥暛閺佺増宓�
 		public PlayerTechPO showKeyData (String name,String team );
-
-		public ArrayList<PlayerTechPO> ascend(String type);
-		
-		public ArrayList<PlayerTechPO> descend(String type);
 		
 		public void refresh();
 }

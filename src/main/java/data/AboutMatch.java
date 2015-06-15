@@ -24,7 +24,7 @@ public class AboutMatch {
 			res.add(po);
 			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
 			for(int j=0;j<ml.size();j++){
-				am.modify(ml.get(j));
+				am.modify(ml.get(j));//向playerTechMPO表中增加数据
 			}
 		}
 		 try {
@@ -94,6 +94,7 @@ public class AboutMatch {
 					index++;
 					ptpo.name=new String(rs2.getString("name").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.team=new String(rs2.getString("team").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.season=mpo.season;
 					//ptpo.division 
 					ptpo.date=new String(rs2.getString("date").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.position=t.getPos(new String(rs2.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
@@ -180,36 +181,12 @@ public class AboutMatch {
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
-			String sql = "update detail set doubles='"+po.ifDouble+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamAllTime='"+po.teamAllTime+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamOffensiveRebound='"+po.teamOffensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamDefensiveRebound='"+po.teamDefensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set opponentOffensiveRebound='"+po.opponentOffensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set opponentDefensiveRebound='"+po.opponentDefensiveRebound+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set  teamShotIn='"+po.teamShotIn+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set opponentOffensiveNum='"+po.opponentOffensiveNum+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set opponentTwoShot='"+po.opponentTwoShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamShot ='"+po.teamShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamPenaltyShot ='"+po.teamPenaltyShot+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set teamFault ='"+po.teamFault+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set firstLineUp ='"+po.ifFirstLineUp+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
-			statement.executeUpdate(sql);
-			sql = "update detail set participate ='"+po.ifParticipate+"' where name='"+po.name+"' and team='"+po.team+"' and date='"+po.date+"'";
+			String sql = "insert into `playerTechMPO` values('"+po.name+"','"+po.team+"','"+po.division+"','"+po.date+"','"+po.position+"','"+po.time+"','"+po.shotIn+"','"+po.shot+"','"+po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+
+					po.penaltyShot+"','"+po.offensiveRebound+"','"+po.defensiveRebound+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+
+					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+
+					po.teamFault+"','"+po.ifDouble+"')";
 			statement.executeUpdate(sql);
 			conn.close();
-		
 		} catch(ClassNotFoundException e) {
 			System.out.println("Sorry,can`t find the Driver!");
 			e.printStackTrace();
