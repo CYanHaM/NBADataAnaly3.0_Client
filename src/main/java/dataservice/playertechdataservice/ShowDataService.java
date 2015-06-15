@@ -3,7 +3,6 @@ package dataservice.playertechdataservice;
 import java.util.ArrayList;
 
 import PO.PlayerTechPO;
-import VO.PlayerTechVO;
 
 public interface ShowDataService {
 	
@@ -13,7 +12,7 @@ public interface ShowDataService {
 		
 		public void refresh();
 		
-		public ArrayList<PlayerTechVO> ascend(String type);
+		public ArrayList<PlayerTechPO> ascend(String type,String season);
 		
-		public ArrayList<PlayerTechVO> descend(String type);
+		public ArrayList<PlayerTechPO> descend(String type,String season);
 }

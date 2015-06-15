@@ -1,7 +1,5 @@
 package data;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -71,7 +69,7 @@ public class AboutMatch {
 					mpo.ifRegular=1;
 				}
 				mpo.ifEnd=1;
-				mpo.season=new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8");
+				mpo.season=new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+" "+new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
 				mpo.date=new String(rs1.getString("date").getBytes("ISO-8859-1"),"utf-8");
 				mpo.homeTeam=new String(rs1.getString("guest").getBytes("ISO-8859-1"),"utf-8");
 				mpo.guestTeam=new String(rs1.getString("host").getBytes("ISO-8859-1"),"utf-8");
