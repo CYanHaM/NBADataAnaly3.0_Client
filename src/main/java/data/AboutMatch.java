@@ -59,7 +59,7 @@ public class AboutMatch {
 			Statement statement1 = conn.createStatement();
 			Statement statement2 = conn.createStatement();
 			// ÒªÖ´ÐÐµÄSQLÓï¾ä
-			String sql1 = "SELECT * FROM match";
+			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
 				MatchPO mpo = new MatchPO();
