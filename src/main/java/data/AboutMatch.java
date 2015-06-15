@@ -13,21 +13,22 @@ import PO.PlayerTechMPO;
 
 public class AboutMatch {
 Tools tool = new Tools();
+TeamTechAssist tta = new TeamTechAssist();
 	public static void main(String[] args){
 		AboutMatch am = new AboutMatch();
 		ArrayList<MatchPO> list = am.getMatch();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
-    	System.out.println(list.size()+"here");
-    	System.out.println(list.size());
+    	System.out.println("getMatch():"+list.size());
 		for(int i=0;i<list.size();i++){
-		//	System.out.println(i);
-			System.out.println(list.get(i).playerStatistic);
-			MatchPO po = mds.completeMatch(list.get(i));
-			res.add(po);
-			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
-			for(int j=0;j<ml.size();j++){
-				am.modify(ml.get(j));//锟斤拷playerTechMPO锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
+			System.out.println("match.playerStatistic"+list.get(i).playerStatistic);
+			if(list.get(i).playerStatistic.size()!=0){
+				MatchPO po = mds.completeMatch(list.get(i));
+				res.add(po);
+				ArrayList<PlayerTechMPO> ml = po.playerStatistic;
+				for(int j=0;j<ml.size();j++){
+					am.modify(ml.get(j));
+				}
 			}
 		}
 	}
@@ -37,8 +38,10 @@ Tools tool = new Tools();
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		for(int i=0;i<list.size();i++){
-			MatchPO po = mds.completeMatch(list.get(i));
-			res.add(po);
+			if(list.get(i).playerStatistic.size()!=0){
+				MatchPO po = mds.completeMatch(list.get(i));
+				res.add(po);
+			}
 		}
 		return res;
 	}
@@ -46,28 +49,21 @@ Tools tool = new Tools();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		Tools t = new Tools();
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement1 = conn.createStatement();
 			Statement statement2 = conn.createStatement();
-			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			while(rs1.next()) {
-				System.out.println("here");
+				System.out.println("match:");
 				MatchPO mpo = new MatchPO();
 				mpo.ifRegular=0;
 				String regular = new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
@@ -75,7 +71,7 @@ Tools tool = new Tools();
 					mpo.ifRegular=1;
 				}
 				mpo.ifEnd=1;
-				mpo.season=new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+" "+new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
+				mpo.season=tool.changeSeason(new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8"))+" "+new String(rs1.getString("type").getBytes("ISO-8859-1"),"utf-8");
 				mpo.date=new String(rs1.getString("date").getBytes("ISO-8859-1"),"utf-8");
 				mpo.homeTeam=new String(rs1.getString("guest").getBytes("ISO-8859-1"),"utf-8");
 				mpo.guestTeam=new String(rs1.getString("host").getBytes("ISO-8859-1"),"utf-8");
@@ -91,11 +87,14 @@ Tools tool = new Tools();
 						Integer.valueOf(rs1.getString("hostOT3"));
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				String sql2 = "SELECT * FROM `detail` where (team='"+mpo.homeTeam+"' or team='"+mpo.guestTeam+"') and date='"+mpo.date+"' and season='"+tool.changeSeason(new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8"))+"' and type='"+regular+"'";
+				String sql2 = "SELECT * FROM `detail` where (team='"+tta.fullName(mpo.homeTeam)+"' or team='"+tta.fullName(mpo.guestTeam)+"') and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
-				System.out.println(rs2.getRow());
+				System.out.println("select from detail resultset.rows"+rs2.getRow());
+				if(rs2.getRow()==0){
+					break;
+				}
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
@@ -150,10 +149,8 @@ Tools tool = new Tools();
 						ptpo.ifFirstLineUp=1;
 					}
 					mpo.playerStatistic.add(ptpo);
-					System.out.println("hereeee");
 				}
 				rs2.close();
-				System.out.println(mpo.playerStatistic.size());
 				res.add(mpo);
 			}
 			rs1.close();
@@ -173,26 +170,19 @@ Tools tool = new Tools();
 
 	public void modify(PlayerTechMPO po){
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// 要执锟叫碉拷SQL锟斤拷锟�
-			String sql = "insert into `playerTechMPO` values('"+po.name+"','"+po.team+"','"+po.division+"','"+po.date+"','"+po.position+"','"+po.time+"','"+po.shotIn+"','"+po.shot+"','"+po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+
+			String sql = "insert into `playerTechMPO` values('"+po.name.replace("\\'", "\\\\'")+"','"+po.team+"','"+po.division+"','"+po.date+"','"+po.position+"','"+po.time+"','"+po.shotIn+"','"+po.shot+"','"+po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+
 					po.penaltyShot+"','"+po.offensiveRebound+"','"+po.defensiveRebound+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+
-					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+
+					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentOffensiveNum+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+
 					po.teamFault+"','"+po.ifDouble+"')";
 			statement.executeUpdate(sql);
 			conn.close();

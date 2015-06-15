@@ -16,7 +16,7 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-		t.fillPlayerTech();
+		t.transferScore();
 	}
 	
 	public void transferDetail(){
@@ -304,8 +304,8 @@ public class Tools {
 				}
 				list.add(po);
 				Statement state = conn.createStatement();
-				String str = "replace into `playerTechPO` values('"+po.name+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
-						po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+po.penaltyShot+"','"+po.shotInRate+"','"+po.threeShotInRate+"','"+po.penaltyShotIn+"','"+po.GmScEfficiency+"','"+po.trueShotInRate+"','"+po.shootingEfficiency+"','"+po.reboundRate+"','"+po.offensiveReboundRate+"','"+po.defensiveReboundRate+"','"+po.secondaryAttackRate+"','"+po.faultRate+"','"+po.usageRate+"'";
+				String str = "replace into `playerTechPO` values('"+po.name.replace("\\'", "\\\\'")+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
+						po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+po.penaltyShot+"','"+po.shotInRate+"','"+po.threeShotInRate+"','"+po.penaltyShotInRate+"','"+po.GmScEfficiency+"','"+po.trueShotInRate+"','"+po.shootingEfficiency+"','"+po.reboundRate+"','"+po.offensiveReboundRate+"','"+po.defensiveReboundRate+"','"+po.secondaryAttackRate+"','"+po.faultRate+"','"+po.usageRate+"','"+po.ifDouble+"')";
 				state.executeUpdate(str);
 			}
 			return list;
@@ -433,7 +433,6 @@ public class Tools {
 			Date dt1 = df.parse(d1);
 			Date dt2 = df.parse(d2);
 		if (dt1.getTime() > dt2.getTime()) {
-			System.out.println("dt1 在dt2前");
 			return 1;
 		} else if (dt1.getTime() < dt2.getTime()) {
 		return -1;
@@ -450,6 +449,12 @@ public class Tools {
 	public String changeSeason(String str){
 		String[] temp = str.split("-");
 		String season = temp[0]+"-"+temp[1].charAt(2)+temp[1].charAt(3);
+		return season;
+	}
+	
+	public String convertSeason(String str){
+		String[] temp = str.split("-");
+		String season = temp[0]+"-"+(Integer.valueOf(temp[0])+1);
 		return season;
 	}
 }
