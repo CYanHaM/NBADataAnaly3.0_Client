@@ -16,7 +16,7 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-		t.fillPlayerTech();
+		t.transferScore();
 	}
 	
 	public void transferDetail(){
