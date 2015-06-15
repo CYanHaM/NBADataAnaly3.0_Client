@@ -24,7 +24,6 @@ import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import VO.PlayerTechVO;
 import blservice.playertechblservice.FindPlayerTechService;
-import bussinesslogic.playertechbl.FindPlayerTech;
 
 public class FastImpPlayer extends JPanel implements ActionListener{
 	/**
@@ -35,8 +34,8 @@ public class FastImpPlayer extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 
 	private JButton SeasonInfo;
 	private JButton MatchInfo;
@@ -520,7 +519,7 @@ public class FastImpPlayer extends JPanel implements ActionListener{
 	//paint the background
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/hot_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 

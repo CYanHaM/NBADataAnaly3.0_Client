@@ -9,9 +9,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import presentation.hotspotui.SeasonHotTeam;
 import presentation.matchui.MatchPanel;
 import presentation.playerui.PlayerTechPanel;
 import presentation.statui.TeamStatPanel;
@@ -257,8 +257,8 @@ public class MainPanel extends JPanel implements ActionListener{
 			PlayerInfo.setSelected(false);
 			Hot.setSelected(true);
 			Stat.setSelected(false);
-//			SeasonHotTeam newpanel=new SeasonHotTeam(Frame);
-//			jumpToPanel(newpanel);
+			SeasonHotTeam newpanel=new SeasonHotTeam(Frame);
+			jumpToPanel(newpanel);
 			}
 		}
 		if(arg0.getSource()==Stat){

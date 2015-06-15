@@ -2,22 +2,21 @@ package presentation.playerui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -25,6 +24,8 @@ import javax.swing.table.TableColumnModel;
 import presentation.hotspotui.HotPlayerToday;
 import presentation.matchui.MatchPanel;
 import presentation.preset.PlayerPre;
+import presentation.preset.PlayerTechPre;
+import presentation.preset.StatPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import VO.PlayerTechVO;
@@ -38,9 +39,17 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 	 * @version 1.0
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 
+	//定义边缘透明空白区域边界大小，单位px
+	public static int e_space=10;
+	//定义空出位置大小
+	private static int space=20;
+	//表格大小
+	private static int TABLEWIDTH=900;
+	private static int TABLEHEIGHT=415;
+	
 	private static int locx=201;
 	private static int locy=232;
 	private static int Button_width=113;
@@ -63,6 +72,10 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 	private JLabel line;
 	private String[] teaminfoname={"全名","缩写","地区","分区"};
 
+	private JComboBox<String> season;
+	private int season_w=200;
+	private int season_h=30;
+	
 	private JLabel message;
 	private JScrollPane playertech;
 	private JTable techtable;
@@ -77,6 +90,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 	private PlayerTechVO playertechvo;
 	ImportPlayer importplayer;
 	PlayerPre PPre;
+	PlayerTechPre PTPre;
 
 	JFrame Frame;
 	String playername;
@@ -92,11 +106,16 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		this.setLayout(null);
 
 		PPre=new PlayerPre();
+		PTPre=new PlayerTechPre();
+		
 		importplayer=new ImportPlayer();
-		playervo=importplayer.showPlayerInfo(playername);
-		playertechvo=importplayer.findPlayerTechByName(playername);
-
-
+		
+		//添加下拉框
+		addbox();
+		
+		playervo=importplayer.showPlayerInfo(playername,1);
+		initdata();
+		
 		addbuttons();
 		ImageIcon img;
 		if(playervo==null){
@@ -113,11 +132,8 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 
 			addlabels();
 		}
-
-
 		
 		scrollpane_config();
-		adddata();
 		table_config();
 		
 		playertech.setViewportView(techtable);
@@ -125,23 +141,59 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		this.repaint();
 	}
 
+	private void addbox(){
+		season=new JComboBox<String>();
+		//TODO delete the test
+//		ArrayList<String> seasonlist=importplayer.getPlayerSeasonList();
+		ArrayList<String> seasonlist=new ArrayList<String>();
+		seasonlist.add("2011-12 Regular");
+		seasonlist.add("2011-12 Postseason");
+		seasonlist.add("2012-13 Regular");
+		seasonlist.add("2012-13 Postseason");
+		seasonlist.add("2013-14 Regular");
+		seasonlist.add("2013-14 Postseason");
+		seasonlist.add("2015-16 Regular");
+		seasonlist.add("2015-16 Postseason");
+		seasonlist.add("2016-17 Regular");
+		seasonlist.add("2016-17 Postseason");
+		for(int i=0;i<seasonlist.size();i++){
+			String[] temp=seasonlist.get(i).split(" ");
+			if(temp[1].equals("Regular")){
+				season.addItem(temp[0]+" 常规赛");
+			}else if(temp[1].equals("Postseason")){
+				season.addItem(temp[0]+" 季后赛");
+			}
+		}
+		season.setBounds(WIDTH-TABLEWIDTH-e_space-space,HEIGHT-TABLEHEIGHT-e_space-space-100-35+15,season_w,season_h);
+		season.setFocusable(false);
+		season.setBackground(StatPre.indefaultcolor);
+		season.setFont(PTPre.switchbox);
+		season.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					initdata();
+					refreshtable();
+				}
+			}
+		});
+		this.add(season);
+	}
+	
+	//----------------------initial & different methods------------
+	private void initdata(){
+		playertechvo=importplayer.findPlayerTechByName(playername,switchseason((String)season.getSelectedItem()));
+		//TODO delete the test
+		adddata();
+	}
+
+	private void refreshtable(){
+		table_config();
+		playertech.setViewportView(techtable);
+		Frame.repaint();
+	}
+	
 	private void addbuttons(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		PlayerInfo.setSelected(true);
-
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-
 		back=new JButton(new ImageIcon("images/system_img/back_initial.png"));
 		back.setBounds(200, 85, 100, 50);
 		back.setBorderPainted(false);
@@ -151,18 +203,6 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		back.setPressedIcon(new ImageIcon("images/system_img/back_pressed.png"));
 		back.addActionListener(this);
 		this.add(back);
-	}
-
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
 	}
 
 	private void addlabels(){
@@ -538,11 +578,21 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		}
 	}
 
+	private String switchseason(String season){
+		String result=null;
+		String[] temp=season.split(" ");
+		if(temp[1].equals("Regular")){
+		result=temp[0]+" 常规赛";
+		}else if(temp[1].equals("Postseason")){
+			result=temp[0]+" 季后赛";
+		}
+		return result;
+	}
 
 	//绘制赛季数据界面背景
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/teams_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 

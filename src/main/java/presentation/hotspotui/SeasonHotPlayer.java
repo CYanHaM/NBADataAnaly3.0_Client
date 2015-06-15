@@ -18,8 +18,11 @@ import javax.swing.JPanel;
 import presentation.mainui.PlayerListener;
 import presentation.mainui.TeamListener;
 import presentation.matchui.MatchPanel;
+import presentation.playerui.ImportPlayer;
 import presentation.playerui.PlayerTechPanel;
 import presentation.preset.HotPre;
+import presentation.preset.PlayerTechPre;
+import presentation.preset.StatPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
 import VO.PlayerTechVO;
@@ -50,7 +53,7 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	private JButton hotteam;
 	
 	private JButton today;
-	private JButton season;
+	private JButton seasons;
 	private JButton fastimp;
 
 	//下拉框大小
@@ -59,6 +62,10 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 
 	private int buttonwidth=88;
 	private int buttonheight=40;
+	
+	private JComboBox<String> season;
+	private int season_w=200;
+	private int season_h=30;
 
 	//场均得分，场均篮板，场均助攻，场均盖帽，场均抢断，三分命中率，投篮命中率，罚球命中率，两双场数
 	private JButton scoreave;
@@ -82,8 +89,10 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	private String selectedkeyword;
 
 	private ImportHotData importdata;
+	private ImportPlayer importseason;
 
 	private HotPre HP;
+	private PlayerTechPre PTPre; 
 	private JFrame Frame;
 	private JPanel panelToRemove;
 	
@@ -101,8 +110,10 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		teamimage=new JLabel[5];
 		
 		importdata=new ImportHotData();
-		
+		importseason=new ImportPlayer();
+				
 		HP=new HotPre();
+		PTPre=new PlayerTechPre();
 		
 		addbox();
 		addbutton();
@@ -130,6 +141,43 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	}
 	
 	private void addbox(){
+		season=new JComboBox<String>();
+		//TODO delete the test
+//		ArrayList<String> seasonlist=importseason.getPlayerSeasonList();
+		ArrayList<String> seasonlist=new ArrayList<String>();
+		seasonlist.add("2011-12 Regular");
+		seasonlist.add("2011-12 Postseason");
+		seasonlist.add("2012-13 Regular");
+		seasonlist.add("2012-13 Postseason");
+		seasonlist.add("2013-14 Regular");
+		seasonlist.add("2013-14 Postseason");
+		seasonlist.add("2015-16 Regular");
+		seasonlist.add("2015-16 Postseason");
+		seasonlist.add("2016-17 Regular");
+		seasonlist.add("2016-17 Postseason");
+		for(int i=0;i<seasonlist.size();i++){
+			String[] temp=seasonlist.get(i).split(" ");
+			if(temp[1].equals("Regular")){
+				season.addItem(temp[0]+" 常规赛");
+			}else if(temp[1].equals("Postseason")){
+				season.addItem(temp[0]+" 季后赛");
+			}
+		}
+		season.setBounds(200,100,season_w,season_h);
+		season.setFocusable(false);
+		season.setBackground(StatPre.indefaultcolor);
+		season.setFont(PTPre.switchbox);
+		season.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					initdata();
+				}
+			}
+		});
+		this.add(season);
+		
+		
 		hotplayer = new JButton(new ImageIcon("images/buttons/hotplayer1.png"));
 		hotplayer.setBounds(200, 135, BOXWIDTH, BOXHEIGHT);
 		hotplayer.setBorderPainted(false);
@@ -162,15 +210,15 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		today.setSelectedIcon(new ImageIcon("images/buttons/today3.png"));
 		today.addActionListener(this);
 		this.add(today);
-		season = new JButton(new ImageIcon("images/buttons/season1.png"));
-		season.setBounds(450, 139, 60, 30);
-		season.setBorderPainted(false);
-		season.setContentAreaFilled(false);
-		season.setFocusPainted(false);
-		season.setRolloverIcon(new ImageIcon("images/buttons/season2.png"));
-		season.setPressedIcon(new ImageIcon("images/buttons/season2.png"));
-		season.setSelectedIcon(new ImageIcon("images/buttons/season3.png"));
-		season.setSelected(true);
+		seasons = new JButton(new ImageIcon("images/buttons/season1.png"));
+		seasons.setBounds(450, 139, 60, 30);
+		seasons.setBorderPainted(false);
+		seasons.setContentAreaFilled(false);
+		seasons.setFocusPainted(false);
+		seasons.setRolloverIcon(new ImageIcon("images/buttons/season2.png"));
+		seasons.setPressedIcon(new ImageIcon("images/buttons/season2.png"));
+		seasons.setSelectedIcon(new ImageIcon("images/buttons/season3.png"));
+		seasons.setSelected(true);
 		this.add(season);
 		fastimp = new JButton(new ImageIcon("images/buttons/fastimp1.png"));
 		fastimp.setBounds(510, 139, 85, 30);
@@ -185,22 +233,6 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	}
 	
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-		Hot.setSelected(true);
-		
 		scoreave = new JButton(new ImageIcon("images/buttons/seasonhotplayer/scoreave1.png"));
 		button_config(scoreave, "scoreave", 0);
 		scoreave.setSelected(true);
@@ -246,19 +278,6 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		this.add(shotinrate);
 		this.add(penaltyshotinrate);
 		this.add(ifdouble);
-	}
-	
-
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
 	}
 	
 	private void button_config(JButton button,String info,int num){
@@ -358,41 +377,42 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	}
 	
 	private void insertData(){
+		String seasoninfo=switchseason((String) season.getSelectedItem());
 		if(scoreave.isSelected()){
 			selectedkeyword="scoreave";
-			seasonHPlist=importdata.findSeasonHotPlayer("scoreave");
+			seasonHPlist=importdata.findSeasonHotPlayer("scoreave",seasoninfo,"1");
 		}
 		if(reboundave.isSelected()){
 			selectedkeyword="reboundave";
-			seasonHPlist=importdata.findSeasonHotPlayer("reboundave");
+			seasonHPlist=importdata.findSeasonHotPlayer("reboundave",seasoninfo,"1");
 		}
 		if(secondAttackave.isSelected()){
 			selectedkeyword="secondaryattackave";
-			seasonHPlist=importdata.findSeasonHotPlayer("secondaryattackave");
+			seasonHPlist=importdata.findSeasonHotPlayer("secondaryattackave",seasoninfo,"1");
 		}
 		if(blockShotave.isSelected()){
 			selectedkeyword="blockshotave";
-			seasonHPlist=importdata.findSeasonHotPlayer("blockshotave");
+			seasonHPlist=importdata.findSeasonHotPlayer("blockshotave",seasoninfo,"1");
 		}
 		if(stealave.isSelected()){
 			selectedkeyword="stealave";
-			seasonHPlist=importdata.findSeasonHotPlayer("stealave");
+			seasonHPlist=importdata.findSeasonHotPlayer("stealave",seasoninfo,"1");
 		}
 		if(threeshotinrate.isSelected()){
 			selectedkeyword="threeshotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("threeshotinrate");
+			seasonHPlist=importdata.findSeasonHotPlayer("threeshotinrate",seasoninfo,"1");
 		}
 		if(shotinrate.isSelected()){
 			selectedkeyword="shotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("shotinrate");
+			seasonHPlist=importdata.findSeasonHotPlayer("shotinrate",seasoninfo,"1");
 		}
 		if(penaltyshotinrate.isSelected()){
 			selectedkeyword="penaltyshotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("penaltyshotinrate");
+			seasonHPlist=importdata.findSeasonHotPlayer("penaltyshotinrate",seasoninfo,"1");
 		}
 		if(ifdouble.isSelected()){
 			selectedkeyword="double";
-			seasonHPlist=importdata.findSeasonHotPlayer("double");
+			seasonHPlist=importdata.findSeasonHotPlayer("double",seasoninfo,"1");
 		}
 	}
 	
@@ -545,6 +565,17 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		default :
 				return null;
 		}
+	}
+	
+	private String switchseason(String season){
+		String result=null;
+		String[] temp=season.split(" ");
+		if(temp[1].equals("Regular")){
+		result=temp[0]+" 常规赛";
+		}else if(temp[1].equals("Postseason")){
+			result=temp[0]+" 季后赛";
+		}
+		return result;
 	}
 	
 	//paint the background

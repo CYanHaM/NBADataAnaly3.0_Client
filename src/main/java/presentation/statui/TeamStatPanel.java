@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -467,9 +468,9 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		season.addItem("常规赛");
-		String[] seasonlist=statsinfo.getTeamSeasonList(String.valueOf(Teams.getSelectedItem()));
-		for(int i=0;i<seasonlist.length;i++){
-			String[] temp=seasonlist[i].split(" ");
+		ArrayList<String> seasonlist=statsinfo.getTeamSeasonList(String.valueOf(Teams.getSelectedItem()));
+		for(int i=0;i<seasonlist.size();i++){
+			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Postseason")){
 				season.addItem(temp[0]+" 季后赛");
 			}
@@ -708,7 +709,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 		DataInfo3=new Object[lineNames3.length][columnNames.length];
 	}
 	
-	
 	//refresh the data in tables
 	public void refreshdata(){
 		if(DataType.getSelectedIndex()==0){
@@ -804,7 +804,7 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 	 }
 	 
 	 public static CategoryDataset getLineDataset(String seasoninfo,String teamname,String linename){
-		 DefaultCategoryDataset dataset=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
+		 CategoryDataset dataset=new ImportData(switchTeam(String.valueOf(Teams.getSelectedItem())),
 					switchSeason(String.valueOf(season.getSelectedItem())),
 					Double.parseDouble((String) alpha.getSelectedItem()),null).getLineDataset(seasoninfo,teamname, linename);
 		 return dataset;
