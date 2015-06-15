@@ -1,5 +1,7 @@
 package presentation.statui;
 
+import java.util.ArrayList;
+
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -28,7 +30,9 @@ public class ImportData {
 	TeamTechPO ataw=new TeamTechPO();
 	TeamTechPO atae=new TeamTechPO();
 	TeamStatsPO tsp=new TeamStatsPO();
-	
+	 ArrayList<TeamTechPO>tlist=new ArrayList<TeamTechPO>();
+	 ArrayList<PlayerTechPO>plist=new ArrayList<PlayerTechPO>();
+
 	Object [][]dataAllP=new Object[9][4];
 	Object [][]dataOffP=new Object[5][4];
 	Object [][]dataDeffP=new Object[4][4];
@@ -56,6 +60,9 @@ public class ImportData {
 		apaw=statsinfo.getDivPlayerAverage(season, 1, "w");
 		apae=statsinfo.getDivPlayerAverage(season, 1, "e");
 		psp=statsbl.getPlayerTechInterval(player, a, season);
+		
+		tlist=statsinfo.getMatchForYear(team);
+		plist=statsinfo.getPlayerForYear(player);
 	}
 	
 	public String[] getSeasons(String teamname){
@@ -328,10 +335,13 @@ public class ImportData {
 		 }
 	 
 	//折线的参数还没传 
-	 public static CategoryDataset getLineDataset(){
+	 public static ArrayList<CategoryDataset> getLineDataset(String season,String team){
+		 ArrayList<CategoryDataset> clist=new ArrayList<CategoryDataset>();
 		 DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-		 dataset.addValue(1, "First", "2013");  
-		 dataset.addValue(3, "First", "2014");  
+		 if(season.equals("regular")){
+
+		 dataset.addValue(1, "First", "2003");  
+		 dataset.addValue(3, "First", "2004");  
 		 dataset.addValue(2, "First", "2015");  
 		 dataset.addValue(6, "First", "2016");  
 		 dataset.addValue(5, "First", "2017");  
@@ -342,11 +352,11 @@ public class ImportData {
 		 dataset.addValue(9, "Second", "2016");  
 		 dataset.addValue(5, "Second", "2017");  
 		 dataset.addValue(7, "Second", "2018");  
-		 
+		 } 
 		 return dataset;
 	 }
 	 
-	 public static CategoryDataset createRadarDataset(){
+	 public static CategoryDataset createRadarDataset(String season,String team){
 		 String s = "First";
 		  String s1 = "Second";
 		  String s2 = "Third";
