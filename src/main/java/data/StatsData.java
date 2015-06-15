@@ -29,27 +29,45 @@ public class StatsData implements StatsDataService{
 				String[] str=info.get((int)n).split(" ");
 				switch(Double.toString(a)){
 				case "0.4":res=Double.valueOf(str[0]);
+				break;
 				case "0.3":res=Double.valueOf(str[1]);
+				break;
 				case "0.2":res=Double.valueOf(str[2]);
+				break;
 				case "0.1":res=Double.valueOf(str[3]);
+				break;
 				case "0.05":res=Double.valueOf(str[4]);
+				break;
 				case "0.025":res=Double.valueOf(str[5]);
+				break;
 				case "0.01":res=Double.valueOf(str[6]);
+				break;
 				case "0.005":res=Double.valueOf(str[7]);
+				break;
 				case "0.0005":res=Double.valueOf(str[8]);
+				break;
 				}
 			}else if(n>30&&n<=120){
 				String[] str=info.get((int)(29+(n-30)/10)).split(" ");
 				switch(Double.toString(a)){
 				case "0.4":res=Double.valueOf(str[0]);
+				break;
 				case "0.3":res=Double.valueOf(str[1]);
+				break;
 				case "0.2":res=Double.valueOf(str[2]);
+				break;
 				case "0.1":res=Double.valueOf(str[3]);
+				break;
 				case "0.05":res=Double.valueOf(str[4]);
+				break;
 				case "0.025":res=Double.valueOf(str[5]);
+				break;
 				case "0.01":res=Double.valueOf(str[6]);
+				break;
 				case "0.005":res=Double.valueOf(str[7]);
+				break;
 				case "0.0005":res=Double.valueOf(str[8]); 
+				break;
 				}
 				
 			}

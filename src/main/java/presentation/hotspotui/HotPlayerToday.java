@@ -64,7 +64,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	private JButton steal;
 	private JButton ifdouble;
 	private JButton scoreratio;
-	private JButton efficiency;
+//	private JButton efficiency;
 
 	private JLabel[] name;
 	private JLabel[] info;
@@ -274,9 +274,9 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		button_config(ifdouble, "double", 5);
 		ifdouble.setSelected(false);
 
-		efficiency = new JButton(new ImageIcon("images/buttons/hotplayer/efficiency1.png"));
-		button_config(efficiency, "efficiency", 6);
-		efficiency.setSelected(false);
+//		efficiency = new JButton(new ImageIcon("images/buttons/hotplayer/efficiency1.png"));
+//		button_config(efficiency, "efficiency", 6);
+//		efficiency.setSelected(false);
 
 		scoreratio = new JButton(new ImageIcon("images/buttons/hotplayer/scoreratio1.png"));
 		button_config(scoreratio, "scoreratio", 7);
@@ -289,7 +289,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		this.add(steal);
 		this.add(ifdouble);
 		this.add(scoreratio);
-		this.add(efficiency);
+//		this.add(efficiency);
 
 	}
 	
@@ -429,10 +429,10 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			selectedkeyword="double";
 			hotplayerslist=fts.findHotPlayerToday(date,"double");
 		}
-		if(efficiency.isSelected()){
-			selectedkeyword="efficiency";
-			hotplayerslist=fts.findHotPlayerToday(date,"efficiency");
-		}
+//		if(efficiency.isSelected()){
+//			selectedkeyword="efficiency";
+//			hotplayerslist=fts.findHotPlayerToday(date,"efficiency");
+//		}
 		if(scoreratio.isSelected()){
 			selectedkeyword="scoreratio";
 			hotplayerslist=fts.findHotPlayerToday(date,"scoreratio");
@@ -672,7 +672,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==rebound){
@@ -683,7 +683,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==secondAttack){
@@ -694,7 +694,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==blockShot){
@@ -705,7 +705,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==steal){
@@ -716,7 +716,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(true);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==ifdouble){
@@ -727,7 +727,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(true);
 			scoreratio.setSelected(false);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
 		if(arg0.getSource()==scoreratio){
@@ -738,20 +738,20 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			steal.setSelected(false);
 			ifdouble.setSelected(false);
 			scoreratio.setSelected(true);
-			efficiency.setSelected(false);
+//			efficiency.setSelected(false);
 			initdata();
 		}
-		if(arg0.getSource()==efficiency){
-			score.setSelected(false);
-			rebound.setSelected(false);
-			secondAttack.setSelected(false);
-			blockShot.setSelected(false);
-			steal.setSelected(false);
-			ifdouble.setSelected(false);
-			scoreratio.setSelected(false);
-			efficiency.setSelected(true);
-			initdata();
-		}
+//		if(arg0.getSource()==efficiency){
+//			score.setSelected(false);
+//			rebound.setSelected(false);
+//			secondAttack.setSelected(false);
+//			blockShot.setSelected(false);
+//			steal.setSelected(false);
+//			ifdouble.setSelected(false);
+//			scoreratio.setSelected(false);
+//			efficiency.setSelected(true);
+//			initdata();
+//		}
 	}
 
 }
