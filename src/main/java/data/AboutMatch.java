@@ -27,17 +27,17 @@ public class AboutMatch {
 				am.modify(ml.get(j));//向playerTechMPO表中增加数据
 			}
 		}
-		 try {
-			  FileOutputStream fos = new FileOutputStream("database/PlayerTechMPO.ser");
-	          ObjectOutputStream oos = new ObjectOutputStream(fos);
-	          oos.writeObject(res);
-	          oos.flush();
-	          oos.close();
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-		
-		
+	}
+	public ArrayList<MatchPO> allMatch(){
+		AboutMatch am = new AboutMatch();
+		ArrayList<MatchPO> list = am.getMatch();
+		MatchDataService mds = new MatchData();
+		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
+		for(int i=0;i<list.size();i++){
+			MatchPO po = mds.completeMatch(list.get(i));
+			res.add(po);
+		}
+		return res;
 	}
 	public ArrayList<MatchPO> getMatch(){
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();

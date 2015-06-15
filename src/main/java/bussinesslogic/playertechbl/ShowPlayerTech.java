@@ -39,13 +39,9 @@ public class ShowPlayerTech  implements ShowPlayerTechService {
 	}
 	@Override
 	public ArrayList<PlayerTechVO> ascend(String type) {
-		transPla tp = new transPla();
-		String con = tp.translate(type);
-		ArrayList<PlayerTechPO>polist = sd.ascend(con);
-		PlayerTechTransfer ptt = new PlayerTechTransfer();
-		ArrayList<PlayerTechVO>volist = ptt.list2vo(polist);
-		return volist;
+		ShowPlayerTech sp = new ShowPlayerTech();
 	}
+	
 	@Override
 	public ArrayList<PlayerTechVO> descend(String type) {
 		transPla tp = new transPla();
