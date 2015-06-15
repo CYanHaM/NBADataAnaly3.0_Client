@@ -579,21 +579,22 @@ public class ImportData {
 	 }
 	 
 	 
-	 public static CategoryDataset createRadarDataset(String season,String team){
+	 public CategoryDataset createRadarDataset(){
+		 
 		 String s = "First";
 		  String s1 = "Second";
 		  String s2 = "Third";
-		  String s3 = "Category 1";
-		  String s4 = "Category 2";
-		  String s5 = "Category 3";
-		  String s6 = "Category 4";
-		  String s7 = "Category 5";
+		  String s3 = "得分";
+		  String s4 = "篮板";
+		  String s5 = "助攻";
+		  String s6 = "抢断";
+		  String s7 = "盖帽";
 		  DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
-		  defaultcategorydataset.addValue(1.0D, s, s3);
-		  defaultcategorydataset.addValue(4D, s, s4);
-		  defaultcategorydataset.addValue(3D, s, s5);
-		  defaultcategorydataset.addValue(5D, s, s6);
-		  defaultcategorydataset.addValue(5D, s, s7);
+		  defaultcategorydataset.addValue((double)pp.score, s, s3);
+		  defaultcategorydataset.addValue((double)pp.rebound, s, s4);
+		  defaultcategorydataset.addValue((double)pp.secondaryAttack, s, s5);
+		  defaultcategorydataset.addValue((double)pp.steal, s, s6);
+		  defaultcategorydataset.addValue((double)pp.blockShot, s, s7);
 //		  defaultcategorydataset.addValue(5D, s1, s3);
 //		  defaultcategorydataset.addValue(7D, s1, s4);
 //		  defaultcategorydataset.addValue(6D, s1, s5);
