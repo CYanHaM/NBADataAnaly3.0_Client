@@ -58,7 +58,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		ptvo1.score = 315;
 		ptvo1.scoreImproving = 1.586;
 		
-		ptvo2.name = "Marvo Belinelli";
+		ptvo2.name = "Marco Belinelli";
 		ptvo2.team = "CHI";
 		ptvo2.score = 279;
 		ptvo2.scoreImproving = 1.301;
