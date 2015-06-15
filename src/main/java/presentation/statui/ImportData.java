@@ -58,7 +58,9 @@ public class ImportData {
 		psp=statsbl.getPlayerTechInterval(player, a, season);
 	}
 	
-	
+	public String[] getSeasons(String teamname){
+		return statsinfo.getTeamSeasonList(teamname);
+	}
 	
 	public Object[][] getallTeam(){
 		dataAll[0][0]=tp.score;
