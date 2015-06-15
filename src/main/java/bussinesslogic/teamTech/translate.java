@@ -27,21 +27,21 @@ public class translate {
 			case offensiveEfficiency:return "offensiveEfficiency";
 			case defensiveEfficiency:return "defensiveEfficiency";
 			
-			case shotInNumave:return"shotInNum";
-			case threeShotInNumave:return"threeShotInNum";
-			case shotNumave:return"shotNum";
-			case threeShotNumave:return"threeShotNum";
-			case penaltyShotInNumave:return"penaltyShotInNum";
-			case penaltyShotNumave:return "penaltyShotNum";
-			case offensiveReboundave:return "offensiveRebound";
-			case defensiveReboundave:return "defensiveRebound";
-			case reboundave:return "rebound";
-			case secondaryAttackave:return"ASS_OWN";
-			case stealave:return"steal";
-			case blockShotave:return "blockShot";
-			case faultave:return"fault";
-			case foulave:return"foul";
-			case scoreave:return"score";
+			case shotInNumave:return"shotInNumave";
+			case threeShotInNumave:return"threeShotInNumave";
+			case shotNumave:return"shotNumave";
+			case threeShotNumave:return"threeShotNumave";
+			case penaltyShotInNumave:return"penaltyShotInNumave";
+			case penaltyShotNumave:return "penaltyShotNumave";
+			case offensiveReboundave:return "offensiveReboundave";
+			case defensiveReboundave:return "defensiveReboundave";
+			case reboundave:return "reboundave";
+			case secondaryAttackave:return"secondaryAttackave";
+			case stealave:return"stealave";
+			case blockShotave:return "blockShotave";
+			case faultave:return"faultave";
+			case foulave:return"foulave";
+			case scoreave:return"scoreave";
 
 			
 			
@@ -51,7 +51,7 @@ public class translate {
 			case stealEfficiency:return "stealEfficiency";
 			case secondaryAttackEfficiency:return "secondaryAttackEfficiency";
 			case offensiveRound:return "offensiveRound";
-			case offensiveRoundave:return"offensiveRound";
+			case offensiveRoundave:return"offensiveRoundave";
 			default: return null;
 		}
 	}
