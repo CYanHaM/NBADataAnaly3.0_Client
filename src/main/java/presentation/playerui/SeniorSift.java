@@ -99,7 +99,11 @@ public class SeniorSift extends JPanel implements ActionListener{
 			scvo.comparison="<=";
 			break;
 		}
+		if(!(info.getText().equals(""))){
 		scvo.number=Integer.parseInt(info.getText());
+		}else{
+			scvo.number=-1;
+		}
 		return scvo;
 	}
 	

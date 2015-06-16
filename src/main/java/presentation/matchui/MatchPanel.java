@@ -69,15 +69,15 @@ public class MatchPanel extends JPanel implements ActionListener{
 		showcal.setText("日历");
 		showcal.setForeground(MP.CallendarinitColor);
 		showcal.setFont(MP.CallendarinitFont);
-		showcal.setBounds(192, 115, 95, 30);
+		showcal.setBounds(192, 95, 95, 30);
 		calendar = new JLabel();
-		calendar.setBounds(208, 110, 90, 30);
+		calendar.setBounds(208, 125, 90, 30);
 		calendar.setFont(MP.CallendarinitFont);
 		calendar.setForeground(MP.CallendarinitColor);
 		
 		//TODO change the lastdate when testing 
-//		String lastdate="2014-02-18";
-		String lastdate=mbs.returnPresentDate();
+		String lastdate="2014-02-18";
+//		String lastdate=mbs.returnPresentDate();
 		datelabel=DateLabel.getInstance(lastdate);
 		datelabel.register(calendar);
 		calendar.setText(datelabel.getSelectedDate());
@@ -104,7 +104,7 @@ public class MatchPanel extends JPanel implements ActionListener{
 		tomorrow.setVisible(false);
 		
 		refresh = new JButton(new ImageIcon("images/matches/refresh_1.png"));
-		refresh.setBounds(310, 110, 60, 25);
+		refresh.setBounds(300, 130, 60, 25);
 		refresh.setBorderPainted(false);
 		refresh.setContentAreaFilled(false);
 		refresh.setFocusPainted(false);
@@ -157,7 +157,7 @@ public class MatchPanel extends JPanel implements ActionListener{
 
 	private void JScrollPane_config(){
 		jsp = new JScrollPane();
-		jsp.setBounds(195, 160, 840, 485);
+		jsp.setBounds(185, 160, 860, 485);
 		jsp.setHorizontalScrollBarPolicy( 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 		jsp.setVerticalScrollBarPolicy( 

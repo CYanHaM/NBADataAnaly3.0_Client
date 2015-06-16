@@ -61,12 +61,14 @@ public class ImportTeam {
 			}
 		}
 		
-		return seasonlist;
+		return resultlist;
 	}
 	
 	public ArrayList<TeamTechVO> getTeamTechAscend(TeamTechEnum DataType,String season){
 		TTbs = new TeamTech();
-		return TTbs.Ascend(DataType,season);
+		ArrayList<TeamTechVO> result=TTbs.Ascend(DataType,season);
+		System.out.println(result.size());
+		return result;
 	}
 
 	public ArrayList<TeamTechVO> getTeamTechDescend(TeamTechEnum DataType,String season){

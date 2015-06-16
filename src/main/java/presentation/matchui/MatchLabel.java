@@ -118,7 +118,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 		homeTeam_name2.setForeground(null);
 		
 		details = new JButton(new ImageIcon("images/matches/details_1.png"));
-		details.setBounds(685, 5, 60, 25);
+		details.setBounds(685+30, 5, 60, 25);
 		details.setBorderPainted(false);
 		details.setContentAreaFilled(false);
 		details.setFocusPainted(false);
@@ -129,18 +129,19 @@ public class MatchLabel extends JPanel implements ActionListener{
 
 	//the kits to show the champion players'info
 	private void champion_config(MatchVO matchinfo){
+		int space=50;
 		//------------------add Champions and scores---------------------
 		String sC[]=matchinfo.scoringChampion.split("_");
 		scoringChampion = new JLabel[3];
 		scoringChampion[0] = new JLabel(sC[0]);
-		scoringChampion[0].setBounds(530, 33, 130, 30);
+		scoringChampion[0].setBounds(530+space, 33, 130, 30);
 		scoringChampion[0].setFont(MP.Champion);
 		scoringChampion[0].addMouseListener(new ChampionListener(scoringChampion[0],sC[0]));
 		scoringChampion[1] = new JLabel(sC[1]);
-		scoringChampion[1].setBounds(670, 33, 100, 30);
+		scoringChampion[1].setBounds(670+space, 33, 100, 30);
 		scoringChampion[1].setFont(MP.Champion);
 		scoringChampion[2] = new JLabel(sC[2]);
-		scoringChampion[2].setBounds(700, 33, 100, 30);
+		scoringChampion[2].setBounds(700+space, 33, 100, 30);
 		scoringChampion[2].setFont(MP.Champion);
 		scoringChampion[2].addMouseListener(new TeamListener(scoringChampion[2],sC[2]));
 		//scoringChampion.setForeground(MP.White);
@@ -149,14 +150,14 @@ public class MatchLabel extends JPanel implements ActionListener{
 		String rC[]=matchinfo.reboundChampion.split("_");
 		reboundChampion = new JLabel[3];
 		reboundChampion[0] = new JLabel(rC[0]);
-		reboundChampion[0].setBounds(530, 65, 130, 30);
+		reboundChampion[0].setBounds(530+space, 65, 130, 30);
 		reboundChampion[0].setFont(MP.Champion);
 		reboundChampion[0].addMouseListener(new ChampionListener(reboundChampion[0],rC[0]));
 		reboundChampion[1] = new JLabel(rC[1]);
-		reboundChampion[1].setBounds(670, 65, 100, 30);
+		reboundChampion[1].setBounds(670+space, 65, 100, 30);
 		reboundChampion[1].setFont(MP.Champion);
 		reboundChampion[2] = new JLabel(rC[2]);
-		reboundChampion[2].setBounds(700, 65, 100, 30);
+		reboundChampion[2].setBounds(700+space, 65, 100, 30);
 		reboundChampion[2].setFont(MP.Champion);
 		reboundChampion[2].addMouseListener(new TeamListener(reboundChampion[2],rC[2]));
 		//reboundChampion.setForeground(MP.White);
@@ -165,14 +166,14 @@ public class MatchLabel extends JPanel implements ActionListener{
 		String aC[]=matchinfo.assistChampion.split("_");
 		assistChampion = new JLabel[3];
 		assistChampion[0] = new JLabel(aC[0]);
-		assistChampion[0].setBounds(530, 97, 130, 30);
+		assistChampion[0].setBounds(530+space, 97, 130, 30);
 		assistChampion[0].setFont(MP.Champion);
 		assistChampion[0].addMouseListener(new ChampionListener(assistChampion[0],aC[0]));
 		assistChampion[1] = new JLabel(aC[1]);
-		assistChampion[1].setBounds(670, 97, 100, 30);
+		assistChampion[1].setBounds(670+space, 97, 100, 30);
 		assistChampion[1].setFont(MP.Champion);
 		assistChampion[2] = new JLabel(aC[2]);
-		assistChampion[2].setBounds(700, 97, 100, 30);
+		assistChampion[2].setBounds(700+space, 97, 100, 30);
 		assistChampion[2].setFont(MP.Champion);
 		assistChampion[2].addMouseListener(new TeamListener(assistChampion[2],aC[2]));
 		//assistChampion.setForeground(MP.White);

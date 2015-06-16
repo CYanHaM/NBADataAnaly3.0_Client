@@ -282,7 +282,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	//----------------------initial & different methods------------
 	private void initdata(){
 		//TODO delete the test
-		initial_data=importdata.getTeamTechAscend(TeamTechEnum.name,(String)season.getSelectedItem());
+		initial_data=importdata.getTeamTechAscend(TeamTechEnum.name,switchseasonname((String)season.getSelectedItem()));
 
 		teaminfo1=new Object[initial_data.size()][columnName1.length];
 		teaminfo2=new Object[initial_data.size()][columnName2.length];
@@ -564,7 +564,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	//表格配置
 	public void table1_config(){
 		//------------------------------表格基本属性--------------------------
-		for(int i=0;i<TEAMNUM;i++){
+		for(int i=0;i<teaminfo1.length;i++){
 			teaminfo1[i][0]=i+1;
 		}
 		//表格属性设置
@@ -623,7 +623,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //				System.out.println(orderSource);
 				if(!orderSource.equals("排名")&&!orderSource.equals("比赛场数")){
 					message.setText("当前排序依据:"+orderSource);
-				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String)season.getSelectedItem()));
+				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String)season.getSelectedItem()));
 				}
 				
 			}
@@ -652,7 +652,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //		for(int i=0;i<initial_data.size();i++){
 //			teaminfo[i][0]=i+1;
 //		}
-		for(int i=0;i<TEAMNUM;i++){
+		for(int i=0;i<teaminfo2.length;i++){
 			teaminfo2[i][0]=i+1;
 		}
 		//表格属性设置
@@ -711,7 +711,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //				System.out.println(orderSource);
 				if(!orderSource.equals("排名")&&!orderSource.equals("比赛场数")){
 					message.setText("当前排序依据:"+orderSource);
-				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String)season.getSelectedItem()));
+				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String)season.getSelectedItem()));
 				}
 				
 			}
@@ -739,7 +739,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //		for(int i=0;i<initial_data.size();i++){
 //			teaminfo[i][0]=i+1;
 //		}
-		for(int i=0;i<TEAMNUM;i++){
+		for(int i=0;i<teaminfo3.length;i++){
 			teaminfo3[i][0]=i+1;
 		}
 		//表格属性设置
@@ -798,7 +798,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //				System.out.println(orderSource);
 				if(!orderSource.equals("排名")&&!orderSource.equals("比赛场数")){
 					message.setText("当前排序依据:"+orderSource);
-				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String)season.getSelectedItem()));
+				judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String)season.getSelectedItem()));
 				}
 				
 			}
@@ -1246,13 +1246,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	}
 	
 	
-	private String switchseason(String season){
+	private String switchseasonname(String season){
 		String result=null;
 		String[] temp=season.split(" ");
-		if(temp[1].equals("Regular")){
-		result=temp[0]+" 常规赛";
-		}else if(temp[1].equals("Postseason")){
-			result=temp[0]+" 季后赛";
+		if(temp[1].equals("常规赛")){
+		result=temp[0]+" Regular";
+		}else if(temp[1].equals("季后赛")){
+			result=temp[0]+" Postseason";
 		}
 		return result;
 	}
