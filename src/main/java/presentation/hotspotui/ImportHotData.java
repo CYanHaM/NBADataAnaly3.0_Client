@@ -16,6 +16,7 @@ public class ImportHotData {
 	public TeamTechBLService tts;
 	
 	public ImportHotData() {
+		
 	}
 	
 	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword){

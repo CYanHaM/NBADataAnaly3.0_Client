@@ -135,7 +135,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 
 		initdata();
 		//加载初始表格，显示队伍总数据
-//		handleinitial(initial_data);
+		handleinitial(initial_data);
 
 		//加载表格配置
 		table1_config();
@@ -412,14 +412,14 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//===================================================================
 	//----------------------initial & different methods------------
 	private void initdata(){
-//		initial_data=importdata.getPlayerTechAscend("name",(String)season.getSelectedItem());
+		initial_data=importdata.getPlayerTechAscend("name",(String)season.getSelectedItem());
 		//TODO delete the test
-//		playerinfo1=new Object[initial_data.size()][columnName1.length];
-//		playerinfo2=new Object[initial_data.size()][columnName2.length];
-//		playerinfo3=new Object[initial_data.size()][columnName3.length];
-		playerinfo1=new Object[PLAYERNUM][columnName1.length];
-		playerinfo2=new Object[PLAYERNUM][columnName2.length];
-		playerinfo3=new Object[PLAYERNUM][columnName3.length];
+		playerinfo1=new Object[initial_data.size()][columnName1.length];
+		playerinfo2=new Object[initial_data.size()][columnName2.length];
+		playerinfo3=new Object[initial_data.size()][columnName3.length];
+//		playerinfo1=new Object[PLAYERNUM][columnName1.length];
+//		playerinfo2=new Object[PLAYERNUM][columnName2.length];
+//		playerinfo3=new Object[PLAYERNUM][columnName3.length];
 	}
 	private void handleinitial(ArrayList<PlayerTechVO> totaldata){
 		int a=0;
