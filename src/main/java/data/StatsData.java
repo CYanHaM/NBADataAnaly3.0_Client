@@ -96,12 +96,12 @@ public class StatsData implements StatsDataService{
 			}
 			int row=(int)(n/0.1);
 			int column=(int)((n-row*0.1)/0.01);
-//			System.out.println(row+"-_____-___-----"+(n-row*0.1)/0.01);
 			if(row>=0&&row<=27){
 				String[] str=info.get(row+1).split(" ");
 				res=Double.valueOf(str[column]);
 			}else if(row>=28&&row<=49){
-				String[] str=info.get(row+1).split("  ");
+				String[] str=info.get(row+1).split("	");
+
 				res=Double.valueOf(str[column+1].substring(0, 4))*Math.pow(0.1, Integer.valueOf(str[column+1].substring(6, 8)));		
 			}
 			
