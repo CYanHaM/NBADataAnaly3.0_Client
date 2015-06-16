@@ -66,6 +66,10 @@ TeamTechAssist tta = new TeamTechAssist();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			int i = 0;
+			while(i<6000){
+				i++;
+				rs1.next();
+			}
 			while(rs1.next()) {
 				i++;
 				System.out.println("match:");
@@ -134,6 +138,7 @@ TeamTechAssist tta = new TeamTechAssist();
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
+				System.out.println("i"+i);
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
@@ -143,7 +148,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					//ptpo.division 
 					ptpo.date=new String(rs2.getString("date").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.position=t.getPos(new String(rs2.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
-					System.out.println("i"+i);
+					System.out.println(ptpo.team);
 					ptpo.time=Integer.valueOf(new String(rs2.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
 					String FGM_A =new String(rs2.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
 					if(FGM_A.equals("0")){
@@ -223,6 +228,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					po.penaltyShot+"','"+po.offensiveRebound+"','"+po.defensiveRebound+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+
 					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentOffensiveNum+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+
 					po.teamFault+"','"+po.ifDouble+"')";
+			System.out.println(sql);
 			statement.executeUpdate(sql);
 			conn.close();
 		} catch(ClassNotFoundException e) {
