@@ -27,7 +27,7 @@ public class PlayerTech implements StatsInfo{
 		}
 		*/
 		PlayerTechPO li = pt.getPlayerRank("Alec Burks", "2014-15 Regular", 1);
-		System.out.println(li.secondaryAttack);
+		//System.out.println(li.secondaryAttack);
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -754,7 +754,9 @@ public class PlayerTech implements StatsInfo{
 						sql1 = "select name,gameNum,count(name),rebound/gameNum from `playerTechPO` where rebound>"+po.rebound;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
+							System.out.println(po.rebound);
 							po.rebound = Integer.valueOf(r1.getString(3));
+							System.out.println(po.rebound);
 						}
 						sql1 = "select name,gameNum,count(name),assist/gameNum from `playerTechPO` where assist>"+po.secondaryAttack;
 						r1 = state.executeQuery(sql1);
@@ -888,7 +890,7 @@ public class PlayerTech implements StatsInfo{
 						Statement state = conn.createStatement();
 						String sql = "select avg(score/gameNum)as a,avg(rebound/gameNum) as b, avg(secondaryAttack/gameNum) as c, avg(steal/gameNum) as d, avg(blockShot/gameNum) as e,"
 								+ " avg(foul/gameNum)  as f, avg(fault/gameNum) as g, avg(shotInRate) as h, avg(threeShotInNum/gameNum) as i,avg(penaltyShotNum/gameNum) as j"
-								+ "from `playerTechPO` where season='"+season+"' and team in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
+								+ " from `playerTechPO` where season='"+season+"' and team in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
 						System.out.println(sql);
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
