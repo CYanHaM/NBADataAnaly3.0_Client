@@ -14,7 +14,7 @@ public class Show implements ShowDataService{
 	
 	public static void main(String[] args){
 		Show sh = new Show();
-		ArrayList<PlayerTechPO> li = sh.ascend("name", "2002-03 Regular");
+		ArrayList<PlayerTechPO> li = sh.ascend("scoreave", "2002-03 Regular");
 		System.out.println(li.size());
 	}
 
@@ -23,23 +23,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ����ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷锟捷匡拷锟斤拷nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ������������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 			Class.forName(driver);
-			// �������ݿ�
+			// 锟斤拷锟斤拷锟斤拷锟捷匡拷
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -102,23 +102,23 @@ public class Show implements ShowDataService{
 	public PlayerTechPO showKeyData(String name, String team) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ����ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷锟捷匡拷锟斤拷nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ������������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 			Class.forName(driver);
-			// �������ݿ�
+			// 锟斤拷锟斤拷锟斤拷锟捷匡拷
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `playerTechPO` where name='"+name+"' and team='"+team+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -187,23 +187,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ����ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷锟捷匡拷锟斤拷nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ������������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 			Class.forName(driver);
-			// �������ݿ�
+			// 锟斤拷锟斤拷锟斤拷锟捷匡拷
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			switch(type){
 			case "reboundave":
 				type = "rebound/gameNum";
@@ -240,6 +240,7 @@ public class Show implements ShowDataService{
 			if(type.equals("season")){
 				sql = "select * from `playerTechPO` order by season";
 			}
+			System.out.println(sql);
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				PlayerTechPO po = new PlayerTechPO();
@@ -302,23 +303,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ����ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷锟捷匡拷锟斤拷nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ������������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 			Class.forName(driver);
-			// �������ݿ�
+			// 锟斤拷锟斤拷锟斤拷锟捷匡拷
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			switch(type){
 			case "reboundave":
 				type = "rebound/gameNum";
@@ -417,23 +418,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ����ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷锟捷匡拷锟斤拷nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ������������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 			Class.forName(driver);
-			// �������ݿ�
+			// 锟斤拷锟斤拷锟斤拷锟捷匡拷
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `playerTechPO`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){

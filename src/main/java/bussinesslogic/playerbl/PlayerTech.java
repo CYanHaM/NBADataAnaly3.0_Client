@@ -20,8 +20,16 @@ import PO.TeamTechPO;
 
 public class PlayerTech implements StatsInfo{
 
+	public static void main(String[] args){
+		PlayerTech pt = new PlayerTech();
+		ArrayList<MatchPO> li = pt.getRecentMatch("BOS", "2014-2015");
+	    System.out.println(li.size());
+		for(int i=0;i<li.size();i++){
+			System.out.println(li.get(i).date);
+		}
+	}
 	@Override
-	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
+ 	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
@@ -161,6 +169,7 @@ public class PlayerTech implements StatsInfo{
 		ArrayList<MatchPO> list = am.allMatch();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		int size = list.size();
+		System.out.println(size);
 		for(int i=0;i<size;i++){
 			if(list.get(i).homeTeam.equals(team)||list.get(i).guestTeam.equals(team)){
 				String temp1=season.trim().split("\\s+")[0];
