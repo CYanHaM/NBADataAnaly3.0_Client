@@ -33,7 +33,7 @@ for  part in total:
 		#if(cmp(name,"Boston Celtics")==0 or cmp(name,"Brooklyn Nets")==0 or cmp(name,"New York Knicks")==0):
 		#	print "pass"
 		#else:
-		if(cmp(name,"Portland Trail Blazers")==0):
+		if(cmp(name,"Los Angeles Clippers")==0):
 			Get.getMatch(name, postfix,url2)
 		else:
 			print "pass"

@@ -117,6 +117,13 @@ def getInfo(team,url,date,season,tp,year):
 										result2.append(" ")
 										pos =1
 										flag+=1
+									if(flag==1 and pos==0 and s.find(",")!=0):
+										pos=1
+										flag+=1
+										result2.append(s.encode("utf-8"))
+									if(flag==2 and pos==0):
+										result2.append(" ")
+										result2.append(s.encode("utf-8"))
 									if(flag==14 and year<2009):
 										result2.append("0")
 										result2.append(s.encode("utf-8"))
