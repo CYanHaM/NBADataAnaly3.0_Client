@@ -680,7 +680,7 @@ public class PlayerTech implements StatsInfo{
 						Statement state = conn.createStatement();
 						String sql = "select avg(score)as a,avg(rebound) as b, avg(secondaryAttack) as c, avg(steal) as d, avg(blockShot) as e,"
 								+ " avg(foul)  as f, avg(fault) as g, avg(shotInRate) as h, avg(threeShotInNum) as i,avg(penaltyShotNum) as j"
-								+ "from `teamtech` where season='"+season+"'";
+								+ " from `teamtech` where season='"+season+"'";
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
 							po.score = Integer.valueOf(rs.getString(1));
@@ -842,7 +842,7 @@ public class PlayerTech implements StatsInfo{
 						Statement state = conn.createStatement();
 						String sql = "select avg(score/gameNum)as a,avg(rebound/gameNum) as b, avg(assist/gameNum) as c, avg(steal/gameNum) as d, avg(block/gameNum) as e,"
 								+ " avg(foul/gameNum)  as f, avg(fault/gameNum) as g, avg(shotInRate) as h, avg(threeShotIn/gameNum) as i,avg(penaltyShot/gameNum) as j, avg(time/gameNum) as k"
-								+ "from `playerTechPO` where season='"+season+"'";
+								+ " from `playerTechPO` where season='"+season+"'";
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
 							po.score = Integer.valueOf(rs.getString(1));
