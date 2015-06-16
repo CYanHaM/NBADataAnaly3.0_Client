@@ -58,44 +58,52 @@ public class TeamTechAssist {
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				while(rs2.next()){
+					if(rs2.getString("team").equals(name)){
 					ttpo.secondaryAttackEfficiency = Double.valueOf(new String(rs2.getString("ast")));
 					ttpo.reboundEfficiency = Double.valueOf(new String(rs2.getString("rebr")));
 					ttpo.offensiveEfficiency = Double.valueOf(new String(rs2.getString("off_EFF")));
 					ttpo.defensiveEfficiency =Double.valueOf( new String(rs2.getString("def_EFF")));
+					}
 				}
 				rs2.close();
 				Statement statement3 = conn.createStatement();
 				String sql3 = "SELECT * FROM `rebound` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs3 = statement3.executeQuery(sql3);
 				while(rs3.next()){
+					if(rs3.getString("team").equals(name)){
 					ttpo.offensiveRebound = Integer.valueOf(new String(rs3.getString("OffenOWN")));
 					ttpo.defensiveRebound = Integer.valueOf(new String(rs3.getString("DefenOWN")));
 					ttpo.opponentOffensiveRebound = Integer.valueOf(new String(rs3.getString("OffenOPP")));
 					ttpo.opponentDefensiveRebound = Integer.valueOf(new String(rs3.getString("DefenOPP")));
 					ttpo.rebound = Integer.valueOf(new String(rs3.getString("TOTOWN")));
+					}
 				}
 				rs3.close();
 				Statement statement4 = conn.createStatement();
 				String sql4 = "SELECT * FROM `offense` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs4 = statement4.executeQuery(sql4);
 				while(rs4.next()){
+					if(rs4.getString("team").equals(name)){
 					ttpo.shotNum = Integer.valueOf(new String(rs4.getString("FGA")));
 					ttpo.shotInNum = Integer.valueOf(new String(rs4.getString("FGM")));
 					ttpo.threeShotNum = Integer.valueOf(new String(rs4.getString("TPA")));
 					ttpo.threeShotInNum = Integer.valueOf(new String(rs4.getString("TPM")));
 					ttpo.penaltyShotNum = Integer.valueOf(new String(rs4.getString("FTA")));
-					ttpo.penaltyShotInNum = Integer.valueOf(new String(rs4.getString("FTM")));				
+					ttpo.penaltyShotInNum = Integer.valueOf(new String(rs4.getString("FTM")));			
+					}
 				}
 				rs4.close();
 				Statement statement5 = conn.createStatement();
 				String sql5 = "SELECT * FROM `miscell` where (team='"+name+"') and year='"+regular+"'";
 				ResultSet rs5 = statement5.executeQuery(sql5);
 				while(rs5.next()){
+					if(rs5.getString("team").equals(name)){
 					ttpo.blockShot = Integer.valueOf(new String(rs5.getString("BLO_OWN")));
 					ttpo.steal = Integer.valueOf(new String(rs5.getString("STE_OWN")));
 					ttpo.secondaryAttack = Integer.valueOf(new String(rs5.getString("ASS_OWN")));
 					ttpo.foul = Integer.valueOf(new String(rs5.getString("TUR_TECH")));
 					ttpo.fault = Integer.valueOf(new String(rs5.getString("TUR_OWN")));
+					}
 				}
 				
 				AboutMatch am = new AboutMatch();
