@@ -231,6 +231,9 @@ public class Show implements ShowDataService{
 				break;
 			}
 			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"' order by "+type;
+			if(type.equals("season")){
+				sql = "select * from `playerTechPO` order by season";
+			}
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				PlayerTechPO po = new PlayerTechPO();
@@ -342,7 +345,10 @@ public class Show implements ShowDataService{
 				type = "score/gameNum";
 				break;
 			}
-			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"' order by "+type+"desc";
+			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"' order by "+type+" desc";
+			if(type.equals("season")){
+				sql = "select * from `playerTechPO` order by season desc";
+			}
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				PlayerTechPO po = new PlayerTechPO();
