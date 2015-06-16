@@ -108,8 +108,8 @@ public class ImportPlayer {
 		return pis.findByTeam(tvo,retire);
 	}
 	
-	public PlayerVO showPlayerInfo (String name,int retire){
-		return pis.showPlayerInfo(name,retire);
+	public PlayerVO showPlayerInfo (String name){
+		return pis.showPlayerInfo(name);
 	}
 
 }

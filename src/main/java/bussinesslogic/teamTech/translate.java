@@ -5,6 +5,7 @@ import TypeEnum.TeamTechEnum;
 public class translate {
 	public String translate(TeamTechEnum en){
 		switch(en){
+		case season:return"season";
 			case name :return "name";
 			case shotInNum:return "shotInNum";
 			case shotNum:return "shotNum";

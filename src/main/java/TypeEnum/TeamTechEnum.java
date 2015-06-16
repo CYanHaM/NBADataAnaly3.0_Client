@@ -2,6 +2,7 @@ package TypeEnum;
 
 public enum TeamTechEnum {
 	name,                            //������
+	season,
 	shotInNum,                       //Ͷ��������
 	shotNum,                         //Ͷ��������
 	threeShotInNum,                  //���������

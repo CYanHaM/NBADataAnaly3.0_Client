@@ -113,7 +113,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		//添加下拉框
 		addbox();
 		
-		playervo=importplayer.showPlayerInfo(playername,1);
+		playervo=importplayer.showPlayerInfo(playername);
 		initdata();
 		
 		addbuttons();
