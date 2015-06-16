@@ -8,7 +8,7 @@ import PO.PlayerTechPO;
 import PO.TeamTechPO;
 
 public interface StatsInfo {
-	//返回该球队某赛季所有常规赛,赛季总数据,队名是缩写
+	//返回该球队某赛季所有常规赛,均值,队名是缩写
 	public TeamTechPO getTeamTech(String teamname,String season,int ifRegular);
 	//返回该球员某赛季所有常规赛,赛季总数据
 	public PlayerTechPO getPlayerTech(String player,String season,int ifRegular);
@@ -16,7 +16,7 @@ public interface StatsInfo {
 	public ArrayList<MatchPO> getRecentMatch(String team,String season);
 	//球员最后20场,总数据
 	public ArrayList<PlayerTechMPO> getRecentPlayerM(String player,String season);
-	//球队的所有常规赛,为总数据
+	//球队的所有常规赛,均值
 	public ArrayList<TeamTechPO>getMatchForYear(String team);
 	//球员所有常规赛,罚球 失误 上场时间 命中率 犯规 三分为场均
 	public ArrayList<PlayerTechPO>getPlayerForYear(String name);
