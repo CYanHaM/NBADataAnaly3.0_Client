@@ -24,7 +24,7 @@ public interface StatsInfo {
 	public TeamTechPO getTeamRank(String teamname,String season,int ifRegular);
 	//常规赛 上面属性的30均值
 	public TeamTechPO getAllTeamAverage(String season,int ifRegular);
-	//常规赛 球员属性排名 得分篮板助攻抢断盖帽犯规失误投篮命中率三分命中数罚球出手数上场时间
+	//常规赛 球员场均数据排名 得分篮板助攻抢断盖帽犯规失误投篮命中率三分命中数罚球出手数上场时间
 	public PlayerTechPO getPlayerRank(String player,String season,int ifRegular);
 	//均值
 	public PlayerTechPO getAllPlayerAverage(String season,int ifRegular);
@@ -34,7 +34,5 @@ public interface StatsInfo {
 	//参加过的常规赛和季后赛
 	public ArrayList<String> getTeamSeasonList(String team);
 	public ArrayList<String> getPlayerSeasonList(String player);
-
-
 
 }
