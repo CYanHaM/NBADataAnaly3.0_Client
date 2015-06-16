@@ -99,6 +99,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 		fts=new ImportHotData();
 		importseason=new ImportPlayer();
 		
+		
 		HP=new HotPre();
 		PTPre=new PlayerTechPre();
 
@@ -106,7 +107,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 		addbutton();
 
 		initlabels();
-//		initdata();
+		initdata();
 	}
 
 	private void initlabels(){
@@ -129,18 +130,18 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 	private void addbox(){
 		season=new JComboBox<String>();
 		//TODO delete the test
-//		ArrayList<String> seasonlist=importseason.getPlayerSeasonList();
-		ArrayList<String> seasonlist=new ArrayList<String>();
-		seasonlist.add("2011-12 Regular");
-		seasonlist.add("2011-12 Postseason");
-		seasonlist.add("2012-13 Regular");
-		seasonlist.add("2012-13 Postseason");
-		seasonlist.add("2013-14 Regular");
-		seasonlist.add("2013-14 Postseason");
-		seasonlist.add("2015-16 Regular");
-		seasonlist.add("2015-16 Postseason");
-		seasonlist.add("2016-17 Regular");
-		seasonlist.add("2016-17 Postseason");
+		ArrayList<String> seasonlist=importseason.getPlayerSeasonList();
+//		ArrayList<String> seasonlist=new ArrayList<String>();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
 		for(int i=0;i<seasonlist.size();i++){
 			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Regular")){

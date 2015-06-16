@@ -122,7 +122,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		
 		initdata();
 		//加载初始表格，显示队伍总数据
-//		handleinitial(initial_data);
+		handleinitial(initial_data);
 
 		//加载表格配置
 		table1_config();
@@ -210,18 +210,18 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		//TODO delete the test
-//		ArrayList<String> seasonlist=importdata.getTeamSeasonList();
-		ArrayList<String> seasonlist=new ArrayList<String>();
-		seasonlist.add("2011-12 Regular");
-		seasonlist.add("2011-12 Postseason");
-		seasonlist.add("2012-13 Regular");
-		seasonlist.add("2012-13 Postseason");
-		seasonlist.add("2013-14 Regular");
-		seasonlist.add("2013-14 Postseason");
-		seasonlist.add("2015-16 Regular");
-		seasonlist.add("2015-16 Postseason");
-		seasonlist.add("2016-17 Regular");
-		seasonlist.add("2016-17 Postseason");
+		ArrayList<String> seasonlist=importdata.getTeamSeasonList();
+//		ArrayList<String> seasonlist=new ArrayList<String>();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
 		for(int i=0;i<seasonlist.size();i++){
 			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Regular")){
@@ -276,14 +276,14 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	//----------------------initial & different methods------------
 	private void initdata(){
 		//TODO delete the test
-//		initial_data=importdata.getTeamTechAscend(TeamTechEnum.name,(String)season.getSelectedItem());
+		initial_data=importdata.getTeamTechAscend(TeamTechEnum.name,(String)season.getSelectedItem());
 
-//		teaminfo1=new Object[initial_data.size()][columnName1.length];
-//		teaminfo2=new Object[initial_data.size()][columnName2.length];
-//		teaminfo3=new Object[initial_data.size()][columnName3.length];
-		teaminfo1=new Object[TEAMNUM][columnName1.length];
-		teaminfo2=new Object[TEAMNUM][columnName2.length];
-		teaminfo3=new Object[TEAMNUM][columnName3.length];
+		teaminfo1=new Object[initial_data.size()][columnName1.length];
+		teaminfo2=new Object[initial_data.size()][columnName2.length];
+		teaminfo3=new Object[initial_data.size()][columnName3.length];
+//		teaminfo1=new Object[TEAMNUM][columnName1.length];
+//		teaminfo2=new Object[TEAMNUM][columnName2.length];
+//		teaminfo3=new Object[TEAMNUM][columnName3.length];
 	}
 	
 	private void handleinitial(ArrayList<TeamTechVO> totaldata){

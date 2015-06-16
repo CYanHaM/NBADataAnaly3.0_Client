@@ -61,12 +61,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private Object[][] playerinfo3;
 	private JScrollPane players;
 	private String[] columnName1={"排名","球员名称","所属球队","得分","篮板","助攻","进攻","防守","抢断","盖帽","失误","犯规",};
-	private String[] columnName2={"排名","球员名称","命中%","三分%","罚球%","篮板%","进攻篮板%","防守篮板%","助攻%","抢断%","盖帽%"};
-	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","GmSc 效率","投篮效率","失误%","使用%"};
+	private String[] columnName2={"排名","球员名称","命中%","三分%","罚球%","篮板%","进攻篮板%","防守篮板%","助攻%"};
+	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","GmSc 效率","失误%","使用%"};
 	//表格列宽
 	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
-	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72,72,72};
-	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,90,98,93};
+	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72};
+	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,98,93};
 
 	
 	private String[] TeamNames={
@@ -396,7 +396,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	
 	private void addmessage(){
 		message=new JLabel();
-		message.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+120, HEIGHT-TABLEHEIGHT-e_space-space-92-65, 200, 15);
+		message.setBounds(WIDTH-TABLEWIDTH-e_space-space+BOXWIDTH+120,HEIGHT-TABLEHEIGHT-e_space-space-100+15-30, 200, 15);
 		message.setFont(PTPre.switchbox);
 		message.setForeground(PTPre.TableFg);
 		
@@ -1161,9 +1161,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		case "真实命中%":
 			orderPlayerTechVO=importdata.getPlayerTechAscend("trueshotinrate",season);
 			break;
-		case "投篮效率":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("shootingefficiency",season);
-			break;
+//		case "投篮效率":
+//			orderPlayerTechVO=importdata.getPlayerTechAscend("shootingefficiency",season);
+//			break;
 		case "篮板%":
 			orderPlayerTechVO=importdata.getPlayerTechAscend("reboundrate",season);
 			break;
@@ -1176,12 +1176,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		case "助攻%":
 			orderPlayerTechVO=importdata.getPlayerTechAscend("secondaryattackrate",season);
 			break;
-		case "抢断%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("stealrate",season);
-			break;
-		case "盖帽%":
-			orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotrate",season);
-			break;
+//		case "抢断%":
+//			orderPlayerTechVO=importdata.getPlayerTechAscend("stealrate",season);
+//			break;
+//		case "盖帽%":
+//			orderPlayerTechVO=importdata.getPlayerTechAscend("blockshotrate",season);
+//			break;
 		case "失误%":
 			orderPlayerTechVO=importdata.getPlayerTechAscend("faultrate",season);
 			break;
@@ -1295,9 +1295,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			case "真实命中%":
 				orderPlayerTechVO=importdata.getPlayerTechDescend("trueshotinrate",season);
 				break;
-			case "投篮效率":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("shootingefficiency",season);
-				break;
+//			case "投篮效率":
+//				orderPlayerTechVO=importdata.getPlayerTechDescend("shootingefficiency",season);
+//				break;
 			case "篮板%":
 				orderPlayerTechVO=importdata.getPlayerTechDescend("reboundrate",season);
 				break;
@@ -1310,12 +1310,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			case "助攻%":
 				orderPlayerTechVO=importdata.getPlayerTechDescend("secondaryattackrate",season);
 				break;
-			case "抢断%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("stealrate",season);
-				break;
-			case "盖帽%":
-				orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotrate",season);
-				break;
+//			case "抢断%":
+//				orderPlayerTechVO=importdata.getPlayerTechDescend("stealrate",season);
+//				break;
+//			case "盖帽%":
+//				orderPlayerTechVO=importdata.getPlayerTechDescend("blockshotrate",season);
+//				break;
 			case "失误%":
 				orderPlayerTechVO=importdata.getPlayerTechDescend("faultrate",season);
 				break;
