@@ -417,8 +417,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//===================================================================
 	//----------------------initial & different methods------------
 	private void initdata(){
-		System.out.println((String)season.getSelectedItem());
-		initial_data=importdata.getPlayerTechAscend("name",(String)season.getSelectedItem());
+//		System.out.println((String)season.getSelectedItem());
+		initial_data=importdata.getPlayerTechAscend("name",switchseasonname((String)season.getSelectedItem()));
 		//TODO delete the test
 		playerinfo1=new Object[initial_data.size()][columnName1.length];
 		playerinfo2=new Object[initial_data.size()][columnName2.length];
@@ -789,7 +789,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String) season.getSelectedItem()));
 				}
 
 			}
@@ -873,7 +873,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String) season.getSelectedItem()));
 				}
 
 			}
@@ -959,7 +959,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 				//System.out.println(orderSource);
 				if(!orderSource.equals("排名")){
 					message.setText("当前排序依据:"+orderSource);
-					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseason((String) season.getSelectedItem()));
+					judgeOrderSource(orderSource,(String) switchbox.getSelectedItem(),switchseasonname((String) season.getSelectedItem()));
 				}
 
 			}
@@ -1355,12 +1355,29 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	
 	private String switchseason(String season){
 		String result=null;
+		System.out.println(season);
 		String[] temp=season.split(" ");
+		System.out.println(temp[0]+":"+temp[1]);
 		if(temp[1].equals("Regular")){
 		result=temp[0]+" 常规赛";
 		}else if(temp[1].equals("Postseason")){
 			result=temp[0]+" 季后赛";
 		}
+		System.out.println(result);
+		return result;
+	}
+	
+	private String switchseasonname(String season){
+		String result=null;
+		System.out.println(season);
+		String[] temp=season.split(" ");
+		System.out.println(temp[0]+":"+temp[1]);
+		if(temp[1].equals("常规赛")){
+		result=temp[0]+" Regular";
+		}else if(temp[1].equals("季后赛")){
+			result=temp[0]+" Postseason";
+		}
+		System.out.println(result);
 		return result;
 	}
 	

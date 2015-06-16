@@ -11,6 +11,12 @@ import PO.PlayerTechPO;
 import dataservice.playertechdataservice.ShowDataService;
 
 public class Show implements ShowDataService{
+	
+	public void main(String[] args){
+		Show sh = new Show();
+		ArrayList<PlayerTechPO> li = sh.showSeasonPlayerData("2010-11 Regular");
+		System.out.println(li.size());
+	}
 
 	@Override
 	public ArrayList<PlayerTechPO> showSeasonPlayerData(String season) {
