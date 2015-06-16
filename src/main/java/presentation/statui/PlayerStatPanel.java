@@ -204,24 +204,52 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		int space=80;
 		Team=new JButton("球队");
 		Team.setBounds(SIDEWIDTH, space, Team_w, Team_h);
+		Team.setBorderPainted(false);
+		Team.setContentAreaFilled(false);
+		Team.setFocusPainted(false);
+		Team.setIcon(new ImageIcon("images/stats/team_1.png"));
+		Team.setRolloverIcon(new ImageIcon("images/stats/team_2.png"));
+		Team.setPressedIcon(new ImageIcon("images/stats/team_3.png"));
+		Team.setSelectedIcon(new ImageIcon("images/stats/team_3.png"));
 		Team.setSelected(false);
 		Team.addActionListener(this);
 		this.add(Team);
 		
 		Player=new JButton("球员");
 		Player.setBounds(SIDEWIDTH+Team_w+10, space, Player_w, Player_h);
+		Player.setBorderPainted(false);
+		Player.setContentAreaFilled(false);
+		Player.setFocusPainted(false);
+		Player.setIcon(new ImageIcon("images/stats/player_1.png"));
+		Player.setRolloverIcon(new ImageIcon("images/stats/player_2.png"));
+		Player.setPressedIcon(new ImageIcon("images/stats/player_3.png"));
+		Player.setSelectedIcon(new ImageIcon("images/stats/player_3.png"));
 		Player.setSelected(true);
 		Player.addActionListener(this);
 		this.add(Player);
 		
 		Analysis=new JButton("赛季分析");
 		Analysis.setBounds(SIDEWIDTH, space+Team_h+10, Analysis_w, Analysis_h);
+		Analysis.setBorderPainted(false);
+		Analysis.setContentAreaFilled(false);
+		Analysis.setFocusPainted(false);
+		Analysis.setIcon(new ImageIcon("images/stats/analyse_1.png"));
+		Analysis.setRolloverIcon(new ImageIcon("images/stats/analyse_2.png"));
+		Analysis.setPressedIcon(new ImageIcon("images/stats/analyse_3.png"));
+		Analysis.setSelectedIcon(new ImageIcon("images/stats/analyse_3.png"));
 		Analysis.setSelected(true);
 		Analysis.addActionListener(this);
 		this.add(Analysis);
 		
 		Trend=new JButton("发展趋势");
 		Trend.setBounds(SIDEWIDTH+Analysis_w+10,space+Team_h+10, Trend_w, Trend_h);
+		Trend.setBorderPainted(false);
+		Trend.setContentAreaFilled(false);
+		Trend.setFocusPainted(false);
+		Trend.setIcon(new ImageIcon("images/stats/develop_1.png"));
+		Trend.setRolloverIcon(new ImageIcon("images/stats/develop_2.png"));
+		Trend.setPressedIcon(new ImageIcon("images/stats/develop_3.png"));
+		Trend.setSelectedIcon(new ImageIcon("images/stats/develop_3.png"));
 		Trend.setSelected(false);
 		Trend.addActionListener(this);
 		this.add(Trend);
@@ -231,6 +259,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			final int temp=i;
 			linebutton1[i]=new JButton(lineNames1[i]);
 			linebutton1[i].setBounds(SIDEWIDTH, 320+i*button_h, button_w, button_h);
+			linebutton1[i].setBorderPainted(false);
+			linebutton1[i].setContentAreaFilled(false);
+			linebutton1[i].setFocusPainted(false);
+			linebutton1[i].setIcon(new ImageIcon("images/stats/player/line1_"+i+"_1.png"));
+			linebutton1[i].setRolloverIcon(new ImageIcon("images/stats/player/line1_"+i+"_2.png"));
+			linebutton1[i].setPressedIcon(new ImageIcon("images/stats/player/line1_"+i+"_3.png"));
+			linebutton1[i].setSelectedIcon(new ImageIcon("images/stats/player/line1_"+i+"_3.png"));
 			linebutton1[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -260,6 +295,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			final int temp=i;
 			linebutton2[i]=new JButton(lineNames2[i]);
 			linebutton2[i].setBounds(SIDEWIDTH, 320+i*button_h, button_w, button_h);
+			linebutton2[i].setBorderPainted(false);
+			linebutton2[i].setContentAreaFilled(false);
+			linebutton2[i].setFocusPainted(false);
+			linebutton2[i].setIcon(new ImageIcon("images/stats/team/line2_"+i+"_1.png"));
+			linebutton2[i].setRolloverIcon(new ImageIcon("images/stats/team/line2_"+i+"_2.png"));
+			linebutton2[i].setPressedIcon(new ImageIcon("images/stats/teams/line2_"+i+"_3.png"));
+			linebutton2[i].setSelectedIcon(new ImageIcon("images/stats/teams/line2_"+i+"_3.png"));
 			linebutton2[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -289,6 +331,13 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			final int temp=i;
 			linebutton3[i]=new JButton(lineNames3[i]);
 			linebutton3[i].setBounds(SIDEWIDTH, 320+i*button_h, button_w, button_h);
+			linebutton3[i].setBorderPainted(false);
+			linebutton3[i].setContentAreaFilled(false);
+			linebutton3[i].setFocusPainted(false);
+			linebutton3[i].setIcon(new ImageIcon("images/stats/team/line3_"+i+"_1.png"));
+			linebutton3[i].setRolloverIcon(new ImageIcon("images/stats/team/line3_"+i+"_2.png"));
+			linebutton3[i].setPressedIcon(new ImageIcon("images/stats/teams/line3_"+i+"_3.png"));
+			linebutton3[i].setSelectedIcon(new ImageIcon("images/stats/teams/line3_"+i+"_3.png"));
 			linebutton3[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
