@@ -73,13 +73,6 @@ public class TeamPanel extends JPanel implements ActionListener{
 	private JLabel time_con;
 	private JLabel line;//水平线
 
-	//侧边栏按钮
-	private JButton SeasonInfo;
-	private JButton MatchInfo;
-	private JButton TeamInfo;
-	private JButton PlayerInfo;
-	private JButton Hot;
-	
 	private JButton back;
 	
 	ImportTeam importdata;
@@ -99,17 +92,17 @@ public class TeamPanel extends JPanel implements ActionListener{
 		PPre=new PlayerPre();
 		//导入数据
 		//TODO delete them when testing
-//		importdata=new ImportTeam();
-//		teamvo=importdata.getTeamVO(tvo);
-//		
-//		if(teamvo.abbreviation.equals("NOP"))
-//			teamvo.abbreviation="NOH";
-//		playerlist=importdata.findByTeam(teamvo.abbreviation);
+		importdata=new ImportTeam();
+		teamvo=importdata.getTeamVO(tvo);
 		
-//		playerinfo=new Object[playerlist.size()][columnName.length];
-		playerinfo=new Object[20][columnName.length];
+		if(teamvo.abbreviation.equals("NOP"))
+			teamvo.abbreviation="NOH";
+		playerlist=importdata.findByTeam(teamvo.abbreviation);
+		
+		playerinfo=new Object[playerlist.size()][columnName.length];
+//		playerinfo=new Object[20][columnName.length];
 		//初始化数据，以便放入table中
-//		handleinitial(playerlist);
+		handleinitial(playerlist);
 		//加载表格配置
 		table_config();
 		//加载滑动面板配置
@@ -117,7 +110,7 @@ public class TeamPanel extends JPanel implements ActionListener{
 		players.setViewportView(playertable);
 		//添加按钮、消息框
 		addbutton();
-//		addlabel();
+		addlabel();
 		
 		this.repaint();
 	}

@@ -65,8 +65,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","GmSc 效率","失误%","使用%"};
 	//表格列宽
 	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
-	private static int[] COLUMNWIDTH2={40,160,75,75,75,80,80,80,72};
-	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,98,93};
+	private static int[] COLUMNWIDTH2={40,160,90,90,90,90,90,90,90};
+	private static int[] COLUMNWIDTH3={40,160,120,90,90,90,90,98,93};
 
 	
 	private String[] TeamNames={
@@ -168,16 +168,19 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		importdata=new ImportPlayer();
 		
 		//添加下拉框
-		addbox();
+//		addbox();
 
-		initial_data=importdata.getPlayerTechAscend("name",importdata.getPlayerSeasonList().get(0));
+//		initial_data=importdata.getPlayerTechAscend("name",importdata.getPlayerSeasonList().get(0));
 		//TODO delete the test
-		playerinfo1=new Object[initial_data.size()][columnName1.length];
-		playerinfo2=new Object[initial_data.size()][columnName2.length];
-		playerinfo3=new Object[initial_data.size()][columnName3.length];
+//		playerinfo1=new Object[initial_data.size()][columnName1.length];
+//		playerinfo2=new Object[initial_data.size()][columnName2.length];
+//		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		
+		//TODO init
+		initdata();
 		
 		//加载初始表格，显示队伍总数据
-		handleinitial(initial_data);
+//		handleinitial(initial_data);
 
 		//加载表格配置
 		table1_config();
@@ -463,15 +466,16 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//----------------------initial & different methods------------
 	private void initdata(){
 //		System.out.println((String)season.getSelectedItem());
-		initial_data=importdata.getPlayerTechAscend("name",switchseasonname((String)season.getSelectedItem()));
+//		initial_data=importdata.getPlayerTechAscend("name",switchseasonname((String)season.getSelectedItem()));
 		//TODO delete the test
-		playerinfo1=new Object[initial_data.size()][columnName1.length];
-		playerinfo2=new Object[initial_data.size()][columnName2.length];
-		playerinfo3=new Object[initial_data.size()][columnName3.length];
-//		playerinfo1=new Object[PLAYERNUM][columnName1.length];
-//		playerinfo2=new Object[PLAYERNUM][columnName2.length];
-//		playerinfo3=new Object[PLAYERNUM][columnName3.length];
+//		playerinfo1=new Object[initial_data.size()][columnName1.length];
+//		playerinfo2=new Object[initial_data.size()][columnName2.length];
+//		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		playerinfo1=new Object[PLAYERNUM][columnName1.length];
+		playerinfo2=new Object[PLAYERNUM][columnName2.length];
+		playerinfo3=new Object[PLAYERNUM][columnName3.length];
 	}
+	
 	private void handleinitial(ArrayList<PlayerTechVO> totaldata){
 		int a=0;
 		playernames=new String[totaldata.size()];
@@ -496,8 +500,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
 			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
 			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
-			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
-			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
+//			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
+//			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=i.time;
@@ -506,9 +510,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
 			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			
 			playernames[a]=i.name;
 			a++;
@@ -539,8 +543,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
 			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
 			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
-			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
-			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
+//			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
+//			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=i.time;
@@ -549,9 +553,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
 			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			a++;
 			
 		}
@@ -581,8 +585,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
 			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
 			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
-			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
-			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
+//			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
+//			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=String.valueOf((int) Math.floor(i.timeave));
@@ -591,9 +595,9 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
 			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			a++;
 		}
 		refreshtable();
