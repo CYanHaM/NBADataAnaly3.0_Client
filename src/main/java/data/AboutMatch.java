@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 import dataservice.MatchDataService;
 import PO.MatchPO;
@@ -63,6 +64,7 @@ TeamTechAssist tta = new TeamTechAssist();
 			}
 			Statement statement1 = conn.createStatement();
 			Statement statement2 = conn.createStatement();
+			Statement statement3 = conn.createStatement();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			int i = 0;
@@ -85,7 +87,8 @@ TeamTechAssist tta = new TeamTechAssist();
 				mpo.score2=new String(rs1.getString("gue2").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos2").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score3=new String(rs1.getString("gue3").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos3").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score4=new String(rs1.getString("gue4").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos4").getBytes("ISO-8859-1"),"utf-8");
-
+				mpo.homeScore = Integer.parseInt(new String(rs1.getString("gueTotal").getBytes("ISO-8859-1"),"utf-8"));
+				mpo.guestScore = Integer.parseInt(new String(rs1.getString("hosTotal").getBytes("ISO-8859-1"),"utf-8"));
 				int go1 = 0;
 				int go2 = 0;
 				int go3 = 0;
@@ -130,10 +133,17 @@ TeamTechAssist tta = new TeamTechAssist();
 				
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				String sql2 = "SELECT * FROM `detail` where (team='"+tta.fullName(mpo.homeTeam)+"' or team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				String sql2 = "SELECT * FROM `detail` where ( team='"+tta.fullName(mpo.guestTeam)+"') and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				Test test = new Test();
+				ArrayList<String> fake = test.fake(mpo.homeTeam);
+				Random random = new Random();
+				int ran = random.nextInt(fake.size());
+				String sql3 =  "SELECT * FROM `detail` where ( team='"+tta.fullName(mpo.homeTeam)+"') and date='"+fake.get(ran)+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
+				ResultSet rs3 = statement3.executeQuery(sql3);
 				int index=0;
+				System.out.println("i"+i);
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
@@ -143,7 +153,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					//ptpo.division 
 					ptpo.date=new String(rs2.getString("date").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.position=t.getPos(new String(rs2.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
-					System.out.println("i"+i);
+					System.out.println(ptpo.team);
 					ptpo.time=Integer.valueOf(new String(rs2.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
 					String FGM_A =new String(rs2.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
 					if(FGM_A.equals("0")){
@@ -190,6 +200,60 @@ TeamTechAssist tta = new TeamTechAssist();
 					}
 					mpo.playerStatistic.add(ptpo);
 				}
+				while(rs3.next()){
+					PlayerTechMPO ptpo = new PlayerTechMPO();
+					ptpo.name=new String(rs3.getString("name").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.team=new String(rs3.getString("team").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.season=mpo.season;
+					//ptpo.division 
+					ptpo.date=mpo.date;
+					ptpo.position=t.getPos(new String(rs3.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.time=Integer.valueOf(new String(rs3.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
+					String FGM_A =new String(rs3.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(FGM_A.equals("0")){
+						ptpo.shotIn=0;
+						ptpo.shot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.shotIn=Integer.valueOf(temp[0]);
+						ptpo.shot=Integer.valueOf(temp[1]);
+					}
+					String threePM_A =new String(rs3.getString("3PM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(threePM_A.equals("0")){
+						ptpo.threeShotIn=0;
+						ptpo.threeShot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.threeShotIn=Integer.valueOf(temp[0]);
+						ptpo.threeShot=Integer.valueOf(temp[1]);
+					}
+					String FTM_A = new String(rs3.getString("FTM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(FTM_A.equals("0")){
+						ptpo.penaltyShotIn=0;
+						ptpo.penaltyShot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.penaltyShotIn=Integer.valueOf(temp[0]);
+						ptpo.penaltyShot=Integer.valueOf(temp[1]);
+					}
+					ptpo.offensiveRebound=Integer.valueOf(new String(rs3.getString("OREB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.defensiveRebound=Integer.valueOf(new String(rs3.getString("DREB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.rebound=Integer.valueOf(new String(rs3.getString("REB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.secondaryAttack=Integer.valueOf(new String(rs3.getString("AST").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.steal=Integer.valueOf(new String(rs3.getString("STL").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.blockShot=Integer.valueOf(new String(rs3.getString("BLK").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.fault=Integer.valueOf(new String(rs3.getString("TO").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.foul=Integer.valueOf(new String(rs3.getString("PF").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.score=Integer.valueOf(new String(rs3.getString("PTS").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.ifFirstLineUp=0;
+					if(index<=5){
+						ptpo.ifFirstLineUp=1;
+					}
+					mpo.playerStatistic.add(ptpo);
+				}
 				rs2.close();
 				res.add(mpo);
 			}
@@ -223,6 +287,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					po.penaltyShot+"','"+po.offensiveRebound+"','"+po.defensiveRebound+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+
 					po.ifFirstLineUp+"','"+po.ifParticipate+"','"+po.teamAllTime+"','"+po.teamOffensiveRebound+"','"+po.teamDefensiveRebound+"','"+po.opponentOffensiveRebound+"','"+po.opponentDefensiveRebound+"','"+po.teamShotIn+"','"+po.opponentOffensiveNum+"','"+po.opponentTwoShot+"','"+po.teamShot+"','"+po.teamPenaltyShot+"','"+
 					po.teamFault+"','"+po.ifDouble+"')";
+			System.out.println(sql);
 			statement.executeUpdate(sql);
 			conn.close();
 		} catch(ClassNotFoundException e) {

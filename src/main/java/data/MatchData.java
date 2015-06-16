@@ -58,7 +58,7 @@ public class MatchData implements MatchDataService{
 		}
 		
 		for(PlayerTechMPO ptmp:po.playerStatistic){		
-			if(ptmp.team.equals("DAL")||ptmp.team.equals("DEN")||ptmp.team.equals("GSW")||ptmp.team.equals("HOU")||ptmp.team.equals("LAC")||ptmp.team.equals("LAL")||ptmp.team.equals("MEM")||ptmp.team.equals("MIN")||ptmp.team.equals("NOP")||ptmp.team.equals("OKC")||ptmp.team.equals("PHX")||ptmp.team.equals("POR")||ptmp.team.equals("SAC")||ptmp.team.equals("SAS")||ptmp.team.equals("UTA"))
+			if(ptmp.team.equals("DAL")||ptmp.team.equals("DEN")||ptmp.team.equals("GSW")||ptmp.team.equals("HOU")||ptmp.team.equals("LAC")||ptmp.team.equals("LAL")||ptmp.team.equals("MEM")||ptmp.team.equals("MIN")||ptmp.team.equals("NOP")||ptmp.team.equals("OKC")||ptmp.team.equals("PHX")||ptmp.team.equals("POR")||ptmp.team.equals("SAC")||ptmp.team.equals("SAS")||ptmp.team.equals("UTA")||ptmp.team.equalsIgnoreCase("UTAH")||ptmp.team.equals("SEA")||ptmp.team.equals("NO")||ptmp.team.equals("GS"))
 				ptmp.division="W";
 			else
 				ptmp.division="E";
@@ -104,14 +104,22 @@ public class MatchData implements MatchDataService{
 		int homeTeamBlockShot=0;                     //主队盖帽
 		int guestTeamBlockShot=0;                     //客队盖帽
 		
+		TeamTechAssist tta = new TeamTechAssist();
+		
+		
 		ArrayList<PlayerTechMPO>homelist=new ArrayList<PlayerTechMPO>();
 		ArrayList<PlayerTechMPO>guestlist=new ArrayList<PlayerTechMPO>();
+		System.out.println(po.homeTeam);
 		for(PlayerTechMPO ptmp:po.playerStatistic){
-			if(ptmp.team.equals(po.homeTeam))
+			String name = tta.abbr(ptmp.team);
+			System.out.println(ptmp.team);
+			if(name.equals(po.homeTeam))
 				homelist.add(ptmp);
-			if(ptmp.team.equals(po.guestTeam))
+			if(name.equals(po.guestTeam))
 				guestlist.add(ptmp);
 		}
+		System.out.println(guestlist.size());
+		System.out.println(homelist.size());
 		for(int j=0;j<guestlist.size();j++){
 			
 			guestDeRebound=guestDeRebound+guestlist.get(j).defensiveRebound;

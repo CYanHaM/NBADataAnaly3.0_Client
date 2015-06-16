@@ -30,10 +30,10 @@ def getMatch(team,postfix,url):
 	#season : 2002-2003  2014-2015
 	#if has PostSeason : postseason(default),regular,preseason
 	#if not preseason,regular(default)
-	year = 2012
+	year = 2015
 	name = postfix.split("/")
 	
-	while(year<=2012):
+	while(year<=2015):
 		tem1 = '%d' %year
 		tem2 = '%d' %(year-1)
 		season = tem2+"-"+tem1
@@ -52,7 +52,7 @@ def getMatch(team,postfix,url):
 			Stats.schedule(team,url,tp,season,year)
 		else:
 			print "Postseason"
-		#	Stats.schedule(team,url,"Postseason",season,year)
+			Stats.schedule(team,url,"Postseason",season,year)
 			link2 = temp1.find("a",text="Regular")
 			regular = link2['href']
 			tp = "Regular"
