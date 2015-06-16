@@ -68,10 +68,6 @@ TeamTechAssist tta = new TeamTechAssist();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			int i = 0;
-			while(i<6000){
-				i++;
-				rs1.next();
-			}
 			while(rs1.next()) {
 				i++;
 				System.out.println("match:");
@@ -91,7 +87,8 @@ TeamTechAssist tta = new TeamTechAssist();
 				mpo.score2=new String(rs1.getString("gue2").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos2").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score3=new String(rs1.getString("gue3").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos3").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score4=new String(rs1.getString("gue4").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos4").getBytes("ISO-8859-1"),"utf-8");
-
+				mpo.homeScore = Integer.parseInt(new String(rs1.getString("gueTotal").getBytes("ISO-8859-1"),"utf-8"));
+				mpo.guestScore = Integer.parseInt(new String(rs1.getString("hosTotal").getBytes("ISO-8859-1"),"utf-8"));
 				int go1 = 0;
 				int go2 = 0;
 				int go3 = 0;
@@ -136,12 +133,12 @@ TeamTechAssist tta = new TeamTechAssist();
 				
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				String sql2 = "SELECT * FROM `detail` where  team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				String sql2 = "SELECT * FROM `detail` where ( team='"+tta.fullName(mpo.guestTeam)+"') and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				Test test = new Test();
 				ArrayList<String> fake = test.fake(mpo.homeTeam);
 				Random random = new Random();
-				int ran = random.nextInt();
-				String sql3 =  "SELECT * FROM `detail` where  team='"+tta.fullName(mpo.homeTeam)+"')and date='"+fake.get(ran)+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				int ran = random.nextInt(fake.size());
+				String sql3 =  "SELECT * FROM `detail` where ( team='"+tta.fullName(mpo.homeTeam)+"') and date='"+fake.get(ran)+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				ResultSet rs3 = statement3.executeQuery(sql3);
