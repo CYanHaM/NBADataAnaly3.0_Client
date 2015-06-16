@@ -32,7 +32,6 @@ public class Stats implements StatsBLService{
 		variance=variance/19;
 		interval[0]=average-Math.sqrt(variance/20)*sds.calculateTDistribution(19, a);
 		interval[1]=average+Math.sqrt(variance/20)*sds.calculateTDistribution(19, a);
-
 		return interval;
 		
 	}
@@ -318,8 +317,21 @@ public class Stats implements StatsBLService{
 		TeamTechPO ttp=new TeamTechPO();
 		TeamTechPO res=new TeamTechPO();
 		ttp=si.getTeamTech(team, season, 1);
+//		ttp.name="CHA";
+//		ttp.score=98;
+//		ttp.offensiveRebound=23;
+//		ttp.defensiveRebound=30;
+//		ttp.secondaryAttack=20;
+//		ttp.steal=10;
+//		ttp.blockShot=10;
+//		ttp.fault=14;
+//		ttp.penaltyShotNum=14;
+//		ttp.threeShotInNum=10;
+//		ttp.shotInNum=70;
+//		ttp.shotNum=90;
 		ArrayList<MatchPO> mlist=new ArrayList<MatchPO>();
 		mlist=si.getRecentMatch(team, season);
+//		mlist=creatematch();
 
 		double[] stats=new double[20];
 		for(int i=0;i<20;i++){
@@ -584,4 +596,66 @@ public class Stats implements StatsBLService{
 			return res;
 
 		}
+		
+		
+		public ArrayList<MatchPO> creatematch(){
+			ArrayList<MatchPO> testpo=new ArrayList<MatchPO>();
+			MatchPO po1=new MatchPO();
+			po1.homeTeam="CHA";
+			po1.guestTeam="HOU";
+			po1.homeScore=98;
+			po1.guestScore=99;
+			po1.homeTeamOffensiveRebound=23;
+			po1.guestTeamOffensiveRebound=30;
+			po1.homeTeamDeffensiveRebound=39;
+			po1.guestTeamDeffensiveRebound=24;
+			po1.homeTeamSecondaryAttack=20;
+			po1.guestTeamSecondaryAttack=29;
+			po1.homeTeamSteal=10;
+			po1.guestTeamSteal=12;
+			po1.homeTeamBlockShot=10;
+			po1.guestTeamBlockShot=13;
+			po1.homeFault=14;
+			po1.guestFault=13;
+			po1.homePenaltyShot=14;
+			po1.guestPenaltyShot=15;
+			po1.homeThreeShotIn=10;
+			po1.guestThreeShotIn=14;
+			po1.homeShotIn=70;
+			po1.guestShotIn=80;
+			po1.homeShot=90;
+			po1.guestShot=100;
+			
+			testpo.add(po1);
+
+			for(int i=0;i<10;i++){
+				MatchPO newpo=new MatchPO();
+				newpo.homeTeam="CHA";
+				newpo.guestTeam="LAC";
+				newpo.homeScore=80+i;
+				newpo.guestScore=90+i;
+				newpo.homeShot=5;
+				newpo.guestShot=8;
+				testpo.add(newpo);
+			}
+			
+			for(int i=0;i<9;i++){
+				MatchPO newpo=new MatchPO();
+				newpo.homeTeam="LAL";
+				newpo.guestTeam="CHA";
+				newpo.homeScore=80+i;
+				newpo.guestScore=90+i;
+				newpo.homeShot=5;
+				newpo.guestShot=8;
+				testpo.add(newpo);
+			}
+			return testpo;
+		}
+
+		public static void main(String[] args) {
+			TeamTechPO po=new Stats().getTeamChangePlayoffs("CHA", "dsad",0.05 );
+			System.out.println(po.score+" "+po.score+"　"+po.rebound+" "+po.rebound+"%%%%%%%");
+		}
+
 }
+
