@@ -57,6 +57,7 @@ public class ImportPlayer {
 		}
 		
 		ArrayList<String> resultlist=new ArrayList<String>();
+		resultlist.add(seasonlist.get(0));
 		for(int i=0;i<seasonlist.size();i++){
 			for(int j=0;j<resultlist.size();j++){
 				if(!resultlist.get(j).equals(seasonlist.get(i))){
@@ -66,7 +67,8 @@ public class ImportPlayer {
 			}
 		}
 		
-		return resultlist;
+		
+		return seasonlist;
 	}
 	
 	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType,String season){
