@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
+import data.Test;
 import data.playertech.Find;
 import PO.MatchPO;
 import PO.PlayerTechMPO;
@@ -182,7 +184,7 @@ public class PlayerTech implements StatsInfo{
 						}
 						Statement statement = conn.createStatement();
 						String pre = season.trim().split("\\s+")[0];
-						String sql = "SELECT * FROM `MatchPO` where guestTeam= '"+team+"' and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by `date` desc limit 0,20";	
+						String sql = "SELECT * FROM `MatchPO` where (guestTeam= '"+team+"' or homeTeam='"+team+"') and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by `date` desc limit 0,20";	
 						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
@@ -235,7 +237,7 @@ public class PlayerTech implements StatsInfo{
 							po.guestPenaltyShotIn = Integer.parseInt(rs.getString("guestPenaltyShotIn"));
 							po.homeFault = Integer.parseInt(rs.getString("homeFault"));
 							po.guestFault = Integer.parseInt(rs.getString("guestFault"));
-							String sql2 = "select * from `playerTechMPO` where `date` = '"+po.date+"' and (team ='"+po.homeTeam+"' or team = '"+po.guestTeam+"')";
+							String sql2 = "select * from `playerTechMPO` where `date` = '"+po.date+"' and team ='"+po.guestTeam+"'";
 							ArrayList<PlayerTechMPO> mpo = new ArrayList<PlayerTechMPO>();
 							Statement state = conn.createStatement();
 							ResultSet r = state.executeQuery(sql2);
@@ -278,7 +280,53 @@ public class PlayerTech implements StatsInfo{
 								p.ifDouble = Integer.valueOf(rs.getString("ifDouble"));
 								mpo.add(p);
 							}
-						list.add(po);
+							Test test = new Test();
+							ArrayList<String> fake = test.fake(po.homeTeam);
+							Random random = new Random();
+							int ran = random.nextInt(fake.size());
+							String sql3 = "select * from `playerTechMPO` where `date` = '"+fake.get(ran)+"' and team ='"+po.guestTeam+"'";
+							Statement state3 = conn.createStatement();
+							ResultSet rs3 = state3.executeQuery(sql3);
+							while(rs3.next()){
+								PlayerTechMPO p = new PlayerTechMPO();
+								p.name = rs.getString("name");
+								p.team = rs.getString("team");
+								p.season = po.season;
+								p.division = rs.getString("division");
+								p.date = po.date;
+								p.position = rs.getString("position");
+								p.time = Integer.valueOf(rs.getString("time"));
+								p.shotIn =  Integer.valueOf(rs.getString("shotIn"));
+								p.shot = Integer.valueOf(rs.getString("shot"));
+								p.threeShot = Integer.valueOf(rs.getString("threeShot"));
+								p.penaltyShotIn = Integer.valueOf(rs.getString("penaltyShotIn"));
+								p.penaltyShot = Integer.valueOf(rs.getString("penaltyShot"));
+								p.offensiveRebound = Integer.valueOf(rs.getString("offensiveNum"));
+								p.defensiveRebound = Integer.valueOf(rs.getString("defensiveNum"));
+								p.rebound = Integer.valueOf(rs.getString("rebound"));
+								p.secondaryAttack = Integer.valueOf(rs.getString("assist"));
+								p.steal = Integer.valueOf(rs.getString("steal"));
+								p.blockShot = Integer.valueOf(rs.getString("blockShot"));
+								p.fault = Integer.valueOf(rs.getString("fault"));
+								p.foul = Integer.valueOf(rs.getString("foul"));
+								p.score =  Integer.valueOf(rs.getString("score"));
+								p.ifFirstLineUp = Integer.valueOf(rs.getString("ifFirstLineUp"));
+								p.ifParticipate = Integer.valueOf(rs.getString("ifParticipate"));
+								p.teamAllTime = Integer.valueOf(rs.getString("teamAllTime"));
+								p.teamOffensiveRebound = Integer.valueOf(rs.getString("teamOffRebound"));
+								p.teamDefensiveRebound = Integer.valueOf(rs.getString("teamDefRebound"));
+								p.opponentOffensiveRebound = Integer.valueOf(rs.getString("opponentOffRebound"));
+								p.opponentDefensiveRebound = Integer.valueOf(rs.getString("opponentDefRebound"));
+								p.teamShotIn = Integer.valueOf(rs.getString("teamShotIn"));
+								p.opponentOffensiveNum = Integer.valueOf(rs.getString("oppOffNum"));
+								p.opponentTwoShot = Integer.valueOf(rs.getString("oppTwoShot"));
+								p.teamShot = Integer.valueOf(rs.getString("teamShot"));
+								p.teamPenaltyShot = Integer.valueOf(rs.getString("teamPenaltyShot"));
+								p.teamFault = Integer.valueOf(rs.getString("teamFault"));
+								p.ifDouble = Integer.valueOf(rs.getString("ifDouble"));
+								mpo.add(p);
+							}
+							list.add(po);
 						}
 						rs.close();
 						conn.close(); 
