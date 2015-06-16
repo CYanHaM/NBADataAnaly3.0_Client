@@ -64,6 +64,10 @@ TeamTechAssist tta = new TeamTechAssist();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			int i = 0;
+			while(i<11300){
+				i++;
+				rs1.next();
+			}
 			while(rs1.next()) {
 				System.out.println("match:");
 				MatchPO mpo = new MatchPO();
@@ -94,29 +98,39 @@ TeamTechAssist tta = new TeamTechAssist();
 				}else{
 					go1 = Integer.valueOf(rs1.getString("guestOT1"));
 				}
-				if(rs1.getString("guestOT2").equals("")){
+				if(!rs1.getString("guestOT2").equals("")){
 					go2 = Integer.valueOf(rs1.getString("guestOT2"));
+				}else{
+					go2 = 0;
 				}
-				if(rs1.getString("guestOT3").equals("")){
+				if(!rs1.getString("guestOT3").equals("")){
 					go3 = Integer.valueOf(rs1.getString("guestOT3"));
+				}else{
+					go3 = 0;
 				}
-				if(rs1.getString("hostOT1").equals("")){
+				if(!rs1.getString("hostOT1").equals("")){
 					ho1 = Integer.valueOf(rs1.getString("hostOT1"));
+				}else{
+					ho1 = 0;
 				}
-				if(rs1.getString("hostOT2").equals("")){
+				if(!rs1.getString("hostOT2").equals("")){
 					ho2 = Integer.valueOf(rs1.getString("hostOT2"));
+				}else{
+					ho2 = 0;
 				}
-				if(rs1.getString("hostOT3").equals("")){
+				if(!rs1.getString("hostOT3").equals("")){
 					ho3 = Integer.valueOf(rs1.getString("hostOT3"));
+				}else{
+					ho3 = 0;
 				}
 				
 				
 				int hosExtra = go1+go2+go3;
 
 				int gueExtra = ho1+ho2+ho3;
+				
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				System.out.println(mpo.homeTeam);
 				i++;
 				System.out.println(i);
 				String sql2 = "SELECT * FROM `detail` where (team='"+tta.fullName(mpo.homeTeam)+"' or team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
