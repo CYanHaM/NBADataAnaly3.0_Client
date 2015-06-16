@@ -16,7 +16,7 @@ public class PlayerTech implements StatsInfo{
 
 	public static void main(String[] args){
 		PlayerTech pt = new PlayerTech();
-		ArrayList<PlayerTechMPO> li = pt.getRecentPlayerM("Jack Cooley", "2014-15 Regular");
+		ArrayList<MatchPO>li = pt.getRecentMatch("BOS", "2010-11 Regular");
 	   System.out.println(li.size());
 		for(int i=0;i<li.size();i++){
 			System.out.println(li.get(i).date);
@@ -178,7 +178,7 @@ public class PlayerTech implements StatsInfo{
 						}
 						Statement statement = conn.createStatement();
 						String pre = season.trim().split("\\s+")[0];
-						String sql = "SELECT * FROM `MatchPO` where guestTeam= '"+team+"' and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by date desc limit 0,20";	
+						String sql = "SELECT * FROM `MatchPO` where guestTeam= '"+team+"' and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by `date` desc limit 0,20";	
 						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
@@ -530,64 +530,64 @@ public class PlayerTech implements StatsInfo{
 							po.season=rs.getString("season");
 							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
 							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
-							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
+							po.secondaryAttack=Integer.valueOf(rs.getString("secondaryAttack"))/po.gameNum;
 							po.steal=Integer.valueOf(rs.getString("steal"))/po.gameNum;
 							po.blockShot=Integer.valueOf(rs.getString("blockShot"))/po.gameNum;
 							po.fault=Integer.valueOf(rs.getString("fault"))/po.gameNum;
 							po.foul=Integer.valueOf(rs.getString("foul"))/po.gameNum;
 							po.score=Integer.valueOf(rs.getString("score"))/po.gameNum;
-							po.threeShotInNum=Integer.valueOf(rs.getString("threeShotIn"))/po.gameNum;
-							po.penaltyShotNum=Integer.valueOf(rs.getString("penaltyShot"))/po.gameNum;
+							po.threeShotInNum=Integer.valueOf(rs.getString("threeShotInNum"))/po.gameNum;
+							po.penaltyShotNum=Integer.valueOf(rs.getString("penaltyShotNum"))/po.gameNum;
 							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
 						}
 						
 						Statement state = conn.createStatement();
-						String sql1 = "select distict name,gameNum,count(name),score/gameNum from `teamtech` where score/gameNum>"+po.score/po.gameNum;
+						String sql1 = "select name,gameNum,count(name),score/gameNum from `teamtech` where score/gameNum>"+po.score/po.gameNum;
 						ResultSet r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.score = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),rebound/gameNum from `teamtech` where rebound/gameNum>"+po.rebound/po.gameNum;
+						sql1 = "select name,gameNum,count(name),rebound/gameNum from `teamtech` where rebound/gameNum>"+po.rebound/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.rebound = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),secondaryAttack/gameNum from `teamtech` where secondaryAttack/gameNum>"+po.secondaryAttack/po.gameNum;
+						sql1 = "select name,gameNum,count(name),secondaryAttack/gameNum from `teamtech` where secondaryAttack/gameNum>"+po.secondaryAttack/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.secondaryAttack = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),steal/gameNum from `teamtech` where steal/gameNum>"+po.steal/po.gameNum;
+						sql1 = "select name,gameNum,count(name),steal/gameNum from `teamtech` where steal/gameNum>"+po.steal/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.steal = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),blockShot/gameNum from `teamtech` where blockShot/gameNum>"+po.blockShot/po.gameNum;
+						sql1 = "select name,gameNum,count(name),blockShot/gameNum from `teamtech` where blockShot/gameNum>"+po.blockShot/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.blockShot = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),foul/gameNum from `teamtech` where foul/gameNum>"+po.foul/po.gameNum;
+						sql1 = "select name,gameNum,count(name),foul/gameNum from `teamtech` where foul/gameNum>"+po.foul/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.foul = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),fault/gameNum from `teamtech` where fault/gameNum>"+po.fault/po.gameNum;
+						sql1 = "select name,gameNum,count(name),fault/gameNum from `teamtech` where fault/gameNum>"+po.fault/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.fault = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name) from `teamtech` where shotInRate>"+po.shotInRate;
+						sql1 = "select name,gameNum,count(name) from `teamtech` where shotInRate>"+po.shotInRate;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.shotInRate = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name), threeShotInNum/gameNum from `teamtech` where threeShotInNum/gameNum>"+po.threeShotInNum/po.gameNum;
+						sql1 = "select name,gameNum,count(name), threeShotInNum/gameNum from `teamtech` where threeShotInNum/gameNum>"+po.threeShotInNum/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.threeShotInNum = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),penaltyShotNum/gameNum from `teamtech` where penaltyShotNum/gameNum>"+po.penaltyShotNum/po.gameNum;
+						sql1 = "select name,gameNum,count(name),penaltyShotNum/gameNum from `teamtech` where penaltyShotNum/gameNum>"+po.penaltyShotNum/po.gameNum;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.penaltyShotNum = Integer.valueOf(r1.getString(3));
