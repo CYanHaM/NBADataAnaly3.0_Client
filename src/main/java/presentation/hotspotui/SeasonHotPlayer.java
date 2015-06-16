@@ -380,39 +380,39 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		String seasoninfo=switchseason((String) season.getSelectedItem());
 		if(scoreave.isSelected()){
 			selectedkeyword="scoreave";
-			seasonHPlist=importdata.findSeasonHotPlayer("scoreave",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("scoreave",seasoninfo);
 		}
 		if(reboundave.isSelected()){
 			selectedkeyword="reboundave";
-			seasonHPlist=importdata.findSeasonHotPlayer("reboundave",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("reboundave",seasoninfo);
 		}
 		if(secondAttackave.isSelected()){
 			selectedkeyword="secondaryattackave";
-			seasonHPlist=importdata.findSeasonHotPlayer("secondaryattackave",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("secondaryattackave",seasoninfo);
 		}
 		if(blockShotave.isSelected()){
 			selectedkeyword="blockshotave";
-			seasonHPlist=importdata.findSeasonHotPlayer("blockshotave",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("blockshotave",seasoninfo);
 		}
 		if(stealave.isSelected()){
 			selectedkeyword="stealave";
-			seasonHPlist=importdata.findSeasonHotPlayer("stealave",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("stealave",seasoninfo);
 		}
 		if(threeshotinrate.isSelected()){
 			selectedkeyword="threeshotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("threeshotinrate",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("threeshotinrate",seasoninfo);
 		}
 		if(shotinrate.isSelected()){
 			selectedkeyword="shotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("shotinrate",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("shotinrate",seasoninfo);
 		}
 		if(penaltyshotinrate.isSelected()){
 			selectedkeyword="penaltyshotinrate";
-			seasonHPlist=importdata.findSeasonHotPlayer("penaltyshotinrate",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("penaltyshotinrate",seasoninfo);
 		}
 		if(ifdouble.isSelected()){
 			selectedkeyword="double";
-			seasonHPlist=importdata.findSeasonHotPlayer("double",seasoninfo,"1");
+			seasonHPlist=importdata.findSeasonHotPlayer("double",seasoninfo);
 		}
 	}
 	

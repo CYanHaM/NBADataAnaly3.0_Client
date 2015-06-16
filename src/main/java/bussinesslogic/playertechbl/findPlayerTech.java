@@ -19,7 +19,7 @@ public class findPlayerTech implements FindPlayerTechService{
 	
 	@Override
 	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date,
-			String keyword,String retire) {
+			String keyword) {
 			MPO2MVO p2v = new MPO2MVO();
 			ArrayList<PlayerTechMVO> result = new ArrayList<PlayerTechMVO>();
 			ArrayList<PlayerTechMPO> list = new ArrayList<PlayerTechMPO>();
@@ -29,7 +29,7 @@ public class findPlayerTech implements FindPlayerTechService{
 	}
 
 	@Override
-	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season,String retire) {
+	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season) {
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO> result = new ArrayList<PlayerTechVO>();
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
