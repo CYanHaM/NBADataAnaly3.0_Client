@@ -26,8 +26,8 @@ public class PlayerTech implements StatsInfo{
 			System.out.println(li.get(i).homeThreeShot);
 		}
 		*/
-		
-		System.out.println(li.size());
+		PlayerTechPO li = pt.getPlayerRank("Alec Burks", "2014-15 Regular", 1);
+		System.out.println(li.secondaryAttack);
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -737,7 +737,7 @@ public class PlayerTech implements StatsInfo{
 							po.secondaryAttack=Integer.valueOf(rs.getString("assist"));
 							po.time=Integer.valueOf(rs.getString("time"));
 							po.steal=Integer.valueOf(rs.getString("steal"));
-							po.blockShot=Integer.valueOf(rs.getString("blockShot"));
+							po.blockShot=Integer.valueOf(rs.getString("block"));
 							po.fault=Integer.valueOf(rs.getString("fault"));
 							po.foul=Integer.valueOf(rs.getString("foul"));
 							po.score=Integer.valueOf(rs.getString("score"));
@@ -746,57 +746,57 @@ public class PlayerTech implements StatsInfo{
 							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
 						}
 						Statement state = conn.createStatement();
-						String sql1 = "select distict name,gameNum,count(name),score/gameNum from `playerTechPO` where score>"+po.score;
+						String sql1 = "select name,gameNum,count(name),score/gameNum from `playerTechPO` where score>"+po.score;
 						ResultSet r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.score = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),rebound/gameNum from `playerTechPO` where rebound>"+po.rebound;
+						sql1 = "select name,gameNum,count(name),rebound/gameNum from `playerTechPO` where rebound>"+po.rebound;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.rebound = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),assist/gameNum from `playerTechPO` where assist>"+po.secondaryAttack;
+						sql1 = "select name,gameNum,count(name),assist/gameNum from `playerTechPO` where assist>"+po.secondaryAttack;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.secondaryAttack = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),steal/gameNum from `playerTech` where steal>"+po.steal;
+						sql1 = "select name,gameNum,count(name),steal/gameNum from `playerTechPO` where steal>"+po.steal;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.steal = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),block/gameNum from `playerTech` where block>"+po.blockShot;
+						sql1 = "select name,gameNum,count(name),block/gameNum from `playerTechPO` where block>"+po.blockShot;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.blockShot = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),foul/gameNum from `playerTech` where foul>"+po.foul;
+						sql1 = "select name,gameNum,count(name),foul/gameNum from `playerTechPO` where foul>"+po.foul;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.foul = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),fault/gameNum from `playerTech` where fault>"+po.fault;
+						sql1 = "select name,gameNum,count(name),fault/gameNum from `playerTechPO` where fault>"+po.fault;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.fault = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name) from `playerTech` where shotInRate>"+po.shotInRate;
+						sql1 = "select name,gameNum,count(name) from `playerTechPO` where shotInRate>"+po.shotInRate;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.shotInRate = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name), threeShotIn/gameNum from `playerTech` where threeShotIn>"+po.threeShotIn;
+						sql1 = "select name,gameNum,count(name), threeShotIn/gameNum from `playerTechPO` where threeShotIn>"+po.threeShotIn;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.threeShotIn = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),penaltyShot/gameNum from `playerTech` where penaltyShot>"+po.penaltyShot;
+						sql1 = "select name,gameNum,count(name),penaltyShot/gameNum from `playerTechPO` where penaltyShot>"+po.penaltyShot;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.penaltyShot = Integer.valueOf(r1.getString(3));
 						}
-						sql1 = "select distict name,gameNum,count(name),time/gameNum from `playerTech` where time>"+po.time;
+						sql1 = "select name,gameNum,count(name),time/gameNum from `playerTechPO` where time>"+po.time;
 						r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.time = Integer.valueOf(r1.getString(3));
