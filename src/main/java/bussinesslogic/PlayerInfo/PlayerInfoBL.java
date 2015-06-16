@@ -22,9 +22,9 @@ public class PlayerInfoBL implements PlayerInfoService{
 	}
 
 	@Override
-	public PlayerVO showPlayerInfo(String name,int retire) {
+	public PlayerVO showPlayerInfo(String name) {
 		PlayerPO ppo = new PlayerPO();
-		ppo = pids.findOne(name,retire);
+		ppo = pids.findOne(name);
 		PlayerVO pvo = new PlayerVO();
 		pvo = p2v.po2vo(ppo);
 		return pvo;
