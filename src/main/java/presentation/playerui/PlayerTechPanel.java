@@ -459,11 +459,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][3]=i.gameNum;
 			playerinfo3[a][4]=i.startingNum;
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][10]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			
 			playernames[a]=i.name;
 			a++;
@@ -502,11 +502,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][3]=i.gameNum;
 			playerinfo3[a][4]=i.startingNum;
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][10]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			a++;
 			
 		}
@@ -544,11 +544,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo3[a][3]=i.gameNum;
 			playerinfo3[a][4]=i.startingNum;
 			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][10]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+//			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
+			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
+			playerinfo3[a][9]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
 			a++;
 		}
 		refreshtable();
