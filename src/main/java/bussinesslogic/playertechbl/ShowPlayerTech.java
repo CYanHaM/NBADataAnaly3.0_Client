@@ -45,6 +45,7 @@ public class ShowPlayerTech  implements ShowPlayerTechService {
 		ArrayList<PlayerTechPO>polist = sd.ascend(con, team);
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO>volist = ptt.list2vo(polist);
+//		System.out.println("po"+polist.size()+"vo"+volist.size());
 		return volist;
 	}
 	

@@ -222,6 +222,14 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					initdata();
+					if(switchbox.getSelectedItem().equals("赛季总数据")){
+						initdata();
+						handleTotalData(initial_data);
+					}
+					if(switchbox.getSelectedItem().equals("场均数据")){
+						initdata();
+						handleAverageData(initial_data);
+					}
 					refreshtable();
 				}
 			}
@@ -986,7 +994,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	public void refreshtable(){
 		table1_config();
 		table2_config();
-		table2_config();
+		table3_config();
 		if(first.isSelected())
 			players.setViewportView(playertable1);
 		else if(second.isSelected())
@@ -1353,25 +1361,10 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	}
 
 	
-	private String switchseason(String season){
-		String result=null;
-		System.out.println(season);
-		String[] temp=season.split(" ");
-		System.out.println(temp[0]+":"+temp[1]);
-		if(temp[1].equals("Regular")){
-		result=temp[0]+" 常规赛";
-		}else if(temp[1].equals("Postseason")){
-			result=temp[0]+" 季后赛";
-		}
-		System.out.println(result);
-		return result;
-	}
-	
 	private String switchseasonname(String season){
 		String result=null;
 		System.out.println(season);
 		String[] temp=season.split(" ");
-		System.out.println(temp[0]+":"+temp[1]);
 		if(temp[1].equals("常规赛")){
 		result=temp[0]+" Regular";
 		}else if(temp[1].equals("季后赛")){
@@ -1463,7 +1456,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			for(int i=0;i<screeningconditions.size();i++){
 				System.out.println(screeningconditions.get(i).position+"--"+screeningconditions.get(i).division+"--"+screeningconditions.get(i).condition+"--"+screeningconditions.get(i).number);
 			}
-			ArrayList<PlayerTechVO> siftVO=importdata.sift(screeningconditions,switchseason((String) season.getSelectedItem()));
+			ArrayList<PlayerTechVO> siftVO=importdata.sift(screeningconditions,switchseasonname((String) season.getSelectedItem()));
 			playerinfo1=new Object[siftVO.size()][columnName1.length];
 			playerinfo2=new Object[siftVO.size()][columnName2.length];
 			playerinfo2=new Object[siftVO.size()][columnName3.length];
