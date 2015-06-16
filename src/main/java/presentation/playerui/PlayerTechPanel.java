@@ -133,7 +133,12 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		//添加下拉框
 		addbox();
 
-		initdata();
+		initial_data=importdata.getPlayerTechAscend("name",importdata.getPlayerSeasonList().get(0));
+		//TODO delete the test
+		playerinfo1=new Object[initial_data.size()][columnName1.length];
+		playerinfo2=new Object[initial_data.size()][columnName2.length];
+		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		
 		//加载初始表格，显示队伍总数据
 		handleinitial(initial_data);
 
@@ -188,18 +193,18 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		
 		season=new JComboBox<String>();
 		//TODO delete the test
-//		ArrayList<String> seasonlist=importdata.getPlayerSeasonList();
-		ArrayList<String> seasonlist=new ArrayList<String>();
-		seasonlist.add("2011-12 Regular");
-		seasonlist.add("2011-12 Postseason");
-		seasonlist.add("2012-13 Regular");
-		seasonlist.add("2012-13 Postseason");
-		seasonlist.add("2013-14 Regular");
-		seasonlist.add("2013-14 Postseason");
-		seasonlist.add("2015-16 Regular");
-		seasonlist.add("2015-16 Postseason");
-		seasonlist.add("2016-17 Regular");
-		seasonlist.add("2016-17 Postseason");
+		ArrayList<String> seasonlist=importdata.getPlayerSeasonList();
+//		ArrayList<String> seasonlist=new ArrayList<String>();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
 		for(int i=0;i<seasonlist.size();i++){
 			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Regular")){
@@ -412,6 +417,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//===================================================================
 	//----------------------initial & different methods------------
 	private void initdata(){
+		System.out.println((String)season.getSelectedItem());
 		initial_data=importdata.getPlayerTechAscend("name",(String)season.getSelectedItem());
 		//TODO delete the test
 		playerinfo1=new Object[initial_data.size()][columnName1.length];
