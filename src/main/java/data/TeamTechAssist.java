@@ -208,7 +208,7 @@ public class TeamTechAssist {
 		Map m = new HashMap();
 		m.put("Atlanta Hawks", "ATL");
 		m.put("Boston Celtics", "BOS");
-		m.put("Brooklyn Nets", "BNK");
+		m.put("Brooklyn Nets", "BKN");
 		m.put("Charlotte Hornets", "CHA");
 		m.put("Chicago Bulls", "CHI");
 		m.put("Cleveland Cavaliers", "CLE");
@@ -220,7 +220,7 @@ public class TeamTechAssist {
 		m.put("Indiana Pacers", "IND");
 		m.put("Los Angeles Clippers", "LAC");
 		m.put("Los Angeles Lakers", "LAL");
-		m.put("Memphis Grizzlies", "Mem");
+		m.put("Memphis Grizzlies", "MEM");
 		m.put("Miami Heat", "MIA");
 		m.put("Milwaukee Bucks", "MIL");
 		m.put("Minnesota Timberwolves", "MIN");
