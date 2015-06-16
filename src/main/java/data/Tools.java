@@ -16,7 +16,7 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-		t.transferScore();
+		t.fillPlayerTech();
 	}
 	
 	public void transferDetail(){
@@ -181,6 +181,7 @@ public class Tools {
 					} 
 
 	public ArrayList<PlayerTechPO> fillPlayerTech(){
+		Tools t = new Tools();
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		//URL指向要访问的数据库名nba
@@ -209,18 +210,19 @@ public class Tools {
 				String type = rs.getString("type");
 				String team = rs.getString("team");
 				po.name=name;
-				po.season=season;
+				po.season=t.changeSeason(season)+" "+rs.getString("type");
+				System.out.println(season);
 				po.team=team;
 				po.ifRegular=type.equals("Regular")?1:0;
-				po.position=getPos(rs.getString("pos"));
 				Statement sta = conn.createStatement();
-				String s1 = "select * from `teamInfo` where name='"+team+"'";
+				String s1 = "select * from `teamInfo` where abbreviation='"+team+"'";
 				ResultSet set1 = sta.executeQuery(s1);
 				while(set1.next()){
 					po.division=set1.getString("division");
 				}
 				String sql = "select * from player_scoring where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				ResultSet r = statement.executeQuery(sql);
+				Statement stat = conn.createStatement();
+				ResultSet r = stat.executeQuery(sql);
 				while(r.next()){
 					po.gameNum=Integer.valueOf(r.getString("GP"));
 					po.score=Integer.valueOf(r.getString("PTS"));
@@ -229,60 +231,57 @@ public class Tools {
 					po.threeShotInRate=Double.valueOf(r.getString("3P%"));
 				}
 				sql = "select * from player_rebounds where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.rebound=Integer.valueOf(r.getString("REB"));
 					po.offensiveNum=Integer.valueOf(r.getString("OFF"));
 					po.defensiveNum=Integer.valueOf(r.getString("DEF"));
+					po.position = r.getString("pos");
 				}
 				sql = "select * from player_fieldgoals where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.shotIn=Integer.valueOf(r.getString("FGMtotal"));
 					po.shot=Integer.valueOf(r.getString("FGAtotal"));
 					
 				}
 				sql = "select * from player_freethrows where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.penaltyShotIn=Integer.valueOf(r.getString("FTMtotal"));
 					po.penaltyShot=Integer.valueOf(r.getString("FTAtotal"));
 					
 				}
 				sql = "select * from player_3points where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.threeShotIn=Integer.valueOf(r.getString("3PMtotal"));
 					po.threeShot=Integer.valueOf(r.getString("3PAtotal"));
 				}
 				sql = "select * from player_assists where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.secondaryAttack=Integer.valueOf(r.getString("AST"));
 					po.fault=Integer.valueOf(r.getString("TO"));
 				}
 				sql = "select * from player_steals where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.steal=Integer.valueOf(r.getString("STL"));
+					po.foul=Integer.valueOf(r.getString("PF"));
 				}
 				sql = "select * from player_blocks where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.blockShot=Integer.valueOf(r.getString("BLK"));
 				}
-				sql = "select * from player_fouls where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
-				while(r.next()){
-					po.foul=po.fault=Integer.valueOf(r.getString("PF"));
-				}
 				sql = "select * from player_minutes where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.time=Integer.valueOf(r.getString("MIN"));
 				}
 				sql = "select * from player_doubles where name='"+name+"' and season='"+season+"' and type='"+type+"' and team='"+team+"'";
-				r = statement.executeQuery(sql);
+				r = stat.executeQuery(sql);
 				while(r.next()){
 					po.ifDouble=Integer.valueOf(r.getString("DBLDBL"));
 				}

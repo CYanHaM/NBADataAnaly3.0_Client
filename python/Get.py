@@ -30,10 +30,10 @@ def getMatch(team,postfix,url):
 	#season : 2002-2003  2014-2015
 	#if has PostSeason : postseason(default),regular,preseason
 	#if not preseason,regular(default)
-	year = 2015
+	year = 2012
 	name = postfix.split("/")
 	
-	while(year<=2015):
+	while(year<=2012):
 		tem1 = '%d' %year
 		tem2 = '%d' %(year-1)
 		season = tem2+"-"+tem1

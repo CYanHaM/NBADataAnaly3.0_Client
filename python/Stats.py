@@ -96,12 +96,17 @@ def getInfo(team,url,date,season,tp,year):
 					staAll = ch.find_all("tr",class_=re.compile("player-"))
 					for sta in staAll:
 						flag = 0
+						pos=0
 						result2=[]
 						for s in sta.strings:
 							if(re.search("DNP" , s)):
 								#print "0*14"
-								for i in range(0,14):
-									result2.append("0")
+								if(pos==0):
+									for i in range(0,14):
+										result2.append("0")
+								else:
+									for i in range(0,13):
+										result2.append("0")
 							else:
 								#print(s.encode("utf-8"))
 								if(cmp(s,"\n")==0):
@@ -110,6 +115,7 @@ def getInfo(team,url,date,season,tp,year):
 									if(flag==0 and s.find(",")!=-1):
 										result2.append(s.encode("utf-8"))
 										result2.append(" ")
+										pos =1
 										flag+=1
 									if(flag==14 and year<2009):
 										result2.append("0")
