@@ -232,6 +232,13 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 			final int temp=i;
 			linebutton1[i]=new JButton(lineNames1[i]);
 			linebutton1[i].setBounds(SIDEWIDTH, 340+i*button_h, button_w, button_h);
+			linebutton1[i].setBorderPainted(false);
+			linebutton1[i].setContentAreaFilled(false);
+			linebutton1[i].setFocusPainted(false);
+			linebutton1[i].setIcon(new ImageIcon("images/stats/team/line1_"+i+"_1.png"));
+			linebutton1[i].setRolloverIcon(new ImageIcon("images/stats/team/line1_"+i+"_2.png"));
+			linebutton1[i].setPressedIcon(new ImageIcon("images/stats/line1_"+i+"_3.png"));
+			linebutton1[i].setSelectedIcon(new ImageIcon("images/system_img/line1_"+i+"_3.png"));
 			linebutton1[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

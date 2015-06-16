@@ -10,10 +10,10 @@ import dataservice.playertechdataservice.FindDataService;
 public interface FindPlayerTechService {
 	
 	//褰撳ぉ鐑偣鐞冨憳
-	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword,String retire);
+	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword);
 	
 	//璧涘鐑偣鐞冨憳
-	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season,String retire);
+	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season);
 	
 	//杩涙鏈�蹇悆鍛�
 	public ArrayList<PlayerTechVO> findFastImprovingPlayer(String keyword);

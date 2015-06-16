@@ -82,11 +82,38 @@ TeamTechAssist tta = new TeamTechAssist();
 				mpo.score2=new String(rs1.getString("gue2").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos2").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score3=new String(rs1.getString("gue3").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos3").getBytes("ISO-8859-1"),"utf-8");
 				mpo.score4=new String(rs1.getString("gue4").getBytes("ISO-8859-1"),"utf-8")+"-"+new String(rs1.getString("hos4").getBytes("ISO-8859-1"),"utf-8");
-				int hosExtra = Integer.valueOf(rs1.getString("guestOT1"))+Integer.valueOf(rs1.getString("guestOT2"))+
-						Integer.valueOf(rs1.getString("guestOT3"));
 
-				int gueExtra = Integer.valueOf(rs1.getString("hostOT1"))+Integer.valueOf(rs1.getString("hostOT2"))+
-						Integer.valueOf(rs1.getString("hostOT3"));
+				int go1 = 0;
+				int go2 = 0;
+				int go3 = 0;
+				int ho1 = 0;
+				int ho2 = 0;
+				int ho3 = 0;
+				if(rs1.getString("guestOT1").equals("")){
+					go1 = 0;
+				}else{
+					go1 = Integer.valueOf(rs1.getString("guestOT1"));
+				}
+				if(rs1.getString("guestOT2").equals("")){
+					go2 = Integer.valueOf(rs1.getString("guestOT2"));
+				}
+				if(rs1.getString("guestOT3").equals("")){
+					go3 = Integer.valueOf(rs1.getString("guestOT3"));
+				}
+				if(rs1.getString("hostOT1").equals("")){
+					ho1 = Integer.valueOf(rs1.getString("hostOT1"));
+				}
+				if(rs1.getString("hostOT2").equals("")){
+					ho2 = Integer.valueOf(rs1.getString("hostOT2"));
+				}
+				if(rs1.getString("hostOT3").equals("")){
+					ho3 = Integer.valueOf(rs1.getString("hostOT3"));
+				}
+				
+				
+				int hosExtra = go1+go2+go3;
+
+				int gueExtra = ho1+ho2+ho3;
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
 				System.out.println(mpo.homeTeam);

@@ -16,17 +16,18 @@ public class ImportHotData {
 	public TeamTechBLService tts;
 	
 	public ImportHotData() {
+		
 	}
 	
-	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword,String retire){
+	public ArrayList<PlayerTechMVO> findHotPlayerToday(String date, String keyword){
 		fts=new findPlayerTech();
-		return fts.findHotPlayerToday(date, keyword,retire);
+		return fts.findHotPlayerToday(date, keyword);
 	}
 	
 	//TODO I need to figure out what the retire value mean....
-	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season,String retire){
+	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season){
 		fts=new findPlayerTech();
-		return fts.findSeasonHotPlayer(keyword,season,retire);
+		return fts.findSeasonHotPlayer(keyword,season);
 	}
 	
 	public ArrayList<PlayerTechVO> findFastImprovingPlayer(String keyword){
