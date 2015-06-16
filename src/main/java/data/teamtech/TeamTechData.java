@@ -95,9 +95,7 @@ public class TeamTechData implements TeamTechDataService {
 		String user = "root";
 		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
-		if(season.trim().split("\\s+")[1].equals("Regular")){
-			season = season+" season";
-		}
+		
 		try {
 			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
@@ -161,6 +159,9 @@ public class TeamTechData implements TeamTechDataService {
 				sql=sql+"order by season desc";
 			}
 			else{
+				if(season.trim().split("\\s+")[1].equals("Regular")){
+					season = season+" season";
+				}
 				sql += " where season='"+season+"' order by "+type+" desc";
 			}
 			System.out.println(sql);
@@ -222,9 +223,6 @@ public class TeamTechData implements TeamTechDataService {
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		String user = "root";
 		String password = "cyanham";
-		if(season.trim().split("\\s+")[1].equals("Regular")){
-			season = season+" season";
-		}
 		try {
 			Class.forName(driver);
 			Connection conn = DriverManager.getConnection(url, user, password);
@@ -284,6 +282,9 @@ public class TeamTechData implements TeamTechDataService {
 				sql=sql+"order by season";
 			}
 			else{
+				if(season.trim().split("\\s+")[1].equals("Regular")){
+					season = season+" season";
+				}
 				sql += " where season='"+season+"' order by "+type;
 			}
 			ResultSet rs = statement.executeQuery(sql);
