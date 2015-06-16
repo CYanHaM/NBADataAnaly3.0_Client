@@ -121,7 +121,6 @@ public class TeamTechAssist {
 		} catch(Exception e) {
 			e.printStackTrace();
 		};
-		System.out.println("wrong:about Match");
 	}
 	
 	public String nameTrans(String totrans){
