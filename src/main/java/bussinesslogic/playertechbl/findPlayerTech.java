@@ -33,7 +33,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		ArrayList<PlayerTechVO> result = new ArrayList<PlayerTechVO>();
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
-//		list = fds.findSeasonHotPlayer(keyword,season,retire);
+		list = fds.findSeasonHotPlayer(keyword,season);
 		result = ptt.list2vo(list);
 		return result;
 	}
