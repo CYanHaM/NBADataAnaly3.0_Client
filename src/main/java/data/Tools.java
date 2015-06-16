@@ -209,6 +209,9 @@ public class Tools {
 				String season = rs.getString("season");
 				String type = rs.getString("type");
 				String team = rs.getString("team");
+				if(team.split("/").length>1){
+					team=team.split("/")[0];
+				}
 				po.name=name;
 				po.season=t.changeSeason(season)+" "+rs.getString("type");
 				po.team=team;

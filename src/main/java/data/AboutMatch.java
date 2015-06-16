@@ -35,6 +35,7 @@ TeamTechAssist tta = new TeamTechAssist();
 	public ArrayList<MatchPO> allMatch(){
 		AboutMatch am = new AboutMatch();
 		ArrayList<MatchPO> list = am.getMatch();
+		System.out.println("getMatch"+list.size());
 		MatchDataService mds = new MatchData();
 		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
 		for(int i=0;i<list.size();i++){
@@ -63,11 +64,6 @@ TeamTechAssist tta = new TeamTechAssist();
 			Statement statement2 = conn.createStatement();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
-			int i = 0;
-			while(i<11300){
-				i++;
-				rs1.next();
-			}
 			while(rs1.next()) {
 				System.out.println("match:");
 				MatchPO mpo = new MatchPO();
@@ -131,13 +127,10 @@ TeamTechAssist tta = new TeamTechAssist();
 				
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				i++;
-				System.out.println(i);
 				String sql2 = "SELECT * FROM `detail` where (team='"+tta.fullName(mpo.homeTeam)+"' or team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
-				System.out.println("select from detail resultset.rows"+rs2.getRow());
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;

@@ -107,7 +107,7 @@ public class TeamTechAssist {
 				}
 				Statement state = conn.createStatement();
 				String str = "replace into `teamtech` values('"+ttpo.ifReagular+"','"+ttpo.name+"','"+ttpo.season+"','"+ttpo.gameNum+"','"+ttpo.shotInNum+"','"+ttpo.shotNum+"','"+ttpo.threeShotInNum+"','"+ttpo.threeShotNum+"','"+ttpo.penaltyShotInNum+"','"+ttpo.penaltyShotNum+"','"+ttpo.offensiveRebound+"','"+ttpo.defensiveRebound+"','"+ttpo.rebound+"','"+ttpo.secondaryAttack+"','"+ttpo.steal+"','"+ttpo.blockShot+"','"+ttpo.fault+"','"+ttpo.foul+"','"+ttpo.score+"','"+ttpo.shotInRate+"','"+
-						ttpo.threeShotInRate+"','"+ttpo.penaltyShotInRate+"','"+"','"+"','"+"','"+ttpo.offensiveEfficiency+"','"+ttpo.defensiveEfficiency+"','"+ttpo.reboundEfficiency+"','"+ttpo.stealEfficiency+"','"+ttpo.secondaryAttackEfficiency+"','"+ttpo.opponentDefensiveRebound+"','"+ttpo.opponentOffensiveRebound+"','"+"','"+ttpo.opponentScore+"')";
+						ttpo.threeShotInRate+"','"+ttpo.penaltyShotInRate+"','"+ttpo.offensiveEfficiency+"','"+ttpo.defensiveEfficiency+"','"+ttpo.reboundEfficiency+"','"+ttpo.stealEfficiency+"','"+ttpo.secondaryAttackEfficiency+"','"+ttpo.opponentDefensiveRebound+"','"+ttpo.opponentOffensiveRebound+"','"+ttpo.opponentScore+"')";
 				System.out.println(str);
 				state.executeUpdate(str);
 			}
@@ -121,7 +121,6 @@ public class TeamTechAssist {
 		} catch(Exception e) {
 			e.printStackTrace();
 		};
-		System.out.println("wrong:about Match");
 	}
 	
 	public String nameTrans(String totrans){
