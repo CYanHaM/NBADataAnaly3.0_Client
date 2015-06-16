@@ -209,7 +209,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					ptpo.team=new String(rs3.getString("team").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.season=mpo.season;
 					//ptpo.division 
-					ptpo.date=new String(rs3.getString("date").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.date=mpo.date;
 					ptpo.position=t.getPos(new String(rs3.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
 					ptpo.time=Integer.valueOf(new String(rs3.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
 					String FGM_A =new String(rs3.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
