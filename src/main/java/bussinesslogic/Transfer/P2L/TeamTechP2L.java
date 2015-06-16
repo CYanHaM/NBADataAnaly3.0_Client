@@ -30,8 +30,6 @@ public class TeamTechP2L {
 		ttli.shotInRate = ttpo.shotInRate;
 		ttli.threeShotInRate = ttpo.threeShotInRate;
 		ttli.penaltyShotInRate = ttpo.penaltyShotInRate;
-		ttli.winningRate = ttpo.winningRate;
-		ttli.offensiveRound = ttpo.offensiveRound;
 		ttli.offensiveEfficiency = ttpo.offensiveEfficiency;
 		ttli.defensiveEfficiency = ttpo.defensiveEfficiency;
 		ttli.reboundEfficiency = ttpo.reboundEfficiency;
@@ -58,7 +56,6 @@ public class TeamTechP2L {
 			ttli.scoreave = ttli.score/ttli.gameNum;
 			ttli.offensiveRoundave = ttli.offensiveRound/ttli.gameNum;
 		}
-		ttli.winningNum = ttpo.winningNum;
 		return ttli;
 	}
 }

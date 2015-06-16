@@ -60,9 +60,6 @@ public class PlayerTech implements StatsInfo{
 							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-							po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-							po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-							po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -70,7 +67,6 @@ public class PlayerTech implements StatsInfo{
 							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-							po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 							return po;
 						}
@@ -317,9 +313,6 @@ public class PlayerTech implements StatsInfo{
 							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-							po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-							po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-							po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -327,7 +320,6 @@ public class PlayerTech implements StatsInfo{
 							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-							po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 							list.add(po);
 						}
