@@ -131,15 +131,11 @@ TeamTechAssist tta = new TeamTechAssist();
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
-				System.out.println("select from detail resultset.rows"+rs2.getRow());
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
 					ptpo.name=new String(rs2.getString("name").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.team=new String(rs2.getString("team").getBytes("ISO-8859-1"),"utf-8");
-					if(ptpo.team.split("/").length>1){
-						ptpo.team=ptpo.team.split("/")[0];
-					}
 					ptpo.season=mpo.season;
 					//ptpo.division 
 					ptpo.date=new String(rs2.getString("date").getBytes("ISO-8859-1"),"utf-8");
