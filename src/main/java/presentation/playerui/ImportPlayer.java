@@ -50,7 +50,7 @@ public class ImportPlayer {
 //		seasonlist.add("2016-17 Regular");
 //		seasonlist.add("2016-17 Postseason");
 		
-		ArrayList<PlayerTechPO> playertechlist=sds.all();
+		ArrayList<PlayerTechVO> playertechlist=spt.ascend("season", "all");
 		for(int i=0;i<playertechlist.size();i++){
 			seasonlist.add(playertechlist.get(i).season);
 		}
