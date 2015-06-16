@@ -12,9 +12,9 @@ import dataservice.playertechdataservice.ShowDataService;
 
 public class Show implements ShowDataService{
 	
-	public void main(String[] args){
+	public static void main(String[] args){
 		Show sh = new Show();
-		ArrayList<PlayerTechPO> li = sh.showSeasonPlayerData("2010-11 Regular");
+		ArrayList<PlayerTechPO> li = sh.ascend("name", "2002-03 Regular");
 		System.out.println(li.size());
 	}
 
