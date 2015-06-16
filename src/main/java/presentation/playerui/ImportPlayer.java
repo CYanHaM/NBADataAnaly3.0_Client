@@ -58,7 +58,11 @@ public class ImportPlayer {
 	}
 	
 	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType,String season){
-		return spt.ascend(DataType,season);
+		ArrayList<PlayerTechVO> playerlist=spt.ascend(DataType,season);
+		for(int i=0;i<playerlist.size();i++){
+			System.out.println(playerlist.get(i).name);
+		}
+		return playerlist;
 	}
 
 	public ArrayList<PlayerTechVO> getPlayerTechDescend(String DataType,String season){
