@@ -22,11 +22,12 @@ public class PlayerTech implements StatsInfo{
 
 	public static void main(String[] args){
 		PlayerTech pt = new PlayerTech();
-		ArrayList<MatchPO> li = pt.getRecentMatch("BOS", "2014-2015");
-	    System.out.println(li.size());
+		ArrayList<PlayerTechMPO> li = pt.getRecentPlayerM("Jack Cooley", "2014-15 Regular");
+	   System.out.println(li.size());
 		for(int i=0;i<li.size();i++){
 			System.out.println(li.get(i).date);
 		}
+		
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -35,6 +36,9 @@ public class PlayerTech implements StatsInfo{
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		String user = "root";
 		String password = "cyanham";
+		if(season.trim().split("\\s+")[1].equals("Regular")){
+			season = season+" season";
+		}
 		try {
 						Class.forName(driver);
 						Connection conn = DriverManager.getConnection(url, user, password);
@@ -106,7 +110,8 @@ public class PlayerTech implements StatsInfo{
 							System.out.println("Succeeded connecting to the Database!");
 						}
 						Statement statement = conn.createStatement();
-						String sql = "SELECT * FROM `playerTechPO` where name = '"+player+"' and season = '"+season+"'";						
+						String sql = "SELECT * FROM `playerTechPO` where name = '"+player+"' and season = '"+season+"'";		
+						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
 							PlayerTechPO po = new PlayerTechPO();
@@ -361,14 +366,14 @@ public class PlayerTech implements StatsInfo{
 							po.fault=  Integer.valueOf(rs.getString("fault"));
 							po.foul=  Integer.valueOf(rs.getString("foul"));
 							po.score=  Integer.valueOf(rs.getString("score"));
-							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-							po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+							po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+							po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+							po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+							po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+							po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+							po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+							po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+							po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
 							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
 							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
@@ -404,7 +409,8 @@ public class PlayerTech implements StatsInfo{
 							System.out.println("Succeeded connecting to the Database!");
 						}
 						Statement statement = conn.createStatement();
-						String sql = "SELECT * FROM `playerTechPO` where name = '"+name+"' and ifRegular = '1'";						
+						String sql = "SELECT * FROM `playerTechPO` where name = '"+name+"' and ifRegular = '1'";		
+						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
 							PlayerTechPO po = new PlayerTechPO();
