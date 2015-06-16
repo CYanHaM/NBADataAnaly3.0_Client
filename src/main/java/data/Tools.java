@@ -211,7 +211,6 @@ public class Tools {
 				String team = rs.getString("team");
 				po.name=name;
 				po.season=t.changeSeason(season)+" "+rs.getString("type");
-				System.out.println(season);
 				po.team=team;
 				po.ifRegular=type.equals("Regular")?1:0;
 				Statement sta = conn.createStatement();
