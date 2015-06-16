@@ -50,8 +50,6 @@ public class Test {
 	
 	public void modifyDataBase(){
 		String driver = "com.mysql.jdbc.Driver";
-		ArrayList<String> host = new ArrayList<String>();
-		//URL指向要访问的数据库名nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		// MySQL配置时的用户名
 		String user = "root";
@@ -69,10 +67,18 @@ public class Test {
 			Statement statement = (Statement) conn.createStatement();
 			
 			// 要执行的SQL语句
-				String sql = "select date from`match` where guest ='"+team+"'";
+				String sql = "select team from playerTechMPO";
 				ResultSet rs = statement.executeQuery(sql);
 				while(rs.next()) { 
-					host.add(rs.getString("date"));
+					String str = rs.getString(1);
+					int index = str.indexOf("20");
+					String season = str.substring(index, str.length());
+					String team = str.substring(0, index-1);
+					String sql2 = "Update playerTechMPO set season='"+season+"' where team = '"+str+"'";
+					Statement state = conn.createStatement();
+					state.executeUpdate(sql2);
+					String sql3 = "Update playerTechMPO set newTeam='"+team+"' where team = '"+str+"'";
+					state.executeUpdate(sql3);
 				} 
 				rs.close();  
 				conn.close();  
@@ -84,6 +90,5 @@ public class Test {
        } catch(Exception e) {   
               e.printStackTrace();   
        }
-		return host;
 	}
 }
