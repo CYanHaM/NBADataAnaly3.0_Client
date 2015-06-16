@@ -170,6 +170,9 @@ public class TeamTechAssist {
 		return m.get(totrans).toString();
 	}
 	public String fullName(String totrans){
+		if(totrans.equals("NJ")){
+			return null;
+		}
 		Map m = new HashMap();
 		m.put("ATL","Atlanta Hawks");
 		m.put( "BOS","Boston Celtics");
@@ -198,9 +201,11 @@ public class TeamTechAssist {
 		m.put( "POR","Portland Trail Blazers");
 		m.put("SAC","Sacramento Kings");
 		m.put("SEA","San Antonio Spurs");
+		m.put("SA", "San Antonio Spurs");
 		m.put("TOR","Toronto Raptors");
 		m.put("UTAH","Utah Jazz");
 		m.put( "WSH","Washington Wizards");
+
 		return m.get(totrans).toString();
 	}
 	
