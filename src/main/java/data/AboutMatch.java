@@ -65,7 +65,9 @@ TeamTechAssist tta = new TeamTechAssist();
 			Statement statement2 = conn.createStatement();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
+			int i = 0;
 			while(rs1.next()) {
+				i++;
 				System.out.println("match:");
 				MatchPO mpo = new MatchPO();
 				mpo.ifRegular=0;
@@ -141,6 +143,7 @@ TeamTechAssist tta = new TeamTechAssist();
 					//ptpo.division 
 					ptpo.date=new String(rs2.getString("date").getBytes("ISO-8859-1"),"utf-8");
 					ptpo.position=t.getPos(new String(rs2.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
+					System.out.println("i"+i);
 					ptpo.time=Integer.valueOf(new String(rs2.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
 					String FGM_A =new String(rs2.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
 					if(FGM_A.equals("0")){
