@@ -52,8 +52,8 @@ public class MatchInfo extends JPanel{
 //		this.setBackground(MP.MatchInfobg);
 		
 		//get matches from interface
-		matches=mbs.showMatchList(Date);
-//		testmatches();
+//		matches=mbs.showMatchList(Date);
+		testmatches();
 		showMatchinfo(matches);
 		
 		

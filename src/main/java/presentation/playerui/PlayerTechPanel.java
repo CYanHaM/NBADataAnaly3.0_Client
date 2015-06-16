@@ -312,7 +312,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ArrayList<PlayerTechVO> playervo=importdata.findPlayerByLetter(letter[Count],String.valueOf(season.getSelectedItem()));
+			ArrayList<PlayerTechVO> playervo=importdata.findPlayerByLetter(letter[Count],switchseasonname(String.valueOf(season.getSelectedItem())));
 			playerinfo1=new Object[playervo.size()][columnName1.length];
 			playerinfo2=new Object[playervo.size()][columnName2.length];
 			playerinfo3=new Object[playervo.size()][columnName3.length];
@@ -1507,9 +1507,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		if(arg0.getSource()==commit){
 			seniorsiftpanel.getScreeningCondition();
 			//TODO test the screeningcondition and delete it when necessary
+//			for(int i=0;i<screeningconditions.size();i++){
+//				System.out.println(screeningconditions.get(i).position+"--"+screeningconditions.get(i).division+"--"+screeningconditions.get(i).condition+"--"+screeningconditions.get(i).number);
+//			}
 			for(int i=0;i<screeningconditions.size();i++){
-				System.out.println(screeningconditions.get(i).position+"--"+screeningconditions.get(i).division+"--"+screeningconditions.get(i).condition+"--"+screeningconditions.get(i).number);
-			}
+			if(!(screeningconditions.get(i).number<0)){
 			ArrayList<PlayerTechVO> siftVO=importdata.sift(screeningconditions,switchseasonname((String) season.getSelectedItem()));
 			playerinfo1=new Object[siftVO.size()][columnName1.length];
 			playerinfo2=new Object[siftVO.size()][columnName2.length];
@@ -1520,8 +1522,11 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			}else if(switchboxsel.equals("场均数据")){
 				handleAverageData(siftVO);
 			}
-			
-			
+			break;
+			}else{
+				JOptionPane.showMessageDialog(this, "数值不可为空！");
+			}
+			}
 		}
 		
 		if(arg0.getSource()==reset){

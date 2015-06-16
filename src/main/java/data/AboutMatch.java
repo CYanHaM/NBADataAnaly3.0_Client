@@ -314,9 +314,17 @@ TeamTechAssist tta = new TeamTechAssist();
 			}
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
-			String str = "replace into `MatchPO` values('"+po.ifRegular+"','"+po.season+"','"+po.date+"','"+po.homeTeam+"','"+po.guestTeam+"','"+po.score+"','"+po.score1+"','"+po.score2+"','"+po.score3+"','"+po.score4+"','"+po.scoreExtra+"','"+po.scoringChampion+"','"+po.reboundChampion+"','"+po.assistChampion+"','"+po.ifHomeTeamWin+"','"+po.ifGuestTeamWin+"','"+po.homeTeamDeffensiveRebound+"','"+po.guestTeamDeffensiveRebound+"','"+po.homeTeamOffensiveRebound+"','"+po.guestTeamOffensiveRebound+"','"+
-						po.homeTeamFoul+"','"+po.guestTeamFoul+"','"+po.homeTeamSecondaryAttack+"','"+po.guestTeamSecondaryAttack+"','"+po.homeTeamBlockShot+"','"+po.guestTeamBlockShot+"','"+po.homeScore+"','"+po.guestScore+"','"+po.homeAllTime+"','"+po.guestAllTime+"','"+po.homeShotIn+"','"+po.guestShotIn+"','"+po.homeShot+"','"+po.guestShot+"','"+po.homeTwoShot+"','"+po.homeTwoShotIn+"','"+po.guestTwoShot+"','"+po.guestTwoShotIn+"','"+po.homeThreeShot+"','"+po.guestThreeShot+"','"+po.homeThreeShotIn+po.guestThreeShotIn+"','"+po.homePenaltyShot+"','"+
+			String str = "replace into `MatchPO` values('"+po.ifRegular+"','"+po.season+"','"+po.date+"','"+po.homeTeam+"','"+po.guestTeam+"','"
+			+po.score+"','"+po.score1+"','"+po.score2+"','"+po.score3+"','"+po.score4+"','"
+					+po.scoreExtra+"','"+po.scoringChampion+"','"+po.reboundChampion+"','"+po.assistChampion+"','"+po.ifHomeTeamWin+"','"
+			+po.ifGuestTeamWin+"','"+po.homeTeamDeffensiveRebound+"','"+po.guestTeamDeffensiveRebound+"','"+po.homeTeamOffensiveRebound+"','"+po.guestTeamOffensiveRebound+"','"+
+						po.homeTeamFoul+"','"+po.guestTeamFoul+"','"+po.homeTeamSecondaryAttack+"','"+po.guestTeamSecondaryAttack+"','"+po.homeTeamBlockShot+
+						"','"+po.guestTeamBlockShot+"','"+po.homeScore+"','"+po.guestScore+"','"+po.homeAllTime+"','"+po.guestAllTime+"','"+
+						po.homeShotIn+"','"+po.guestShotIn+"','"+po.homeShot+"','"+po.guestShot+"','"+po.homeTwoShot+"','"+
+						po.homeTwoShotIn+"','"+po.guestTwoShot+"','"+po.guestTwoShotIn+"','"+po.homeThreeShot+"','"+po.guestThreeShot+"','"+
+						po.homeThreeShotIn+"','"+po.guestThreeShotIn+"','"+po.homePenaltyShot+"','"+
 					po.guestPenaltyShot+"','"+po.homePenaltyShotIn+"','"+po.guestPenaltyShotIn+"','"+po.homeFault+"','"+po.guestFault+"')";
+			System.out.println(str);
 			statement.executeUpdate(str);
 		}catch(ClassNotFoundException e) {
 			System.out.println("Sorry,can`t find the Driver!");
