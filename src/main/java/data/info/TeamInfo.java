@@ -11,6 +11,11 @@ import dataservice.TeamDataService;
 
 public class TeamInfo implements TeamDataService {
 
+	public static void main(String[] args){
+		TeamInfo ti = new TeamInfo();
+		TeamPO po = ti.find("BOS");
+		System.out.println(po.fullName);
+	}
 	@Override
 	public TeamPO find(String team) {
 		// TODO Auto-generated method stub
@@ -35,7 +40,7 @@ public class TeamInfo implements TeamDataService {
 					// statement用来执行SQL语句
 					Statement statement = conn.createStatement();
 					// 要执行的SQL语句
-					String sql = "SELECT * FROM t_team WHERE abbreviation = '"+team+"'";
+					String sql = "SELECT * FROM teamInfo WHERE abbreviation = '"+team+"'";
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) {
 						TeamPO po = new TeamPO();
@@ -46,7 +51,6 @@ public class TeamInfo implements TeamDataService {
 						po.partition = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
 						po.homeCourt = new String(rs.getString(6).getBytes("ISO-8859-1"),"utf-8");
 						po.time = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
-						System.out.println("find team");
 						return po;
 					}
 					rs.close();
