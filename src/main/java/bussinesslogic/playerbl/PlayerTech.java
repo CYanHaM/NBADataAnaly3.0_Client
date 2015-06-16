@@ -569,7 +569,6 @@ public class PlayerTech implements StatsInfo{
 		return null;
 	}
 
-	//锟斤拷锟斤拷锟斤拷 锟斤拷员锟斤拷锟斤拷锟斤拷锟斤拷 锟矫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较革拷帽锟斤拷锟斤拷失锟斤拷投锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较筹拷时锟斤拷
 	@Override
 	public PlayerTechPO getPlayerRank(String player, String season,
 			int ifRegular) {
@@ -744,26 +743,21 @@ public class PlayerTech implements StatsInfo{
 			String division) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
 						TeamTechPO po = new TeamTechPO();
-						//锟矫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较革拷帽锟斤拷锟斤拷失锟斤拷 投锟斤拷锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟较筹拷时锟斤拷
 						Statement state = conn.createStatement();
 						String sql = "select avg(score)as a,avg(rebound) as b, avg(secondaryAttack) as c, avg(steal) as d, avg(blockShot) as e,"
 								+ " avg(foul)  as f, avg(fault) as g, avg(shotInRate) as h, avg(threeShotInNum) as i,avg(penaltyShotNum) as j"
 								+ "from `playerTechPO` where season='"+season+"' and team in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
+						System.out.println(sql);
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
 							po.score = Integer.valueOf(rs.getString(1));
@@ -797,22 +791,17 @@ public class PlayerTech implements StatsInfo{
 			String division) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
 						PlayerTechPO po = new PlayerTechPO();
-						//锟矫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较革拷帽锟斤拷锟斤拷失锟斤拷 投锟斤拷锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟斤拷锟斤拷锟斤拷锟斤拷锟� 锟较筹拷时锟斤拷
+						
 						Statement state = conn.createStatement();
 						String sql = "select avg(score)as a,avg(rebound) as b, avg(assist) as c, avg(steal) as d, avg(block) as e,"
 								+ " avg(foul)  as f, avg(fault) as g, avg(shotInRate) as h, avg(threeShotIn) as i,avg(penaltyShot) as j, avg(time) as k"
@@ -850,21 +839,15 @@ public class PlayerTech implements StatsInfo{
 	public ArrayList<String> getTeamSeasonList(String team) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
 						String sql = "select distinct season from teamtech where name='"+team+"'";
 						ResultSet rs = statement.executeQuery(sql);
@@ -884,7 +867,7 @@ public class PlayerTech implements StatsInfo{
      } catch(Exception e) {   
             e.printStackTrace();   
      }
-		System.out.println("something wrong in getPlayerTech");
+		System.out.println("wrong:getTeamSeasonList");
 		return null;
 	}
 
@@ -892,21 +875,15 @@ public class PlayerTech implements StatsInfo{
 	public ArrayList<String> getPlayerSeasonList(String player) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 						Class.forName(driver);
-						// 锟斤拷锟斤拷锟斤拷菘锟�
 						Connection conn = DriverManager.getConnection(url, user, password);
 						if(!conn.isClosed()){
 							System.out.println("Succeeded connecting to the Database!");
 						}
-						// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 						Statement statement = conn.createStatement();
 						String sql = "select distinct season from playerTechPO where name='"+player+"'";
 						ResultSet rs = statement.executeQuery(sql);
@@ -926,7 +903,7 @@ public class PlayerTech implements StatsInfo{
      } catch(Exception e) {   
             e.printStackTrace();   
      }
-		System.out.println("something wrong in getPlayerTech");
+		System.out.println("wrong: getPlayerSeasonList");
 		return null;
 	}
 
