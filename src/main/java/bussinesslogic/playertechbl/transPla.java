@@ -5,6 +5,7 @@ public class transPla {
 		switch(con){
 			case"name":return "name";
 			case"team":return"team";
+			case"season":return"season";
 			case"gamenum":return"gameNum";
 			case"reboundave":return"reboundave";
 			case"rebound":return"rebound";

@@ -37,7 +37,20 @@ public class ImportPlayer {
 
 	public ArrayList<String> getPlayerSeasonList(){
 		ArrayList<String> seasonlist=new ArrayList<String>();
-		ArrayList<PlayerTechPO> playertechlist=sds.all();
+		
+//		ArrayList<String> seasonlist=new ArrayList<String>();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
+		
+		ArrayList<PlayerTechVO> playertechlist=spt.ascend("season", "all");
 		for(int i=0;i<playertechlist.size();i++){
 			seasonlist.add(playertechlist.get(i).season);
 		}
