@@ -53,12 +53,18 @@ public class TeamTechAssist {
 				ttpo.penaltyShotInRate = Double.valueOf(new String(rs1.getString("FT").getBytes("ISO-8859-1"),"utf-8"));
 				ttpo.opponentScore = Integer.valueOf(new String(rs1.getString("OPP_Poi").getBytes("ISO-8859-1"),"utf-8"));
 				
+				System.out.println(name);
+				
 				Statement statement2 = conn.createStatement();
-				String sql2 = "SELECT * FROM `high` where (team='"+name+"') and year='"+regular+"'";
+				String seregular = null;
+				seregular = regular.substring(0, 5) + "20" + regular.substring(5);
+				String sql2 = "SELECT * FROM `high` where team='"+name+"' and year='"+seregular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				while(rs2.next()){
-					if(rs2.getString("team").equals(name)){
+					System.out.println(rs2.getString("team"));
+					System.out.println(name.equals(rs2.getString("team")));
+					if(name.equals(rs2.getString("team"))){
 					ttpo.secondaryAttackEfficiency = Double.valueOf(new String(rs2.getString("ast")));
 					ttpo.reboundEfficiency = Double.valueOf(new String(rs2.getString("rebr")));
 					ttpo.offensiveEfficiency = Double.valueOf(new String(rs2.getString("off_EFF")));
@@ -121,6 +127,41 @@ public class TeamTechAssist {
 		} catch(Exception e) {
 			e.printStackTrace();
 		};
+	}
+	
+	public String nameTranss(String totrans){
+		Map m = new HashMap();
+		m.put("ATL", "Atlanta");
+		m.put("BOS", "Boston");
+		m.put("BKN", "Brooklyn");
+		m.put("CHA", "Charlotte");
+		m.put("CHI", "Chicago");
+		m.put("CLE", "Cleveland");
+		m.put("DAL", "Dallas");
+		m.put("DEN", "Denver");
+		m.put("DET", "Detroit");
+		m.put("GS", "Golden State");
+		m.put("HOU", "Houston");
+		m.put("IND", "Indiana");
+		m.put("LAC", "LA Clippers");
+		m.put("LAL", "LA Lakers");
+		m.put("MEM", "Memphis");
+		m.put("MIA", "Miami");
+		m.put("MIL", "Milwaukee");
+		m.put("MIN", "Minnesota");
+		m.put("NO","New Orleans");
+		m.put("NY", "New York");
+		m.put("OKC", "Oklahoma City");
+		m.put("ORL", "Orlando");
+		m.put("PHI", "Philadelphia");
+		m.put("PHX", "Phoenix");
+		m.put("POR", "Portland");
+		m.put("SAC", "Sacramento");
+		m.put("SEA", "San Antonio");
+		m.put("TOR","Toronto");
+		m.put("UTAH", "Utah");
+		m.put("WSH", "Washington");
+		return m.get(totrans).toString();
 	}
 	
 	public String nameTrans(String totrans){

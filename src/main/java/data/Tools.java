@@ -16,7 +16,7 @@ public class Tools {
 	
 	public static void main(String[] args){
 		Tools t = new Tools();
-		t.fillPlayerTech();
+			t.fillPlayerTech(); 
 	}
 	
 	public void transferDetail(){
@@ -306,8 +306,10 @@ public class Tools {
 				}
 				list.add(po);
 				Statement state = conn.createStatement();
+
 				String str = "replace into `playerTechPO` values('"+po.name.replaceAll("'", "''")+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
 						po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+po.penaltyShot+"','"+po.shotInRate+"','"+po.threeShotInRate+"','"+po.penaltyShotInRate+"','"+po.GmScEfficiency+"','"+po.trueShotInRate+"','"+po.shootingEfficiency+"','"+po.reboundRate+"','"+po.offensiveReboundRate+"','"+po.defensiveReboundRate+"','"+po.secondaryAttackRate+"','"+po.faultRate+"','"+po.usageRate+"','"+po.ifDouble+"')";
+				System.out.println(str);
 				state.executeUpdate(str);
 			}
 			return list;
