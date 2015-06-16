@@ -20,14 +20,14 @@ public class PlayerTech implements StatsInfo{
 	public static void main(String[] args){
 		PlayerTech pt = new PlayerTech();
 		Find fi = new Find();
-		TeamTechPO li = pt.getTeamRank("BOS", "2009-10 Regular", 1);
+		ArrayList<MatchPO> li = pt.getRecentMatch("ATL", "2009-10 Regular");
 	  // System.out.println(li.size());
 	/*	for(int i=0;i<li.size();i++){
 			System.out.println(li.get(i).homeThreeShot);
 		}
 		*/
 		
-		System.out.println(li.fault);
+		System.out.println(li.size());
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -986,8 +986,15 @@ public class PlayerTech implements StatsInfo{
 						ArrayList<String> se = new ArrayList<String>();
 						while(rs.next()){
 							String[] temp = rs.getString(1).trim().split("\\s+");
-							se.add(temp[0]);
+							if(temp.length==3){
+								se.add(temp[0]+" "+temp[1]);
+							}
+							else{
+								se.add(rs.getString(1));
+							}
 						}
+						
+						
 						rs.close();
 						conn.close();
 						return se;
@@ -1021,8 +1028,7 @@ public class PlayerTech implements StatsInfo{
 						ResultSet rs = statement.executeQuery(sql);
 						ArrayList<String> se = new ArrayList<String>();
 						while(rs.next()){
-							String[] temp = rs.getString(1).trim().split("\\s+");
-							se.add(temp[0]);
+							se.add(rs.getString(1));
 						}
 						rs.close();
 						conn.close();
