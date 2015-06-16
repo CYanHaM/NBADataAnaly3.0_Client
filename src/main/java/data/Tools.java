@@ -173,9 +173,7 @@ public class Tools {
 	}
 	
 	public String getPos(String pos){
-						String[] temp = pos.split(",");
-						// 锟斤拷锟�
-						System.out.println(temp[1]);  
+						String[] temp = pos.trim().split(",");
 						return temp[1];
 					} 
 
@@ -304,7 +302,7 @@ public class Tools {
 				}
 				list.add(po);
 				Statement state = conn.createStatement();
-				String str = "replace into `playerTechPO` values('"+po.name.replace("\\'", "\\\\'")+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
+				String str = "replace into `playerTechPO` values('"+po.name.replaceAll("'", "''")+"','"+po.season+"','"+po.team+"','"+po.ifRegular+"','"+po.position+"','"+po.division+"','"+po.gameNum+"','"+po.startingNum+"','"+po.rebound+"','"+po.secondaryAttack+"','"+po.time+"','"+po.offensiveNum+"','"+po.defensiveNum+"','"+po.steal+"','"+po.blockShot+"','"+po.fault+"','"+po.foul+"','"+po.score+"','"+po.shotIn+"','"+po.shot+"','"+
 						po.threeShotIn+"','"+po.threeShot+"','"+po.penaltyShotIn+"','"+po.penaltyShot+"','"+po.shotInRate+"','"+po.threeShotInRate+"','"+po.penaltyShotInRate+"','"+po.GmScEfficiency+"','"+po.trueShotInRate+"','"+po.shootingEfficiency+"','"+po.reboundRate+"','"+po.offensiveReboundRate+"','"+po.defensiveReboundRate+"','"+po.secondaryAttackRate+"','"+po.faultRate+"','"+po.usageRate+"','"+po.ifDouble+"')";
 				state.executeUpdate(str);
 			}
