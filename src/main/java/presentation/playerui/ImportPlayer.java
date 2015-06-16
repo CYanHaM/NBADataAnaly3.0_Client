@@ -56,16 +56,16 @@ public class ImportPlayer {
 			seasonlist.add(playertechlist.get(i).season);
 		}
 		
-		ArrayList<String> resultlist=new ArrayList<String>();
-		resultlist.add(seasonlist.get(0));
-		for(int i=0;i<seasonlist.size();i++){
-			for(int j=0;j<resultlist.size();j++){
-				if(!resultlist.get(j).equals(seasonlist.get(i))){
-					resultlist.add(seasonlist.get(i));
-					System.out.println("--"+seasonlist.get(i));
-				}
-			}
-		}
+//		ArrayList<String> resultlist=new ArrayList<String>();
+//		resultlist.add(seasonlist.get(0));
+//		for(int i=0;i<seasonlist.size();i++){
+//			for(int j=0;j<resultlist.size();j++){
+//				if(!resultlist.get(j).equals(seasonlist.get(i))){
+//					resultlist.add(seasonlist.get(i));
+//					System.out.println("--"+seasonlist.get(i));
+//				}
+//			}
+//		}
 		
 		
 		return seasonlist;
