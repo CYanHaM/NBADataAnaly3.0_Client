@@ -41,12 +41,6 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 	public static int WIDTH=1100;
 	public static int HEIGHT=700;
 
-	private JButton SeasonInfo;
-	private JButton MatchInfo;
-	private JButton TeamInfo;
-	private JButton PlayerInfo;
-	private JButton Hot;
-	
 	//热点球员，热点球队切换按钮
 //	private JComboBox<String> switchbox;
 	private JButton hotplayer;
@@ -591,31 +585,6 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==SeasonInfo){
-			Frame.remove(panelToRemove);
-			TeamTechPanel panel=new TeamTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==MatchInfo){
-			Frame.remove(panelToRemove);
-			MatchPanel panel=new MatchPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==TeamInfo){
-			Frame.remove(panelToRemove);
-			TeamInfoPanel panel=new TeamInfoPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==PlayerInfo){
-			Frame.remove(panelToRemove);
-			PlayerTechPanel panel=new PlayerTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		
 		if(arg0.getSource()==hotplayer){
 			Frame.remove(panelToRemove);
 			HotPlayerToday panel=new HotPlayerToday(Frame);

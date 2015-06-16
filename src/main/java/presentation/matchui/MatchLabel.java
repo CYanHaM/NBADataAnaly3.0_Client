@@ -58,7 +58,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 		MP = new MatchPre();
 		this.setOpaque(false);
 		this.setLayout(null);
-		this.setSize(760, 150);
+		this.setSize(850, 150);
 		//this.setIcon(new ImageIcon("images/matches/matchlabel.png"));
 
 		team_config(matchinfo);

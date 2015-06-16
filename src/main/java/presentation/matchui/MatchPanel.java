@@ -150,7 +150,7 @@ public class MatchPanel extends JPanel implements ActionListener{
 
 	private void JScrollPane_config(){
 		jsp = new JScrollPane();
-		jsp.setBounds(208, 175, 770, 450);
+		jsp.setBounds(195, 160, 840, 485);
 		jsp.setHorizontalScrollBarPolicy( 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 		jsp.setVerticalScrollBarPolicy( 
