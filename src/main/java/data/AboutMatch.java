@@ -93,9 +93,9 @@ TeamTechAssist tta = new TeamTechAssist();
 				ResultSet rs2 = statement2.executeQuery(sql2);
 				int index=0;
 				System.out.println("select from detail resultset.rows"+rs2.getRow());
-				if(rs2.getRow()==0){
+				/*if(rs2.getRow()==0){
 					break;
-				}
+				}*/
 				while(rs2.next()){
 					PlayerTechMPO ptpo = new PlayerTechMPO();
 					index++;
