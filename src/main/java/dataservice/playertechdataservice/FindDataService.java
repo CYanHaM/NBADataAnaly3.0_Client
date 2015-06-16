@@ -17,4 +17,5 @@ public interface FindDataService {
 	public ArrayList<PlayerTechPO> findFastImprovingPlayer(String keyword);
 	
 	public PlayerTechPO findPlayerTechByName(String name,String season);
+	
 }

@@ -360,7 +360,7 @@ public class Show implements ShowDataService{
 				po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
 				po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
 				po.steal=Integer.valueOf(rs.getString("steal"));
-				po.blockShot=Integer.valueOf(rs.getString("blockShot"));
+				po.blockShot=Integer.valueOf(rs.getString("block"));
 				po.fault=Integer.valueOf(rs.getString("fault"));
 				po.foul=Integer.valueOf(rs.getString("foul"));
 				po.score=Integer.valueOf(rs.getString("score"));
@@ -375,13 +375,14 @@ public class Show implements ShowDataService{
 				po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
 				po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
 				po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
-				po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+				po.shootingEfficiency=Double.valueOf(rs.getString("ShootingEffi"));
 				po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
 				po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
 				po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
 				po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
 				po.faultRate=Double.valueOf(rs.getString("faultRate"));
 				po.usageRate=Double.valueOf(rs.getString("usageRate"));
+				po.ifDouble=Integer.parseInt(rs.getString("ifDouble"));
 				list.add(po);
 			}
 			rs.close();
@@ -439,7 +440,7 @@ public class Show implements ShowDataService{
 				po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
 				po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
 				po.steal=Integer.valueOf(rs.getString("steal"));
-				po.blockShot=Integer.valueOf(rs.getString("blockShot"));
+				po.blockShot=Integer.valueOf(rs.getString("block"));
 				po.fault=Integer.valueOf(rs.getString("fault"));
 				po.foul=Integer.valueOf(rs.getString("foul"));
 				po.score=Integer.valueOf(rs.getString("score"));
@@ -454,13 +455,14 @@ public class Show implements ShowDataService{
 				po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
 				po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
 				po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
-				po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+				po.shootingEfficiency=Double.valueOf(rs.getString("ShootingEffi"));
 				po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
 				po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
 				po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
 				po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
 				po.faultRate=Double.valueOf(rs.getString("faultRate"));
 				po.usageRate=Double.valueOf(rs.getString("usageRate"));
+				po.ifDouble=Integer.parseInt(rs.getString("ifDouble"));
 				list.add(po);
 			}
 			rs.close();
