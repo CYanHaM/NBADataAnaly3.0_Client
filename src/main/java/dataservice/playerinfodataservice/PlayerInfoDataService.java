@@ -8,7 +8,7 @@ public interface PlayerInfoDataService {
 	//acive==0返回现役和退役所有球员,active==1,返回现役,active==2,返回退役
 	public ArrayList<PlayerPO> findAll(int active);
 	
-	public PlayerPO findOne(String name,int active);
+	public PlayerPO findOne(String name);
 	
 	public ArrayList<PlayerPO> findByTeam(String team,int active);
 	

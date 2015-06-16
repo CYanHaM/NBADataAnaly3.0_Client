@@ -58,7 +58,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 		MP = new MatchPre();
 		this.setOpaque(false);
 		this.setLayout(null);
-		this.setSize(760, 150);
+		this.setSize(850, 150);
 		//this.setIcon(new ImageIcon("images/matches/matchlabel.png"));
 
 		team_config(matchinfo);
@@ -117,8 +117,13 @@ public class MatchLabel extends JPanel implements ActionListener{
 		homeTeam_name2.setFont(MP.Teamabb);
 		homeTeam_name2.setForeground(null);
 		
-		details = new JButton("更多");
+		details = new JButton(new ImageIcon("images/matches/details_1.png"));
 		details.setBounds(685, 5, 60, 25);
+		details.setBorderPainted(false);
+		details.setContentAreaFilled(false);
+		details.setFocusPainted(false);
+		details.setRolloverIcon(new ImageIcon("images/matches/details_2.png"));
+		details.setPressedIcon(new ImageIcon("images/matches/details_3.png"));
 		details.addActionListener(this);
 	}
 

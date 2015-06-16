@@ -19,6 +19,8 @@ import presentation.playerui.PlayerTechPanel;
 import presentation.preset.MatchPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
+import blservice.matchblservice.MatchBLService;
+import bussinesslogic.matchbl.Match;
 //import blservice.matchblservice.MatchBLService;
 //import bussinesslogic.matchbl.Match;
 
@@ -50,13 +52,13 @@ public class MatchPanel extends JPanel implements ActionListener{
 	private MatchInfo matchinfo;
 	private JScrollPane jsp;
 	private DateLabel datelabel;
-//	private MatchBLService mbs;
+	private MatchBLService mbs;
 	public JFrame Frame;
 	public JPanel panelToRemove;
 	public MatchPanel(JFrame frame) {
 		Frame=frame;
 		panelToRemove=this;
-//		mbs=new Match();
+		mbs=new Match();
 		
 		this.setLayout(null);
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -69,14 +71,14 @@ public class MatchPanel extends JPanel implements ActionListener{
 		showcal.setFont(MP.CallendarinitFont);
 		showcal.setBounds(192, 115, 95, 30);
 		calendar = new JLabel();
-		calendar.setBounds(208, 140, 90, 30);
+		calendar.setBounds(208, 110, 90, 30);
 		calendar.setFont(MP.CallendarinitFont);
 		calendar.setForeground(MP.CallendarinitColor);
 		
 		//TODO change the lastdate when testing 
 //		String lastdate="2014-02-18";
-//		String lastdate=mbs.returnPresentDate();
-//		datelabel=DateLabel.getInstance(lastdate);
+		String lastdate=mbs.returnPresentDate();
+		datelabel=DateLabel.getInstance(lastdate);
 		datelabel.register(calendar);
 		calendar.setText(datelabel.getSelectedDate());
 
@@ -101,8 +103,13 @@ public class MatchPanel extends JPanel implements ActionListener{
 		tomorrow.addActionListener(this);
 		tomorrow.setVisible(false);
 		
-		refresh = new JButton("刷新");
-		refresh.setBounds(310, 140, 60, 25);
+		refresh = new JButton(new ImageIcon("images/matches/refresh_1.png"));
+		refresh.setBounds(310, 110, 60, 25);
+		refresh.setBorderPainted(false);
+		refresh.setContentAreaFilled(false);
+		refresh.setFocusPainted(false);
+		refresh.setRolloverIcon(new ImageIcon("images/matches/refresh_2.png"));
+		refresh.setPressedIcon(new ImageIcon("images/matches/refresh_3.png"));
 		refresh.addActionListener(this);
 		
 		this.add(showcal);
@@ -150,7 +157,7 @@ public class MatchPanel extends JPanel implements ActionListener{
 
 	private void JScrollPane_config(){
 		jsp = new JScrollPane();
-		jsp.setBounds(208, 175, 770, 450);
+		jsp.setBounds(195, 160, 840, 485);
 		jsp.setHorizontalScrollBarPolicy( 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 		jsp.setVerticalScrollBarPolicy( 

@@ -5,12 +5,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import presentation.preset.MatchPre;
 //import blservice.matchblservice.MatchBLService;
 //import bussinesslogic.matchbl.Match;
 import VO.MatchVO;
-import presentation.preset.MatchPre;
+import blservice.matchblservice.MatchBLService;
+import bussinesslogic.matchbl.Match;
 
 public class MatchInfo extends JPanel{
 	/**
@@ -22,13 +25,13 @@ public class MatchInfo extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	//定义滑动面板动态大小
-	private int panel_width=750;
-	private int panel_height=451;
+	private int panel_width=840;
+	private int panel_height=500;
 	
-	private int label_width=760;
+	private int label_width=850;
 	private int label_height=150;
 	//
-//	private MatchBLService mbs;
+	private MatchBLService mbs;
 	private String Date;
 	private ArrayList<MatchVO> matches;
 	
@@ -37,19 +40,19 @@ public class MatchInfo extends JPanel{
 	public MatchInfo(String date,JFrame frame,JPanel panel) {
 		Frame=frame;
 		panelToReturn=panel;
-//		mbs=new Match();
+		mbs=new Match();
 		Date=date;
 		
-		MatchPre MP=new MatchPre();
-//		this.setOpaque(false);
+//		MatchPre MP=new MatchPre();
+		this.setOpaque(false);
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(panel_width,panel_height));
-//		this.setSize(panel_width,panel_height);
+		this.setSize(panel_width,panel_height);
 		this.setOpaque(false);
 //		this.setBackground(MP.MatchInfobg);
 		
 		//get matches from interface
-//		matches=mbs.showMatchList(Date);
+		matches=mbs.showMatchList(Date);
 //		testmatches();
 		showMatchinfo(matches);
 		
@@ -109,8 +112,6 @@ public class MatchInfo extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-//		ImageIcon img = new ImageIcon("images/");
-		
 	}
 	
 	

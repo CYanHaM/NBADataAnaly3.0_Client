@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.tools.Tool;
+
 import PO.PlayerPO;
+import data.TeamTechAssist;
 import data.Tools;
 import dataservice.playerinfodataservice.PlayerInfoDataService;
 
@@ -15,7 +18,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 
 	public static void main(String[] args){
 		PlayerInfo pi = new PlayerInfo();
-		ArrayList<PlayerPO> all = pi.findAll(0);
+		ArrayList<PlayerPO> all = pi.findByLetter('B', 0);
 		System.out.println(all.size());
 	}
 	Tools tool = new Tools();
@@ -95,7 +98,7 @@ public class PlayerInfo implements PlayerInfoDataService {
 	}
 
 	@Override
-	public PlayerPO findOne(String name,int active) {
+	public PlayerPO findOne(String name) {
 		// TODO Auto-generated method stub
 				//连接至数据库
 				//驱动程序名
@@ -118,26 +121,33 @@ public class PlayerInfo implements PlayerInfoDataService {
 					Statement statement = conn.createStatement();
 					// 要执行的SQL语句
 					String sql = "SELECT * FROM playerInfo where name ='"+name+"'";
-					if(active==1){
-						sql = sql+" and season = '2014-15'";
-					}
-					if(active==2){
-						sql = sql+" and season <> '2014-15'";
-					}
 					ResultSet rs = statement.executeQuery(sql);
 					while(rs.next()) { 
 						PlayerPO po = new PlayerPO();
-						po.name = rs.getString(2);
-						po.uniformNum = Integer.valueOf(rs.getString(3));
-						po.position = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
-						po.height = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
-						po.weight = rs.getDouble(6);
-						po.birth = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
-						po.age = rs.getInt(8);
-						po.exp = rs.getInt(9);
-						po.school = new String(rs.getString(10).getBytes("ISO-8859-1"),"utf-8");
-						po.team = new String(rs.getString(11).getBytes("ISO-8859-1"),"utf-8");
-						po.season = new String(rs.getString(12).getBytes("ISO-8859-1"),"utf-8");
+						po.name = rs.getString("name");
+						if(rs.getString("No").equals("")){
+							po.uniformNum=2;
+						}else{
+							po.uniformNum = Integer.valueOf(rs.getString("No"));
+						}
+						po.position = new String(rs.getString("Pos").getBytes("ISO-8859-1"),"utf-8");
+						po.height = new String(rs.getString("Height").getBytes("ISO-8859-1"),"utf-8");
+						po.weight = Double.parseDouble(rs.getString("Weight"));
+						po.birth = new String(rs.getString("BirthDate").getBytes("ISO-8859-1"),"utf-8");
+						if(rs.getString("Age").equals("")){
+							po.age=26;
+						}else{
+							po.age = Integer.parseInt(rs.getString("Age"));
+						}
+						if(rs.getString("Exp").equals("R")){
+							po.exp=2;
+						}
+						else{
+							po.exp = Integer.parseInt(rs.getString("Exp"));
+						}
+						po.school = new String(rs.getString("From").getBytes("ISO-8859-1"),"utf-8");
+						po.team = new String(rs.getString("team").getBytes("ISO-8859-1"),"utf-8");
+						po.season = new String(rs.getString("season").getBytes("ISO-8859-1"),"utf-8");
 						return po;
 					}
 					rs.close();
@@ -178,7 +188,8 @@ public class PlayerInfo implements PlayerInfoDataService {
 			// statement用来执行SQL语句
 			Statement statement = conn.createStatement();
 			// 要执行的SQL语句
-			String sql = "SELECT * FROM playerInfo where team = '"+team+"'";
+			TeamTechAssist tta = new TeamTechAssist();
+			String sql = "SELECT * FROM playerInfo where team = '"+tta.fullName(team)+"'";
 			if(active==1){
 				sql = sql+" and season = '2014-15'";
 			}
@@ -188,22 +199,32 @@ public class PlayerInfo implements PlayerInfoDataService {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {     
 				PlayerPO po = new PlayerPO();
-				po.name = rs.getString(2);
-				po.uniformNum = Integer.valueOf(rs.getString(3));
-				// 首先使用ISO-8859-1字符集将name解码为字节序列并将结果存储新的字节数组中。
-				// 然后使用字符集解码指定的字节数组
-				po.position = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
-				po.height = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
-				po.weight = rs.getDouble(6);
-				po.birth = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
-				po.age = rs.getInt(8);
-				po.exp = rs.getInt(9);
-				po.school = new String(rs.getString(10).getBytes("ISO-8859-1"),"utf-8");
-				po.team = new String(rs.getString(11).getBytes("ISO-8859-1"),"utf-8");
-				po.season = new String(rs.getString(12).getBytes("ISO-8859-1"),"utf-8");
+				po.name = rs.getString("name");
+				if(rs.getString("No").equals("")){
+					po.uniformNum=2;
+				}else{
+					po.uniformNum = Integer.valueOf(rs.getString("No"));
+				}
+				po.position = new String(rs.getString("Pos").getBytes("ISO-8859-1"),"utf-8");
+				po.height = new String(rs.getString("Height").getBytes("ISO-8859-1"),"utf-8");
+				po.weight = Double.parseDouble(rs.getString("Weight"));
+				po.birth = new String(rs.getString("BirthDate").getBytes("ISO-8859-1"),"utf-8");
+				if(rs.getString("Age").equals("")){
+					po.age=26;
+				}else{
+					po.age = Integer.parseInt(rs.getString("Age"));
+				}
+				if(rs.getString("Exp").equals("R")){
+					po.exp=2;
+				}
+				else{
+					po.exp = Integer.parseInt(rs.getString("Exp"));
+				}
+				po.school = new String(rs.getString("From").getBytes("ISO-8859-1"),"utf-8");
+				po.team = new String(rs.getString("team").getBytes("ISO-8859-1"),"utf-8");
+				po.season = new String(rs.getString("season").getBytes("ISO-8859-1"),"utf-8");
 				list.add(po);
 			}
-			System.out.println("根据team查找player");
 			rs.close();
 			conn.close();
 			return list;
@@ -253,22 +274,36 @@ public class PlayerInfo implements PlayerInfoDataService {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {     
 				PlayerPO po = new PlayerPO();
-				po.name = rs.getString(2);
-				if(po.name.charAt(0)!=letter){
-					break;
+				po.name = rs.getString("name").trim();
+				if(po.name.equals("")){
+					continue;
 				}
-				po.uniformNum = Integer.valueOf(rs.getString(3));
-				// 首先使用ISO-8859-1字符集将name解码为字节序列并将结果存储新的字节数组中。
-				// 然后使用字符集解码指定的字节数组
-				po.position = new String(rs.getString(4).getBytes("ISO-8859-1"),"utf-8");
-				po.height = new String(rs.getString(5).getBytes("ISO-8859-1"),"utf-8");
-				po.weight = rs.getDouble(6);
-				po.birth = new String(rs.getString(7).getBytes("ISO-8859-1"),"utf-8");
-				po.age = rs.getInt(8);
-				po.exp = rs.getInt(9);
-				po.school = new String(rs.getString(10).getBytes("ISO-8859-1"),"utf-8");
-				po.team = new String(rs.getString(11).getBytes("ISO-8859-1"),"utf-8");
-				po.season = new String(rs.getString(12).getBytes("ISO-8859-1"),"utf-8");
+				if(po.name.charAt(0)!=letter){
+					continue;
+				}
+				if(rs.getString("No").equals("")){
+					po.uniformNum=2;
+				}else{
+					po.uniformNum = Integer.valueOf(rs.getString("No"));
+				}
+				po.position = new String(rs.getString("Pos").getBytes("ISO-8859-1"),"utf-8");
+				po.height = new String(rs.getString("Height").getBytes("ISO-8859-1"),"utf-8");
+				po.weight = Double.parseDouble(rs.getString("Weight"));
+				po.birth = new String(rs.getString("BirthDate").getBytes("ISO-8859-1"),"utf-8");
+				if(rs.getString("Age").equals("")){
+					po.age=26;
+				}else{
+					po.age = Integer.parseInt(rs.getString("Age"));
+				}
+				if(rs.getString("Exp").equals("R")){
+					po.exp=2;
+				}
+				else{
+					po.exp = Integer.parseInt(rs.getString("Exp"));
+				}
+				po.school = new String(rs.getString("From").getBytes("ISO-8859-1"),"utf-8");
+				po.team = new String(rs.getString("team").getBytes("ISO-8859-1"),"utf-8");
+				po.season = new String(rs.getString("season").getBytes("ISO-8859-1"),"utf-8");
 				list.add(po);
 			}
 			System.out.println("根据letter查找player");

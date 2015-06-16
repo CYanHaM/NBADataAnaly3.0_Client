@@ -8,7 +8,7 @@ public interface PlayerInfoService {
 	
 	public ArrayList<PlayerVO> showAllPlayerInfo (int retire);
 	
-	public PlayerVO showPlayerInfo (String name,int retire);
+	public PlayerVO showPlayerInfo (String name);
 	
 	public ArrayList<PlayerVO> findPlayerByLetter(char letter,int retire);   
 
