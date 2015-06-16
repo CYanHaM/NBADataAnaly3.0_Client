@@ -65,14 +65,14 @@ public class PlayerTech implements StatsInfo{
 							po.fault=  Integer.valueOf(rs.getString("fault"));
 							po.foul=  Integer.valueOf(rs.getString("foul"));
 							po.score=  Integer.valueOf(rs.getString("score"));
-							po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-							po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-							po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-							po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-							po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-							po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-							po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-							po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+							po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+							po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+							po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+							po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+							po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+							po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+							po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+							po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
 							po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 							po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
 							po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
@@ -118,34 +118,35 @@ public class PlayerTech implements StatsInfo{
 							po.division=rs.getString("division");
 							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
 							po.startingNum=Integer.valueOf(rs.getString("startingNum"));
-							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
-							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
-							po.time=Integer.valueOf(rs.getString("time"))/po.gameNum;
+							po.rebound=Integer.valueOf(rs.getString("rebound"));
+							po.secondaryAttack=Integer.valueOf(rs.getString("assist"));
+							po.time=Integer.valueOf(rs.getString("time"));
 							po.offensiveNum=Integer.valueOf(rs.getString("offensiveNum"));
 							po.defensiveNum=Integer.valueOf(rs.getString("defensiveNum"));
-							po.steal=Integer.valueOf(rs.getString("steal"))/po.gameNum;
-							po.blockShot=Integer.valueOf(rs.getString("blockShot"))/po.gameNum;
-							po.fault=Integer.valueOf(rs.getString("fault"))/po.gameNum;
-							po.foul=Integer.valueOf(rs.getString("foul"))/po.gameNum;
-							po.score=Integer.valueOf(rs.getString("score"))/po.gameNum;
-							po.shotIn=Integer.valueOf(rs.getString("shotIn"))/po.gameNum;
+							po.steal=Integer.valueOf(rs.getString("steal"));
+							po.blockShot=Integer.valueOf(rs.getString("block"));
+							po.fault=Integer.valueOf(rs.getString("fault"));
+							po.foul=Integer.valueOf(rs.getString("foul"));
+							po.score=Integer.valueOf(rs.getString("score"));
+							po.shotIn=Integer.valueOf(rs.getString("shotIn"));
 							po.shot=Integer.valueOf(rs.getString("shot"));
-							po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"))/po.gameNum;
+							po.threeShotIn=Integer.valueOf(rs.getString("threeShotIn"));
 							po.threeShot=Integer.valueOf(rs.getString("threeShot"));
 							po.penaltyShotIn=Integer.valueOf(rs.getString("penaltyShotIn"));
-							po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"))/po.gameNum;
+							po.penaltyShot=Integer.valueOf(rs.getString("penaltyShot"));
 							po.shotInRate=Double.valueOf(rs.getString("shotInRate"));
 							po.threeShotInRate=Double.valueOf(rs.getString("threeShotInRate"));
 							po.penaltyShotInRate=Double.valueOf(rs.getString("penaltyShotInRate"));
 							po.GmScEfficiency=Double.valueOf(rs.getString("GmSc"));
 							po.trueShotInRate=Double.valueOf(rs.getString("trueShotInRate"));
-							po.shootingEfficiency=Double.valueOf(rs.getString("shootingEfficiency"));
+							po.shootingEfficiency=Double.valueOf(rs.getString("ShootingEffi"));
 							po.reboundRate=Double.valueOf(rs.getString("reboundRate"));
 							po.offensiveReboundRate=Double.valueOf(rs.getString("offReboundRate"));
 							po.defensiveReboundRate=Double.valueOf(rs.getString("defReboundRate"));
 							po.secondaryAttackRate=Double.valueOf(rs.getString("assistRate"));
 							po.faultRate=Double.valueOf(rs.getString("faultRate"));
 							po.usageRate=Double.valueOf(rs.getString("usageRate"));
+							po.ifDouble=Integer.parseInt(rs.getString("ifDouble"));
 							return po;
 						}
 						rs.close();
@@ -165,46 +166,40 @@ public class PlayerTech implements StatsInfo{
 	@Override
 	public ArrayList<MatchPO> getRecentMatch(String team,String season) {
 		// TODO Auto-generated method stub
-		AboutMatch am = new AboutMatch();
-		ArrayList<MatchPO> list = am.allMatch();
-		ArrayList<MatchPO> res = new ArrayList<MatchPO>();
-		int size = list.size();
-		System.out.println(size);
-		for(int i=0;i<size;i++){
-			if(list.get(i).homeTeam.equals(team)||list.get(i).guestTeam.equals(team)){
-				String temp1=season.trim().split("\\s+")[0];
-				String temp2=list.get(i).season.trim().split("\\s+")[0];
-				if(temp1.equals(temp2)){
-					res.add(list.get(i));
-				}
-			}
-		}
-		Comparator<MatchPO> comparator = new Comparator<MatchPO>(){  	
-			public int compare(MatchPO p2, MatchPO p1) {   
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				try {
-					Date dt1 = df.parse(p2.date);
-					Date dt2 = df.parse(p1.date);
-				if (dt1.getTime() > dt2.getTime()) {
-					return 1;
-				} else if (dt1.getTime() < dt2.getTime()) {
-				return -1;
-				} else {
-					return 0;
-				}
-				} catch (Exception exception) {
-				exception.printStackTrace();
-				}
-				System.out.println("wrong in compare");
-				return -2;
-				}
-		}; 
-		Collections.sort(res, comparator);
-		ArrayList<MatchPO> result = new ArrayList<MatchPO>();
-		for(int i=0;i<20;i++){
-			result.add(res.get(i));
-		}
-		return result;
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
+		String user = "root";
+		String password = "cyanham";
+		ArrayList<MatchPO> list = new ArrayList<MatchPO>();
+		try {
+						Class.forName(driver);
+						Connection conn = DriverManager.getConnection(url, user, password);
+						if(!conn.isClosed()){
+							System.out.println("Succeeded connecting to the Database!");
+						}
+						Statement statement = conn.createStatement();
+						String pre = season.trim().split("\\s+")[0];
+						String sql = "SELECT * FROM `MatchPO` where (homeTeam = '"+team+"' or guestTeam= '"+team+"') and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by date desc limit 0,20";	
+						System.out.println(sql);
+						ResultSet rs = statement.executeQuery(sql);
+						while(rs.next()) {
+							MatchPO po = new MatchPO();
+							//===================================================================
+							list.add(po);
+						}
+						rs.close();
+						conn.close(); 
+						return list;
+       } catch(ClassNotFoundException e) {   
+              System.out.println("Sorry,can`t find the Driver!");   
+              e.printStackTrace();   
+       } catch(SQLException e) {   
+              e.printStackTrace();   
+       } catch(Exception e) {   
+              e.printStackTrace();   
+       }
+		System.out.println("something wrong in getRecentPlayerTech");
+		return null;
 	}
 
 	@Override

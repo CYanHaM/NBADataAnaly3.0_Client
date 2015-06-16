@@ -6,32 +6,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import PO.TeamTechPO;
 import dataservice.TeamTechDataService;
-
 public class TeamTechData implements TeamTechDataService {
 
+	public static void main(String[] args){
+		TeamTechData ttd = new TeamTechData();
+		ArrayList<TeamTechPO> li = ttd.findSeasonHotTeam("rebound", "2014-15 Regular");
+		System.out.println(li.size());
+	}
+	
 	@Override
 	public ArrayList<TeamTechPO> list(String season){
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
 		String user = "root";
-		// Java����MySQL����ʱ������
 		String password = "cyanham";
 		try {
-			// ���������
 			Class.forName(driver);
-			// ������ݿ�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			if(season.trim().split("\\s+")[1].equals("Regular")){
+				season = season+" season";
+			}
 			String sql = "SELECT * FROM `teamtech` where season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -39,33 +41,33 @@ public class TeamTechData implements TeamTechDataService {
 				po.name = rs.getString("name");
 				po.ifReagular = Integer.valueOf(rs.getString("ifReagular"));
 				po.season =  rs.getString("season");
-				po.gameNum = Integer.valueOf(rs.getInt("gameNum"));
-				po.shotInNum = Integer.valueOf(rs.getInt("shotInNum"));
-				po.shotNum = Integer.valueOf(rs.getInt("shotNum"));
-				po.threeShotInNum = Integer.valueOf(rs.getInt("threeShotInNum"));
-				po.threeShotNum =  Integer.valueOf(rs.getInt("threeShotNum"));
-				po.penaltyShotInNum =  Integer.valueOf(rs.getInt("penaltyShotInNum"));
-				po.penaltyShotNum=  Integer.valueOf(rs.getInt("penaltyShotNum"));
-				po.offensiveRebound=  Integer.valueOf(rs.getInt("offensiveRebound"));
-				po.defensiveRebound=  Integer.valueOf(rs.getInt("defensiveRebound"));
-				po.rebound=  Integer.valueOf(rs.getInt("rebound"));;
-				po.secondaryAttack=  Integer.valueOf(rs.getInt("secondaryAttack"));;
-				po.steal=  Integer.valueOf(rs.getInt("steal"));
-				po.blockShot=  Integer.valueOf(rs.getInt("blockShot"));
-				po.fault=  Integer.valueOf(rs.getInt("fault"));
-				po.foul=  Integer.valueOf(rs.getInt("foul"));
-				po.score=  Integer.valueOf(rs.getInt("score"));
-				po.shotInRate=  rs.getDouble("shotInRate");
-				po.threeShotInRate=  rs.getDouble("threeShotInRate");
-				po.penaltyShotInRate=  rs.getDouble("penaltyShotInRate");
-				po.offensiveEfficiency=  rs.getDouble("offensiveEfficiency");
-				po.defensiveEfficiency=  rs.getDouble("defensiveEfficiency");
-				po.reboundEfficiency=  rs.getDouble("reboundEfficiency");
-				po.stealEfficiency=  rs.getDouble("stealEfficiency");
-				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
-				po.opponentDefensiveRebound=  Integer.valueOf(rs.getInt("opponentDefensiveRebound"));
-				po.opponentOffensiveRebound=  Integer.valueOf(rs.getInt("opponentOffensiveRebound"));
-				po.opponentScore=  Integer.valueOf(rs.getInt("opponentScore"));
+				po.gameNum = Integer.valueOf(rs.getString("gameNum"));
+				po.shotInNum = Integer.valueOf(rs.getString("shotInNum"));
+				po.shotNum = Integer.valueOf(rs.getString("shotNum"));
+				po.threeShotInNum = Integer.valueOf(rs.getString("threeShotInNum"));
+				po.threeShotNum =  Integer.valueOf(rs.getString("threeShotNum"));
+				po.penaltyShotInNum =  Integer.valueOf(rs.getString("penaltyShotInNum"));
+				po.penaltyShotNum=  Integer.valueOf(rs.getString("penaltyShotNum"));
+				po.offensiveRebound=  Integer.valueOf(rs.getString("offensiveRebound"));
+				po.defensiveRebound=  Integer.valueOf(rs.getString("defensiveRebound"));
+				po.rebound=  Integer.valueOf(rs.getString("rebound"));;
+				po.secondaryAttack=  Integer.valueOf(rs.getString("secondaryAttack"));;
+				po.steal=  Integer.valueOf(rs.getString("steal"));
+				po.blockShot=  Integer.valueOf(rs.getString("blockShot"));
+				po.fault=  Integer.valueOf(rs.getString("fault"));
+				po.foul=  Integer.valueOf(rs.getString("foul"));
+				po.score=  Integer.valueOf(rs.getString("score"));
+				po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+				po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+				po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+				po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+				po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
+				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
+				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
+				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 				list.add(po);
 			}
 			rs.close();
@@ -89,21 +91,24 @@ public class TeamTechData implements TeamTechDataService {
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
+		if(season.trim().split("\\s+")[1].equals("Regular")){
+			season = season+" season";
+		}
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			switch(type){
 			case"shotInNumave":
 				type = "shotInNum/gameNum";
@@ -151,7 +156,14 @@ public class TeamTechData implements TeamTechDataService {
 				type = "score/gameNum";
 				break;
 			}
-			String sql = "SELECT * FROM `teamtech` where season='"+season+"' order by "+type+"desc";
+			String sql = "SELECT * FROM `teamtech` ";
+			if(type.equals("season")){
+				sql=sql+"order by season desc";
+			}
+			else{
+				sql += " where season='"+season+"' order by "+type+" desc";
+			}
+			System.out.println(sql);
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				TeamTechPO po = new TeamTechPO();
@@ -174,14 +186,14 @@ public class TeamTechData implements TeamTechDataService {
 				po.fault=  Integer.valueOf(rs.getString("fault"));
 				po.foul=  Integer.valueOf(rs.getString("foul"));
 				po.score=  Integer.valueOf(rs.getString("score"));
-				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-				po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+				po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+				po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+				po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+				po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+				po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
@@ -208,21 +220,18 @@ public class TeamTechData implements TeamTechDataService {
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
 		String user = "root";
-		// Java����MySQL����ʱ������
 		String password = "cyanham";
+		if(season.trim().split("\\s+")[1].equals("Regular")){
+			season = season+" season";
+		}
 		try {
-			// ���������
 			Class.forName(driver);
-			// ������ݿ�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
 			switch(type){
 			case"shotInNumave":
 				type = "shotInNum/gameNum";
@@ -270,7 +279,13 @@ public class TeamTechData implements TeamTechDataService {
 				type = "score/gameNum";
 				break;
 			}
-			String sql = "SELECT * FROM `teamtech` where season='"+season+"' order by "+type;
+			String sql = "SELECT * FROM `teamtech` ";
+			if(type.equals("season")){
+				sql=sql+"order by season";
+			}
+			else{
+				sql += " where season='"+season+"' order by "+type;
+			}
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				TeamTechPO po = new TeamTechPO();
@@ -293,14 +308,14 @@ public class TeamTechData implements TeamTechDataService {
 				po.fault=  Integer.valueOf(rs.getString("fault"));
 				po.foul=  Integer.valueOf(rs.getString("foul"));
 				po.score=  Integer.valueOf(rs.getString("score"));
-				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-				po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+				po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+				po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+				po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+				po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+				po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
@@ -338,23 +353,23 @@ public class TeamTechData implements TeamTechDataService {
 		// TODO Auto-generated method stub
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLָ��Ҫ���ʵ���ݿ���nba
+		//URL指锟斤拷要锟斤拷锟绞碉拷锟斤拷菘锟斤拷锟絥ba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQL����ʱ���û���
+		// MySQL锟斤拷锟斤拷时锟斤拷锟矫伙拷锟斤拷
 		String user = "root";
-		// Java����MySQL����ʱ������
+		// Java锟斤拷锟斤拷MySQL锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
 		String password = "cyanham";
 		try {
-			// ���������
+			// 锟斤拷锟斤拷锟斤拷锟斤拷锟�
 			Class.forName(driver);
-			// ������ݿ�
+			// 锟斤拷锟斤拷锟斤拷菘锟�
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statement����ִ��SQL���
+			// statement锟斤拷锟斤拷执锟斤拷SQL锟斤拷锟�
 			Statement statement = conn.createStatement();
-			// Ҫִ�е�SQL���
+			// 要执锟叫碉拷SQL锟斤拷锟�
 			String sql = "SELECT * FROM `teamtech`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -378,14 +393,14 @@ public class TeamTechData implements TeamTechDataService {
 				po.fault=  Integer.valueOf(rs.getString("fault"));
 				po.foul=  Integer.valueOf(rs.getString("foul"));
 				po.score=  Integer.valueOf(rs.getString("score"));
-				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
-				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
-				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
-				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
-				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
-				po.stealEfficiency=  Integer.valueOf(rs.getString("stealEfficiency"));
-				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
+				po.shotInRate=  Double.valueOf(rs.getString("shotInRate"));
+				po.threeShotInRate=  Double.valueOf(rs.getString("threeShotInRate"));
+				po.penaltyShotInRate=  Double.valueOf(rs.getString("penaltyShotInRate"));
+				po.offensiveEfficiency=  Double.valueOf(rs.getString("offensiveEfficiency"));
+				po.defensiveEfficiency=  Double.valueOf(rs.getString("defensiveEfficiency"));
+				po.reboundEfficiency=  Double.valueOf(rs.getString("reboundEfficiency"));
+				po.stealEfficiency=  Double.valueOf(rs.getString("stealEfficiency"));
+				po.secondaryAttackEfficiency=  Double.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
