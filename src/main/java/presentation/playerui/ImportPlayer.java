@@ -60,13 +60,13 @@ public class ImportPlayer {
 //		resultlist.add(seasonlist.get(0));
 //		for(int i=0;i<seasonlist.size();i++){
 //			for(int j=0;j<resultlist.size();j++){
-//				if(!resultlist.get(j).equals(seasonlist.get(i))){
+//				if(!seasonlist.get(i).equals(resultlist.get(j))){
 //					resultlist.add(seasonlist.get(i));
-//					System.out.println("--"+seasonlist.get(i));
+////					System.out.println("--"+resultlist.get(i));
 //				}
 //			}
 //		}
-		
+//		
 		
 		return seasonlist;
 	}
