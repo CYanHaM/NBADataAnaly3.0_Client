@@ -3,9 +3,9 @@ from bs4 import  SoupStrainer
 import urllib
 import player
 
-#season 1999-00 2014-15
+#season 2009--10 2014-15
 prefix = "http://espn.go.com/nba/statistics/player/_/stat/"
-year = 2000
+year = 2010
 while(year<=2015):
 	tem1 = '%d' %year
 	tem2 = '%d' %(year-1)
@@ -13,7 +13,7 @@ while(year<=2015):
 	print season
 	postfix = "/seasontype/2/qualified/false"
 
-	"""sc = "scoring/sort/points/year/"
+	sc = "scoring/sort/points/year/"
 	reg1 = prefix+sc+tem1+"/seasontype/2"
 	post1 =  prefix+sc+tem1
 	print "Regular"
@@ -36,12 +36,12 @@ while(year<=2015):
 	post4 = prefix+"free-throws/sort/freeThrowPct/year/"+tem1+"/qualified/false"
 	player.getFreeThrows(reg4,season,"Regular")
 	player.getFreeThrows(post4,season,"PostSeason")
-	"""
+	
 	reg5 = prefix+"3-points/sort/threePointFieldGoalPct/year/"+tem1+postfix
 	post5 = prefix+"3-points/sort/threePointFieldGoalPct/year/"+tem1+"/qualified/false"
 	player.get3points(reg5,season,"Regular")
 	player.get3points(post5,season,"PostSeason")
-	"""
+	
 	reg6 = prefix+"assists/sort/avgAssists/year/"+tem1+postfix
 	post6 =prefix+"assists/sort/avgAssists/year/"+tem1+"/qualified/false" 
 	player.getAssists(reg6,season,"Regular")
@@ -78,5 +78,5 @@ while(year<=2015):
 	post12 = prefix+"double-doubles/year/"+tem1+"/qualified/false"
 	player.getDoubleDoubles(reg12,season,"Regular")
 	player.getDoubleDoubles(post12,season,"PostSeason")
-	"""
+
 	year+=1

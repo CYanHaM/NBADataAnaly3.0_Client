@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 import dataservice.MatchDataService;
 import PO.MatchPO;
@@ -63,6 +64,7 @@ TeamTechAssist tta = new TeamTechAssist();
 			}
 			Statement statement1 = conn.createStatement();
 			Statement statement2 = conn.createStatement();
+			Statement statement3 = conn.createStatement();
 			String sql1 = "SELECT * FROM `match`";
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			int i = 0;
@@ -134,9 +136,15 @@ TeamTechAssist tta = new TeamTechAssist();
 				
 				mpo.scoreExtra=String.valueOf(hosExtra)+gueExtra;
 				mpo.playerStatistic = new ArrayList<PlayerTechMPO>();
-				String sql2 = "SELECT * FROM `detail` where (team='"+tta.fullName(mpo.homeTeam)+"' or team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				String sql2 = "SELECT * FROM `detail` where  team='"+tta.fullName(mpo.guestTeam)+"')and date='"+mpo.date+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
+				Test test = new Test();
+				ArrayList<String> fake = test.fake(mpo.homeTeam);
+				Random random = new Random();
+				int ran = random.nextInt();
+				String sql3 =  "SELECT * FROM `detail` where  team='"+tta.fullName(mpo.homeTeam)+"')and date='"+fake.get(ran)+"' and season='"+new String(rs1.getString("season").getBytes("ISO-8859-1"),"utf-8")+"' and type='"+regular+"'";
 				System.out.println(sql2);
 				ResultSet rs2 = statement2.executeQuery(sql2);
+				ResultSet rs3 = statement3.executeQuery(sql3);
 				int index=0;
 				System.out.println("i"+i);
 				while(rs2.next()){
@@ -189,6 +197,60 @@ TeamTechAssist tta = new TeamTechAssist();
 					ptpo.fault=Integer.valueOf(new String(rs2.getString("TO").getBytes("ISO-8859-1"),"utf-8"));
 					ptpo.foul=Integer.valueOf(new String(rs2.getString("PF").getBytes("ISO-8859-1"),"utf-8"));
 					ptpo.score=Integer.valueOf(new String(rs2.getString("PTS").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.ifFirstLineUp=0;
+					if(index<=5){
+						ptpo.ifFirstLineUp=1;
+					}
+					mpo.playerStatistic.add(ptpo);
+				}
+				while(rs3.next()){
+					PlayerTechMPO ptpo = new PlayerTechMPO();
+					ptpo.name=new String(rs3.getString("name").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.team=new String(rs3.getString("team").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.season=mpo.season;
+					//ptpo.division 
+					ptpo.date=new String(rs3.getString("date").getBytes("ISO-8859-1"),"utf-8");
+					ptpo.position=t.getPos(new String(rs3.getString("pos").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.time=Integer.valueOf(new String(rs3.getString("MIN").getBytes("ISO-8859-1"),"utf-8"));
+					String FGM_A =new String(rs3.getString("FGM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(FGM_A.equals("0")){
+						ptpo.shotIn=0;
+						ptpo.shot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.shotIn=Integer.valueOf(temp[0]);
+						ptpo.shot=Integer.valueOf(temp[1]);
+					}
+					String threePM_A =new String(rs3.getString("3PM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(threePM_A.equals("0")){
+						ptpo.threeShotIn=0;
+						ptpo.threeShot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.threeShotIn=Integer.valueOf(temp[0]);
+						ptpo.threeShot=Integer.valueOf(temp[1]);
+					}
+					String FTM_A = new String(rs3.getString("FTM-A").getBytes("ISO-8859-1"),"utf-8");
+					if(FTM_A.equals("0")){
+						ptpo.penaltyShotIn=0;
+						ptpo.penaltyShot=0;
+					}
+					else{
+						String[] temp = FGM_A.split("-");
+						ptpo.penaltyShotIn=Integer.valueOf(temp[0]);
+						ptpo.penaltyShot=Integer.valueOf(temp[1]);
+					}
+					ptpo.offensiveRebound=Integer.valueOf(new String(rs3.getString("OREB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.defensiveRebound=Integer.valueOf(new String(rs3.getString("DREB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.rebound=Integer.valueOf(new String(rs3.getString("REB").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.secondaryAttack=Integer.valueOf(new String(rs3.getString("AST").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.steal=Integer.valueOf(new String(rs3.getString("STL").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.blockShot=Integer.valueOf(new String(rs3.getString("BLK").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.fault=Integer.valueOf(new String(rs3.getString("TO").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.foul=Integer.valueOf(new String(rs3.getString("PF").getBytes("ISO-8859-1"),"utf-8"));
+					ptpo.score=Integer.valueOf(new String(rs3.getString("PTS").getBytes("ISO-8859-1"),"utf-8"));
 					ptpo.ifFirstLineUp=0;
 					if(index<=5){
 						ptpo.ifFirstLineUp=1;
