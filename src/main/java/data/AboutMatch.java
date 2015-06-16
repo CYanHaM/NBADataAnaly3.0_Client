@@ -27,11 +27,11 @@ TeamTechAssist tta = new TeamTechAssist();
 				MatchPO po = mds.completeMatch(list.get(i));
 				am.fillMatch(po);
 				res.add(po);
-	/*			ArrayList<PlayerTechMPO> ml = po.playerStatistic;
+				ArrayList<PlayerTechMPO> ml = po.playerStatistic;
 				for(int j=0;j<ml.size();j++){
 					am.modify(ml.get(j));
 				}
-	*/		}
+			}
 		}
 	}
 	public ArrayList<MatchPO> allMatch(){
