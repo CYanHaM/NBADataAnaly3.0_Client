@@ -173,7 +173,7 @@ public class TeamTechAssist {
 		Map m = new HashMap();
 		m.put("ATL","Atlanta Hawks");
 		m.put( "BOS","Boston Celtics");
-		m.put("BNK","Brooklyn Nets");
+		m.put("BKN","Brooklyn Nets");
 		m.put("CHA","Charlotte Hornets");
 		m.put("CHI","Chicago Bulls");
 		m.put("CLE","Cleveland Cavaliers");
