@@ -24,6 +24,7 @@ TeamTechAssist tta = new TeamTechAssist();
 			System.out.println("match.playerStatistic"+list.get(i).playerStatistic);
 			if(list.get(i).playerStatistic.size()!=0){
 				MatchPO po = mds.completeMatch(list.get(i));
+				am.fillMatch(po);
 				res.add(po);
 				ArrayList<PlayerTechMPO> ml = po.playerStatistic;
 				for(int j=0;j<ml.size();j++){
@@ -203,7 +204,6 @@ TeamTechAssist tta = new TeamTechAssist();
 		System.out.println("wrong:about Match");
 		return null;
 	}
-
 	public void modify(PlayerTechMPO po){
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
@@ -230,5 +230,36 @@ TeamTechAssist tta = new TeamTechAssist();
 		} catch(Exception e) {
 			e.printStackTrace();
 		};
+	}
+	public void fillMatch(MatchPO po){
+		String driver = "com.mysql.jdbc.Driver";
+		//URL指向要访问的数据库名nba
+		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
+		// MySQL配置时的用户名
+		String user = "root";
+		// Java连接MySQL配置时的密码
+		String password = "cyanham";
+		try{
+			// 加载驱动程序
+			Class.forName(driver);
+			// 连续数据库
+			Connection conn = DriverManager.getConnection(url, user, password);
+			if(!conn.isClosed()){
+				System.out.println("Succeeded connecting to the Database!");
+			}
+			// statement用来执行SQL语句
+			Statement statement = conn.createStatement();
+			String str = "replace into `MatchPO` values('"+po.ifRegular+"','"+po.season+"','"+po.date+"','"+po.homeTeam+"','"+po.guestTeam+"','"+po.score+"','"+po.score1+"','"+po.score2+"','"+po.score3+"','"+po.score4+"','"+po.scoreExtra+"','"+po.scoringChampion+"','"+po.reboundChampion+"','"+po.assistChampion+"','"+po.ifHomeTeamWin+"','"+po.ifGuestTeamWin+"','"+po.homeTeamDeffensiveRebound+"','"+po.guestTeamDeffensiveRebound+"','"+po.homeTeamOffensiveRebound+"','"+po.guestTeamOffensiveRebound+"','"+
+						po.homeTeamFoul+"','"+po.guestTeamFoul+"','"+po.homeTeamSecondaryAttack+"','"+po.guestTeamSecondaryAttack+"','"+po.homeTeamBlockShot+"','"+po.guestTeamBlockShot+"','"+po.homeScore+"','"+po.guestScore+"','"+po.homeAllTime+"','"+po.guestAllTime+"','"+po.homeShotIn+"','"+po.guestShotIn+"','"+po.homeShot+"','"+po.guestShot+"','"+po.homeTwoShot+"','"+po.homeTwoShotIn+"','"+po.guestTwoShot+"','"+po.guestTwoShotIn+"','"+po.homeThreeShot+"','"+po.guestThreeShot+"','"+po.homeThreeShotIn+po.guestThreeShotIn+"','"+po.homePenaltyShot+"','"+
+					po.guestPenaltyShot+"','"+po.homePenaltyShotIn+"','"+po.guestPenaltyShotIn+"','"+po.homeFault+"','"+po.guestFault+"')";
+			statement.executeUpdate(str);
+		}catch(ClassNotFoundException e) {
+			System.out.println("Sorry,can`t find the Driver!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}; 
 	}
 }
