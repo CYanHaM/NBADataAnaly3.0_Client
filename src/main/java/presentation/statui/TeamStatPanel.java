@@ -833,7 +833,6 @@ public class TeamStatPanel extends JPanel implements ActionListener{
 					Double.parseDouble((String) alpha.getSelectedItem()),null).getBarDataset(teamname, linename);
 		  return newdataset;
 		 }
-	 
 	
 	 public static PieDataset getPieDataset1(String teamname){
 		 DefaultPieDataset dataset=new DefaultPieDataset();
