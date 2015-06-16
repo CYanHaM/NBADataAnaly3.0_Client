@@ -15,23 +15,23 @@ public class TeamTechData implements TeamTechDataService {
 	public ArrayList<TeamTechPO> list(String season){
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `teamtech` where season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -58,9 +58,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-				po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-				po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -68,7 +65,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-				po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 				list.add(po);
 			}
@@ -93,21 +89,21 @@ public class TeamTechData implements TeamTechDataService {
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			switch(type){
 			case"shotInNumave":
 				type = "shotInNum/gameNum";
@@ -181,9 +177,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-				po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-				po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -191,7 +184,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-				po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 				list.add(po);
 			}
@@ -216,21 +208,21 @@ public class TeamTechData implements TeamTechDataService {
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			switch(type){
 			case"shotInNumave":
 				type = "shotInNum/gameNum";
@@ -304,9 +296,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-				po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-				po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -314,7 +303,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-				po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 				list.add(po);
 			}
@@ -350,23 +338,23 @@ public class TeamTechData implements TeamTechDataService {
 		// TODO Auto-generated method stub
 		ArrayList<TeamTechPO> list = new ArrayList<TeamTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊý¾Ý¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇý¶¯³ÌÐò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ÐøÊý¾Ý¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ÐÐSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ÐÐµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ðµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `teamtech`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -393,9 +381,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.shotInRate=  Integer.valueOf(rs.getString("shotInRate"));
 				po.threeShotInRate=  Integer.valueOf(rs.getString("threeShotInRate"));
 				po.penaltyShotInRate=  Integer.valueOf(rs.getString("penaltyShotInRate"));
-				po.winningNum=  Integer.valueOf(rs.getString("winningNum"));
-				po.winningRate=  Integer.valueOf(rs.getString("winningRate"));
-				po.offensiveRound=  Integer.valueOf(rs.getString("offensiveRound"));
 				po.offensiveEfficiency=  Integer.valueOf(rs.getString("offensiveEfficiency"));
 				po.defensiveEfficiency=  Integer.valueOf(rs.getString("defensiveEfficiency"));
 				po.reboundEfficiency=  Integer.valueOf(rs.getString("reboundEfficiency"));
@@ -403,7 +388,6 @@ public class TeamTechData implements TeamTechDataService {
 				po.secondaryAttackEfficiency=  Integer.valueOf(rs.getString("secondaryAttackEfficiency"));
 				po.opponentDefensiveRebound=  Integer.valueOf(rs.getString("opponentDefensiveRebound"));
 				po.opponentOffensiveRebound=  Integer.valueOf(rs.getString("opponentOffensiveRebound"));
-				po.opponentOffensiveRound=  Integer.valueOf(rs.getString("opponentOffensiveRound"));
 				po.opponentScore=  Integer.valueOf(rs.getString("opponentScore"));
 				list.add(po);
 			}

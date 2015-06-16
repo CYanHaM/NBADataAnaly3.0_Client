@@ -25,7 +25,7 @@ public class Match implements MatchBLService{
 		MatchP2L p2l=new MatchP2L();
 		MatchL2V l2v=new MatchL2V();
 
-		mplist=mds.read();
+//		mplist=mds.read();
 		for(MatchPO po:mplist){
 			mli=p2l.p2l(po);
 			mlilist.add(mli);			
@@ -50,7 +50,7 @@ public class Match implements MatchBLService{
 		MatchP2L p2l=new MatchP2L();
 		MatchL2V l2v=new MatchL2V();
 
-		mplist=mds.read();
+//		mplist=mds.read();
 		for(MatchPO po:mplist){
 			mli=p2l.p2l(po);
 			mlilist.add(mli);			
@@ -90,7 +90,7 @@ public class Match implements MatchBLService{
 		MatchP2L p2l=new MatchP2L();
 		MatchL2V l2v=new MatchL2V();
 
-		mplist=mds.read();
+//		mplist=mds.read();
 		for(int k=0;k<mplist.size();k++){
 			mlilist.add(p2l.p2l(mplist.get(k)));			
 		}

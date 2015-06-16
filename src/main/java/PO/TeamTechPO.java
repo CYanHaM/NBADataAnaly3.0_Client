@@ -31,9 +31,6 @@ public class TeamTechPO implements Serializable {
 	public double shotInRate;                      //Ͷ��������
 	public double threeShotInRate;                 //����������
 	public double penaltyShotInRate;               //����������
-	public double winningRate;                     //ʤ��
-	public int winningNum;                         //ʤ����
-	public double offensiveRound;                  //�����غ�
 	public double offensiveEfficiency;               //����Ч��
 	public double defensiveEfficiency;               //����Ч��
 	public double reboundEfficiency;                 //����Ч��
@@ -41,7 +38,6 @@ public class TeamTechPO implements Serializable {
 	public double secondaryAttackEfficiency;         //����Ч��
 	public int opponentDefensiveRebound;          //�Է���������
 	public int opponentOffensiveRebound;          //�Է���������
-	public double opponentOffensiveRound;        //�Է������غ�
 	public int opponentScore;        //�Է��÷�
 
 
@@ -70,10 +66,6 @@ public class TeamTechPO implements Serializable {
 	    	System.out.println("penaltyShotInRate");
 	    	return false;
 	    }
-	    if(this.winningRate!=ttpo.winningRate){
-	    	System.out.println("winningRate");
-	    	return false;
-	    }
 	    if(this.offensiveEfficiency!=ttpo.offensiveEfficiency){
 	    	System.out.println("offensiveEfficiency");
 	    	return false;
@@ -92,10 +84,6 @@ public class TeamTechPO implements Serializable {
 	    }
 	    if(this.secondaryAttackEfficiency!=ttpo.secondaryAttackEfficiency){
 	    	System.out.println("secondaryAttackEfficiency");
-	    	return false;
-	    }
-	    if(this.winningNum!=ttpo.winningNum){
-	    	System.out.println("winningNum");
 	    	return false;
 	    }
 	    if(this.shotInNum!=ttpo.shotInNum){
@@ -157,10 +145,6 @@ public class TeamTechPO implements Serializable {
 	    }
 	    if(this.score!=ttpo.score){
 	    	System.out.println("score");
-	    	return false;
-	    }
-	    if(this.offensiveRound!=ttpo.offensiveRound){
-	    	System.out.println("offensiveRound");
 	    	return false;
 	    }
 	    return true;

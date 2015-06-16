@@ -52,13 +52,31 @@ public class ImportPlayer {
 		
 		ArrayList<PlayerTechVO> playertechlist=spt.ascend("season", "all");
 		for(int i=0;i<playertechlist.size();i++){
+			System.out.println(playertechlist.get(i).season);
 			seasonlist.add(playertechlist.get(i).season);
 		}
-		return seasonlist;
+		
+		ArrayList<String> resultlist=new ArrayList<String>();
+		for(int i=0;i<seasonlist.size();i++){
+			for(int j=0;j<resultlist.size();j++){
+				if(!resultlist.get(j).equals(seasonlist.get(i))){
+					resultlist.add(seasonlist.get(i));
+					System.out.println("--"+seasonlist.get(i));
+				}
+			}
+		}
+		
+		return resultlist;
 	}
 	
 	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType,String season){
-		return spt.ascend(DataType,season);
+		ArrayList<PlayerTechVO> playerlist=spt.ascend(DataType,season);
+//		for(int i=0;i<playerlist.size();i++){
+//			System.out.println(playerlist.get(i).name);
+//		}
+//		System.out.println(DataType+"　"+season);
+//		System.out.println(playerlist.size());
+		return playerlist;
 	}
 
 	public ArrayList<PlayerTechVO> getPlayerTechDescend(String DataType,String season){

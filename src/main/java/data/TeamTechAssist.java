@@ -105,28 +105,9 @@ public class TeamTechAssist {
 					ttpo.fault = Integer.valueOf(new String(rs5.getString("TUR_OWN")));
 					}
 				}
-				
-				AboutMatch am = new AboutMatch();
-				ArrayList<MatchPO> list = am.allMatch();
-				for(MatchPO m:list){
-					if(m.season.equals(regular)){
-					if(m.homeTeam.equals(ttpo.name)){
-						if(m.ifHomeTeamWin==1){
-							ttpo.winningNum++;
-						}
-						ttpo.offensiveRound = m.homeTeamOffensiveRound;
-					}else if(m.guestTeam.equals(ttpo.name)){
-						if(m.ifGuestTeamWin==1){
-							ttpo.winningNum++;
-						}
-						ttpo.offensiveRound = m.guestTeamOffensiveRound;
-					}}
-				}
-				ttpo.winningRate = ttpo.winningNum/82;	
-				rs5.close();
 				Statement state = conn.createStatement();
 				String str = "replace into `teamtech` values('"+ttpo.ifReagular+"','"+ttpo.name+"','"+ttpo.season+"','"+ttpo.gameNum+"','"+ttpo.shotInNum+"','"+ttpo.shotNum+"','"+ttpo.threeShotInNum+"','"+ttpo.threeShotNum+"','"+ttpo.penaltyShotInNum+"','"+ttpo.penaltyShotNum+"','"+ttpo.offensiveRebound+"','"+ttpo.defensiveRebound+"','"+ttpo.rebound+"','"+ttpo.secondaryAttack+"','"+ttpo.steal+"','"+ttpo.blockShot+"','"+ttpo.fault+"','"+ttpo.foul+"','"+ttpo.score+"','"+ttpo.shotInRate+"','"+
-						ttpo.threeShotInRate+"','"+ttpo.penaltyShotInRate+"','"+ttpo.winningRate+"','"+ttpo.winningNum+"','"+ttpo.offensiveRound+"','"+ttpo.offensiveEfficiency+"','"+ttpo.defensiveEfficiency+"','"+ttpo.reboundEfficiency+"','"+ttpo.stealEfficiency+"','"+ttpo.secondaryAttackEfficiency+"','"+ttpo.opponentDefensiveRebound+"','"+ttpo.opponentOffensiveRebound+"','"+ttpo.opponentOffensiveRound+"','"+ttpo.opponentScore+"')";
+						ttpo.threeShotInRate+"','"+ttpo.penaltyShotInRate+"','"+"','"+"','"+"','"+ttpo.offensiveEfficiency+"','"+ttpo.defensiveEfficiency+"','"+ttpo.reboundEfficiency+"','"+ttpo.stealEfficiency+"','"+ttpo.secondaryAttackEfficiency+"','"+ttpo.opponentDefensiveRebound+"','"+ttpo.opponentOffensiveRebound+"','"+"','"+ttpo.opponentScore+"')";
 				System.out.println(str);
 				state.executeUpdate(str);
 			}

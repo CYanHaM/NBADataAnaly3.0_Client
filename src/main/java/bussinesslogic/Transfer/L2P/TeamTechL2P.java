@@ -30,15 +30,11 @@ public class TeamTechL2P {
 		ttpo.shotInRate = ttli.shotInRate;
 		ttpo.threeShotInRate = ttli.threeShotInRate;
 		ttpo.penaltyShotInRate = ttli.penaltyShotInRate;
-		ttpo.winningRate = ttli.winningRate;
-		ttpo.offensiveRound = ttli.offensiveRound;
 		ttpo.offensiveEfficiency = ttli.offensiveEfficiency;
 		ttpo.defensiveEfficiency = ttli.defensiveEfficiency;
 		ttpo.reboundEfficiency = ttli.reboundEfficiency;
 		ttpo.stealEfficiency = ttli.stealEfficiency;
 		ttpo.secondaryAttackEfficiency = ttli.secondaryAttackEfficiency;
-		
-		ttpo.winningNum = ttli.winningNum;
 		return ttpo;
 	}
 }

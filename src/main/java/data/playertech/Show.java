@@ -23,23 +23,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -102,23 +102,23 @@ public class Show implements ShowDataService{
 	public PlayerTechPO showKeyData(String name, String team) {
 		// TODO Auto-generated method stub
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `playerTechPO` where name='"+name+"' and team='"+team+"'";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
@@ -187,23 +187,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
 			switch(type){
 			case "reboundave":
 				type = "rebound/gameNum";
@@ -302,23 +302,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
 			switch(type){
 			case "reboundave":
 				type = "rebound/gameNum";
@@ -417,23 +417,23 @@ public class Show implements ShowDataService{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerTechPO> list = new ArrayList<PlayerTechPO>();
 		String driver = "com.mysql.jdbc.Driver";
-		//URLÖ¸ÏòÒª·ÃÎÊµÄÊı¾İ¿âÃûnba
+		//URLÖ¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½nba
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
-		// MySQLÅäÖÃÊ±µÄÓÃ»§Ãû
+		// MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		String user = "root";
-		// JavaÁ¬½ÓMySQLÅäÖÃÊ±µÄÃÜÂë
+		// Javaï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String password = "cyanham";
 		try {
-			// ¼ÓÔØÇı¶¯³ÌĞò
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Class.forName(driver);
-			// Á¬ĞøÊı¾İ¿â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 			Connection conn = DriverManager.getConnection(url, user, password);
 			if(!conn.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-			// statementÓÃÀ´Ö´ĞĞSQLÓï¾ä
+			// statementï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½
 			Statement statement = conn.createStatement();
-			// ÒªÖ´ĞĞµÄSQLÓï¾ä
+			// ÒªÖ´ï¿½Ğµï¿½SQLï¿½ï¿½ï¿½
 			String sql = "SELECT * FROM `playerTechPO`";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
