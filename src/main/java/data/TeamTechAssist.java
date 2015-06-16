@@ -139,7 +139,7 @@ public class TeamTechAssist {
 		Map m = new HashMap();
 		m.put("Atlanta", "ATL");
 		m.put("Boston", "BOS");
-		m.put("Brooklyn", "BNK");
+		m.put("Brooklyn", "BKN");
 		m.put("Charlotte", "CHA");
 		m.put("Chicago", "CHI");
 		m.put("Cleveland", "CLE");
@@ -151,7 +151,7 @@ public class TeamTechAssist {
 		m.put("Indiana", "IND");
 		m.put("LA Clippers", "LAC");
 		m.put("LA Lakers", "LAL");
-		m.put("Memphis", "Mem");
+		m.put("Memphis", "MEM");
 		m.put("Miami", "MIA");
 		m.put("Milwaukee", "MIL");
 		m.put("Minnesota", "MIN");
@@ -170,10 +170,13 @@ public class TeamTechAssist {
 		return m.get(totrans).toString();
 	}
 	public String fullName(String totrans){
+		if(totrans.equals("NJ")){
+			return null;
+		}
 		Map m = new HashMap();
 		m.put("ATL","Atlanta Hawks");
 		m.put( "BOS","Boston Celtics");
-		m.put("BNK","Brooklyn Nets");
+		m.put("BKN","Brooklyn Nets");
 		m.put("CHA","Charlotte Hornets");
 		m.put("CHI","Chicago Bulls");
 		m.put("CLE","Cleveland Cavaliers");
@@ -185,7 +188,7 @@ public class TeamTechAssist {
 		m.put("IND","Indiana Pacers");
 		m.put("LAC","Los Angeles Clippers");
 		m.put("LAL","Los Angeles Lakers");
-		m.put("Mem","Memphis Grizzlies");
+		m.put("MEM","Memphis Grizzlies");
 		m.put("MIA","Miami Heat");
 		m.put( "MIL","Milwaukee Bucks");
 		m.put( "MIN","Minnesota Timberwolves");
@@ -198,9 +201,11 @@ public class TeamTechAssist {
 		m.put( "POR","Portland Trail Blazers");
 		m.put("SAC","Sacramento Kings");
 		m.put("SEA","San Antonio Spurs");
+		m.put("SA", "San Antonio Spurs");
 		m.put("TOR","Toronto Raptors");
 		m.put("UTAH","Utah Jazz");
 		m.put( "WSH","Washington Wizards");
+
 		return m.get(totrans).toString();
 	}
 	
@@ -208,7 +213,7 @@ public class TeamTechAssist {
 		Map m = new HashMap();
 		m.put("Atlanta Hawks", "ATL");
 		m.put("Boston Celtics", "BOS");
-		m.put("Brooklyn Nets", "BNK");
+		m.put("Brooklyn Nets", "BKN");
 		m.put("Charlotte Hornets", "CHA");
 		m.put("Chicago Bulls", "CHI");
 		m.put("Cleveland Cavaliers", "CLE");
@@ -220,7 +225,7 @@ public class TeamTechAssist {
 		m.put("Indiana Pacers", "IND");
 		m.put("Los Angeles Clippers", "LAC");
 		m.put("Los Angeles Lakers", "LAL");
-		m.put("Memphis Grizzlies", "Mem");
+		m.put("Memphis Grizzlies", "MEM");
 		m.put("Miami Heat", "MIA");
 		m.put("Milwaukee Bucks", "MIL");
 		m.put("Minnesota Timberwolves", "MIN");
