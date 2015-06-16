@@ -37,10 +37,30 @@ public class ImportTeam {
 
 	public ArrayList<String> getTeamSeasonList(){
 		ArrayList<String> seasonlist=new ArrayList<String>();
-		ArrayList<TeamTechPO> teamtechlist=teamtech.all();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
+		ArrayList<TeamTechVO> teamtechlist=TTbs.Ascend(TeamTechEnum.season, "all");
 		for(int i=0;i<teamtechlist.size();i++){
 			seasonlist.add(teamtechlist.get(i).season);
 		}
+		
+		ArrayList<String> resultlist=new ArrayList<String>();
+		java.util.Iterator<String> it=seasonlist.iterator();
+		while(it.hasNext()){
+			String temp=it.next();
+			if(!resultlist.contains(temp)){
+				resultlist.add(temp);
+			}
+		}
+		
 		return seasonlist;
 	}
 	
@@ -59,7 +79,7 @@ public class ImportTeam {
 	}
 	
 	public PlayerVO Show(PlayerVO vo){
-		return pis.showPlayerInfo(vo.name,1);
+		return pis.showPlayerInfo(vo.name);
 	}
 	
 	public ArrayList<PlayerVO> findByTeam(String teamname){

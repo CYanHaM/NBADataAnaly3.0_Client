@@ -78,11 +78,11 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	private JScrollPane teams;
 	private String[] columnName1={"排名","球队名称","得分","篮板","助攻","抢断","盖帽","失误","命中%","三分%","罚球%"};
 	private String[] columnName2={"排名","球队名称","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板"};
-	private String[] columnName3={"排名","球队名称","胜率","进攻回合","进攻效率","防守效率","篮板效率","抢断效率","助攻效率"};
+	private String[] columnName3={"排名","球队名称","进攻效率","防守效率","篮板效率","抢断效率","助攻效率"};
 	//表格列宽
 	private static int[] COLUMNWIDTH1={50,210,67,67,70,67,70,70,70,70,70};
 	private static int[] COLUMNWIDTH2={50,210,67,67,70,67,70,70,70,70,70};
-	private static int[] COLUMNWIDTH3={50,210,85,87,85,85,87,95,96};
+	private static int[] COLUMNWIDTH3={50,210,120,120,125,135,136};
 	
 	private JButton first;
 	private JButton second;
@@ -120,7 +120,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		//添加下拉框
 		addbox();
 		
-		initdata();
+
+		initial_data=importdata.getTeamTechAscend(TeamTechEnum.name,importdata.getTeamSeasonList().get(0));
+		//TODO delete the test
+		teaminfo1=new Object[initial_data.size()][columnName1.length];
+		teaminfo2=new Object[initial_data.size()][columnName2.length];
+		teaminfo3=new Object[initial_data.size()][columnName3.length];
+		
 		//加载初始表格，显示队伍总数据
 		handleinitial(initial_data);
 
@@ -286,6 +292,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //		teaminfo3=new Object[TEAMNUM][columnName3.length];
 	}
 	
+	
 	private void handleinitial(ArrayList<TeamTechVO> totaldata){
 		int a=0;
 		DecimalFormat f = new DecimalFormat("#,##0.0000");  
@@ -315,13 +322,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo2[a][10]=i.defensiveRebound;
 			
 			teaminfo3[a][1]=switchTeamName(i.name);
-			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
-			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][7]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+//			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
+//			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
+			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
+			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 	}
@@ -354,13 +361,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo2[a][10]=i.defensiveRebound;
 			
 			teaminfo3[a][1]=switchTeamName(i.name);
-			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
-			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][7]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+//			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
+//			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
+			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
+			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 		refreshtable();
@@ -394,13 +401,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo2[a][10]=i.defensiveReboundave;
 			
 			teaminfo3[a][1]=switchTeamName(i.name);
-			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
-			teaminfo3[a][3]=(int) Math.floor(i.offensiveRoundave);
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][7]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+//			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.winningRate*100))+"%";
+//			teaminfo3[a][3]=(int) Math.floor(i.offensiveRoundave);
+			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
+			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 		refreshtable();
