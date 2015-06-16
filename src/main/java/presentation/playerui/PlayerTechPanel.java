@@ -69,6 +69,43 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private static int[] COLUMNWIDTH3={40,160,80,80,80,80,80,90,98,93};
 
 	
+	private String[] TeamNames={
+"老鹰 Atlanta-Hawks",
+"黄蜂 Charlotte-Hornets",
+"热火 Miami-Heat",
+"魔术 Orlando-Magic",
+"奇才 Washington-Wizards",
+	
+"公牛 Chicago-Bulls",
+"骑士 Cleveland-Cavaliers",
+"活塞 Detroit-Pistons",
+"步行者 Indiana-Pacers",
+"雄鹿 Milwaukee-Bucks",
+	
+"凯尔特人 Boston-Celtics",
+"篮网 Brooklyn-Nets",
+"尼克斯 New York-Knicks",
+"76人 Philadelphia-76ers",
+"猛龙 Toronto-Raptors",
+	
+"勇士 Golden State-Warriors",
+"快船 Los Angeles-Clippers",
+"湖人 Los Angeles-Lakers",
+"太阳 Phoenix-Suns",
+"国王 Sacramento-Kings",
+	
+"掘金 Denver-Nuggets",
+"森林狼 Minnesota-Timberwolves",
+"雷霆 Oklahoma City-Thunder",
+"开拓者 Portland-Trail Blazers",
+"勇士 Utah-Jazz",
+	
+"小牛 Dallas-Mavericks",
+"火箭 Houston-Rockets",
+"灰熊 Memphis-Grizzlies",
+"鹈鹕 New Orleans-Pelicans",
+"马刺 San Antonio-Spurs"};
+	
 	//总数据与场均数据切换下拉框
 	private JComboBox<String> switchbox;
 
@@ -209,7 +246,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Regular")){
 				season.addItem(temp[0]+" 常规赛");
-			}else if(temp[1].equals("Postseason")){
+			}else if(temp[1].equals("PostSeason")){
 				season.addItem(temp[0]+" 季后赛");
 			}
 		}
@@ -716,7 +753,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		case "POR":
 			return "开拓者 - Trail Blazers";
 		case "UTA":
-			return "勇士 - Jazz";
+			return "爵士 - Jazz";
 			
 		case "DAL":
 			return "小牛 - Mavericks";
@@ -730,7 +767,20 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			return "鹈鹕 - Pelicans";
 		case "SAS":
 			return "马刺 - Spurs";
+			
+		case "GS":
+			return "勇士 - Warriors";
+		case "NO":
+			return "鹈鹕 - Pelicans";
+		case "NY":
+			return "尼克斯 - Knicks";
+		case "SEA":
+			return "马刺 - Spurs";
+		case "UTAH":
+			return "爵士 - Jazz";
+			
 		default :
+//			Math.random()*30
 				return null;
 		}
 	}
@@ -1368,7 +1418,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		if(temp[1].equals("常规赛")){
 		result=temp[0]+" Regular";
 		}else if(temp[1].equals("季后赛")){
-			result=temp[0]+" Postseason";
+			result=temp[0]+" PostSeason";
 		}
 		System.out.println(result);
 		return result;

@@ -2,6 +2,8 @@ package presentation.playerui;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import PO.PlayerTechPO;
 import VO.PlayerTechVO;
 import VO.PlayerVO;
@@ -52,12 +54,12 @@ public class ImportPlayer {
 		
 		ArrayList<PlayerTechVO> playertechlist=spt.ascend("season", "all");
 		for(int i=0;i<playertechlist.size();i++){
-			System.out.println(playertechlist.get(i).season);
+//			System.out.println(playertechlist.get(i).season);
 			seasonlist.add(playertechlist.get(i).season);
 		}
 		
-//		ArrayList<String> resultlist=new ArrayList<String>();
-//		resultlist.add(seasonlist.get(0));
+		ArrayList<String> resultlist=new ArrayList<String>();
+		java.util.Iterator<String> it=seasonlist.iterator();
 //		for(int i=0;i<seasonlist.size();i++){
 //			for(int j=0;j<resultlist.size();j++){
 //				if(!seasonlist.get(i).equals(resultlist.get(j))){
@@ -66,9 +68,19 @@ public class ImportPlayer {
 //				}
 //			}
 //		}
+		while(it.hasNext()){
+			String temp=it.next();
+			if(!resultlist.contains(temp)){
+				resultlist.add(temp);
+			}
+		}
+		
+		for(int i=0;i<resultlist.size();i++){
+			System.out.println("---"+resultlist.get(i));
+		}
 //		
 		
-		return seasonlist;
+		return resultlist;
 	}
 	
 	public ArrayList<PlayerTechVO> getPlayerTechAscend(String DataType,String season){
