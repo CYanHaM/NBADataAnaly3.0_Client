@@ -200,7 +200,7 @@ public class TeamTechAssist {
 	}
 	public String fullName(String totrans){
 		if(totrans.equals("NJ")){
-			return null;
+			return "Brooklyn Nets";
 		}
 		Map m = new HashMap();
 		m.put("ATL","Atlanta Hawks");
