@@ -65,8 +65,8 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	private String[] columnName3={"排名","球员名称","时间","参赛","先发","真实命中%","GmSc 效率","失误%","使用%"};
 	//表格列宽
 	private static int[] COLUMNWIDTH1={40,160,170,70,70,70,50,50,50,50,50,51};
-	private static int[] COLUMNWIDTH2={40,160,90,90,90,90,90,90,90};
-	private static int[] COLUMNWIDTH3={40,160,120,90,90,90,90,98,93};
+	private static int[] COLUMNWIDTH2={40,160,99,97,97,97,97,97,97};
+	private static int[] COLUMNWIDTH3={40,160,120,100,100,90,90,90,91};
 
 	
 	private String[] TeamNames={
@@ -168,19 +168,19 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		importdata=new ImportPlayer();
 		
 		//添加下拉框
-//		addbox();
+		addbox();
 
-//		initial_data=importdata.getPlayerTechAscend("name",importdata.getPlayerSeasonList().get(0));
+		initial_data=importdata.getPlayerTechAscend("name",importdata.getPlayerSeasonList().get(0));
 		//TODO delete the test
-//		playerinfo1=new Object[initial_data.size()][columnName1.length];
-//		playerinfo2=new Object[initial_data.size()][columnName2.length];
-//		playerinfo3=new Object[initial_data.size()][columnName3.length];
+		playerinfo1=new Object[initial_data.size()][columnName1.length];
+		playerinfo2=new Object[initial_data.size()][columnName2.length];
+		playerinfo3=new Object[initial_data.size()][columnName3.length];
 		
 		//TODO init
-		initdata();
+//		initdata();
 		
 		//加载初始表格，显示队伍总数据
-//		handleinitial(initial_data);
+		handleinitial(initial_data);
 
 		//加载表格配置
 		table1_config();
@@ -466,14 +466,14 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	//----------------------initial & different methods------------
 	private void initdata(){
 //		System.out.println((String)season.getSelectedItem());
-//		initial_data=importdata.getPlayerTechAscend("name",switchseasonname((String)season.getSelectedItem()));
-		//TODO delete the test
-//		playerinfo1=new Object[initial_data.size()][columnName1.length];
-//		playerinfo2=new Object[initial_data.size()][columnName2.length];
-//		playerinfo3=new Object[initial_data.size()][columnName3.length];
-		playerinfo1=new Object[PLAYERNUM][columnName1.length];
-		playerinfo2=new Object[PLAYERNUM][columnName2.length];
-		playerinfo3=new Object[PLAYERNUM][columnName3.length];
+		initial_data=importdata.getPlayerTechAscend("name",switchseasonname((String)season.getSelectedItem()));
+//		TODO delete the test
+		playerinfo1=new Object[initial_data.size()][columnName1.length];
+		playerinfo2=new Object[initial_data.size()][columnName2.length];
+		playerinfo3=new Object[initial_data.size()][columnName3.length];
+//		playerinfo1=new Object[PLAYERNUM][columnName1.length];
+//		playerinfo2=new Object[PLAYERNUM][columnName2.length];
+//		playerinfo3=new Object[PLAYERNUM][columnName3.length];
 	}
 	
 	private void handleinitial(ArrayList<PlayerTechVO> totaldata){
