@@ -231,7 +231,7 @@ public class PlayerTech implements StatsInfo{
 							po.guestPenaltyShotIn = Integer.parseInt(rs.getString("guestPenaltyShotIn"));
 							po.homeFault = Integer.parseInt(rs.getString("homeFault"));
 							po.guestFault = Integer.parseInt(rs.getString("guestFault"));
-							String sql2 = "select * from `playerTechPO` where date = '"+po.date+"' and (team ='"+po.homeTeam+"' or team = '"+po.guestTeam+"')";
+							String sql2 = "select * from `playerTechMPO` where `date` = '"+po.date+"' and (team ='"+po.homeTeam+"' or team = '"+po.guestTeam+"')";
 							ArrayList<PlayerTechMPO> mpo = new ArrayList<PlayerTechMPO>();
 							Statement state = conn.createStatement();
 							ResultSet r = state.executeQuery(sql2);
