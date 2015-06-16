@@ -15,7 +15,7 @@ public class TeamTechAssist {
 	
 	public static void main(String args[]){
 		TeamTechAssist tta = new TeamTechAssist();
-		tta.transferDetail();
+		System.out.println(tta.fullName("ORL"));
 	}
 	
 	public void transferDetail(){
@@ -161,7 +161,7 @@ public class TeamTechAssist {
 		m.put("Orlando", "ORL");
 		m.put("Philadelphia", "PHI");
 		m.put("Phoenix", "PHX");
-		m.put("Portlan", "POR");
+		m.put("Portland", "POR");
 		m.put("Sacramento", "SAC");
 		m.put("San Antonio", "SEA");
 		m.put("Toronto","TOR");
