@@ -8,6 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Test {
+	
+	public static void main(String[] args){
+		String str = "Boston Celtics2014-15 Regular";
+		int index = str.indexOf("20");
+		String season = str.substring(index, str.length());
+		String team = str.substring(0, index-1);
+		System.out.println(season);
+		System.out.println(team);
+	}
 	public ArrayList<String>  fake(String team) {
 		//Çý¶¯³ÌÐòÃû
 			String driver = "com.mysql.jdbc.Driver";
