@@ -50,12 +50,6 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	private int buttonwidth=98;
 	private int buttonheight=40;
 	
-	private JButton SeasonInfo;
-	private JButton MatchInfo;
-	private JButton TeamInfo;
-	private JButton PlayerInfo;
-	private JButton Hot;
-
 	//得分，篮板，助攻，盖帽，抢断，两双，得分比，效率
 	private JButton score;
 	private JButton rebound;
@@ -234,22 +228,6 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	}
 
 	private void addbutton(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-		Hot.setSelected(true);
-		
 		score = new JButton(new ImageIcon("images/buttons/hotplayer/score1.png"));
 		button_config(score, "score", 0);
 		score.setSelected(true);
@@ -293,17 +271,6 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 
 	}
 	
-	private void sideButton_config(JButton button,String info,int count){
-		button.setBounds(26, 145+50*count, 148, 50);
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setRolloverIcon(new ImageIcon("images/system_img/"+info+"_rollover.png"));
-		button.setPressedIcon(new ImageIcon("images/system_img/"+info+"_pressed.png"));
-		button.setSelectedIcon(new ImageIcon("images/system_img/"+info+"_selected.png"));
-		button.addActionListener(this);
-		this.add(button);
-	}
 	
 	private void button_config(JButton button,String info,int num){
 		button.setBounds(200+buttonwidth*num, 185, buttonwidth, buttonheight);
@@ -613,38 +580,12 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 	//paint the background
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im1=new ImageIcon("images/system_img/main_bg.png");
+		ImageIcon im1=new ImageIcon("images/system_img/hot_bg.png");
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==SeasonInfo){
-			Frame.remove(panelToRemove);
-			TeamTechPanel panel=new TeamTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==MatchInfo){
-			Frame.remove(panelToRemove);
-			MatchPanel panel=new MatchPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==TeamInfo){
-			Frame.remove(panelToRemove);
-			TeamInfoPanel panel=new TeamInfoPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		if(arg0.getSource()==PlayerInfo){
-			Frame.remove(panelToRemove);
-			PlayerTechPanel panel=new PlayerTechPanel(Frame);
-			Frame.add(panel);
-			Frame.repaint();
-		}
-		
-		
 		if(arg0.getSource()==hotteam){
 			Frame.remove(panelToRemove);
 			SeasonHotTeam panel=new SeasonHotTeam(Frame);

@@ -75,11 +75,6 @@ public class ImportPlayer {
 			}
 		}
 		
-		for(int i=0;i<resultlist.size();i++){
-			System.out.println("---"+resultlist.get(i));
-		}
-//		
-		
 		return resultlist;
 	}
 	
