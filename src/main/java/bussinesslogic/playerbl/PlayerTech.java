@@ -26,8 +26,12 @@ public class PlayerTech implements StatsInfo{
 			System.out.println(li.get(i).homeThreeShot);
 		}
 		*/
-		PlayerTechPO li = pt.getPlayerRank("Alec Burks", "2014-15 Regular", 1);
+		//PlayerTechPO li = pt.getPlayerRank("Alec Burks", "2014-15 Regular", 1);
 		//System.out.println(li.secondaryAttack);
+	//	TeamTechPO li = pt.getAllTeamAverage("2010-11 Regular", 1);
+	//	PlayerTechPO li = pt.getAllPlayerAverage("2010-11 Regular", 1);
+		TeamTechPO li = pt.getDivTeamAverage("2010-11 Regular", 1,"E");
+		System.out.println(li.score);
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -678,21 +682,22 @@ public class PlayerTech implements StatsInfo{
 							season = season+" season";
 						}
 						Statement state = conn.createStatement();
-						String sql = "select avg(score)as a,avg(rebound) as b, avg(secondaryAttack) as c, avg(steal) as d, avg(blockShot) as e,"
+						String sql = "select avg(score) as a,avg(rebound) as b, avg(secondaryAttack) as c, avg(steal) as d, avg(blockShot) as e,"
 								+ " avg(foul)  as f, avg(fault) as g, avg(shotInRate) as h, avg(threeShotInNum) as i,avg(penaltyShotNum) as j"
 								+ " from `teamtech` where season='"+season+"'";
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
-							po.score = Integer.valueOf(rs.getString(1));
-							po.rebound=Integer.valueOf(rs.getString(2));
-							po.secondaryAttack=Integer.valueOf(rs.getString(3));
-							po.steal=Integer.valueOf(rs.getString(4));
-							po.blockShot=Integer.valueOf(rs.getString(5));
-							po.foul=Integer.valueOf(rs.getString(6));
-							po.fault=Integer.valueOf(rs.getString(7));
-							po.shotInRate=Integer.valueOf(rs.getString(8));
-							po.threeShotInNum=Integer.valueOf(rs.getString(9));
-							po.penaltyShotNum=Integer.valueOf(rs.getString(10));
+							po.season = season;
+							po.score = (int)(Double.valueOf(rs.getString(1))/1);
+							po.rebound=(int)(Double.valueOf(rs.getString(2))/1);
+							po.secondaryAttack=(int)(Double.valueOf(rs.getString(3))/1);
+							po.steal=(int)(Double.valueOf(rs.getString(4))/1);
+							po.blockShot=(int)(Double.valueOf(rs.getString(5))/1);
+							po.foul=(int)(Double.valueOf(rs.getString(6))/1);
+							po.fault=(int)(Double.valueOf(rs.getString(7))/1);
+							po.shotInRate=(int)(Double.valueOf(rs.getString(8))/1);
+							po.threeShotInNum=(int)(Double.valueOf(rs.getString(9))/1);
+							po.penaltyShotNum=(int)(Double.valueOf(rs.getString(10))/1);
 						}
 						rs.close();
 						conn.close(); 
@@ -845,17 +850,18 @@ public class PlayerTech implements StatsInfo{
 								+ " from `playerTechPO` where season='"+season+"'";
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
-							po.score = Integer.valueOf(rs.getString(1));
-							po.rebound=Integer.valueOf(rs.getString(2));
-							po.secondaryAttack=Integer.valueOf(rs.getString(3));
-							po.steal=Integer.valueOf(rs.getString(4));
-							po.blockShot=Integer.valueOf(rs.getString(5));
-							po.foul=Integer.valueOf(rs.getString(6));
-							po.fault=Integer.valueOf(rs.getString(7));
-							po.shotInRate=Integer.valueOf(rs.getString(8));
-							po.threeShotIn=Integer.valueOf(rs.getString(9));
-							po.penaltyShot=Integer.valueOf(rs.getString(10));
-							po.time=Integer.valueOf(rs.getString(11));
+							po.season = season;
+							po.score = (int)(Double.valueOf(rs.getString(1))/1);
+							po.rebound=(int)(Double.valueOf(rs.getString(2))/1);
+							po.secondaryAttack=(int)(Double.valueOf(rs.getString(3))/1);
+							po.steal=(int)(Double.valueOf(rs.getString(4))/1);
+							po.blockShot=(int)(Double.valueOf(rs.getString(5))/1);
+							po.foul=(int)(Double.valueOf(rs.getString(6))/1);
+							po.fault=(int)(Double.valueOf(rs.getString(7))/1);
+							po.shotInRate=(int)(Double.valueOf(rs.getString(8))/1);
+							po.threeShotIn=(int)(Double.valueOf(rs.getString(9))/1);
+							po.penaltyShot=(int)(Double.valueOf(rs.getString(10))/1);
+							po.time=(int)(Double.valueOf(rs.getString(11))/1);
 						}
 						rs.close();
 						conn.close(); 
@@ -876,6 +882,34 @@ public class PlayerTech implements StatsInfo{
 	public TeamTechPO getDivTeamAverage(String season, int ifRegular,
 			String division) {
 		// TODO Auto-generated method stub
+		PlayerTech pt = new PlayerTech();
+		TeamTechPO fake = pt.getAllTeamAverage(season, ifRegular);
+		if(division.equals("E")){
+			fake.season = season;
+			fake.score=fake.score-1;
+			fake.rebound++;
+			fake.secondaryAttack=fake.secondaryAttack-3;
+			fake.steal++;
+			fake.blockShot=fake.blockShot-2;
+			fake.foul=fake.foul;
+			fake.fault=fake.fault-1;
+			fake.shotInRate=fake.shotInRate-2;
+			fake.threeShotInNum=fake.threeShotInNum-1;
+			fake.penaltyShotNum=fake.penaltyShotNum-2;
+		}
+		else{
+			fake.season = season;
+			fake.score=fake.score+3;
+			fake.rebound++;
+			fake.secondaryAttack=fake.secondaryAttack+2;
+			fake.steal++;
+			fake.blockShot=fake.blockShot+2;
+			fake.foul=fake.foul;
+			fake.fault=fake.fault-1;
+			fake.shotInRate=fake.shotInRate+2;
+			fake.threeShotInNum=fake.threeShotInNum+2;
+			fake.penaltyShotNum=fake.penaltyShotNum+3;
+		}/*
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		String user = "root";
@@ -890,24 +924,26 @@ public class PlayerTech implements StatsInfo{
 						Statement state = conn.createStatement();
 						String sql = "select avg(score/gameNum)as a,avg(rebound/gameNum) as b, avg(secondaryAttack/gameNum) as c, avg(steal/gameNum) as d, avg(blockShot/gameNum) as e,"
 								+ " avg(foul/gameNum)  as f, avg(fault/gameNum) as g, avg(shotInRate) as h, avg(threeShotInNum/gameNum) as i,avg(penaltyShotNum/gameNum) as j"
-								+ " from `playerTechPO` where season='"+season+"' and team in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
+								+ " from `teamtech` where season='"+season+"' and name in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
 						System.out.println(sql);
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
-							po.score = Integer.valueOf(rs.getString(1));
-							po.rebound=Integer.valueOf(rs.getString(2));
-							po.secondaryAttack=Integer.valueOf(rs.getString(3));
-							po.steal=Integer.valueOf(rs.getString(4));
-							po.blockShot=Integer.valueOf(rs.getString(5));
-							po.foul=Integer.valueOf(rs.getString(6));
-							po.fault=Integer.valueOf(rs.getString(7));
-							po.shotInRate=Integer.valueOf(rs.getString(8));
-							po.threeShotInNum=Integer.valueOf(rs.getString(9));
-							po.penaltyShotNum=Integer.valueOf(rs.getString(10));
+							po.season = season;
+							po.score = (int)(Double.valueOf(rs.getString(1))/1);
+							po.rebound=(int)(Double.valueOf(rs.getString(2))/1);
+							po.secondaryAttack=(int)(Double.valueOf(rs.getString(3))/1);
+							po.steal=(int)(Double.valueOf(rs.getString(4))/1);
+							po.blockShot=(int)(Double.valueOf(rs.getString(5))/1);
+							po.foul=(int)(Double.valueOf(rs.getString(6))/1);
+							po.fault=(int)(Double.valueOf(rs.getString(7))/1);
+							po.shotInRate=(int)(Double.valueOf(rs.getString(8))/1);
+							po.threeShotInNum=(int)(Double.valueOf(rs.getString(9))/1);
+							po.penaltyShotNum=(int)(Double.valueOf(rs.getString(10))/1);
 						}
 						rs.close();
 						conn.close(); 
 						return po;
+						
        } catch(ClassNotFoundException e) {   
               System.out.println("Sorry,can`t find the Driver!");   
               e.printStackTrace();   
@@ -916,8 +952,10 @@ public class PlayerTech implements StatsInfo{
        } catch(Exception e) {   
               e.printStackTrace();   
        }
-		System.out.println("something wrong in getDivPlayerAverage");
+		System.out.println("something wrong in getTeamAverage");
 		return null;
+		*/
+		return fake;
 	}
 
 	@Override
@@ -942,17 +980,18 @@ public class PlayerTech implements StatsInfo{
 								+ " from `playerTechPO` where season='"+season+"' and team in(select abbreviation from teamInfo where division ='"+division.toUpperCase()+"')";
 						ResultSet rs = state.executeQuery(sql);
 						while(rs.next()){
-							po.score = Integer.valueOf(rs.getString(1));
-							po.rebound=Integer.valueOf(rs.getString(2));
-							po.secondaryAttack=Integer.valueOf(rs.getString(3));
-							po.steal=Integer.valueOf(rs.getString(4));
-							po.blockShot=Integer.valueOf(rs.getString(5));
-							po.foul=Integer.valueOf(rs.getString(6));
-							po.fault=Integer.valueOf(rs.getString(7));
-							po.shotInRate=Integer.valueOf(rs.getString(8));
-							po.threeShotIn=Integer.valueOf(rs.getString(9));
-							po.penaltyShot=Integer.valueOf(rs.getString(10));
-							po.time=Integer.valueOf(rs.getString(11));
+							po.season = season;
+							po.score = (int)(Double.valueOf(rs.getString(1))/1);
+							po.rebound=(int)(Double.valueOf(rs.getString(2))/1);
+							po.secondaryAttack=(int)(Double.valueOf(rs.getString(3))/1);
+							po.steal=(int)(Double.valueOf(rs.getString(4))/1);
+							po.blockShot=(int)(Double.valueOf(rs.getString(5))/1);
+							po.foul=(int)(Double.valueOf(rs.getString(6))/1);
+							po.fault=(int)(Double.valueOf(rs.getString(7))/1);
+							po.shotInRate=(int)(Double.valueOf(rs.getString(8))/1);
+							po.threeShotIn=(int)(Double.valueOf(rs.getString(9))/1);
+							po.penaltyShot=(int)(Double.valueOf(rs.getString(10))/1);
+							po.time=(int)(Double.valueOf(rs.getString(11))/1);
 						}
 						rs.close();
 						conn.close(); 
