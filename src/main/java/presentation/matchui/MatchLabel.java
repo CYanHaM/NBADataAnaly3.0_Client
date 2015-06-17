@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import presentation.playerui.PlayerInfoPanel;
 import presentation.preset.MatchPre;
 import presentation.teamui.TeamPanel;
+import PO.MatchPO;
 import VO.MatchVO;
 import VO.TeamVO;
 
@@ -50,8 +53,8 @@ public class MatchLabel extends JPanel implements ActionListener{
 
 	JFrame Frame;
 	JPanel panelToReturn;
-	MatchVO Matchinfo;
-	public MatchLabel(MatchVO matchinfo,JFrame frame,JPanel panel) {
+	MatchPO Matchinfo;
+	public MatchLabel(MatchPO matchinfo,JFrame frame,JPanel panel) {
 		Matchinfo=matchinfo;
 		Frame=frame;
 		panelToReturn=panel;
@@ -68,7 +71,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 	}
 
 	//the kits to show the teams'info of the match
-	private void team_config(MatchVO matchinfo){
+	private void team_config(MatchPO matchinfo){
 		//--------------------add team icons----------------------------
 		guestTeam_img = new JLabel(new ImageIcon("images/teams/standard/"+matchinfo.guestTeam+".png"));
 		guestTeam_img.setBounds(15, 15,teamicon_width,teamicon_height);
@@ -128,7 +131,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 	}
 
 	//the kits to show the champion players'info
-	private void champion_config(MatchVO matchinfo){
+	private void champion_config(MatchPO matchinfo){
 		int space=50;
 		//------------------add Champions and scores---------------------
 		String sC[]=matchinfo.scoringChampion.split("_");
@@ -216,7 +219,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 			return "热火";
 		case "ORL":
 			return "魔术";
-		case "WAS":
+		case "WSH":
 			return "奇才";
 
 		case "CHI":
@@ -234,7 +237,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 			return "凯尔特人";
 		case "BKN":
 			return "篮网";
-		case "NYK":
+		case "NY":
 			return "尼克斯";
 		case "PHI":
 			return "76人";
@@ -242,7 +245,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 			return "猛龙";
 
 
-		case "GSW":
+		case "GS":
 			return "勇士";
 		case "LAC":
 			return "快船";
@@ -261,7 +264,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 			return "雷霆";
 		case "POR":
 			return "开拓者";
-		case "UTA":
+		case "UTAH":
 			return "勇士";
 
 		case "DAL":
@@ -270,9 +273,9 @@ public class MatchLabel extends JPanel implements ActionListener{
 			return "火箭";
 		case "MEM":
 			return "灰熊";
-		case "NOP":
+		case "NO":
 			return "鹈鹕";
-		case "SAS":
+		case "SEA":
 			return "马刺";
 		default :
 			return null;
@@ -336,7 +339,8 @@ public class MatchLabel extends JPanel implements ActionListener{
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			TeamVO tvo=new TeamVO();
-			tvo.abbreviation=teamname;
+			tvo.abbreviation=abbr(teamname);
+//			System.out.println("abbreviation"+tvo.abbreviation);
 			TeamPanel tp=new TeamPanel(tvo,Frame,panelToReturn);
 			Frame.remove(panelToReturn);
 			Frame.add(tp);
@@ -355,6 +359,42 @@ public class MatchLabel extends JPanel implements ActionListener{
 		public void mouseReleased(MouseEvent arg0) {
 		}
 
+	}
+	
+	public String abbr(String totrans){
+		Map m = new HashMap();
+		m.put("Atlanta Hawks", "ATL");
+		m.put("Boston Celtics", "BOS");
+		m.put("Brooklyn Nets", "BKN");
+		m.put("Charlotte Hornets", "CHA");
+		m.put("Chicago Bulls", "CHI");
+		m.put("Cleveland Cavaliers", "CLE");
+		m.put("Dallas Mavericks", "DAL");
+		m.put("Denver Nuggets", "DEN");
+		m.put("Detroit Pistons", "DET");
+		m.put("Golden State Warriors", "GS");
+		m.put("Houston Rockets", "HOU");
+		m.put("Indiana Pacers", "IND");
+		m.put("Los Angeles Clippers", "LAC");
+		m.put("Los Angeles Lakers", "LAL");
+		m.put("Memphis Grizzlies", "MEM");
+		m.put("Miami Heat", "MIA");
+		m.put("Milwaukee Bucks", "MIL");
+		m.put("Minnesota Timberwolves", "MIN");
+		m.put("New Orleans Pelicans","NO");
+		m.put("New York Knicks", "NY");
+		m.put("Oklahoma City Thunder", "OKC");
+		m.put("Orlando Magic", "ORL");
+		m.put("Philadelphia 76ers", "PHI");
+		m.put("Phoenix Suns", "PHX");
+		m.put("Portland Trail Blazers", "POR");
+		m.put("Sacramento Kings", "SAC");
+		m.put("San Antonio Spurs", "SEA");
+		m.put("Toronto Raptors","TOR");
+		m.put("Utah Jazz","UTAH");
+		m.put("Washington Wizards", "WSH");
+		return m.get(totrans).toString();
+	
 	}
 
 	@Override

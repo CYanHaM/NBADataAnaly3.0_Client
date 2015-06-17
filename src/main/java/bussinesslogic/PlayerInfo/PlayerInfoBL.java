@@ -13,6 +13,9 @@ public class PlayerInfoBL implements PlayerInfoService{
 
 	PlayerInfoDataService pids = new PlayerInfo();
 	PO2VO p2v;
+	public PlayerInfoBL() {
+		p2v=new PO2VO();
+	}
 	@Override
 	public ArrayList<PlayerVO> showAllPlayerInfo(int retire) {
 		ArrayList<PlayerPO> polist = pids.findAll(retire);

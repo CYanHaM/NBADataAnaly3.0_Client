@@ -187,7 +187,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		ORL=new JButton();
 		button_config(ORL,"ORL");
 		WAS=new JButton();
-		button_config(WAS,"WAS");
+		button_config(WAS,"WSH");
 		
 		CHI=new JButton();
 		button_config(CHI,"CHI");
@@ -205,14 +205,14 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		BKN=new JButton();
 		button_config(BKN,"BKN");
 		NYK=new JButton();
-		button_config(NYK,"NYK");
+		button_config(NYK,"NY");
 		PHI=new JButton();
 		button_config(PHI,"PHI");
 		TOR=new JButton();
 		button_config(TOR,"TOR");
 		
 		GSW=new JButton();
-		button_config(GSW,"GSW");
+		button_config(GSW,"GS");
 		LAC=new JButton();
 		button_config(LAC,"LAC");
 		LAL=new JButton();
@@ -231,7 +231,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		POR=new JButton();
 		button_config(POR,"POR");
 		UTA=new JButton();
-		button_config(UTA,"UTA");
+		button_config(UTA,"UTAH");
 		
 		DAL=new JButton();
 		button_config(DAL,"DAL");
@@ -240,9 +240,9 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		MEM=new JButton();
 		button_config(MEM,"MEM");
 		NOP=new JButton();
-		button_config(NOP,"NOP");
+		button_config(NOP,"NO");
 		SAS=new JButton();
-		button_config(SAS,"SAS");
+		button_config(SAS,"SEA");
 	}
 	
 	public void button_config(JButton button,String name){
@@ -528,7 +528,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 			jumpToPanel("ORL");
 		}
 		if(arg0.getSource()==WAS){
-			jumpToPanel("WAS");
+			jumpToPanel("WSH");
 		}
 		
 		if(arg0.getSource()==CHI){
@@ -556,7 +556,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 			jumpToPanel("BKN");
 		}
 		if(arg0.getSource()==NYK){
-			jumpToPanel("NYK");
+			jumpToPanel("NY");
 		}
 		if(arg0.getSource()==PHI){
 			jumpToPanel("PHI");
@@ -566,7 +566,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 		}
 		
 		if(arg0.getSource()==GSW){
-			jumpToPanel("GSW");
+			jumpToPanel("GS");
 		}
 		if(arg0.getSource()==LAC){
 			jumpToPanel("LAC");
@@ -595,7 +595,7 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 			jumpToPanel("POR");
 		}
 		if(arg0.getSource()==UTA){
-			jumpToPanel("UTA");
+			jumpToPanel("UTAH");
 		}
 		
 		if(arg0.getSource()==DAL){
@@ -608,10 +608,10 @@ public class TeamInfoPanel extends JPanel implements ActionListener{
 			jumpToPanel("MEM");
 		}
 		if(arg0.getSource()==NOP){
-			jumpToPanel("NOP");
+			jumpToPanel("NO");
 		}
 		if(arg0.getSource()==SAS){
-			jumpToPanel("SAS");
+			jumpToPanel("SEA");
 		}
 	}
 }

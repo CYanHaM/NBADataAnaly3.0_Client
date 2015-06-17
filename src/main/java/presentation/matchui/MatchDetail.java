@@ -32,6 +32,7 @@ import presentation.preset.MatchPre;
 import presentation.preset.PlayerTechPre;
 import presentation.teamui.TeamInfoPanel;
 import presentation.teamui.TeamTechPanel;
+import PO.MatchPO;
 import PO.PlayerTechMPO;
 import VO.MatchVO;
 
@@ -90,12 +91,12 @@ public class MatchDetail extends JPanel implements ActionListener{
 	
 	MatchPre MP;
 	JFrame Frame;
-	MatchVO matchvo;
+	MatchPO matchvo;
 	JPanel panelToReturn;
 	JPanel panelToRemove;
 	PlayerTechPre PTPre;
 
-	public MatchDetail(JFrame frame,MatchVO mvo,JPanel panel) {
+	public MatchDetail(JFrame frame,MatchPO mvo,JPanel panel) {
 //		System.out.println(mvo.guestTeam);
 		Frame=frame;
 		matchvo=mvo;
@@ -110,10 +111,10 @@ public class MatchDetail extends JPanel implements ActionListener{
 		addlabels();
 
 		//---------------------add jscrollpane and table-----------------
-		getplayerNum(mvo);
+		getplayerNum(matchvo);
 		tableguest_config();
 		tablehome_config();
-		insertData(mvo);
+		insertData(matchvo);
 
 		jsp_guest = new JScrollPane(table_guest);
 		jsp_guest.setViewportView(table_guest);
@@ -329,8 +330,10 @@ public class MatchDetail extends JPanel implements ActionListener{
 		}
 	}
 
-	public void getplayerNum(MatchVO mvo){
+	public void getplayerNum(MatchPO mvo){
+		System.out.println(mvo.playerStatistic);
 		ArrayList<PlayerTechMPO> playerTech=mvo.playerStatistic;
+		System.out.println("playertech"+playerTech.size());
 		for(PlayerTechMPO ppo:playerTech){
 			if(ppo.team.equals(mvo.guestTeam)){
 				playerNum_guest++;
@@ -413,7 +416,7 @@ public class MatchDetail extends JPanel implements ActionListener{
 		}
 	}
 
-	private void insertData(MatchVO mvo){
+	private void insertData(MatchPO mvo){
 		ArrayList<PlayerTechMPO> playerTech=mvo.playerStatistic;
 		int i=0;
 		for(PlayerTechMPO ppo:playerTech){

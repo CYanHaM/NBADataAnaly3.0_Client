@@ -182,6 +182,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 	
 	//----------------------initial & different methods------------
 	private void initdata(){
+		System.out.println(playername);
 		playertechvo=importplayer.findPlayerTechByName(playername,switchseason((String)season.getSelectedItem()));
 		//TODO delete the test
 		adddata();

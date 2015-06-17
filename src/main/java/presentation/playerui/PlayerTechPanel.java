@@ -15,10 +15,12 @@ import presentation.matchui.MatchPanel;
 import presentation.preset.PlayerTechPre;
 import presentation.preset.StatPre;
 import presentation.teamui.TeamInfoPanel;
+import presentation.teamui.TeamPanel;
 import presentation.teamui.TeamTechPanel;
 import TypeEnum.PlayerTechEnum;
 import VO.PlayerTechVO;
 import VO.ScreeningConditionVO;
+import VO.TeamVO;
 
 public class PlayerTechPanel extends JPanel implements ActionListener{
 	/**
@@ -701,94 +703,154 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	 * 
 	 */
 	
-	private String switchTeamName(String name){
-		switch(name){
-		case "ATL":
-			return "老鹰 - Hawks";
-		case "CHA":
-			return "黄蜂 - Hornets";
-		case "MIA":
-			return "热火 - Heat";
-		case "ORL":
-			return "魔术 - Magic";
-		case "WAS":
-			return "奇才 - Wizards";
-			
-		case "CHI":
-			return "公牛 - Bulls";
-		case "CLE":
-			return "骑士 - Cavaliers";
-		case "DET":
-			return "活塞 - Pistons";
-		case "IND":
-			return "步行者 - Pacers";
-		case "MIL":
-			return "雄鹿 - Bucks";
-			
-		case "BOS":
-			return "凯尔特人 - Celtics";
-		case "BKN":
-			return "篮网 - Nets";
-		case "NYK":
-			return "尼克斯 - Knicks";
-		case "PHI":
-			return "76人 - 76ers";
-		case "TOR":
-			return "猛龙 - Raptors";
-			
-			
-		case "GSW":
-			return "勇士 - Warriors";
-		case "LAC":
-			return "快船 - Clippers";
-		case "LAL":
-			return "湖人 - Lakers";
-		case "PHX":
-			return "太阳 - Suns";
-		case "SAC":
-			return "国王 - Kings";
-			
-		case "DEN":
-			return "掘金 - Nuggets";
-		case "MIN":
-			return "森林狼 - Timberwolves";
-		case "OKC":
-			return "雷霆 - Thunder";
-		case "POR":
-			return "开拓者 - Trail Blazers";
-		case "UTA":
-			return "爵士 - Jazz";
-			
-		case "DAL":
-			return "小牛 - Mavericks";
-		case "HOU":
-			return "火箭 - Rockets";
-		case "MEM":
-			return "灰熊 - Grizzlies";
-		case "NOP":
-			return "鹈鹕 - Pelicans";
-		case "NOH":
-			return "鹈鹕 - Pelicans";
-		case "SAS":
-			return "马刺 - Spurs";
-			
-		case "GS":
-			return "勇士 - Warriors";
-		case "NO":
-			return "鹈鹕 - Pelicans";
-		case "NY":
-			return "尼克斯 - Knicks";
-		case "SEA":
-			return "马刺 - Spurs";
-		case "UTAH":
-			return "爵士 - Jazz";
-			
-		default :
-//			Math.random()*30
-				return null;
+		private String switchTeamName(String name){
+			switch(name){
+			case "ATL":
+				return "老鹰 Atlanta-Hawks";
+			case "CHA":
+				return "黄蜂 Charlotte-Hornets";
+			case "MIA":
+				return "热火 Miami-Heat";
+			case "ORL":
+				return "魔术 Orlando-Magic";
+			case "WSH":
+				return "奇才 Washington-Wizards";
+				
+			case "CHI":
+				return "公牛 Chicago-Bulls";
+			case "CLE":
+				return "骑士 Cleveland-Cavaliers";
+			case "DET":
+				return "活塞 Detroit-Pistons";
+			case "IND":
+				return "步行者 Indiana-Pacers";
+			case "MIL":
+				return "雄鹿 Milwaukee-Bucks";
+				
+			case "BOS":
+				return "凯尔特人 Boston-Celtics";
+			case "BKN":
+				return "篮网 Brooklyn-Nets";
+			case "NY":
+				return "尼克斯 New York-Knicks";
+			case "PHI":
+				return "76人 Philadelphia-76ers";
+			case "TOR":
+				return "猛龙 Toronto-Raptors";
+				
+				
+			case "GS":
+				return "勇士 Golden State-Warriors";
+			case "LAC":
+				return "快船 Los Angeles-Clippers";
+			case "LAL":
+				return "湖人 Los Angeles-Lakers";
+			case "PHX":
+				return "太阳 Phoenix-Suns";
+			case "SAC":
+				return "国王 Sacramento-Kings";
+				
+			case "DEN":
+				return "掘金 Denver-Nuggets";
+			case "MIN":
+				return "森林狼 Minnesota-Timberwolves";
+			case "OKC":
+				return "雷霆 Oklahoma City-Thunder";
+			case "POR":
+				return "开拓者 Portland-Trail Blazers";
+			case "UTAH":
+				return "爵士 Utah-Jazz";
+				
+			case "DAL":
+				return "小牛 Dallas-Mavericks";
+			case "HOU":
+				return "火箭 Houston-Rockets";
+			case "MEM":
+				return "灰熊 Memphis-Grizzlies";
+			case "NO":
+				return "鹈鹕 New Orleans-Pelicans";
+			case "NOH":
+				return "鹈鹕 New Orleans-Pelicans";
+			case "SEA":
+				return "马刺 San Antonio-Spurs";
+			default :
+					return null;
+			}
 		}
-	}
 	
+		
+		private String switchTeam(String name){
+			switch(name){
+			case "老鹰 Atlanta-Hawks":
+				return "ATL";
+			case "黄蜂 Charlotte-Hornets":
+				return "CHA";
+			case "热火 Miami-Heat":
+				return "MIA";
+			case "魔术 Orlando-Magic":
+				return "ORL";
+			case "奇才 Washington-Wizards":
+				return "WSH";
+				
+			case "公牛 Chicago-Bulls":
+				return "CHI";
+			case "骑士 Cleveland-Cavaliers":
+				return "CLE";
+			case "活塞 Detroit-Pistons":
+				return "DET";
+			case "步行者 Indiana-Pacers":
+				return "IND";
+			case "雄鹿 Milwaukee-Bucks":
+				return "MIL";
+				
+			case "凯尔特人 Boston-Celtics":
+				return "BOS";
+			case "篮网 Brooklyn-Nets":
+				return "BKN";
+			case "尼克斯 New York-Knicks":
+				return "NY";
+			case "76人 Philadelphia-76ers":
+				return "PHI";
+			case "猛龙 Toronto-Raptors":
+				return "TOR";
+				
+				
+			case "勇士 Golden State-Warriors":
+				return "GS";
+			case "快船 Los Angeles-Clippers":
+				return "LAC";
+			case "湖人 Los Angeles-Lakers":
+				return "LAL";
+			case "太阳 Phoenix-Suns":
+				return "PHX";
+			case "国王 Sacramento-Kings":
+				return "SAC";
+				
+			case "掘金 Denver-Nuggets":
+				return "DEN";
+			case "森林狼 Minnesota-Timberwolves":
+				return "MIN";
+			case "雷霆 Oklahoma City-Thunder":
+				return "OKC";
+			case "开拓者 Portland-Trail Blazers":
+				return "POR";
+			case "爵士 Utah-Jazz":
+				return "UTAH";
+				
+			case "小牛 Dallas-Mavericks":
+				return "DAL";
+			case "火箭 Houston-Rockets":
+				return "HOU";
+			case "灰熊 Memphis-Grizzlies":
+				return "MEM";
+			case "鹈鹕 New Orleans-Pelicans":
+				return "NO";
+			case "马刺 San Antonio-Spurs":
+				return "SEA";
+			default :
+					return null;
+			}
+		}
 	//表格配置
     public void table1_config(){
 		//------------------------------表格基本属性--------------------------
@@ -865,10 +927,16 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
 	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
-	               Frame.remove(panelToRemove);
-	               Frame.add(pip);
-	               Frame.repaint();
+	               jumpToPanel(pip);
 	               }
+	               if(column==2){
+		               //得到选中的单元格的值，表格中都是字符串
+		               Object value= playertable1.getValueAt(row, column);
+		               TeamVO tvo=new TeamVO();
+		               tvo.abbreviation=switchTeam(String.valueOf(value));
+		               TeamPanel pip=new TeamPanel(tvo,Frame,panelToRemove);
+		               jumpToPanel(pip);
+		               }
 				 }
 		});
 		
@@ -949,10 +1017,16 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
 	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
-	               Frame.remove(panelToRemove);
-	               Frame.add(pip);
-	               Frame.repaint();
+	               jumpToPanel(pip);
 	               }
+	               if(column==2){
+		               //得到选中的单元格的值，表格中都是字符串
+		               Object value= playertable2.getValueAt(row, column);
+		               TeamVO tvo=new TeamVO();
+		               tvo.abbreviation=switchTeam(String.valueOf(value));
+		               TeamPanel pip=new TeamPanel(tvo,Frame,panelToRemove);
+		               jumpToPanel(pip);
+		               }
 				 }
 		});
 		
@@ -1035,10 +1109,16 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
 	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
-	               Frame.remove(panelToRemove);
-	               Frame.add(pip);
-	               Frame.repaint();
+	               jumpToPanel(pip);
 	               }
+	               if(column==2){
+		               //得到选中的单元格的值，表格中都是字符串
+		               Object value= playertable3.getValueAt(row, column);
+		               TeamVO tvo=new TeamVO();
+		               tvo.abbreviation=switchTeam(String.valueOf(value));
+		               TeamPanel pip=new TeamPanel(tvo,Frame,panelToRemove);
+		               jumpToPanel(pip);
+		               }
 				 }
 		});
 		
@@ -1414,6 +1494,30 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 		}
 	}
 
+	public void jumpToPanel(final JPanel panelToJump){
+		Frame.add(panelToJump);
+		Thread switchpanel=new Thread(){
+			public void run(){
+				int i=0;
+				while(i<=11){
+				panelToRemove.setLocation(-100*i, 0);
+				panelToJump.setLocation(WIDTH-100*i, 0);
+				Frame.repaint();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				i++;
+				}
+				Frame.remove(panelToRemove);
+			}
+		};
+		switchpanel.start();
+	}
+	
+	
 	
 	private String switchseasonname(String season){
 		String result=null;

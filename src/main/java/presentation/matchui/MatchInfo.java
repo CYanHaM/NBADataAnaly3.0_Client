@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import presentation.preset.MatchPre;
+import PO.MatchPO;
 //import blservice.matchblservice.MatchBLService;
 //import bussinesslogic.matchbl.Match;
 import VO.MatchVO;
 import blservice.matchblservice.MatchBLService;
 import bussinesslogic.matchbl.Match;
+import data.playertech.Find;
 
 public class MatchInfo extends JPanel{
 	/**
@@ -33,7 +34,7 @@ public class MatchInfo extends JPanel{
 	//
 	private MatchBLService mbs;
 	private String Date;
-	private ArrayList<MatchVO> matches;
+	private ArrayList<MatchPO> matches;
 	
 	JFrame Frame;
 	JPanel panelToReturn;
@@ -52,8 +53,12 @@ public class MatchInfo extends JPanel{
 //		this.setBackground(MP.MatchInfobg);
 		
 		//get matches from interface
+		Find find=new Find();
 //		matches=mbs.showMatchList(Date);
-		testmatches();
+		matches=find.showMatchList(Date);
+		System.out.println("bl"+matches.get(0).playerStatistic);
+		System.out.println("matches"+matches.size());
+//		testmatches();
 		showMatchinfo(matches);
 		
 		
@@ -84,14 +89,14 @@ public class MatchInfo extends JPanel{
 		mvo3.reboundChampion="Johns Harden_20_BOS";
 		mvo3.assistChampion="Jam Wels_14_CHA";
 		
-		matches = new ArrayList<MatchVO>();
-		matches.add(mvo1);
-		matches.add(mvo2);
-		matches.add(mvo3);
-		matches.add(mvo3);
+//		matches = new ArrayList<MatchVO>();
+//		matches.add(mvo1);
+//		matches.add(mvo2);
+//		matches.add(mvo3);
+//		matches.add(mvo3);
 	}
 	
-	private void showMatchinfo(ArrayList<MatchVO> matches){
+	private void showMatchinfo(ArrayList<MatchPO> matches){
 		//change the dynamic panel_height when size>3
 		if(matches.size()>3){
 		panel_height=150*matches.size();
@@ -100,7 +105,7 @@ public class MatchInfo extends JPanel{
 		}
 		
 		int i=0;
-		for(MatchVO mvo:matches){
+		for(MatchPO mvo:matches){
 			MatchLabel ml=new MatchLabel(mvo,Frame,panelToReturn);
 			ml.setBounds(0, i*label_height, label_width, label_height);
 			this.add(ml);

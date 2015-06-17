@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import PO.MatchPO;
 import VO.MatchVO;
 
 public class MatchGraph extends JPanel{
@@ -33,7 +34,7 @@ public class MatchGraph extends JPanel{
 	private JLabel[][] graphdata;
 	//
 	
-	public MatchGraph(MatchVO mvo) {
+	public MatchGraph(MatchPO mvo) {
 		this.setSize(WIDTH, HEIGHT);
 		this.setLayout(null);
 		
@@ -49,7 +50,7 @@ public class MatchGraph extends JPanel{
 		
 	}
 	
-	private void handledata(MatchVO matchinfo){
+	private void handledata(MatchPO matchinfo){
 		data[0][0]=((double) matchinfo.guestShotIn)/((double) matchinfo.guestShot);
 		data[0][1]=((double) matchinfo.homeShotIn)/((double) matchinfo.homeShot);
 		

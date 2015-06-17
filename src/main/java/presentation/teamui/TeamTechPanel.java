@@ -423,7 +423,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "热火 Miami-Heat";
 		case "ORL":
 			return "魔术 Orlando-Magic";
-		case "WAS":
+		case "WSH":
 			return "奇才 Washington-Wizards";
 			
 		case "CHI":
@@ -441,7 +441,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "凯尔特人 Boston-Celtics";
 		case "BKN":
 			return "篮网 Brooklyn-Nets";
-		case "NYK":
+		case "NY":
 			return "尼克斯 New York-Knicks";
 		case "PHI":
 			return "76人 Philadelphia-76ers";
@@ -449,7 +449,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "猛龙 Toronto-Raptors";
 			
 			
-		case "GSW":
+		case "GS":
 			return "勇士 Golden State-Warriors";
 		case "LAC":
 			return "快船 Los Angeles-Clippers";
@@ -468,8 +468,8 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "雷霆 Oklahoma City-Thunder";
 		case "POR":
 			return "开拓者 Portland-Trail Blazers";
-		case "UTA":
-			return "勇士 Utah-Jazz";
+		case "UTAH":
+			return "爵士 Utah-Jazz";
 			
 		case "DAL":
 			return "小牛 Dallas-Mavericks";
@@ -477,11 +477,11 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "火箭 Houston-Rockets";
 		case "MEM":
 			return "灰熊 Memphis-Grizzlies";
-		case "NOP":
+		case "NO":
 			return "鹈鹕 New Orleans-Pelicans";
 		case "NOH":
 			return "鹈鹕 New Orleans-Pelicans";
-		case "SAS":
+		case "SEA":
 			return "马刺 San Antonio-Spurs";
 		default :
 				return null;
@@ -499,7 +499,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		case "魔术 Orlando-Magic":
 			return "ORL";
 		case "奇才 Washington-Wizards":
-			return "WAS";
+			return "WSH";
 			
 		case "公牛 Chicago-Bulls":
 			return "CHI";
@@ -517,7 +517,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		case "篮网 Brooklyn-Nets":
 			return "BKN";
 		case "尼克斯 New York-Knicks":
-			return "NYK";
+			return "NY";
 		case "76人 Philadelphia-76ers":
 			return "PHI";
 		case "猛龙 Toronto-Raptors":
@@ -525,7 +525,7 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			
 			
 		case "勇士 Golden State-Warriors":
-			return "GSW";
+			return "GS";
 		case "快船 Los Angeles-Clippers":
 			return "LAC";
 		case "湖人 Los Angeles-Lakers":
@@ -543,8 +543,8 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			return "OKC";
 		case "开拓者 Portland-Trail Blazers":
 			return "POR";
-		case "勇士 Utah-Jazz":
-			return "UTA";
+		case "爵士 Utah-Jazz":
+			return "UTAH";
 			
 		case "小牛 Dallas-Mavericks":
 			return "DAL";
@@ -553,9 +553,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 		case "灰熊 Memphis-Grizzlies":
 			return "MEM";
 		case "鹈鹕 New Orleans-Pelicans":
-			return "NOP";
+			return "NO";
 		case "马刺 San Antonio-Spurs":
-			return "SAS";
+			return "SEA";
 		default :
 				return null;
 		}
