@@ -44,80 +44,80 @@ public class Stats implements StatsBLService{
 		mlist=si.getRecentMatch(team,season);
 		
 		double[] stats=new double[20];
-//		TeamStatsPO intervalHome=new TeamStatsPO();
+		TeamStatsPO intervalHome=new TeamStatsPO();
 		TeamStatsPO intervalGuest=new TeamStatsPO();
 //主队计算
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeScore;
-//		}
-//		intervalHome.score[0]=calculateInterval(stats,a)[0];
-//		intervalHome.score[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)(mlist.get(i).homeTeamDeffensiveRebound+mlist.get(i).homeTeamOffensiveRebound);
-//		}
-//		intervalHome.rebound[0]=calculateInterval(stats,a)[0];
-//		intervalHome.rebound[1]=calculateInterval(stats,a)[1];
-//
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeTeamSecondaryAttack;
-//		}
-//		intervalHome.assist[0]=calculateInterval(stats,a)[0];
-//		intervalHome.assist[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeTeamSteal;
-//		}
-//		intervalHome.steal[0]=calculateInterval(stats,a)[0];
-//		intervalHome.steal[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeTeamBlockShot;
-//		}
-//		intervalHome.block[0]=calculateInterval(stats,a)[0];
-//		intervalHome.block[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeFault;
-//		}
-//		intervalHome.turnover[0]=calculateInterval(stats,a)[0];
-//		intervalHome.turnover[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeTeamFoul;
-//		}
-//		intervalHome.foul[0]=calculateInterval(stats,a)[0];
-//		intervalHome.foul[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homePenaltyShot;
-//		}
-//		intervalHome.penaltyshot[0]=calculateInterval(stats,a)[0];
-//		intervalHome.penaltyshot[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).homeThreeShotIn*3;
-//		}
-//		intervalHome.threeshot[0]=calculateInterval(stats,a)[0];
-//		intervalHome.threeshot[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)(mlist.get(i).homeShotIn/mlist.get(i).homeShot);
-//		}
-//		intervalHome.fg[0]=calculateInterval(stats,a)[0];
-//		intervalHome.fg[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)mlist.get(i).guestScore;
-//		}
-//		intervalHome.oppscore[0]=calculateInterval(stats,a)[0];
-//		intervalHome.oppscore[1]=calculateInterval(stats,a)[1];
-//		
-//		for(int i=0;i<20;i++){
-//			stats[i]=(double)(mlist.get(i).guestTeamDeffensiveRebound+mlist.get(i).guestTeamOffensiveRebound);
-//		}
-//		intervalHome.opprebound[0]=calculateInterval(stats,a)[0];
-//		intervalHome.opprebound[1]=calculateInterval(stats,a)[1];
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeScore;
+		}
+		intervalHome.score[0]=calculateInterval(stats,a)[0];
+		intervalHome.score[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)(mlist.get(i).homeTeamDeffensiveRebound+mlist.get(i).homeTeamOffensiveRebound);
+		}
+		intervalHome.rebound[0]=calculateInterval(stats,a)[0];
+		intervalHome.rebound[1]=calculateInterval(stats,a)[1];
+
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeTeamSecondaryAttack;
+		}
+		intervalHome.assist[0]=calculateInterval(stats,a)[0];
+		intervalHome.assist[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeTeamSteal;
+		}
+		intervalHome.steal[0]=calculateInterval(stats,a)[0];
+		intervalHome.steal[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeTeamBlockShot;
+		}
+		intervalHome.block[0]=calculateInterval(stats,a)[0];
+		intervalHome.block[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeFault;
+		}
+		intervalHome.turnover[0]=calculateInterval(stats,a)[0];
+		intervalHome.turnover[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeTeamFoul;
+		}
+		intervalHome.foul[0]=calculateInterval(stats,a)[0];
+		intervalHome.foul[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homePenaltyShot;
+		}
+		intervalHome.penaltyshot[0]=calculateInterval(stats,a)[0];
+		intervalHome.penaltyshot[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).homeThreeShotIn*3;
+		}
+		intervalHome.threeshot[0]=calculateInterval(stats,a)[0];
+		intervalHome.threeshot[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)(mlist.get(i).homeShotIn/mlist.get(i).homeShot);
+		}
+		intervalHome.fg[0]=calculateInterval(stats,a)[0];
+		intervalHome.fg[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)mlist.get(i).guestScore;
+		}
+		intervalHome.oppscore[0]=calculateInterval(stats,a)[0];
+		intervalHome.oppscore[1]=calculateInterval(stats,a)[1];
+		
+		for(int i=0;i<20;i++){
+			stats[i]=(double)(mlist.get(i).guestTeamDeffensiveRebound+mlist.get(i).guestTeamOffensiveRebound);
+		}
+		intervalHome.opprebound[0]=calculateInterval(stats,a)[0];
+		intervalHome.opprebound[1]=calculateInterval(stats,a)[1];
 
 //客队计算
 		for(int i=0;i<20;i++){
@@ -181,19 +181,19 @@ public class Stats implements StatsBLService{
 		intervalGuest.fg[1]=calculateInterval(stats,a)[1];
 		
 		for(int i=0;i<20;i++){
-			stats[i]=(double)mlist.get(i).guestScore+6;
+			stats[i]=(double)mlist.get(i).homeScore;
 		}
 		intervalGuest.oppscore[0]=calculateInterval(stats,a)[0];
 		intervalGuest.oppscore[1]=calculateInterval(stats,a)[1];
 		
 		for(int i=0;i<20;i++){
-			stats[i]=(double)(mlist.get(i).guestTeamDeffensiveRebound+mlist.get(i).guestTeamOffensiveRebound+5);
+			stats[i]=(double)(mlist.get(i).homeTeamDeffensiveRebound+mlist.get(i).homeTeamOffensiveRebound);
 		}
 		intervalGuest.opprebound[0]=calculateInterval(stats,a)[0];
 		intervalGuest.opprebound[1]=calculateInterval(stats,a)[1];
 		
 		if(team.equals(mlist.get(0).homeTeam))
-			return intervalGuest;
+			return intervalHome;
 		else
 			return intervalGuest;
 	}
@@ -264,11 +264,16 @@ public class Stats implements StatsBLService{
 		intervalPlayer.threeshot[0]=calculateInterval(stats,a)[0];
 		intervalPlayer.threeshot[1]=calculateInterval(stats,a)[1];
 		
-		for(int i=0;i<20;i++){
+//		try{
+			for(int i=0;i<20;i++){
+//		}
 			stats[i]=(double)(mlist.get(i).shotIn/mlist.get(i).shot);
 		}
 		intervalPlayer.fg[0]=calculateInterval(stats,a)[0];
 		intervalPlayer.fg[1]=calculateInterval(stats,a)[1];
+//		}catch exception(Exception e){
+//			
+//		}
 		
 		for(int i=0;i<20;i++){
 			stats[i]=(double)mlist.get(i).time;
