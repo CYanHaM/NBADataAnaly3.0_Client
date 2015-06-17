@@ -20,18 +20,23 @@ public class PlayerTech implements StatsInfo{
 	public static void main(String[] args){
 		PlayerTech pt = new PlayerTech();
 		Find fi = new Find();
-	//	TeamTech 
+		//ArrayList<MatchPO> li = pt.getRecentMatch("BOS", "2009-10 Regular");
 	  // System.out.println(li.size());
-	/*	for(int i=0;i<li.size();i++){
-			System.out.println(li.get(i).homeThreeShot);
+	//	ArrayList<MatchPO> li = fi.showMatchList("2009-12-25");
+	//	ArrayList<PlayerTechMPO> li = pt.getRecentPlayerM("Dante Exum","2014-15 Regular" );
+	//	ArrayList<TeamTechPO> li = pt.getMatchForYear("BOS");
+		ArrayList<PlayerTechPO> li = pt.getPlayerForYear("Nick Young");
+		System.out.println(li.size());
+		for(int i=0;i<li.size();i++){
+			System.out.println(li.get(i).season);
 		}
-		*/
+		
 		//PlayerTechPO li = pt.getPlayerRank("Alec Burks", "2014-15 Regular", 1);
 		//System.out.println(li.secondaryAttack);
 	//	TeamTechPO li = pt.getAllTeamAverage("2010-11 Regular", 1);
 	//	PlayerTechPO li = pt.getAllPlayerAverage("2010-11 Regular", 1);
-		TeamTechPO li = pt.getDivTeamAverage("2010-11 Regular", 1,"E");
-		System.out.println(li.score);
+	//	TeamTechPO li = pt.getDivTeamAverage("2010-11 Regular", 1,"E");
+	//	System.out.println(li.score);
 	}
 	@Override
  	public TeamTechPO getTeamTech(String teamname, String season, int ifRegular) {
@@ -188,7 +193,7 @@ public class PlayerTech implements StatsInfo{
 						}
 						Statement statement = conn.createStatement();
 						String pre = season.trim().split("\\s+")[0];
-						String sql = "SELECT * FROM `MatchPO` where (guestTeam= '"+team+"' or homeTeam='"+team+"') and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by `date` desc limit 0,20";	
+						String sql = "SELECT * FROM `MatchPO` where  guestTeam= '"+team+"'  and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') order by `date` desc limit 0,20";	
 						System.out.println(sql);
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
@@ -198,6 +203,35 @@ public class PlayerTech implements StatsInfo{
 							po.date = rs.getString("date");
 							po.homeTeam = rs.getString("homeTeam");
 							po.guestTeam = rs.getString("guestTeam");
+							Test test = new Test();
+							ArrayList<String> fake = test.fake(po.homeTeam);
+							Random random = new Random();
+							int ran = random.nextInt(fake.size());
+							String sq = "SELECT * FROM `MatchPO` where guestTeam= '"+po.homeTeam+"'  and (season = '"+pre+" "+"Regular' or season='"+pre+" Postseason') limit 0,1";
+							System.out.println(sq);
+							Statement sta = conn.createStatement();
+							ResultSet set = sta.executeQuery(sq);
+							while(set.next()){
+								po.homeTeamDeffensiveRebound = Integer.parseInt(rs.getString("guestTeamDeffensiveRebound"));
+								po.homeTeamOffensiveRebound = Integer.parseInt(rs.getString("guestTeamOffensiveRebound"));
+								po.homeTeamFoul = Integer.parseInt(rs.getString("guestTeamFoul"));
+								po.homeTeamSecondaryAttack = Integer.parseInt(rs.getString("guestTeamSecondaryAttack"));
+								po.homeTeamBlockShot = Integer.parseInt(rs.getString("guestTeamBlockShot"));
+								po.homeScore = Integer.parseInt(rs.getString("guestScore"));
+								po.homeAllTime = Integer.parseInt(rs.getString("guestAllTime"));
+								po.homeShotIn = Integer.parseInt(rs.getString("guestShotIn"));
+								po.homeShot = Integer.parseInt(rs.getString("guestShot"));
+								if(po.homeShot==0){
+									po.homeShot=1;
+								}
+								po.homeTwoShot = Integer.parseInt(rs.getString("guestTwoShot"));
+								po.homeTwoShotIn = Integer.parseInt(rs.getString("guestTwoShotIn"));
+								po.homeThreeShot = Integer.parseInt(rs.getString("guestThreeShot"));
+								po.homeThreeShotIn = Integer.parseInt(rs.getString("guestThreeShotIn"));
+								po.homePenaltyShot = Integer.parseInt(rs.getString("guestPenaltyShot"));
+								po.homePenaltyShotIn = Integer.parseInt(rs.getString("guestPenaltyShotIn"));
+								po.homeFault = Integer.parseInt(rs.getString("guestFault"));
+							}
 							po.score = rs.getString("score");
 							po.score1 = rs.getString( "score1");
 							po.score2 = rs.getString("score2");
@@ -209,38 +243,38 @@ public class PlayerTech implements StatsInfo{
 							po.assistChampion = rs.getString("assistChampion");
 							po.ifHomeTeamWin = Integer.parseInt(rs.getString("ifHomeTeamWin"));
 							po.ifGuestTeamWin = Integer.parseInt(rs.getString("ifGuestTeamWin"));
-							po.homeTeamDeffensiveRebound = Integer.parseInt(rs.getString("homeTeamDeffensiveRebound"));
-							po.guestTeamDeffensiveRebound = Integer.parseInt(rs.getString("guestTeamDeffensiveRebound"));
-							po.homeTeamOffensiveRebound = Integer.parseInt(rs.getString("homeTeamOffensiveRebound"));
+							po.guestTeamDeffensiveRebound = Integer.parseInt(rs.getString("guestTeamDeffensiveRebound"));					
 							po.guestTeamOffensiveRebound = Integer.parseInt(rs.getString("guestTeamOffensiveRebound"));
-							po.homeTeamFoul = Integer.parseInt(rs.getString("homeTeamFoul"));
+							
 							po.guestTeamFoul = Integer.parseInt(rs.getString("guestTeamFoul"));
-							po.homeTeamSecondaryAttack = Integer.parseInt(rs.getString("homeTeamSecondaryAttack"));
+							
 							po.guestTeamSecondaryAttack = Integer.parseInt(rs.getString("guestTeamSecondaryAttack"));
-							po.homeTeamBlockShot = Integer.parseInt(rs.getString("homeTeamBlockShot"));
+							
 							po.guestTeamBlockShot = Integer.parseInt(rs.getString("guestTeamBlockShot"));
-							po.homeScore = Integer.parseInt(rs.getString("homeScore"));
+							
 							po.guestScore = Integer.parseInt(rs.getString("guestScore"));
-							po.homeAllTime = Integer.parseInt(rs.getString("homeAllTime"));
+							
 							po.guestAllTime = Integer.parseInt(rs.getString("guestAllTime"));
-							po.homeShotIn = Integer.parseInt(rs.getString("homeShotIn"));
+							
 							po.guestShotIn = Integer.parseInt(rs.getString("guestShotIn"));
-							po.homeShot = Integer.parseInt(rs.getString("homeShot"));
+							
 							po.guestShot = Integer.parseInt( rs.getString("guestShot"));
-							po.homeTwoShot = Integer.parseInt(rs.getString("homeTwoShot"));
-							po.homeTwoShotIn = Integer.parseInt(rs.getString("homeTwoShotIn"));
+							if(po.guestShot==0){
+								po.guestShot=1;
+							}
 							po.guestTwoShot = Integer.parseInt(rs.getString("guestTwoShot"));
 							po.guestTwoShotIn = Integer.parseInt(rs.getString("guestTwoShotIn"));
-							po.homeThreeShot = Integer.parseInt(rs.getString("homeThreeShot"));
+							
 							po.guestThreeShot = Integer.parseInt(rs.getString("guestThreeShot"));
-							po.homeThreeShotIn = Integer.parseInt(rs.getString("homeThreeShotIn"));
+						
 							po.guestThreeShotIn = Integer.parseInt(rs.getString("guestThreeShotIn"));
-							po.homePenaltyShot = Integer.parseInt(rs.getString("homePenaltyShot"));
+							
 							po.guestPenaltyShot = Integer.parseInt(rs.getString("guestPenaltyShot"));
-							po.homePenaltyShotIn = Integer.parseInt(rs.getString("homePenaltyShotIn"));
+							
 							po.guestPenaltyShotIn = Integer.parseInt(rs.getString("guestPenaltyShotIn"));
-							po.homeFault = Integer.parseInt(rs.getString("homeFault"));
+							
 							po.guestFault = Integer.parseInt(rs.getString("guestFault"));
+								
 							String sql2 = "select * from `playerTechMPO` where `date` = '"+po.date+"' and team ='"+po.guestTeam+"'";
 							ArrayList<PlayerTechMPO> mpo = new ArrayList<PlayerTechMPO>();
 							Statement state = conn.createStatement();
@@ -284,11 +318,8 @@ public class PlayerTech implements StatsInfo{
 								p.ifDouble = Integer.valueOf(rs.getString("ifDouble"));
 								mpo.add(p);
 							}
-							Test test = new Test();
-							ArrayList<String> fake = test.fake(po.homeTeam);
-							Random random = new Random();
-							int ran = random.nextInt(fake.size());
-							String sql3 = "select * from `playerTechMPO` where `date` = '"+fake.get(ran)+"' and team ='"+po.guestTeam+"'";
+						
+							String sql3 = "select * from `playerTechMPO` where `date` = '"+fake.get(ran)+"' and team ='"+po.homeTeam+"'";
 							Statement state3 = conn.createStatement();
 							ResultSet rs3 = state3.executeQuery(sql3);
 							while(rs3.next()){
@@ -436,7 +467,7 @@ public class PlayerTech implements StatsInfo{
 							System.out.println("Succeeded connecting to the Database!");
 						}
 						Statement statement = conn.createStatement();
-						String sql = "SELECT * FROM `teamtech` where name = '"+team+"' and ifRegular = '1'";						
+						String sql = "SELECT * FROM `teamtech` where name = '"+team+"' and ifReagular = '1'";						
 						ResultSet rs = statement.executeQuery(sql);
 						while(rs.next()) {
 							TeamTechPO po = new TeamTechPO();
@@ -515,6 +546,9 @@ public class PlayerTech implements StatsInfo{
 							po.division=rs.getString("division");
 							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
 							po.startingNum=Integer.valueOf(rs.getString("startingNum"));
+							if(po.gameNum==0){
+								continue;
+							}
 							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
 							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
 							po.time=Integer.valueOf(rs.getString("time"))/po.gameNum;
