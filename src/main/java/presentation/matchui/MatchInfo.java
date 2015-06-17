@@ -35,6 +35,7 @@ public class MatchInfo extends JPanel{
 	private MatchBLService mbs;
 	private String Date;
 	private ArrayList<MatchPO> matches;
+	private ArrayList<MatchPO> matchestemp;
 	
 	JFrame Frame;
 	JPanel panelToReturn;
@@ -56,12 +57,17 @@ public class MatchInfo extends JPanel{
 		Find find=new Find();
 //		matches=mbs.showMatchList(Date);
 		matches=find.showMatchList(Date);
+		matchestemp=matches;
 		System.out.println("bl"+matches.get(0).playerStatistic);
 		System.out.println("matches"+matches.size());
 //		testmatches();
 		showMatchinfo(matches);
 		
 		
+	}
+	
+	public ArrayList<MatchPO> getMatchlist(){
+		return matchestemp;
 	}
 	
 	private void testmatches(){

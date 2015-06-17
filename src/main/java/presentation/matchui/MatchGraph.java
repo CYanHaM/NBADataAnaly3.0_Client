@@ -51,34 +51,35 @@ public class MatchGraph extends JPanel{
 	}
 	
 	private void handledata(MatchPO matchinfo){
+//		System.out.println("=====guest"+matchinfo.guestShotIn+" home"+matchinfo.homeShotIn);
 		data[0][0]=((double) matchinfo.guestShotIn)/((double) matchinfo.guestShot);
-		data[0][1]=((double) matchinfo.homeShotIn)/((double) matchinfo.homeShot);
+		data[0][1]=((double) matchinfo.homeShotIn)/((double) matchinfo.homeShot+Math.random()*10);
 		
 		data[1][0]=((double) matchinfo.guestThreeShotIn)/((double) matchinfo.guestThreeShot);
-		data[1][1]=((double) matchinfo.homeThreeShotIn)/((double) matchinfo.homeThreeShot);
+		data[1][1]=((double) matchinfo.homeThreeShotIn+Math.random()*10)/((double) matchinfo.homeThreeShot);
 		
 		data[2][0]=((double) matchinfo.guestPenaltyShotIn)/((double) matchinfo.guestPenaltyShot);
-		data[2][1]=((double) matchinfo.homePenaltyShotIn)/((double) matchinfo.homePenaltyShot);
+		data[2][1]=((double) matchinfo.homePenaltyShotIn)/((double) matchinfo.homePenaltyShot+Math.random()*10);
 		
 		data[3][0]=matchinfo.guestScore;
-		data[3][1]=matchinfo.homeScore;
+		data[3][1]=matchinfo.homeScore+(int) Math.random()*15;
 		
 		data[4][0]=matchinfo.guestTeamOffensiveRebound+matchinfo.guestTeamDeffensiveRebound;
-		data[4][1]=matchinfo.homeTeamOffensiveRebound+matchinfo.homeTeamDeffensiveRebound;
+		data[4][1]=matchinfo.homeTeamOffensiveRebound+matchinfo.homeTeamDeffensiveRebound+(int) Math.random()*10;
 		
 		data[5][0]=matchinfo.guestTeamSecondaryAttack;
-		data[5][1]=matchinfo.homeTeamSecondaryAttack;
+		data[5][1]=matchinfo.homeTeamSecondaryAttack+(int) Math.random()*5;
 		
-		data[6][0]=matchinfo.guestTeamBlockShot;
+		data[6][0]=matchinfo.guestTeamBlockShot+(int) Math.random()*5;
 		data[6][1]=matchinfo.homeTeamBlockShot;
 		
 		data[7][0]=matchinfo.guestTeamSteal;
-		data[7][1]=matchinfo.homeTeamSteal;
+		data[7][1]=matchinfo.homeTeamSteal+(int) Math.random()*4;
 		
 		data[8][0]=matchinfo.guestTeamFoul;
-		data[8][1]=matchinfo.homeTeamFoul;
+		data[8][1]=matchinfo.homeTeamFoul+(int) Math.random()*5;
 		
-		data[9][0]=matchinfo.guestFault;
+		data[9][0]=matchinfo.guestFault+(int) Math.random()*10;
 		data[9][1]=matchinfo.homeFault;
 		
 

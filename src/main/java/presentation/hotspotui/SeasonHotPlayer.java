@@ -38,8 +38,8 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static int WIDTH=1020;
-	public static int HEIGHT=670;
+	public static int WIDTH=1100;
+	public static int HEIGHT=700;
 
 	//热点球员，热点球队切换按钮
 //	private JComboBox<String> switchbox;
@@ -90,6 +90,8 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	private JFrame Frame;
 	private JPanel panelToRemove;
 	
+	String seasoninfo;
+	
 	public SeasonHotPlayer(JFrame frame) {
 		Frame=frame;
 		panelToRemove=this;
@@ -111,6 +113,7 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		
 		addbox();
 		addbutton();
+		
 		
 		initlabels();
 		initdata();
@@ -137,18 +140,18 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	private void addbox(){
 		season=new JComboBox<String>();
 		//TODO delete the test
-//		ArrayList<String> seasonlist=importseason.getPlayerSeasonList();
-		ArrayList<String> seasonlist=new ArrayList<String>();
-		seasonlist.add("2011-12 Regular");
-		seasonlist.add("2011-12 Postseason");
-		seasonlist.add("2012-13 Regular");
-		seasonlist.add("2012-13 Postseason");
-		seasonlist.add("2013-14 Regular");
-		seasonlist.add("2013-14 Postseason");
-		seasonlist.add("2015-16 Regular");
-		seasonlist.add("2015-16 Postseason");
-		seasonlist.add("2016-17 Regular");
-		seasonlist.add("2016-17 Postseason");
+		ArrayList<String> seasonlist=importseason.getPlayerSeasonList();
+//		ArrayList<String> seasonlist=new ArrayList<String>();
+//		seasonlist.add("2011-12 Regular");
+//		seasonlist.add("2011-12 Postseason");
+//		seasonlist.add("2012-13 Regular");
+//		seasonlist.add("2012-13 Postseason");
+//		seasonlist.add("2013-14 Regular");
+//		seasonlist.add("2013-14 Postseason");
+//		seasonlist.add("2015-16 Regular");
+//		seasonlist.add("2015-16 Postseason");
+//		seasonlist.add("2016-17 Regular");
+//		seasonlist.add("2016-17 Postseason");
 		for(int i=0;i<seasonlist.size();i++){
 			String[] temp=seasonlist.get(i).split(" ");
 			if(temp[1].equals("Regular")){
@@ -204,16 +207,17 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 		today.setSelectedIcon(new ImageIcon("images/buttons/today3.png"));
 		today.addActionListener(this);
 		this.add(today);
-		seasons = new JButton(new ImageIcon("images/buttons/season1.png"));
+		seasons = new JButton(new ImageIcon("images/buttons/season3.png"));
 		seasons.setBounds(450, 139, 60, 30);
 		seasons.setBorderPainted(false);
 		seasons.setContentAreaFilled(false);
 		seasons.setFocusPainted(false);
-		seasons.setRolloverIcon(new ImageIcon("images/buttons/season2.png"));
-		seasons.setPressedIcon(new ImageIcon("images/buttons/season2.png"));
-		seasons.setSelectedIcon(new ImageIcon("images/buttons/season3.png"));
-		seasons.setSelected(true);
-		this.add(season);
+//		seasons.setRolloverIcon(new ImageIcon("images/buttons/season2.png"));
+//		seasons.setPressedIcon(new ImageIcon("images/buttons/season2.png"));
+//		seasons.setSelectedIcon(new ImageIcon("images/buttons/season3.png"));
+//		seasons.setSelected(true);
+		
+		this.add(seasons);
 		fastimp = new JButton(new ImageIcon("images/buttons/fastimp1.png"));
 		fastimp.setBounds(510, 139, 85, 30);
 		fastimp.setBorderPainted(false);
@@ -371,7 +375,7 @@ public class SeasonHotPlayer extends JPanel implements ActionListener{
 	}
 	
 	private void insertData(){
-		String seasoninfo=switchseason((String) season.getSelectedItem());
+		seasoninfo=importseason.getPlayerSeasonList().get(0);
 		if(scoreave.isSelected()){
 			selectedkeyword="scoreave";
 			seasonHPlist=importdata.findSeasonHotPlayer("scoreave",seasoninfo);

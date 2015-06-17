@@ -498,23 +498,23 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][2]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
 			playerinfo2[a][3]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
 			playerinfo2[a][4]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
-			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate*100))+"%";
-			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
-			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
-			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
+			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate))+"%";
+			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate))+"%";
+			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate))+"%";
+			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate))+"%";
 //			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
 //			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=i.time;
 			playerinfo3[a][3]=i.gameNum;
-			playerinfo3[a][4]=i.startingNum;
-			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
+//			playerinfo3[a][4]=i.startingNum;
+			playerinfo3[a][4]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
 //			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.faultRate))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.usageRate))+"%";
 			
 			playernames[a]=i.name;
 			a++;
@@ -541,23 +541,23 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][2]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
 			playerinfo2[a][3]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
 			playerinfo2[a][4]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
-			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate*100))+"%";
-			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
-			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
-			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
+			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate))+"%";
+			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate))+"%";
+			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate))+"%";
+			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate))+"%";
 //			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
 //			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=i.time;
 			playerinfo3[a][3]=i.gameNum;
-			playerinfo3[a][4]=i.startingNum;
-			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
+//			playerinfo3[a][4]=i.startingNum;
+			playerinfo3[a][4]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
 //			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.faultRate))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.usageRate))+"%";
 			a++;
 			
 		}
@@ -583,23 +583,23 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 			playerinfo2[a][2]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
 			playerinfo2[a][3]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
 			playerinfo2[a][4]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
-			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate*100))+"%";
-			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate*100))+"%";
-			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate*100))+"%";
-			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate*100))+"%";
+			playerinfo2[a][5]=String.valueOf((int) Math.floor(i.reboundRate))+"%";
+			playerinfo2[a][6]=String.valueOf((int) Math.floor(i.offensiveReboundRate))+"%";
+			playerinfo2[a][7]=String.valueOf((int) Math.floor(i.defensiveReboundRate))+"%";
+			playerinfo2[a][8]=String.valueOf((int) Math.floor(i.secondaryAttackRate))+"%";
 //			playerinfo2[a][9]=String.valueOf((int) Math.floor(i.stealRate*100))+"%";
 //			playerinfo2[a][10]=String.valueOf((int) Math.floor(i.blockShotRate*100))+"%";
 			
 			playerinfo3[a][1]=i.name;
 			playerinfo3[a][2]=String.valueOf((int) Math.floor(i.timeave));
 			playerinfo3[a][3]=i.gameNum;
-			playerinfo3[a][4]=i.startingNum;
-			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
+//			playerinfo3[a][4]=i.startingNum;
+			playerinfo3[a][4]=String.valueOf((int) Math.floor(i.trueShotInRate*100))+"%";
 //			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.efficiency))+"%";
-			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
+			playerinfo3[a][5]=String.valueOf((int) Math.floor(i.GmScEfficiency))+"%";
 //			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.shootingEfficiency*100))+"%";
-			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.faultRate*100))+"%";
-			playerinfo3[a][8]=String.valueOf((int) Math.floor(i.usageRate*100))+"%";
+			playerinfo3[a][6]=String.valueOf((int) Math.floor(i.faultRate))+"%";
+			playerinfo3[a][7]=String.valueOf((int) Math.floor(i.usageRate))+"%";
 			a++;
 		}
 		refreshtable();
@@ -926,7 +926,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               if(column==1){
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
-	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
+	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove,switchseasonname((String) season.getSelectedItem()));
 	               jumpToPanel(pip);
 	               }
 	               if(column==2){
@@ -1016,7 +1016,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               if(column==1){
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
-	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
+	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove,switchseasonname((String) season.getSelectedItem()));
 	               jumpToPanel(pip);
 	               }
 	               if(column==2){
@@ -1108,7 +1108,7 @@ public class PlayerTechPanel extends JPanel implements ActionListener{
 	               if(column==1){
 	               //得到选中的单元格的值，表格中都是字符串
 	               Object value= playertable1.getValueAt(row, column);
-	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
+	               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove,switchseasonname((String) season.getSelectedItem()));
 	               jumpToPanel(pip);
 	               }
 	               if(column==2){

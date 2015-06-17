@@ -31,7 +31,7 @@ public class PlayerListener implements MouseListener{
 	}
 	public void mouseClicked(MouseEvent arg0) {
 //		System.out.println(playername);
-		PlayerInfoPanel tp=new PlayerInfoPanel(Frame,playername,panelToRemove);
+		PlayerInfoPanel tp=new PlayerInfoPanel(Frame,playername,panelToRemove,"2014-15 Regular");
 		Frame.remove(panelToRemove);
 		Frame.add(tp);
 		Frame.repaint();

@@ -27,6 +27,7 @@ public class ImportHotData {
 	//TODO I need to figure out what the retire value mean....
 	public ArrayList<PlayerTechVO> findSeasonHotPlayer(String keyword,String season){
 		fts=new findPlayerTech();
+		System.out.println("key"+keyword+" "+season);
 		return fts.findSeasonHotPlayer(keyword,season);
 	}
 	

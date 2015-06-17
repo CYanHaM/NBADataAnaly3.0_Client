@@ -45,8 +45,8 @@ public class MatchDetail extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static int FRAME_WIDTH=1020;
-	public static int FRAME_HEIGHT=670;
+	public static int FRAME_WIDTH=1100;
+	public static int FRAME_HEIGHT=700;
 	//表格大小
 	private static int TABLEWIDTH=785;
 	private static int TABLEHEIGHT=160;
@@ -114,6 +114,8 @@ public class MatchDetail extends JPanel implements ActionListener{
 		getplayerNum(matchvo);
 		tableguest_config();
 		tablehome_config();
+//		MatchInfo mi=new MatchInfo(, Frame, this);
+//		ArrayList<MatchPO> matchlist=new MatchInfo().getMatchlist();
 		insertData(matchvo);
 
 		jsp_guest = new JScrollPane(table_guest);
@@ -137,27 +139,22 @@ public class MatchDetail extends JPanel implements ActionListener{
 		this.add(homename);
 		//-----------------------------------------------------------------
 		
+		showgraph.setSelected(true);
+		showdata.setSelected(false);
+		jsp_guest.setVisible(false);
+		jsp_home.setVisible(false);
+		guestname.setVisible(false);
+		homename.setVisible(false);
+		matchgraph=new MatchGraph(matchvo);
+		matchgraph.setBounds(200, 280, 750, 450);
+		this.add(matchgraph);
+		Frame.repaint();
+		
 		this.repaint();
 
 	}
 	
 	private void addbuttons(){
-		SeasonInfo=new JButton(new ImageIcon("images/system_img/seasoninfo_initial.png"));
-		sideButton_config(SeasonInfo, "seasoninfo", 0);
-		
-		MatchInfo=new JButton(new ImageIcon("images/system_img/matchinfo_initial.png"));
-		sideButton_config(MatchInfo, "matchinfo", 1);
-		MatchInfo.setSelected(true);
-		
-		TeamInfo=new JButton(new ImageIcon("images/system_img/teaminfo_initial.png"));
-		sideButton_config(TeamInfo, "teaminfo", 2);
-		
-		PlayerInfo=new JButton(new ImageIcon("images/system_img/playerinfo_initial.png"));
-		sideButton_config(PlayerInfo, "playerinfo", 3);
-		
-		Hot=new JButton(new ImageIcon("images/system_img/hot_initial.png"));
-		sideButton_config(Hot, "hot", 4);
-		
 		back=new JButton(new ImageIcon("images/system_img/back_initial.png"));
 		back.setBounds(200, 85, 100, 50);
 		back.setBorderPainted(false);
@@ -172,10 +169,12 @@ public class MatchDetail extends JPanel implements ActionListener{
 		showdata.setBounds(785, 240, 100, 30);
 		showdata.addActionListener(this);
 		showdata.setSelected(true);
+		showdata.setVisible(false);
 		this.add(showdata);
 		
 		showgraph=new JButton("对比图表");
 		showgraph.setBounds(885, 240, 100, 30);
+		showgraph.setVisible(false);
 		showgraph.addActionListener(this);
 		
 		this.add(showgraph);
@@ -527,7 +526,7 @@ public class MatchDetail extends JPanel implements ActionListener{
                if(column==0){
                //得到选中的单元格的值，表格中都是字符串
                Object value= table_guest.getValueAt(row, column);
-               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
+               PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove,matchvo.season);
                Frame.remove(panelToRemove);
                Frame.add(pip);
                Frame.repaint();
@@ -594,7 +593,7 @@ public class MatchDetail extends JPanel implements ActionListener{
               if(column==0){
               //得到选中的单元格的值，表格中都是字符串
               Object value= table_home.getValueAt(row, column);
-              PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove);
+              PlayerInfoPanel pip=new PlayerInfoPanel(Frame,String.valueOf(value),panelToRemove,matchvo.season);
               Frame.remove(panelToRemove);
               Frame.add(pip);
               Frame.repaint();
@@ -680,7 +679,7 @@ public class MatchDetail extends JPanel implements ActionListener{
 
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		ImageIcon im=new ImageIcon("images/system_img/teams_bg.png");
+		ImageIcon im=new ImageIcon("images/system_img/main_bg.png");
 		g.drawImage(im.getImage(),0,0,this);
 	}
 

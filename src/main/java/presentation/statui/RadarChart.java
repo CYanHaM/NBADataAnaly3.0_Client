@@ -17,8 +17,8 @@ import presentation.preset.StatPre;
 
 public class RadarChart {
 	
-	private static Font titleFont=new Font("华文细黑",0,15);
-	private static Font subtitleFont=new Font("华文细黑",0,10);
+	private static Font titleFont=new Font("华文细黑",0,20);
+	private static Font subtitleFont=new Font("华文细黑",0,15);
 	
 	public static JFreeChart createChart(CategoryDataset dataset,String title) {
 		  SpiderWebPlot spiderwebplot = new SpiderWebPlot(dataset);

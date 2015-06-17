@@ -46,6 +46,7 @@ public class PlayerTech implements StatsInfo{
 		String url = "jdbc:mysql://127.0.0.1:3306/NBADataAnaly";
 		String user = "root";
 		String password = "cyanham";
+		System.out.println("teamname"+teamname+"season"+season);
 		if(season.trim().split("\\s+")[1].equals("Regular")){
 			season = season+" season";
 		}
@@ -132,6 +133,9 @@ public class PlayerTech implements StatsInfo{
 							po.position=rs.getString("pos");
 							po.division=rs.getString("division");
 							po.gameNum=Integer.valueOf(rs.getString("gameNum"));
+							if(po.gameNum==0){
+								continue;
+							}
 							po.startingNum=Integer.valueOf(rs.getString("startingNum"))/po.gameNum;
 							po.rebound=Integer.valueOf(rs.getString("rebound"))/po.gameNum;
 							po.secondaryAttack=Integer.valueOf(rs.getString("assist"))/po.gameNum;
@@ -415,12 +419,12 @@ public class PlayerTech implements StatsInfo{
 							mpo.threeShot = Integer.valueOf(rs.getString("threeShot"));
 							mpo.penaltyShotIn = Integer.valueOf(rs.getString("penaltyShotIn"));
 							mpo.penaltyShot = Integer.valueOf(rs.getString("penaltyShot"));
-							mpo.offensiveRebound = Integer.valueOf(rs.getString("offensiveNum"));
-							mpo.defensiveRebound = Integer.valueOf(rs.getString("defensiveNum"));
+							mpo.offensiveRebound = Integer.valueOf(rs.getString("offensiveRebound"));
+							mpo.defensiveRebound = Integer.valueOf(rs.getString("defensiveRebound"));
 							mpo.rebound = Integer.valueOf(rs.getString("rebound"));
 							mpo.secondaryAttack = Integer.valueOf(rs.getString("assist"));
 							mpo.steal = Integer.valueOf(rs.getString("steal"));
-							mpo.blockShot = Integer.valueOf(rs.getString("blockShot"));
+							mpo.blockShot = Integer.valueOf(rs.getString("block"));
 							mpo.fault = Integer.valueOf(rs.getString("fault"));
 							mpo.foul = Integer.valueOf(rs.getString("foul"));
 							mpo.score =  Integer.valueOf(rs.getString("score"));
@@ -429,8 +433,8 @@ public class PlayerTech implements StatsInfo{
 							mpo.teamAllTime = Integer.valueOf(rs.getString("teamAllTime"));
 							mpo.teamOffensiveRebound = Integer.valueOf(rs.getString("teamOffRebound"));
 							mpo.teamDefensiveRebound = Integer.valueOf(rs.getString("teamDefRebound"));
-							mpo.opponentOffensiveRebound = Integer.valueOf(rs.getString("opponentOffRebound"));
-							mpo.opponentDefensiveRebound = Integer.valueOf(rs.getString("opponentDefRebound"));
+							mpo.opponentOffensiveRebound = Integer.valueOf(rs.getString("oppOffRebound"));
+							mpo.opponentDefensiveRebound = Integer.valueOf(rs.getString("oppDefRebound"));
 							mpo.teamShotIn = Integer.valueOf(rs.getString("teamShotIn"));
 							mpo.opponentOffensiveNum = Integer.valueOf(rs.getString("oppOffNum"));
 							mpo.opponentTwoShot = Integer.valueOf(rs.getString("oppTwoShot"));
@@ -635,7 +639,8 @@ public class PlayerTech implements StatsInfo{
 						}
 						
 						Statement state = conn.createStatement();
-						String sql1 = "select name,gameNum,count(name),score/gameNum from `teamtech` where score"+po.score;
+						String sql1 = "select name,gameNum,count(name),score/gameNum from `teamtech` where score>"+po.score;
+						System.out.println(sql1);
 						ResultSet r1 = state.executeQuery(sql1);
 						while(r1.next()){
 							po.score = Integer.valueOf(r1.getString(3));

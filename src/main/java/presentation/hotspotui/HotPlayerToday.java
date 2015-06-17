@@ -94,17 +94,17 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		teamimage=new JLabel[5];
 //		state=new JLabel[5];
 
-//		fts=new ImportHotData();
-//		mbs=new Match();
+		fts=new ImportHotData();
+		mbs=new Match();
 //		date=mbs.returnPresentDate();
-
+		date="2015-04-13";
 		HP=new HotPre();
 
 		addbutton();
 		addbox();
 
 		initlabels();
-//		initdata();
+		initdata();
 		
 	}
 
@@ -257,7 +257,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 //		efficiency.setSelected(false);
 
 		scoreratio = new JButton(new ImageIcon("images/buttons/hotplayer/scoreratio1.png"));
-		button_config(scoreratio, "scoreratio", 7);
+		button_config(scoreratio, "scoreratio", 6);
 		scoreratio.setSelected(false);
 
 		this.add(score);
@@ -293,7 +293,9 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		info[0].setBounds(375, 475, 200, 20);
 		info[0].setFont(HP.teamandinfo);
 		info[0].setForeground(HP.LineSelected);
-		info[0].setText(switchposition(hotplayerslist.get(0).position)+" / "+hotplayerslist.get(0).team+"-"+switchTeamName(hotplayerslist.get(0).team));
+		info[0].setText(switchposition(hotplayerslist.get(0).position)+" / "+hotplayerslist.get(0).team
+//				+"-"+switchTeamName(hotplayerslist.get(0).team)
+				);
 		info[0].addMouseListener(new TeamListener(Frame,panelToRemove,info[0],hotplayerslist.get(0).team,HP.LineSelected,HP.LabelSelected));
 		
 		data[0].setBounds(375, 500, 100, 30);
@@ -302,8 +304,14 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 		data[0].setText(switchkeyword(0, selectedkeyword));
 
 		playerimage[0].setBounds(205, 275, 189, 300);
-		playerimage[0].setIcon(new ImageIcon("images/players/action_small/"+hotplayerslist.get(0).name+".png"));
-
+		ImageIcon img=new ImageIcon("images/players/action_small/"+hotplayerslist.get(0).name+".png");
+		if(img.getIconWidth()<0){
+			img=new ImageIcon("images/players/action_small/default_player.png");
+			
+		}
+//		playerimage[0].setIcon(new ImageIcon("images/players/action_small/"+hotplayerslist.get(0).name+".png"));
+		playerimage[0].setIcon(img);
+		
 		teamimage[0].setBounds(450, 260, 130, 130);
 		teamimage[0].setIcon(new ImageIcon("images/teams/standard/"+hotplayerslist.get(0).team+".png"));
 		
@@ -336,7 +344,7 @@ public class HotPlayerToday extends JPanel implements ActionListener{
 			info[i].setBounds(740, 280+100*(i-1)-18*(i-1)+10, 200, 13);
 			info[i].setFont(HP.teamandinfo_small);
 			info[i].setForeground(HP.LineSelected);
-			info[i].setText(switchposition(hotplayerslist.get(i).position)+" / "+hotplayerslist.get(i).team+"-"+switchTeamName(hotplayerslist.get(i).team));
+			info[i].setText(switchposition(hotplayerslist.get(i).position)+" / "+hotplayerslist.get(i).team);
 			info[i].addMouseListener(new TeamListener(Frame,panelToRemove,info[i],hotplayerslist.get(i).team,HP.LineSelected,HP.LabelSelected));
 			
 			data[i].setBounds(740, 295+100*(i-1)-18*(i-1)+10, 100, 25);

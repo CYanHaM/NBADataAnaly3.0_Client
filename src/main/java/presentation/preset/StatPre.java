@@ -44,7 +44,8 @@ public class StatPre {
 	public static Color LineColor2=new Color(235,149,68);
 //	public static Color LineColor3=new Color();
 	
-	public static Color RaderColor1=new Color(119,173,78);
+	public static Color RaderColor1=Color.WHITE;
+//	public static Color RaderColor1=new Color(119,173,78);
 	public static Color RaderColor2=new Color(230,129,34);
 	public static Color RaderColor3=new Color(222,222,222);
 	

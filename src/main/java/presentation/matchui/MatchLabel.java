@@ -305,7 +305,7 @@ public class MatchLabel extends JPanel implements ActionListener{
 		}
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			PlayerInfoPanel tp=new PlayerInfoPanel(Frame,playername,panelToReturn);
+			PlayerInfoPanel tp=new PlayerInfoPanel(Frame,playername,panelToReturn,Matchinfo.season);
 			Frame.remove(panelToReturn);
 			Frame.add(tp);
 			Frame.repaint();

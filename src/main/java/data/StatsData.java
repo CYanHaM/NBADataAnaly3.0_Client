@@ -26,7 +26,7 @@ public class StatsData implements StatsDataService{
 				
 			}
 			if(n>0&&n<=30){
-				String[] str=info.get((int)n).split(" ");
+				String[] str=info.get((int)n).split("	");
 				switch(Double.toString(a)){
 				case "0.4":res=Double.valueOf(str[0]);
 				break;
@@ -48,7 +48,7 @@ public class StatsData implements StatsDataService{
 				break;
 				}
 			}else if(n>30&&n<=120){
-				String[] str=info.get((int)(29+(n-30)/10)).split(" ");
+				String[] str=info.get((int)(29+(n-30)/10)).split("	");
 				switch(Double.toString(a)){
 				case "0.4":res=Double.valueOf(str[0]);
 				break;

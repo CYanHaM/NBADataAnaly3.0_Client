@@ -27,9 +27,11 @@ import presentation.preset.PlayerPre;
 import presentation.preset.PlayerTechPre;
 import presentation.preset.StatPre;
 import presentation.teamui.TeamInfoPanel;
+import presentation.teamui.TeamPanel;
 import presentation.teamui.TeamTechPanel;
 import VO.PlayerTechVO;
 import VO.PlayerVO;
+import VO.TeamVO;
 
 public class PlayerInfoPanel extends JPanel implements ActionListener{
 	/**
@@ -94,13 +96,16 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 
 	JFrame Frame;
 	String playername;
+	String seasoninfo;
 	JPanel panelToReturn;
 	JPanel panelToRemove;
+	
 
-	public PlayerInfoPanel(JFrame frame,String name,JPanel panel){
+	public PlayerInfoPanel(JFrame frame,String name,JPanel panel,String season){
 		Frame=frame;
 		playername=name;
 		panelToReturn=panel;
+		seasoninfo=season;
 		panelToRemove=this;
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
@@ -111,7 +116,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		importplayer=new ImportPlayer();
 		
 		//添加下拉框
-		addbox();
+//		addbox();
 		
 		playervo=importplayer.showPlayerInfo(playername);
 		initdata();
@@ -183,7 +188,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 	//----------------------initial & different methods------------
 	private void initdata(){
 		System.out.println(playername);
-		playertechvo=importplayer.findPlayerTechByName(playername,switchseason((String)season.getSelectedItem()));
+		playertechvo=importplayer.findPlayerTechByName(playername,seasoninfo);
 		//TODO delete the test
 		adddata();
 	}
@@ -597,6 +602,31 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 		g.drawImage(im1.getImage(),0,0,this);
 	}
 
+
+	public void jumpToPanel(final JPanel paneltojump){
+		Frame.add(paneltojump);
+		Thread switchpanel=new Thread(){
+			public void run(){
+				int i=0;
+				while(i<=11){
+				panelToRemove.setLocation(-100*i, 0);
+				paneltojump.setLocation(WIDTH-100*i, 0);
+				Frame.repaint();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				i++;
+				}
+				Frame.remove(panelToRemove);
+				
+			}
+		};
+		switchpanel.start();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource()==SeasonInfo){
@@ -624,9 +654,7 @@ public class PlayerInfoPanel extends JPanel implements ActionListener{
 			Frame.repaint();
 		}
 		if(arg0.getSource()==back){
-			Frame.remove(panelToRemove);
-			Frame.add(panelToReturn);
-			Frame.repaint();
+			jumpToPanel(panelToReturn);
 		}
 
 	}

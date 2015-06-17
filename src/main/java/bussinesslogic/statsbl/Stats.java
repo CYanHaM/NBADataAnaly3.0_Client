@@ -42,6 +42,8 @@ public class Stats implements StatsBLService{
 		StatsInfo si=new PlayerTech();
 		ArrayList<MatchPO>mlist=new ArrayList<MatchPO>();
 		mlist=si.getRecentMatch(team,season);
+		System.out.println("team"+team+"season"+season);
+		System.out.println("--mlist"+mlist);
 		
 		double[] stats=new double[20];
 		TeamStatsPO intervalHome=new TeamStatsPO();

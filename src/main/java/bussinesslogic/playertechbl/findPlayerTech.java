@@ -23,7 +23,9 @@ public class findPlayerTech implements FindPlayerTechService{
 			MPO2MVO p2v = new MPO2MVO();
 			ArrayList<PlayerTechMVO> result = new ArrayList<PlayerTechMVO>();
 			ArrayList<PlayerTechMPO> list = new ArrayList<PlayerTechMPO>();
+			System.out.println("date "+date+keyword);
 			list = fds.findHotPlayerToday(date, keyword);
+			System.out.println(list);
 			result = p2v.list2vo(list);
 		return result;
 	}
@@ -261,6 +263,7 @@ public class findPlayerTech implements FindPlayerTechService{
 		PlayerTechTransfer ptt = new PlayerTechTransfer();
 		PlayerTechVO result = new PlayerTechVO();
 		PlayerTechPO po = new PlayerTechPO();
+		System.out.println("--name"+name+"season"+retire);
 		po = fds.findPlayerTechByName(name,retire);
 		result = ptt.po2vo(po);
 		return result;

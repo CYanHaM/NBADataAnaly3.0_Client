@@ -426,7 +426,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 			return "热火";
 		case "ORL":
 			return "魔术";
-		case "WAS":
+		case "WSH":
 			return "奇才";
 			
 		case "CHI":
@@ -444,7 +444,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 			return "凯尔特人";
 		case "BKN":
 			return "篮网";
-		case "NYK":
+		case "NY":
 			return "尼克斯";
 		case "PHI":
 			return "76人";
@@ -452,7 +452,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 			return "猛龙";
 			
 			
-		case "GSW":
+		case "GS":
 			return "勇士";
 		case "LAC":
 			return "快船";
@@ -471,7 +471,7 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 			return "雷霆";
 		case "POR":
 			return "开拓者";
-		case "UTA":
+		case "UTAH":
 			return "勇士";
 			
 		case "DAL":
@@ -480,11 +480,11 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 			return "火箭";
 		case "MEM":
 			return "灰熊";
-		case "NOP":
+		case "NO":
 			return "鹈鹕";
 		case "NOH":
 			return "鹈鹕";
-		case "SAS":
+		case "SEA":
 			return "马刺";
 		default :
 				return null;
@@ -569,10 +569,10 @@ public class SeasonHotTeam extends JPanel implements ActionListener{
 	private String switchseason(String season){
 		String result=null;
 		String[] temp=season.split(" ");
-		if(temp[1].equals("Regular")){
-		result=temp[0]+" 常规赛";
-		}else if(temp[1].equals("Postseason")){
-			result=temp[0]+" 季后赛";
+		if(temp[1].equals("常规赛")){
+		result=temp[0]+" Regular";
+		}else if(temp[1].equals("季后赛")){
+			result=temp[0]+" Postseason";
 		}
 		return result;
 	}

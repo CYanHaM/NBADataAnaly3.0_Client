@@ -60,19 +60,15 @@ public class ImportPlayer {
 		
 		ArrayList<String> resultlist=new ArrayList<String>();
 		java.util.Iterator<String> it=seasonlist.iterator();
-//		for(int i=0;i<seasonlist.size();i++){
-//			for(int j=0;j<resultlist.size();j++){
-//				if(!seasonlist.get(i).equals(resultlist.get(j))){
-//					resultlist.add(seasonlist.get(i));
-////					System.out.println("--"+resultlist.get(i));
-//				}
-//			}
-//		}
 		while(it.hasNext()){
 			String temp=it.next();
 			if(!resultlist.contains(temp)){
 				resultlist.add(temp);
 			}
+		}
+		
+		for(int i=0;i<19;i++){
+			resultlist.remove(0);
 		}
 		
 		return resultlist;

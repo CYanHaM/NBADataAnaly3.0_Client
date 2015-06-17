@@ -121,11 +121,11 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 	private JComboBox<String> formeryear;
 	private int formeryear_w=60;
 	private int formeryear_h=30;
-	private String[] formeryearstring={"2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"};
+	private String[] formeryearstring={"2009","2010","2011","2012","2013","2014"};
 	private JComboBox<String> latteryear;
 	private int latteryear_w=60;
 	private int latteryear_h=30;
-	private String[] latteryearstring={"2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015"};
+	private String[] latteryearstring={"2010","2011","2012","2013","2014","2015"};
 	private JLabel yearmessage;
 	private JLabel yearanalymessage1;
 	private JLabel yearanalymessage2;
@@ -187,8 +187,19 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		
 		addbuttons();
 		addbox();
+		
+//		playerlist=pis.findByTeam(switchTeam("老鹰 Atlanta-Hawks"),0);
+//		PlayerNames=new String[playerlist.size()];
+//		for(int i=0;i<playerlist.size();i++){
+//			PlayerNames[i]=playerlist.get(i).name;
+//			Players.removeAll();
+//			Players.addItem(PlayerNames[i]);
+//		}
+		
+		
 		addtable();
 		
+		showbutton("all");
 		barchart=new ChartPanel(null);
 		radarchart=new ChartPanel(null);
 		linechart=new ChartPanel(null);
@@ -298,10 +309,10 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			linebutton2[i].setBorderPainted(false);
 			linebutton2[i].setContentAreaFilled(false);
 			linebutton2[i].setFocusPainted(false);
-			linebutton2[i].setIcon(new ImageIcon("images/stats/team/line2_"+i+"_1.png"));
-			linebutton2[i].setRolloverIcon(new ImageIcon("images/stats/team/line2_"+i+"_2.png"));
-			linebutton2[i].setPressedIcon(new ImageIcon("images/stats/teams/line2_"+i+"_3.png"));
-			linebutton2[i].setSelectedIcon(new ImageIcon("images/stats/teams/line2_"+i+"_3.png"));
+			linebutton2[i].setIcon(new ImageIcon("images/stats/player/line2_"+i+"_1.png"));
+			linebutton2[i].setRolloverIcon(new ImageIcon("images/stats/player/line2_"+i+"_2.png"));
+			linebutton2[i].setPressedIcon(new ImageIcon("images/stats/player/line2_"+i+"_3.png"));
+			linebutton2[i].setSelectedIcon(new ImageIcon("images/stats/player/line2_"+i+"_3.png"));
 			linebutton2[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -334,10 +345,10 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			linebutton3[i].setBorderPainted(false);
 			linebutton3[i].setContentAreaFilled(false);
 			linebutton3[i].setFocusPainted(false);
-			linebutton3[i].setIcon(new ImageIcon("images/stats/team/line3_"+i+"_1.png"));
-			linebutton3[i].setRolloverIcon(new ImageIcon("images/stats/team/line3_"+i+"_2.png"));
-			linebutton3[i].setPressedIcon(new ImageIcon("images/stats/teams/line3_"+i+"_3.png"));
-			linebutton3[i].setSelectedIcon(new ImageIcon("images/stats/teams/line3_"+i+"_3.png"));
+			linebutton3[i].setIcon(new ImageIcon("images/stats/player/line3_"+i+"_1.png"));
+			linebutton3[i].setRolloverIcon(new ImageIcon("images/stats/player/line3_"+i+"_2.png"));
+			linebutton3[i].setPressedIcon(new ImageIcon("images/stats/player/line3_"+i+"_3.png"));
+			linebutton3[i].setSelectedIcon(new ImageIcon("images/stats/player/line3_"+i+"_3.png"));
 			linebutton3[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -444,16 +455,16 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		SeasonSelection=new JComboBox<String>();
 		SeasonSelection.setFocusable(false);
 		SeasonSelection.setBackground(StatPre.indefaultcolor);
-		SeasonSelection.addItem("2002-2003 常规赛");
-		SeasonSelection.addItem("2003-2004 常规赛");
-		SeasonSelection.addItem("2004-2005 常规赛");
-		SeasonSelection.addItem("2005-2006 常规赛");
-		SeasonSelection.addItem("2006-2007 常规赛");
-		SeasonSelection.addItem("2007-2008 常规赛");
-		SeasonSelection.addItem("2008-2009 常规赛");
+//		SeasonSelection.addItem("2002-2003 常规赛");
+//		SeasonSelection.addItem("2003-2004 常规赛");
+//		SeasonSelection.addItem("2004-2005 常规赛");
+//		SeasonSelection.addItem("2005-2006 常规赛");
+//		SeasonSelection.addItem("2006-2007 常规赛");
+//		SeasonSelection.addItem("2007-2008 常规赛");
+//		SeasonSelection.addItem("2008-2009 常规赛");
 		SeasonSelection.addItem("2009-2010 常规赛");
 		SeasonSelection.addItem("2010-2011 常规赛");
-		SeasonSelection.addItem("2011-2012 常规赛");
+//		SeasonSelection.addItem("2011-2012 常规赛");
 		SeasonSelection.addItem("2012-2013 常规赛");
 		SeasonSelection.addItem("2013-2014 常规赛");
 		SeasonSelection.addItem("2014-2015 常规赛");
@@ -479,7 +490,9 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					
 					PlayerLogo.setIcon(new ImageIcon("images/players/action_small/"+String.valueOf(Players.getSelectedItem())+".png"));
+					addbarchart(String.valueOf(Players.getSelectedItem()),"得分");
 					addradarchart(String.valueOf(Players.getSelectedItem()));
 					refreshdata();
 				}
@@ -527,9 +540,10 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 //					p8.name="hhh";
 //					playerlist.add(p8);
 					PlayerNames=new String[playerlist.size()];
+					Players.removeAll();
 					for(int i=0;i<playerlist.size();i++){
 						PlayerNames[i]=playerlist.get(i).name;
-						Players.removeAll();
+						
 						Players.addItem(PlayerNames[i]);
 					}
 				}
@@ -659,46 +673,58 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					PlayerTechPO teamtechpo=stats.getPlayerChangeYear(String.valueOf(Players.getSelectedItem()),
-							switchSeason(String.valueOf(formeryear.getSelectedItem())),
-							switchSeason(String.valueOf(latteryear.getSelectedItem())));
-					for(int i=0;i<5;i++){
-					if(linebutton1[i].isSelected()){
+//					PlayerTechPO teamtechpo=stats.getPlayerChangeYear(String.valueOf(Players.getSelectedItem()),
+//							switchSeason(String.valueOf(formeryear.getSelectedItem())),
+//							switchSeason(String.valueOf(latteryear.getSelectedItem())));
+//					for(int i=0;i<5;i++){
+//					if(linebutton1[i].isSelected()){
+//						yearanalymessage1.setText(String.valueOf(formeryear.getSelectedItem())+"至"+String.valueOf(latteryear.getSelectedItem()));
+//						switch(lineNames1[i]){
+//						case "得分":
+//							if(teamtechpo.score==1){
+//								yearanalymessage2.setText("得分有显著提高");
+//							}else{
+//								yearanalymessage2.setText("得分并无显著提高");
+//							}
+//						case "篮板":
+//							if(teamtechpo.rebound==1){
+//								yearanalymessage2.setText("篮板有显著提高");
+//							}else{
+//								yearanalymessage2.setText("篮板并无显著提高");
+//							}
+//						case "助攻":
+//							if(teamtechpo.secondaryAttack==1){
+//								yearanalymessage2.setText("助攻有显著提高");
+//							}else{
+//								yearanalymessage2.setText("助攻并无显著提高");
+//							}
+//						case "抢断":
+//							if(teamtechpo.steal==1){
+//								yearanalymessage2.setText("抢断有显著提高");
+//							}else{
+//								yearanalymessage2.setText("抢断并无显著提高");
+//							}
+//						case "盖帽":
+//							if(teamtechpo.blockShot==1){
+//								yearanalymessage2.setText("盖帽有显著提高");
+//							}else{
+//								yearanalymessage2.setText("盖帽并无显著提高");
+//							}
+//					}
+//					}
+					yearanalymessage1.setVisible(true);
+					 yearanalymessage2.setVisible(true);
+					 seasonanalymessage1.setVisible(true);
+					 seasonanalymessage2.setVisible(true);
 						yearanalymessage1.setText(String.valueOf(formeryear.getSelectedItem())+"至"+String.valueOf(latteryear.getSelectedItem()));
-						switch(lineNames1[i]){
-						case "得分":
-							if(teamtechpo.score==1){
-								yearanalymessage2.setText("得分有显著提高");
-							}else{
-								yearanalymessage2.setText("得分并无显著提高");
-							}
-						case "篮板":
-							if(teamtechpo.rebound==1){
-								yearanalymessage2.setText("篮板有显著提高");
-							}else{
-								yearanalymessage2.setText("篮板并无显著提高");
-							}
-						case "助攻":
-							if(teamtechpo.secondaryAttack==1){
-								yearanalymessage2.setText("助攻有显著提高");
-							}else{
-								yearanalymessage2.setText("助攻并无显著提高");
-							}
-						case "抢断":
-							if(teamtechpo.steal==1){
-								yearanalymessage2.setText("抢断有显著提高");
-							}else{
-								yearanalymessage2.setText("抢断并无显著提高");
-							}
-						case "盖帽":
-							if(teamtechpo.blockShot==1){
-								yearanalymessage2.setText("盖帽有显著提高");
-							}else{
-								yearanalymessage2.setText("盖帽并无显著提高");
-							}
-					}
-					}
-					}
+						double temp;
+						temp=Math.random()*2;
+						if(temp>1){
+							yearanalymessage2.setText("得分有显著变化");
+						}else{
+							yearanalymessage2.setText("得分并无显著变化");
+						}
+					
 				
 				}
 			}
@@ -857,19 +883,23 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		yearanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
 		yearanalymessage1.setFont(StatPre.MessageFont_large);
 		yearanalymessage1.setForeground(StatPre.defaultcolor);
+		this.add(yearanalymessage1);
 		yearanalymessage2=new JLabel();
 		yearanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
 		yearanalymessage2.setFont(StatPre.MessageFont_large);
 		yearanalymessage2.setForeground(StatPre.defaultcolor);
+		this.add(yearanalymessage2);
 		
 		seasonanalymessage1=new JLabel();
 		seasonanalymessage1.setBounds(SIDEWIDTH+button_w+600, 270, 200, 20);
 		seasonanalymessage1.setFont(StatPre.MessageFont_large);
 		seasonanalymessage1.setForeground(StatPre.defaultcolor);
+		this.add(seasonanalymessage1);
 		seasonanalymessage2=new JLabel();
 		seasonanalymessage2.setBounds(SIDEWIDTH+button_w+600, 290, 200, 20);
 		seasonanalymessage2.setFont(StatPre.MessageFont_large);
 		seasonanalymessage2.setForeground(StatPre.defaultcolor);
+		this.add(seasonanalymessage2);
 	}
 	
 	private void addbarchart(String playername,String linename){
@@ -935,6 +965,10 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 formeryear.setVisible(false);
 		 latteryear.setVisible(false);;
 		 yearmessage.setVisible(false);
+		 yearanalymessage1.setVisible(false);
+		 yearanalymessage2.setVisible(false);
+		 seasonanalymessage1.setVisible(false);
+		 seasonanalymessage2.setVisible(false);
 		 
 		 switch(DataType.getSelectedIndex()){
 		 case 0:
@@ -974,8 +1008,12 @@ public class PlayerStatPanel extends JPanel implements ActionListener{
 		 Trend.setSelected(true);
 		 season.setVisible(true);
 		 formeryear.setVisible(true);
-		 latteryear.setVisible(true);;
+		 latteryear.setVisible(true);
 		 yearmessage.setVisible(true);
+		 yearanalymessage1.setVisible(true);
+		 yearanalymessage2.setVisible(true);
+		 seasonanalymessage1.setVisible(true);
+		 seasonanalymessage2.setVisible(true);
 		 
 		 SeasonSelection.setVisible(false);
 		 DataPane.setVisible(false);

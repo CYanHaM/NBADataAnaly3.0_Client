@@ -76,13 +76,13 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 	private static Object[][] teaminfo2;
 	private static Object[][] teaminfo3;
 	private JScrollPane teams;
-	private String[] columnName1={"排名","球队名称","得分","篮板","助攻","抢断","盖帽","失误","命中%","三分%","罚球%"};
+	private String[] columnName1={"排名","球队名称","得分","篮板","助攻","抢断","盖帽","失误","罚球%"};
 	private String[] columnName2={"排名","球队名称","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板"};
-	private String[] columnName3={"排名","球队名称","进攻效率","防守效率","篮板效率","抢断效率","助攻效率"};
+	private String[] columnName3={"排名","球队名称","进攻效率","防守效率","篮板效率","助攻效率"};
 	//表格列宽
-	private static int[] COLUMNWIDTH1={50,210,67,67,70,67,70,70,70,70,70};
+	private static int[] COLUMNWIDTH1={50,210,87,87,90,87,90,90,90};
 	private static int[] COLUMNWIDTH2={50,210,67,67,70,67,70,70,70,70,70};
-	private static int[] COLUMNWIDTH3={50,210,120,120,125,135,136};
+	private static int[] COLUMNWIDTH3={50,210,154,154,159,160};
 	
 	private JButton first;
 	private JButton second;
@@ -244,7 +244,14 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
-					initdata();
+					if(switchbox.getSelectedItem().equals("赛季总数据")){
+						initdata();
+						handleTotalData(initial_data);
+					}
+					if(switchbox.getSelectedItem().equals("场均数据")){
+						initdata();
+						handleAverageData(initial_data);
+					}
 					refreshtable();
 				}
 			}
@@ -306,9 +313,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo1[a][6]=i.blockShot;
 			teaminfo1[a][7]=i.fault;
 //			teaminfo1[a][8]=i.foul;
-			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
-			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
-			teaminfo1[a][10]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
+//			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
+//			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
+			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
 			
 			teaminfo2[a][1]=switchTeamName(i.name);
 			teaminfo2[a][2]=i.gameNum;
@@ -326,9 +333,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
 			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
 			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency))+"%";
+//			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 	}
@@ -345,9 +352,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo1[a][6]=i.blockShot;
 			teaminfo1[a][7]=i.fault;
 //			teaminfo1[a][8]=i.foul;
-			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
-			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
-			teaminfo1[a][10]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
+//			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
+//			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
+			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
 			
 			teaminfo2[a][1]=switchTeamName(i.name);
 			teaminfo2[a][2]=i.gameNum;
@@ -365,9 +372,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //			teaminfo3[a][3]=(int) Math.floor(i.offensiveRound);
 			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
 			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency))+"%";
+//			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 		refreshtable();
@@ -385,9 +392,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 			teaminfo1[a][6]=i.blockShotave;
 			teaminfo1[a][7]=i.faultave;
 //			teaminfo1[a][8]=i.foulave;
-			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
-			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
-			teaminfo1[a][10]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
+//			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.shotInRate*100))+"%";
+//			teaminfo1[a][9]=String.valueOf((int) Math.floor(i.threeShotInRate*100))+"%";
+			teaminfo1[a][8]=String.valueOf((int) Math.floor(i.penaltyShotInRate*100))+"%";
 			
 			teaminfo2[a][1]=switchTeamName(i.name);
 			teaminfo2[a][2]=i.gameNum;
@@ -405,9 +412,9 @@ public class TeamTechPanel extends JPanel implements ActionListener{
 //			teaminfo3[a][3]=(int) Math.floor(i.offensiveRoundave);
 			teaminfo3[a][2]=String.valueOf((int) Math.floor(i.offensiveEfficiency))+"%";
 			teaminfo3[a][3]=String.valueOf((int) Math.floor(i.defensiveEfficiency))+"%";
-			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency*100))+"%";
-			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
-			teaminfo3[a][6]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
+			teaminfo3[a][4]=String.valueOf((int) Math.floor(i.reboundEfficiency))+"%";
+//			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.stealEfficiency))+"%";
+			teaminfo3[a][5]=String.valueOf((int) Math.floor(i.secondaryAttackEfficiency))+"%";
 			a++;
 		}
 		refreshtable();

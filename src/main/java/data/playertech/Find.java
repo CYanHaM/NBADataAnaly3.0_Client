@@ -55,8 +55,8 @@ public class Find implements FindDataService {
 						mpo.threeShot = Integer.valueOf(rs.getInt("threeShot"));
 						mpo.penaltyShotIn = Integer.valueOf(rs.getInt("penaltyShotIn"));
 						mpo.penaltyShot = Integer.valueOf(rs.getInt("penaltyShot"));
-						mpo.offensiveRebound = Integer.valueOf(rs.getInt("offensiveNum"));
-						mpo.defensiveRebound = Integer.valueOf(rs.getInt("defensiveNum"));
+						mpo.offensiveRebound = Integer.valueOf(rs.getInt("offensiveRebound"));
+						mpo.defensiveRebound = Integer.valueOf(rs.getInt("defensiveRebound"));
 						mpo.rebound = Integer.valueOf(rs.getInt("rebound"));
 						mpo.secondaryAttack = Integer.valueOf(rs.getInt("assist"));
 						mpo.steal = Integer.valueOf(rs.getInt("steal"));
@@ -69,8 +69,8 @@ public class Find implements FindDataService {
 						mpo.teamAllTime = Integer.valueOf(rs.getInt("teamAllTime"));
 						mpo.teamOffensiveRebound = Integer.valueOf(rs.getInt("teamOffRebound"));
 						mpo.teamDefensiveRebound = Integer.valueOf(rs.getInt("teamDefRebound"));
-						mpo.opponentOffensiveRebound = Integer.valueOf(rs.getInt("opponentOffRebound"));
-						mpo.opponentDefensiveRebound = Integer.valueOf(rs.getInt("opponentDefRebound"));
+						mpo.opponentOffensiveRebound = Integer.valueOf(rs.getInt("oppOffRebound"));
+						mpo.opponentDefensiveRebound = Integer.valueOf(rs.getInt("oppDefRebound"));
 						mpo.teamShotIn = Integer.valueOf(rs.getInt("teamShotIn"));
 						mpo.opponentOffensiveNum = Integer.valueOf(rs.getInt("oppOffNum"));
 						mpo.opponentTwoShot = Integer.valueOf(rs.getInt("oppTwoShot"));
@@ -376,6 +376,14 @@ public class Find implements FindDataService {
 				System.out.println("Succeeded connecting to the Database!");
 			}
 			Statement statement = conn.createStatement();
+			switch(keyword){
+			case"scoreave":keyword = "score";
+			case"reboundave":keyword = "rebound";
+			case"secondaryattackave":keyword = "assist";
+			case"stealave":keyword  = "steal";
+			case"blockshotave":keyword = "block";
+			case"double":keyword = "ifDouble";
+			}
 			String sql = "SELECT * FROM `playerTechPO` where season='"+season+"' order by "+keyword+" desc limit 0,5";
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
